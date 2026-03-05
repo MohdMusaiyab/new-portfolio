@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import ExperienceProvider from "@/components/ExperienceProvider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -23,11 +24,28 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
+        suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                let state = localStorage.getItem("experience-storage");
+                if (state) {
+                  let parsed = JSON.parse(state);
+                  let exp = parsed?.state?.activeExperience;
+                  if (exp) {
+                    document.documentElement.setAttribute("data-experience", exp);
+                  }
+                }
+              } catch (e) {}
+            `,
+          }}
+        />
+        <ExperienceProvider>{children}</ExperienceProvider>
       </body>
     </html>
   );

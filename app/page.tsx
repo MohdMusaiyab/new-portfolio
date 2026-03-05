@@ -1,12 +1,39 @@
-import Hero from "@/components/Hero";
-import React from "react";
+"use client";
 
-const page = () => {
+import { useExperience } from "@/store/useExperience";
+import { AnimatePresence } from "framer-motion";
+import dynamic from "next/dynamic";
+import { useEffect, useState } from "react";
+
+const DefaultHero = dynamic(
+  () => import("@/components/experiences/default/Hero"),
+  {
+    ssr: false,
+  },
+);
+const WinterExperience = dynamic(
+  () => import("@/components/experiences/winter/index"),
+  {
+    ssr: false,
+  },
+);
+
+export default function Home() {
+  const { activeExperience } = useExperience();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
   return (
-    <div>
-      <Hero />
-    </div>
+    <main className="w-full min-h-screen relative overflow-hidden">
+      <AnimatePresence mode="wait">
+        {activeExperience === "default" && <DefaultHero key="default" />}
+        {activeExperience === "winter" && <WinterExperience key="winter" />}
+      </AnimatePresence>
+    </main>
   );
-};
-
-export default page;
+}
