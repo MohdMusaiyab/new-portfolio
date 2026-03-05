@@ -3,6 +3,10 @@
 import { motion } from "framer-motion";
 import Hero from "./Hero";
 import Projects from "./Projects";
+import Experience from "./Experience";
+import Education from "./Education";
+import Skills from "./Skills";
+import Contact from "./Contact";
 
 export default function WinterExperience() {
   return (
@@ -15,6 +19,10 @@ export default function WinterExperience() {
     >
       <Hero />
       <Projects />
+      <Experience />
+      <Education />
+      <Skills />
+      <Contact />
     </motion.div>
   );
 }

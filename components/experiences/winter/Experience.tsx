@@ -1,0 +1,236 @@
+"use client";
+
+import { useRef } from "react";
+import Image from "next/image";
+import { motion, useInView } from "framer-motion";
+import experienceData from "@/app/data/experience.json";
+
+const DEEP_BLACK = "#0a0a0a";
+const WHITE = "#ffffff";
+const WA = (a: number) => `rgba(255,255,255,${a})`;
+const MIST = "#888888";
+
+type Experience = (typeof experienceData.experience)[0];
+
+function ExperienceCard({ item, index }: { item: Experience; index: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-100px" });
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 50 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+      className="relative md:pl-20 py-10 md:py-16 group"
+    >
+      {}
+      <div className="hidden md:block absolute left-[27px] top-0 bottom-0 w-px bg-white/5 group-last:bottom-auto group-last:h-full">
+        <motion.div
+          initial={{ height: 0 }}
+          animate={inView ? { height: "100%" } : {}}
+          transition={{ duration: 1.5, ease: "easeInOut" }}
+          className="absolute top-0 left-0 w-full"
+          style={{
+            background: `linear-gradient(to bottom, ${WA(0.5)} 0%, transparent 100%)`,
+          }}
+        />
+        <div
+          className="absolute left-1/2 -translate-x-1/2 top-[76px] w-[9px] h-[9px] rounded-full border border-black z-10 transition-colors duration-500 group-hover:bg-white"
+          style={{ background: WA(0.3) }}
+        />
+      </div>
+
+      <div className="flex flex-col md:flex-row gap-8 md:gap-16">
+        {}
+        <div className="w-full md:w-[220px] shrink-0 pt-2 flex flex-row md:flex-col items-center md:items-start gap-6 md:gap-4">
+          <div className="w-16 h-16 md:w-20 md:h-20 relative rounded-full overflow-hidden border border-white/10 bg-white/5 flex items-center justify-center shrink-0">
+            {item.logo ? (
+              <Image
+                src={item.logo}
+                alt={`${item.company} logo`}
+                fill
+                className="object-cover p-3"
+                style={{ filter: "grayscale(100%) brightness(1.2)" }}
+              />
+            ) : (
+              <span className="font-cinzel text-xl text-white/50">
+                {item.company.charAt(0)}
+              </span>
+            )}
+          </div>
+
+          <div className="flex flex-col">
+            <h4
+              className="font-dm-mono text-[11px] tracking-[0.2em] uppercase mb-1"
+              style={{ color: WA(0.7) }}
+            >
+              {item.duration.start} — {item.duration.end}
+            </h4>
+            <span
+              className="font-inter text-[13px] tracking-wide"
+              style={{ color: WA(0.4) }}
+            >
+              {item.location}
+            </span>
+          </div>
+        </div>
+
+        {}
+        <div className="flex-1">
+          <h3
+            className="font-cinzel font-bold text-3xl md:text-4xl mb-2 transition-colors duration-300"
+            style={{ color: WHITE, letterSpacing: "0.02em" }}
+          >
+            {item.position}
+          </h3>
+          <h4
+            className="font-dm-mono text-sm md:text-base tracking-widest uppercase mb-8"
+            style={{ color: WA(0.5) }}
+          >
+            {item.company}
+          </h4>
+
+          <ul className="space-y-4 mb-8">
+            {item.highlights.map((highlight, i) => (
+              <li key={i} className="flex gap-4 items-start group/li">
+                <span
+                  className="shrink-0 mt-[10px] w-1.5 h-[1.5px] transition-all duration-300 group-hover/li:w-3 group-hover/li:bg-white"
+                  style={{ background: WA(0.3) }}
+                />
+                <span
+                  className="text-[14px] leading-[1.8]"
+                  style={{
+                    color: MIST,
+                    fontFamily: "Inter, sans-serif",
+                    fontWeight: 300,
+                  }}
+                >
+                  {highlight}
+                </span>
+              </li>
+            ))}
+          </ul>
+
+          <div className="flex flex-wrap gap-2">
+            {item.skills.map((skill) => (
+              <span
+                key={skill}
+                className="text-[10px] tracking-[0.15em] uppercase px-3 py-1.5"
+                style={{
+                  fontFamily: "'DM Mono', monospace",
+                  color: WA(0.6),
+                  border: `1px solid ${WA(0.1)}`,
+                  background: "rgba(255,255,255,0.02)",
+                }}
+              >
+                {skill}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+export default function Experience() {
+  const headerRef = useRef<HTMLDivElement>(null);
+  const headerInView = useInView(headerRef, { once: true, margin: "-100px" });
+
+  return (
+    <>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=DM+Mono:wght@300;400&family=Inter:wght@300;400&display=swap');
+        .font-cinzel  { font-family: 'Cinzel', serif; }
+        .font-dm-mono { font-family: 'DM Mono', monospace; }
+        .font-inter   { font-family: 'Inter', sans-serif; }
+      `}</style>
+
+      <section
+        id="experience"
+        className="relative w-full overflow-hidden"
+        style={{ background: DEEP_BLACK }}
+      >
+        {}
+        <div
+          className="absolute left-[-20%] top-[30%] w-[60%] h-[80%] pointer-events-none rounded-full blur-[160px]"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(255,255,255,0.025) 0%, transparent 60%)",
+          }}
+        />
+
+        {}
+        <div
+          className="absolute inset-0 pointer-events-none mix-blend-overlay"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.7'/%3E%3C/svg%3E")`,
+            opacity: 0.15,
+          }}
+        />
+
+        {}
+        <div
+          className="absolute top-0 left-0 right-0 h-32 pointer-events-none z-10"
+          style={{
+            background: `linear-gradient(to bottom, rgba(5,5,5,1) 0%, transparent 100%)`,
+          }}
+        />
+
+        <div className="relative z-10 max-w-[1200px] mx-auto px-6 md:px-12 py-32 md:py-40">
+          {}
+          <motion.div
+            ref={headerRef}
+            initial={{ opacity: 0, y: 40 }}
+            animate={headerInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20 md:mb-32 border-b border-white/10 pb-12"
+          >
+            <div>
+              <p
+                className="font-dm-mono text-[11px] tracking-[0.5em] uppercase mb-6"
+                style={{ color: WA(0.5) }}
+              >
+                Career Path
+              </p>
+              <h2
+                className="font-cinzel font-black leading-none"
+                style={{
+                  fontSize: "clamp(50px, 8vw, 110px)",
+                  color: WHITE,
+                  letterSpacing: "0.02em",
+                  textShadow: "0 10px 40px rgba(255,255,255,0.1)",
+                }}
+              >
+                Experience
+              </h2>
+            </div>
+            <p
+              className="text-[14px] md:text-[16px] max-w-[280px] md:text-right leading-[1.8]"
+              style={{
+                color: WA(0.4),
+                fontFamily: "Inter, sans-serif",
+                fontWeight: 300,
+              }}
+            >
+              Building scalable architectures and engineering performance-driven
+              interfaces.
+            </p>
+          </motion.div>
+
+          {}
+          <div className="flex flex-col relative">
+            {experienceData.experience.map((item, i) => (
+              <ExperienceCard
+                key={`${item.company}-${i}`}
+                item={item}
+                index={i}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}

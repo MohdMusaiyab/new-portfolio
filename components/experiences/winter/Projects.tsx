@@ -109,7 +109,7 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
             >
               {String(index + 1).padStart(2, "0")}
             </span>
-            <div className="h-[1px] w-12 bg-white/20" />
+            <div className="h-px w-12 bg-white/20" />
           </div>
 
           <motion.h3
@@ -185,7 +185,7 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
               }}
             >
               <span className="relative z-10">GitHub</span>
-              <div className="absolute inset-0 bg-white/5 translate-y-[100%] group-hover/link:translate-y-0 transition-transform duration-300 ease-out" />
+              <div className="absolute inset-0 bg-white/5 translate-y-full group-hover/link:translate-y-0 transition-transform duration-300 ease-out" />
             </a>
 
             {project.liveSite && project.liveSite !== project.githubRepo && (
@@ -342,7 +342,7 @@ export default function Projects() {
                 onClick={() => setShowAll(true)}
                 className="group flex flex-col items-center gap-4 transition-all duration-500 hover:opacity-100 opacity-60"
               >
-                <div className="h-20 w-[1px] bg-gradient-to-b from-transparent via-white/50 to-white/50" />
+                <div className="h-20 w-px bg-linear-to-b from-transparent via-white/50 to-white/50" />
                 <span
                   style={{
                     fontFamily: "'DM Mono', monospace",
