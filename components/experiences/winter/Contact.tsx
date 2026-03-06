@@ -153,9 +153,7 @@ export default function Contact() {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=DM+Mono:wght@300;400&display=swap');
-        .font-cinzel  { font-family: 'Cinzel', serif; }
-        .font-dm-mono { font-family: 'DM Mono', monospace; }
+
         .scrollbar-none::-webkit-scrollbar { display: none; }
         .scrollbar-none { scrollbar-width: none; }
         ::placeholder { color: rgba(255,255,255,0.18); font-family: 'DM Mono', monospace; }
@@ -180,13 +178,7 @@ export default function Contact() {
               "radial-gradient(circle, rgba(255,255,255,0.025) 0%, transparent 65%)",
           }}
         />
-        {}
-        <div
-          className="absolute inset-0 mix-blend-overlay opacity-[0.15] pointer-events-none"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
-          }}
-        />
+        <div className="grain-overlay" aria-hidden="true" />
 
         <div className="relative z-10 max-w-[1200px] mx-auto px-6 md:px-12 py-28 md:py-44">
           {}

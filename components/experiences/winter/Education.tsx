@@ -156,10 +156,7 @@ export default function Education() {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=DM+Mono:wght@300;400&family=Inter:wght@300;400&display=swap');
-        .font-cinzel  { font-family: 'Cinzel', serif; }
-        .font-dm-mono { font-family: 'DM Mono', monospace; }
-        .font-inter   { font-family: 'Inter', sans-serif; }
+
       `}</style>
 
       <section

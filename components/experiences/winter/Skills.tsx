@@ -78,22 +78,6 @@ function SkillPill({ name, delay }: { name: string; delay: number }) {
           pointerEvents: "none",
         }}
       >
-        <defs>
-          <filter
-            id={`glow-${name.replace(/\s/g, "")}`}
-            x="-50%"
-            y="-50%"
-            width="200%"
-            height="200%"
-          >
-            <feGaussianBlur stdDeviation="3" result="blur" />
-            <feMerge>
-              <feMergeNode in="blur" />
-              <feMergeNode in="blur" />
-            </feMerge>
-          </filter>
-        </defs>
-
         {}
         <motion.rect
           x="0"
@@ -103,7 +87,7 @@ function SkillPill({ name, delay }: { name: string; delay: number }) {
           fill="none"
           stroke={TRACE}
           strokeWidth="6"
-          filter={`url(#glow-${name.replace(/\s/g, "")})`}
+          filter="url(#skill-pill-glow)"
           initial={{ pathLength: 0, opacity: 0 }}
           animate={{
             pathLength: hovered ? 1 : 0,
@@ -212,9 +196,7 @@ export default function Skills() {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=DM+Mono:wght@300;400&display=swap');
-        .font-cinzel  { font-family: 'Cinzel', serif; }
-        .font-dm-mono { font-family: 'DM Mono', monospace; }
+
       `}</style>
 
       <section
@@ -222,7 +204,32 @@ export default function Skills() {
         className="relative w-full overflow-hidden py-28 md:py-40"
         style={{ background: "#0a0a0a" }}
       >
-        {}
+        {/* Shared SVG filter — one instance for all pill glow effects */}
+        <svg
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            width: 0,
+            height: 0,
+            overflow: "hidden",
+          }}
+        >
+          <defs>
+            <filter
+              id="skill-pill-glow"
+              x="-50%"
+              y="-50%"
+              width="200%"
+              height="200%"
+            >
+              <feGaussianBlur stdDeviation="3" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="blur" />
+              </feMerge>
+            </filter>
+          </defs>
+        </svg>
         <div
           className="absolute right-[-10%] top-[20%] w-[45%] h-[60%] pointer-events-none blur-[130px] rounded-full"
           style={{
@@ -230,13 +237,7 @@ export default function Skills() {
               "radial-gradient(circle, rgba(255,255,255,0.025) 0%, transparent 65%)",
           }}
         />
-        {}
-        <div
-          className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-[0.15]"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
-          }}
-        />
+        <div className="grain-overlay" aria-hidden="true" />
 
         <div className="relative z-10 max-w-[1200px] mx-auto px-6 md:px-12">
           {}

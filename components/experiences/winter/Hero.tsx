@@ -3,10 +3,10 @@
 import { useState, useEffect } from "react";
 
 const ROLES = [
-  "Full Stack Developer",
-  "Backend Engineer",
-  "React Specialist",
-  "System Designer",
+  "Backend Architect",
+  "Full Stack Engineer",
+  "Distributed Systems",
+  "API Design Specialist",
 ];
 
 export default function Hero() {
@@ -27,7 +27,7 @@ export default function Hero() {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=DM+Mono:wght@300;400&family=Inter:wght@300;400;500&display=swap');
+
 
         @keyframes wFadeUp {
           from { opacity: 0; transform: translateY(20px); }
@@ -40,10 +40,6 @@ export default function Hero() {
         @keyframes scrollPulse {
           0%, 100% { opacity: 0.4; transform: scaleY(1); }
           50%       { opacity: 1;   transform: scaleY(1.15); }
-        }
-        @keyframes locPulse {
-          0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(74,222,128,0.5); }
-          50%       { opacity: 0.7; box-shadow: 0 0 0 4px rgba(74,222,128,0); }
         }
 
         .wh-1 { opacity:0; animation: wFadeUp 0.9s cubic-bezier(.16,1,.3,1) 0.15s forwards; }
@@ -58,6 +54,7 @@ export default function Hero() {
         .wh-role-text {
           display: inline-block;
           transition: opacity 0.3s ease, transform 0.3s ease;
+          text-shadow: 0 2px 10px rgba(0,0,0,0.6);
         }
         .wh-role-text.out {
           opacity: 0;
@@ -65,64 +62,40 @@ export default function Hero() {
         }
 
         .wh-resume {
-          position: relative;
-          overflow: hidden;
           text-decoration: none;
           display: inline-flex;
           align-items: center;
           gap: 10px;
           padding: 13px 32px;
-          border: 1px solid rgba(255,255,255,0.3);
-          background: transparent;
+          border: 1px solid rgba(255,255,255,0.8);
+          background: white;
           font-family: 'DM Mono', monospace;
           font-size: 10px;
           letter-spacing: 0.3em;
           text-transform: uppercase;
-
-          color: #ffffff;
-          transition: background 0.3s ease;
+          color: black;
+          transition: all 0.3s ease;
           cursor: pointer;
         }
-        .wh-resume:hover { background: rgba(255,255,255,0.05); }
+        .wh-resume:hover { background: transparent; color: white; border-color: white; }
 
         .wh-ghost {
           display: inline-flex;
           align-items: center;
           gap: 8px;
           padding: 13px 28px;
+          border: 1px solid rgba(255,255,255,0.3);
           font-family: 'DM Mono', monospace;
           font-size: 10px;
           letter-spacing: 0.3em;
           text-transform: uppercase;
-          color: rgba(255,255,255,0.4);
+          color: rgba(255,255,255,0.9);
           text-decoration: none;
-          transition: color 0.3s ease;
+          transition: all 0.3s ease;
+          background: rgba(255,255,255,0.05);
+          backdrop-filter: blur(5px);
         }
-        .wh-ghost:hover { color: rgba(255,255,255,0.85); }
-
-        .wh-loc {
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          padding: 6px 16px;
-          border-radius: 100px;
-          border: 1px solid rgba(255,255,255,0.14);
-          background: rgba(255,255,255,0.04);
-          backdrop-filter: blur(10px);
-          font-family: 'DM Mono', monospace;
-          font-size: 10px;
-          letter-spacing: 0.22em;
-          text-transform: uppercase;
-
-          color: rgba(255,255,255,0.55);
-        }
-        .wh-loc-dot {
-          width: 6px; height: 6px;
-          border-radius: 50%;
-          background: #4ade80;
-          flex-shrink: 0;
-          animation: locPulse 2s ease-in-out infinite;
-        }
+        .wh-ghost:hover { border-color: rgba(255,255,255,0.8); background: rgba(255,255,255,0.1); }
 
         .wh-meta {
           display: flex;
@@ -130,125 +103,108 @@ export default function Hero() {
           justify-content: center;
           gap: 20px;
           font-family: 'DM Mono', monospace;
-          font-size: 9px;
+          font-size: 10px;
           letter-spacing: 0.28em;
           text-transform: uppercase;
-
-          color: rgba(255,255,255,0.22);
+          color: rgba(255,255,255,0.7);
+          text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
         .wh-meta-divider {
           width: 1px; height: 10px;
-          background: rgba(255,255,255,0.15);
+          background: rgba(255,255,255,0.4);
         }
       `}</style>
 
       <section className="relative w-full min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#080808]">
-        {}
+        {/* Background Image */}
         <div
           className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: `url('/bg.png')`,
+            backgroundImage: `url('/bg.webp')`,
             backgroundPosition: "center top",
           }}
         />
 
-        {}
+        {/* Improved Gradient Overlays for Visibility */}
         <div
           className="absolute inset-0 z-[1]"
           style={{
             background:
-              "linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.12) 38%, rgba(0,0,0,0.18) 60%, rgba(0,0,0,0.9) 100%)",
+              "linear-gradient(to bottom, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.95) 100%)",
           }}
         />
 
-        {}
-        <div
-          className="absolute inset-0 z-[2]"
-          style={{
-            background:
-              "radial-gradient(ellipse 85% 85% at 50% 46%, transparent 25%, rgba(0,0,0,0.72) 100%)",
-          }}
-        />
-
-        {}
-        <div className="relative z-10 w-full max-w-4xl mx-auto px-6 md:px-12 flex flex-col items-center text-center gap-0">
-          {}
-          <div className="wh-loc wh-1 mb-8">
-            <span className="wh-loc-dot" />
-            Mysore, India
-          </div>
-
-          {}
+        <div className="relative z-10 w-full max-w-4xl mx-auto px-6 md:px-12 flex flex-col items-center text-center">
+          {/* Name Section */}
           <h1
-            className="wh-2 font-cinzel font-bold leading-[0.92] tracking-[0.1em] mb-5"
+            className="wh-2 font-cinzel font-bold leading-[0.92] tracking-[0.1em] mb-6"
             style={{
               fontFamily: "'Cinzel', serif",
               fontSize: "clamp(46px,9vw,124px)",
-
               color: "#FFFFFF",
               textShadow:
-                "0 0 60px rgba(255,255,255,0.22), 0 0 120px rgba(255,255,255,0.08), 0 3px 8px rgba(0,0,0,0.95)",
+                "0 0 40px rgba(255,255,255,0.3), 0 3px 12px rgba(0,0,0,1)",
             }}
           >
             Mohd Musaiyab
           </h1>
 
-          {}
-          <div className="wh-3 flex items-center justify-center gap-4 mb-9">
+          {/* Dynamic Roles */}
+          <div className="wh-3 flex items-center justify-center gap-4 mb-10">
             <span
               style={{
-                width: 28,
+                width: 40,
                 height: 1,
-                background: "rgba(255,255,255,0.25)",
-                flexShrink: 0,
+                background: "rgba(255,255,255,0.4)",
               }}
             />
             <span
               className={`wh-role-text${roleIn ? "" : " out"}`}
-              aria-live="polite"
               style={{
                 fontFamily: "'DM Mono', monospace",
-                fontSize: 12,
-                letterSpacing: "0.26em",
+                fontSize: 13,
+                letterSpacing: "0.3em",
                 textTransform: "uppercase",
-
-                color: "rgba(255,255,255,0.58)",
+                color: "#FFFFFF",
               }}
             >
               {ROLES[roleIdx]}
             </span>
             <span
               style={{
-                width: 28,
+                width: 40,
                 height: 1,
-                background: "rgba(255,255,255,0.25)",
-                flexShrink: 0,
+                background: "rgba(255,255,255,0.4)",
               }}
             />
           </div>
 
-          {}
+          {/* Short Tech Intro */}
           <p
-            className="wh-4 mb-11"
+            className="wh-4 mb-12"
             style={{
               fontFamily: "'Inter', sans-serif",
-              fontSize: "clamp(13px, 1.55vw, 15px)",
+              fontSize: "clamp(14px, 1.6vw, 16px)",
               fontWeight: 300,
-              lineHeight: 1.88,
-              maxWidth: 480,
-
-              color: "rgba(255,255,255,0.42)",
-              letterSpacing: "0.015em",
+              lineHeight: 1.8,
+              maxWidth: 520,
+              color: "rgba(255,255,255,0.9)",
+              textShadow: "0 2px 10px rgba(0,0,0,0.8)",
+              letterSpacing: "0.02em",
             }}
           >
-            I build performant, scalable web products — from clean backend APIs
-            to immersive frontend interfaces. Currently a Systems Engineer
-            at&nbsp;Infosys.
+            Engineering robust digital infrastructures with a focus on
+            performance and scalability. I specialize in building
+            high-concurrency systems and immersive user experiences.
           </p>
 
-          {}
-          <div className="wh-5 flex flex-wrap items-center justify-center gap-4">
+          {/* CTA Buttons */}
+          <div className="wh-5 flex flex-wrap items-center justify-center gap-6">
             <a href="/resume.pdf" download className="wh-resume">
+              Resume
+            </a>
+            <a href="#contact" className="wh-ghost">
+              Get in touch
               <svg
                 width="12"
                 height="12"
@@ -256,43 +212,23 @@ export default function Hero() {
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                <polyline points="7 10 12 15 17 10" />
-                <line x1="12" y1="15" x2="12" y2="3" />
-              </svg>
-              Resume
-            </a>
-            <a href="#contact" className="wh-ghost">
-              Get in touch
-              <svg
-                width="10"
-                height="10"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
               >
                 <path d="M7 17L17 7M17 7H7M17 7v10" />
               </svg>
             </a>
           </div>
 
-          {}
-          <div className="wh-meta wh-6 mt-12">
-            <span>2 yrs exp</span>
+          {/* Working Status / Meta */}
+          <div className="wh-meta wh-6 mt-16">
+            <span>2 Yrs Exp</span>
             <span className="wh-meta-divider" />
             <span>Full Stack</span>
             <span className="wh-meta-divider" />
-            <span>Open to work</span>
+            <span className="">Open to Work</span>
           </div>
         </div>
 
-        {}
+        {/* Scroll Indicator */}
         <div className="absolute bottom-9 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 wh-6">
           <span
             style={{
@@ -300,7 +236,7 @@ export default function Hero() {
               fontSize: 9,
               letterSpacing: "0.3em",
               textTransform: "uppercase",
-              color: "rgba(255,255,255,0.22)",
+              color: "rgba(255,255,255,0.6)",
             }}
           >
             Scroll
@@ -312,7 +248,7 @@ export default function Hero() {
               width: 1,
               height: 44,
               background:
-                "linear-gradient(to bottom, rgba(255,255,255,0.45), transparent)",
+                "linear-gradient(to bottom, rgba(255,255,255,0.8), transparent)",
             }}
           />
         </div>
