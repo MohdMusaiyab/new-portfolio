@@ -4,8 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import { useExperience } from "@/store/useExperience";
 
 const NAV = [
-  { label: "Projects", href: "#projects" },
   { label: "Experience", href: "#experience" },
+  { label: "Projects", href: "#projects" },
+  { label: "Education", href: "#education" },
   { label: "Skills", href: "#skills" },
   { label: "Contact", href: "#contact" },
 ] as const;
@@ -76,9 +77,31 @@ function IconMail() {
   );
 }
 
+function IconGraduate() {
+  return (
+    <svg
+      width="18"
+      height="18"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth={1.8}
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M12 3 2 9l10 6 10-6-10-6Z"
+      />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M2 9v8l10 6" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M22 9v8l-10 6" />
+    </svg>
+  );
+}
+
 const MOB_NAV = [
-  { label: "Projects", href: "#projects", Icon: IconBriefcase },
   { label: "Experience", href: "#experience", Icon: IconTimeline },
+  { label: "Projects", href: "#projects", Icon: IconBriefcase },
+  { label: "Education", href: "#education", Icon: IconGraduate },
   { label: "Skills", href: "#skills", Icon: IconStar },
   { label: "Contact", href: "#contact", Icon: IconMail },
 ] as const;
@@ -294,7 +317,7 @@ export default function Header() {
         {}
         <button
           onClick={toggleTheme}
-          aria-label={`Switch to ${isWinter ? "Default" : "Winter"} theme`}
+          aria-label={`Switch to ${isWinter ? "Default" : "Dark"} theme`}
           style={{
             display: "flex",
             alignItems: "center",
@@ -326,7 +349,7 @@ export default function Header() {
           }}
         >
           {isWinter ? <IconSun /> : <IconSnow />}
-          {isWinter ? "Default" : "Winter"}
+          {isWinter ? "Default" : "Dark"}
         </button>
       </header>
 
@@ -407,7 +430,7 @@ export default function Header() {
         />
         <button
           onClick={toggleTheme}
-          aria-label={`Switch to ${isWinter ? "Default" : "Winter"} theme`}
+          aria-label={`Switch to ${isWinter ? "Default" : "Dark"} theme`}
           style={{
             display: "flex",
             flexDirection: "column",
@@ -438,7 +461,7 @@ export default function Header() {
               textTransform: "uppercase",
             }}
           >
-            {isWinter ? "Light" : "Snow"}
+            {isWinter ? "Light" : "Dark"}
           </span>
         </button>
       </nav>

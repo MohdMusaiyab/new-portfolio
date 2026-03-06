@@ -18,8 +18,8 @@ export default function WinterExperience() {
       className="w-full"
     >
       <Hero />
-      <Projects />
       <Experience />
+      <Projects />
       <Education />
       <Skills />
       <Contact />

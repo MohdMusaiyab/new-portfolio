@@ -12,12 +12,9 @@ const ROLES = [
 ];
 
 const FLOW_ITEMS = [
-  "High-Concurrency APIs",
-  "Distributed Systems",
-  "Microservices Arch",
-  "React & Next.js Apps",
-  "Database Optimization",
-  "Cloud Native Dev",
+  "Backend Principles",
+  "Artificial Intelligence",
+  "Data Structures & Algorithms",
 ];
 
 export default function BentoHero() {
@@ -127,7 +124,7 @@ export default function BentoHero() {
           className="col-span-12 md:col-span-5 relative bg-[#d8d0c8] rounded-[24px] overflow-hidden group min-h-[300px]"
         >
           <Image
-            src="/personal5.jpeg"
+            src="/personal1.jpeg"
             alt="Mohd Musaiyab"
             fill
             className="object-cover object-top group-hover:scale-105 transition-transform duration-700"
@@ -143,7 +140,7 @@ export default function BentoHero() {
           className="col-span-12 md:col-span-4 bg-[#faf8f5] border border-[#e7e2db] rounded-[24px] flex flex-col overflow-hidden"
         >
           <div className="px-6 py-4 border-b border-[#e7e2db] text-[10px] font-bold uppercase tracking-widest text-[#a8a29e]">
-            Expertise
+            Currently Learning
           </div>
           <div className="flex-1 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             <div className="flex flex-col">
@@ -172,12 +169,15 @@ export default function BentoHero() {
           <div className="text-[10px] font-bold uppercase tracking-widest text-[#a8a29e] mb-2">
             Connect
           </div>
+          <p className="text-[11px] text-[#78716c] leading-relaxed mb-4">
+            Let&apos;s build something together — find me on these platforms.
+          </p>
           <div className="flex flex-row flex-wrap gap-2 mt-auto">
             <a
               href="https://github.com/MohdMusaiyab"
               target="_blank"
               aria-label="GitHub"
-              className="flex items-center justify-center w-12 h-12 rounded-xl border border-[#e7e2db] hover:bg-[#f1ede8] transition-colors group"
+              className="flex items-center justify-center w-12 h-12 rounded-xl border border-[#e7e2db] hover:bg-[#f1ede8] hover:scale-110 transition-all duration-200 group"
             >
               <svg
                 width="20"
@@ -197,7 +197,7 @@ export default function BentoHero() {
               href="https://linkedin.com"
               target="_blank"
               aria-label="LinkedIn"
-              className="flex items-center justify-center w-12 h-12 rounded-xl border border-[#e7e2db] hover:bg-[#f1ede8] transition-colors group"
+              className="flex items-center justify-center w-12 h-12 rounded-xl border border-[#e7e2db] hover:bg-[#f1ede8] hover:scale-110 transition-all duration-200 group"
             >
               <svg
                 width="20"
@@ -219,7 +219,7 @@ export default function BentoHero() {
               href="https://x.com"
               target="_blank"
               aria-label="Twitter"
-              className="flex items-center justify-center w-12 h-12 rounded-xl border border-[#e7e2db] hover:bg-[#f1ede8] transition-colors group"
+              className="flex items-center justify-center w-12 h-12 rounded-xl border border-[#e7e2db] hover:bg-[#f1ede8] hover:scale-110 transition-all duration-200 group"
             >
               <svg
                 width="20"
@@ -288,7 +288,7 @@ export default function BentoHero() {
           <div className="flex gap-6">
             <div className="text-center">
               <p className="text-xl font-bold text-white tracking-tighter">
-                2<sup className="text-[10px] text-blue-400 ml-0.5">YR</sup>
+                1<sup className="text-[10px] text-blue-400 ml-0.5">YR</sup>
               </p>
               <p className="text-[9px] uppercase font-bold tracking-widest text-white/30">
                 Exp
