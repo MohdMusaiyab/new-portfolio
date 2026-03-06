@@ -3,6 +3,7 @@
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, useInView, AnimatePresence } from "framer-motion";
+import SkillPill from "@/components/ui/SkillPill";
 import projectsData from "@/app/data/projects.json";
 
 const DEEP_BLACK = "#050505";
@@ -154,19 +155,7 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
 
           <div className="flex flex-wrap gap-2 mb-10">
             {project.techStack.map((tech) => (
-              <span
-                key={tech}
-                className="text-[10px] tracking-[0.2em] uppercase px-3 py-1.5"
-                style={{
-                  fontFamily: "'DM Mono', monospace",
-                  color: WA(0.7),
-                  border: `1px solid ${WA(0.15)}`,
-                  background: "rgba(255,255,255,0.03)",
-                  backdropFilter: "blur(4px)",
-                }}
-              >
-                {tech}
-              </span>
+              <SkillPill key={tech} name={tech} />
             ))}
           </div>
 

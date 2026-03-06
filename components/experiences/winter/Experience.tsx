@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
+import SkillPill from "@/components/ui/SkillPill";
 import experienceData from "@/app/data/experience.json";
 
 const DEEP_BLACK = "#0a0a0a";
@@ -114,18 +115,7 @@ function ExperienceCard({ item, index }: { item: Experience; index: number }) {
 
           <div className="flex flex-wrap gap-2">
             {item.skills.map((skill) => (
-              <span
-                key={skill}
-                className="text-[10px] tracking-[0.15em] uppercase px-3 py-1.5"
-                style={{
-                  fontFamily: "'DM Mono', monospace",
-                  color: WA(0.6),
-                  border: `1px solid ${WA(0.1)}`,
-                  background: "rgba(255,255,255,0.02)",
-                }}
-              >
-                {skill}
-              </span>
+              <SkillPill key={skill} name={skill} />
             ))}
           </div>
         </div>

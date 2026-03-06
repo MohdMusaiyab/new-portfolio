@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { useExperience } from "@/store/useExperience";
-import ThemeSwitcher from "@/components/ThemeSwitcher";
+import Header from "@/components/Header";
 
 export default function ExperienceProvider({
   children,
@@ -17,7 +17,7 @@ export default function ExperienceProvider({
 
   return (
     <>
-      <ThemeSwitcher />
+      <Header />
       {children}
     </>
   );

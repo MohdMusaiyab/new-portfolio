@@ -5,10 +5,10 @@ import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import educationData from "@/app/data/education.json";
 
-const DEEP_BLACK = "#050505";
-const CHARCOAL = "#111111";
+const CHARCOAL = "#0a0a0a";
 const WHITE = "#ffffff";
 const WA = (a: number) => `rgba(255,255,255,${a})`;
+const TRACE = "#93E7FB";
 
 type Education = (typeof educationData.education)[0];
 
@@ -16,121 +16,110 @@ function EduCard({ item, index }: { item: Education; index: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
 
-  const isEven = index % 2 === 0;
-
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 60 }}
+      initial={{ opacity: 0, y: 50 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: index * 0.15 }}
-      className={`relative flex flex-col ${isEven ? "md:flex-row" : "md:flex-row-reverse"} gap-8 md:gap-0 items-center w-full mb-32 group`}
+      transition={{
+        duration: 0.9,
+        ease: [0.16, 1, 0.3, 1],
+        delay: index * 0.1,
+      }}
+      className="relative md:pl-20 py-10 md:py-16 group"
     >
       {}
-      <div className="hidden md:block absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 w-full max-w-[500px] h-px bg-white/10 z-0" />
-      <div className="hidden md:block absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 w-px h-32 bg-white/10 z-0" />
-
-      {}
-      <div
-        className={`w-full md:w-1/2 flex justify-center z-10 ${isEven ? "md:pr-16" : "md:pl-16"}`}
-      >
+      <div className="hidden md:block absolute left-[27px] top-0 bottom-0 w-px bg-white/5 group-last:bottom-auto group-last:h-full">
         <motion.div
-          className="relative w-[280px] h-[340px] md:w-[320px] md:h-[400px] flex flex-col items-center justify-center p-8 overflow-hidden transition-transform duration-700 group-hover:scale-[1.02]"
+          initial={{ height: 0 }}
+          animate={inView ? { height: "100%" } : {}}
+          transition={{ duration: 1.5, ease: "easeInOut" }}
+          className="absolute top-0 left-0 w-full"
           style={{
-            background: `linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%)`,
-            border: `1px solid ${WA(0.1)}`,
-            backdropFilter: "blur(10px)",
-            boxShadow: "0 20px 50px rgba(0,0,0,0.5)",
+            background: `linear-gradient(to bottom, ${WA(0.5)} 0%, transparent 100%)`,
           }}
-        >
-          {}
-          <div
-            className="absolute inset-0 mix-blend-overlay opacity-20 pointer-events-none"
-            style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
-            }}
-          />
-
-          {}
-          <div className="absolute top-0 right-0 w-24 h-24 bg-white/5 blur-2xl rounded-full translate-x-1/2 -translate-y-1/2" />
-          <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/5 blur-3xl rounded-full -translate-x-1/2 translate-y-1/2" />
-
-          {}
-          <div className="relative w-32 h-32 rounded-full overflow-hidden border-2 border-white/20 bg-black/50 flex items-center justify-center mb-8 shadow-[0_0_30px_rgba(255,255,255,0.05)]">
-            <div className="absolute inset-0 bg-white/5 animate-pulse" />
-            <Image
-              src={item.logo}
-              alt={`${item.institution} logo`}
-              fill
-              className="object-contain p-4 mix-blend-screen"
-              style={{ filter: "brightness(1.5) contrast(1.2) grayscale(0.2)" }}
-            />
-          </div>
-
-          <div
-            className="font-dm-mono text-[64px] leading-none text-white/5 absolute bottom-4 right-4 user-select-none"
-            style={{ letterSpacing: "-0.05em" }}
-          >
-            {item.startYear}
-          </div>
-        </motion.div>
+        />
+        {}
+        <div
+          className="absolute left-1/2 -translate-x-1/2 top-[76px] w-[9px] h-[9px] rounded-full border border-black z-10 transition-colors duration-500 group-hover:bg-white"
+          style={{ background: WA(0.3) }}
+        />
       </div>
 
-      {}
-      <div
-        className={`w-full md:w-1/2 flex flex-col z-10 ${isEven ? "md:pl-16 text-left" : "md:pr-16 md:text-right"}`}
-      >
-        <div
-          className={`flex flex-col ${isEven ? "items-start" : "items-start md:items-end"}`}
-        >
-          <div className="flex items-center gap-4 mb-5">
-            <span
-              className="font-dm-mono text-[11px] tracking-[0.3em] uppercase px-3 py-1 border border-white/20 rounded-full"
-              style={{ color: WA(0.6), background: "rgba(255,255,255,0.03)" }}
-            >
-              {item.startYear} — {item.endYear}
-            </span>
-            <div className="hidden md:block w-12 h-px bg-white/20" />
+      <div className="flex flex-col md:flex-row gap-8 md:gap-16">
+        {}
+        <div className="w-full md:w-[220px] shrink-0 pt-2 flex flex-row md:flex-col items-center md:items-start gap-6 md:gap-4">
+          <div className="w-16 h-16 md:w-20 md:h-20 relative rounded-full overflow-hidden border border-white/10 bg-white/5 flex items-center justify-center shrink-0">
+            {item.logo ? (
+              <Image
+                src={item.logo}
+                alt={`${item.institution} logo`}
+                fill
+                className="object-contain p-3"
+                style={{ filter: "grayscale(100%) brightness(1.2)" }}
+              />
+            ) : (
+              <span className="font-cinzel text-xl text-white/50">
+                {item.institution.charAt(0)}
+              </span>
+            )}
           </div>
 
+          <div className="flex flex-col">
+            <h4
+              className="font-dm-mono text-[11px] tracking-[0.2em] uppercase mb-1"
+              style={{ color: WA(0.7) }}
+            >
+              {item.startYear} — {item.endYear}
+            </h4>
+            <span
+              className="text-[13px] tracking-wide"
+              style={{ fontFamily: "'Inter', sans-serif", color: WA(0.4) }}
+            >
+              Academic Genesis
+            </span>
+          </div>
+        </div>
+
+        {}
+        <div className="flex-1">
           <h3
-            className="font-cinzel font-bold text-3xl md:text-5xl leading-[1.1] mb-4"
-            style={{
-              color: WHITE,
-              textShadow: "0 4px 20px rgba(255,255,255,0.1)",
-            }}
+            className="font-cinzel font-bold text-3xl md:text-4xl mb-2 transition-colors duration-300"
+            style={{ color: WHITE, letterSpacing: "0.02em" }}
           >
             {item.institution}
           </h3>
-
           <h4
-            className="font-inter text-lg md:text-xl font-light tracking-wide mb-10"
+            className="font-dm-mono text-sm md:text-base tracking-widest uppercase mb-8"
             style={{ color: WA(0.5) }}
           >
             {item.degree}
           </h4>
 
-          {}
-          <div
-            className={`flex flex-col gap-6 w-full ${isEven ? "" : "md:items-end"}`}
-          >
+          <ul className="space-y-4 mb-4">
             {item.highlights.map((highlight, i) => {
               const parts = highlight.split(/([\d.%]+)/g).filter(Boolean);
 
               return (
-                <div
-                  key={i}
-                  className={`flex flex-col ${isEven ? "items-start border-l" : "items-start md:items-end md:border-r border-l md:border-l-0"} border-white/10 pl-5 md:pl-0 ${isEven ? "" : "md:pr-5"} py-1 transition-colors duration-300 hover:border-white/40`}
-                >
-                  <p className="font-dm-mono text-[12px] uppercase tracking-[0.2em] text-white/30 mb-1">
-                    0{i + 1}
-                  </p>
-                  <p className="font-inter text-[15px] font-light leading-relaxed text-white/70">
+                <li key={i} className="flex gap-4 items-start group/li">
+                  <span
+                    className="shrink-0 mt-[10px] w-1.5 h-1.5 rounded-full transition-all duration-300 group-hover/li:scale-150 group-hover/li:bg-[#93E7FB]"
+                    style={{ background: WA(0.3) }}
+                  />
+                  <span
+                    className="text-[14px] leading-[1.8]"
+                    style={{
+                      color: "#888888",
+                      fontFamily: "Inter, sans-serif",
+                      fontWeight: 300,
+                    }}
+                  >
                     {parts.map((part, pidx) =>
                       /[\d.%]+/.test(part) ? (
                         <span
                           key={pidx}
-                          className="font-dm-mono text-white tracking-wider"
+                          className="font-dm-mono font-medium tracking-wider"
+                          style={{ color: WA(0.9) }}
                         >
                           {part}
                         </span>
@@ -138,11 +127,11 @@ function EduCard({ item, index }: { item: Education; index: number }) {
                         <span key={pidx}>{part}</span>
                       ),
                     )}
-                  </p>
-                </div>
+                  </span>
+                </li>
               );
             })}
-          </div>
+          </ul>
         </div>
       </div>
     </motion.div>
@@ -154,55 +143,78 @@ export default function Education() {
   const headerInView = useInView(headerRef, { once: true, margin: "-100px" });
 
   return (
-    <>
-      <style>{`
+    <section
+      id="education"
+      className="relative w-full overflow-hidden"
+      style={{ background: CHARCOAL }}
+    >
+      {}
+      <div
+        className="absolute left-[-20%] top-[30%] w-[60%] h-[80%] pointer-events-none rounded-full blur-[160px]"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(255,255,255,0.025) 0%, transparent 60%)",
+        }}
+      />
 
-      `}</style>
+      <div className="grain-overlay" aria-hidden="true" />
 
-      <section
-        id="education"
-        className="relative w-full py-32 md:py-48 overflow-hidden"
-        style={{ background: CHARCOAL }}
-      >
+      {}
+      <div
+        className="absolute top-0 left-0 right-0 h-32 pointer-events-none z-10"
+        style={{
+          background: `linear-gradient(to bottom, rgba(10,10,10,1) 0%, transparent 100%)`,
+        }}
+      />
+
+      <div className="relative z-10 max-w-[1200px] mx-auto px-6 md:px-12 py-32 md:py-40">
         {}
-        <div
-          className="absolute right-[-20%] top-0 w-[60%] h-[80%] pointer-events-none rounded-full blur-[150px]"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(255,255,255,0.02) 0%, transparent 60%)",
-          }}
-        />
-
-        <div className="relative z-10 max-w-[1200px] mx-auto px-6 md:px-12">
-          {}
-          <motion.div
-            ref={headerRef}
-            initial={{ opacity: 0, y: 30 }}
-            animate={headerInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col items-center text-center mb-32"
-          >
-            <div className="w-px h-24 bg-linear-to-b from-transparent to-white/30 mb-8" />
+        <motion.div
+          ref={headerRef}
+          initial={{ opacity: 0, y: 40 }}
+          animate={headerInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20 md:mb-32 border-b border-white/10 pb-12"
+        >
+          <div>
+            <p
+              className="font-dm-mono text-[11px] tracking-[0.5em] uppercase mb-6"
+              style={{ color: WA(0.5) }}
+            >
+              Academic Background
+            </p>
             <h2
-              className="font-cinzel font-bold tracking-[0.2em] uppercase"
+              className="font-cinzel font-black leading-none"
               style={{
-                fontSize: "clamp(24px, 4vw, 36px)",
+                fontSize: "clamp(50px, 8vw, 110px)",
                 color: WHITE,
+                letterSpacing: "0.02em",
+                textShadow: "0 10px 40px rgba(255,255,255,0.1)",
               }}
             >
-              Academic Genesis
+              Education
             </h2>
-            <div className="w-px h-24 bg-linear-to-t from-transparent to-white/30 mt-8" />
-          </motion.div>
-
-          {}
-          <div className="flex flex-col relative w-full pt-10">
-            {educationData.education.map((item, i) => (
-              <EduCard key={i} item={item} index={i} />
-            ))}
           </div>
+          <p
+            className="text-[14px] md:text-[16px] max-w-[280px] md:text-right leading-[1.8]"
+            style={{
+              color: WA(0.4),
+              fontFamily: "Inter, sans-serif",
+              fontWeight: 300,
+            }}
+          >
+            Formal rigorous training paving the foundation for modern systems
+            design.
+          </p>
+        </motion.div>
+
+        {}
+        <div className="flex flex-col relative w-full">
+          {educationData.education.map((item, i) => (
+            <EduCard key={i} item={item} index={i} />
+          ))}
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }

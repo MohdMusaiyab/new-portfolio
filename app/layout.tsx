@@ -3,12 +3,6 @@ import { Cinzel, DM_Mono, Inter, Geist, Geist_Mono } from "next/font/google";
 import ExperienceProvider from "@/components/ExperienceProvider";
 import "./globals.css";
 
-/* ─── Self-hosted fonts via next/font ────────────────────────────────────────
-   Each font is downloaded at build time and served from the same origin.
-   No render-blocking network request to fonts.googleapis.com.
-   display:"swap" ensures text is visible immediately with fallback.
-─────────────────────────────────────────────────────────────────────────── */
-
 const cinzel = Cinzel({
   subsets: ["latin"],
   weight: ["400", "600", "700", "900"],
@@ -30,7 +24,7 @@ const inter = Inter({
   weight: ["300", "400", "500"],
   variable: "--font-inter",
   display: "swap",
-  preload: false, // only used in body copy — no need to preload
+  preload: false,
 });
 
 const geistSans = Geist({
@@ -60,11 +54,38 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      /* CSS variables from next/font are applied here so every component
-         can access them via var(--font-cinzel), var(--font-dm-mono), etc. */
       className={`${cinzel.variable} ${dmMono.variable} ${inter.variable} ${geistSans.variable} ${geistMono.variable}`}
     >
-      <body suppressHydrationWarning className="antialiased">
+      <body
+        suppressHydrationWarning
+        className="antialiased selection:bg-white/20"
+      >
+        <svg
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            width: 0,
+            height: 0,
+            overflow: "hidden",
+          }}
+        >
+          <defs>
+            <filter
+              id="skill-pill-glow"
+              x="-50%"
+              y="-50%"
+              width="200%"
+              height="200%"
+            >
+              <feGaussianBlur stdDeviation="3" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="blur" />
+              </feMerge>
+            </filter>
+          </defs>
+        </svg>
+
         <script
           dangerouslySetInnerHTML={{
             __html: `

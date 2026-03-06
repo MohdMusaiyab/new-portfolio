@@ -5,8 +5,8 @@ import { AnimatePresence } from "framer-motion";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 
-const DefaultHero = dynamic(
-  () => import("@/components/experiences/default/Hero"),
+const DefaultExperience = dynamic(
+  () => import("@/components/experiences/default/index"),
   {
     ssr: false,
   },
@@ -29,9 +29,9 @@ export default function Home() {
   if (!mounted) return null;
 
   return (
-    <main className="w-full min-h-screen relative overflow-hidden">
+    <main className="w-full min-h-screen relative overflow-hidden pb-[100px] md:pb-0">
       <AnimatePresence mode="wait">
-        {activeExperience === "default" && <DefaultHero key="default" />}
+        {activeExperience === "default" && <DefaultExperience key="default" />}
         {activeExperience === "winter" && <WinterExperience key="winter" />}
       </AnimatePresence>
     </main>

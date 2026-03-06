@@ -28,7 +28,6 @@ export default function Hero() {
     <>
       <style>{`
 
-
         @keyframes wFadeUp {
           from { opacity: 0; transform: translateY(20px); }
           to   { opacity: 1; transform: translateY(0); }
@@ -116,7 +115,7 @@ export default function Hero() {
       `}</style>
 
       <section className="relative w-full min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#080808]">
-        {/* Background Image */}
+        {}
         <div
           className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
           style={{
@@ -125,7 +124,7 @@ export default function Hero() {
           }}
         />
 
-        {/* Improved Gradient Overlays for Visibility */}
+        {}
         <div
           className="absolute inset-0 z-[1]"
           style={{
@@ -135,7 +134,7 @@ export default function Hero() {
         />
 
         <div className="relative z-10 w-full max-w-4xl mx-auto px-6 md:px-12 flex flex-col items-center text-center">
-          {/* Name Section */}
+          {}
           <h1
             className="wh-2 font-cinzel font-bold leading-[0.92] tracking-[0.1em] mb-6"
             style={{
@@ -149,7 +148,7 @@ export default function Hero() {
             Mohd Musaiyab
           </h1>
 
-          {/* Dynamic Roles */}
+          {}
           <div className="wh-3 flex items-center justify-center gap-4 mb-10">
             <span
               style={{
@@ -179,7 +178,7 @@ export default function Hero() {
             />
           </div>
 
-          {/* Short Tech Intro */}
+          {}
           <p
             className="wh-4 mb-12"
             style={{
@@ -198,7 +197,7 @@ export default function Hero() {
             high-concurrency systems and immersive user experiences.
           </p>
 
-          {/* CTA Buttons */}
+          {}
           <div className="wh-5 flex flex-wrap items-center justify-center gap-6">
             <a href="/resume.pdf" download className="wh-resume">
               Resume
@@ -218,7 +217,7 @@ export default function Hero() {
             </a>
           </div>
 
-          {/* Working Status / Meta */}
+          {}
           <div className="wh-meta wh-6 mt-16">
             <span>2 Yrs Exp</span>
             <span className="wh-meta-divider" />
@@ -228,7 +227,7 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Scroll Indicator */}
+        {}
         <div className="absolute bottom-9 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 wh-6">
           <span
             style={{
