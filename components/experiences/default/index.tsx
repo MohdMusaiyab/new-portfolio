@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Hero from "./Hero";
 import Experience from "./Experience";
 import Projects from "./Projects";
+import Education from "./Education";
 import Skills from "./Skills";
 import Contact from "./Contact";
 
@@ -19,6 +20,7 @@ export default function DefaultExperienceLayout() {
       <Hero />
       <Experience />
       <Projects />
+      <Education />
       <Skills />
       <Contact />
     </motion.div>

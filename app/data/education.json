@@ -1,28 +1,30 @@
 {
-    "education": [
-      {
-        "institution": "KIET Group of Institutions",
-        "degree": "Bachelor of Technology in Information Technology",
-        "startYear": 2021,
-        "endYear": 2025,
-        "logo": "https://d2lk14jtvqry1q.cloudfront.net/media/large_KIET_Group_of_Institutions_Ghaziabad_KIET_Ghaziabad_243fa07822_35ecc83705.png",
-        "highlights": [
-          "Scored 74% in current coursework",
-          "Student Co-ordinator for College Events",
-          "Active participant in technical Hackathons"
-        ]
-      },
-      {
-        "institution": "HAL School",
-        "degree": "Senior Secondary Education (SSC & HSC)",
-        "startYear": 2007,
-        "endYear": 2021,
-        "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTi2rqACDW_41yx_mK-DFzsVSRj2LuLd4SKfg&s",
-        "highlights": [
-          "Completed HSC with 95.2%",
-          "Completed SSC with 94.8%",
-          "District Magistrate Award recipient"
-        ]
-      }
-    ]
-  }
+  "education": [
+    {
+      "institution": "HAL School",
+      "degree": "Senior Secondary Education (SSC & HSC)",
+      "startYear": 2007,
+      "endYear": 2021,
+      "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTi2rqACDW_41yx_mK-DFzsVSRj2LuLd4SKfg&s",
+      "highlights": [
+        "Completed HSC with 95.2%",
+        "Completed SSC with 94.8%",
+        "District Magistrate Award recipient"
+      ],
+      "score": "HSC: 95.2% | SSC: 94.8%"
+    },
+    {
+      "institution": "KIET Group of Institutions",
+      "degree": "Bachelor of Technology in Information Technology",
+      "startYear": 2021,
+      "endYear": 2025,
+      "logo": "https://d2lk14jtvqry1q.cloudfront.net/media/large_KIET_Group_of_Institutions_Ghaziabad_KIET_Ghaziabad_243fa07822_35ecc83705.png",
+      "highlights": [
+        "Scored 74% in current coursework",
+        "Student Co-ordinator for College Events",
+        "Active participant in technical Hackathons"
+      ],
+      "score": "74.0%"
+    }
+  ]
+}

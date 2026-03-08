@@ -54,7 +54,10 @@ const fallbackAccent = {
 
 export default function DefaultSkills() {
   return (
-    <section className="w-full bg-[#f8f6f3] py-24 md:py-32 text-[#1c1917] font-sans">
+    <section
+      id="skills"
+      className="w-full bg-[#f8f6f3] py-24 md:py-32 text-[#1c1917] font-sans"
+    >
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16">
         {}
         <motion.div

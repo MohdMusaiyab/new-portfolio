@@ -124,7 +124,7 @@ export default function BentoHero() {
           className="col-span-12 md:col-span-5 relative bg-[#d8d0c8] rounded-[24px] overflow-hidden group min-h-[300px]"
         >
           <Image
-            src="/personal1.jpeg"
+            src="/personal1.jpg"
             alt="Mohd Musaiyab"
             fill
             className="object-cover object-top group-hover:scale-105 transition-transform duration-700"

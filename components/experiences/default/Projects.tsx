@@ -13,7 +13,10 @@ export default function DefaultProjects() {
   };
 
   return (
-    <section className="w-full bg-[#f1ede8] py-24 md:py-32 text-[#1c1917] font-sans">
+    <section
+      id="projects"
+      className="w-full bg-[#f1ede8] py-24 md:py-32 text-[#1c1917] font-sans"
+    >
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16">
         {}
         <motion.div
