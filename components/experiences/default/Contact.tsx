@@ -8,7 +8,7 @@ const SOCIALS = [
     label: "GitHub",
     href: "https://github.com/MohdMusaiyab",
     icon: (
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
         <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
       </svg>
     ),
@@ -17,7 +17,7 @@ const SOCIALS = [
     label: "LinkedIn",
     href: "https://linkedin.com",
     icon: (
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
         <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
       </svg>
     ),
@@ -26,7 +26,7 @@ const SOCIALS = [
     label: "Twitter / X",
     href: "https://twitter.com",
     icon: (
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
         <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
       </svg>
     ),
@@ -57,22 +57,24 @@ function Field({
     width: "100%",
     background: "transparent",
     border: "none",
-    borderBottom: `1.5px solid ${focused ? "#1c1917" : "#d6cfc5"}`,
+    borderBottom: `2px solid ${focused ? "#0d9488" : "rgba(13,148,136,0.15)"}`,
     color: "#1c1917",
     fontFamily: "inherit",
-    fontSize: "15px",
+    fontSize: "16px",
+    fontWeight: "500",
     outline: "none",
-    padding: "14px 0 10px",
-    transition: "border-color 0.3s ease",
+    padding: "16px 0 12px",
+    transition: "border-color 0.4s ease, box-shadow 0.4s ease",
+    boxShadow: focused ? "0 4px 6px -6px rgba(13,148,136,0.3)" : "none",
     resize: "none",
   };
 
   return (
-    <div className="relative flex flex-col">
+    <div className="relative flex flex-col group">
       <label
         htmlFor={id}
-        className="text-[10px] font-bold uppercase tracking-widest transition-colors duration-300"
-        style={{ color: active ? "#1c1917" : "#a8a29e" }}
+        className="text-[10px] md:text-xs font-bold uppercase tracking-[0.15em] transition-colors duration-400"
+        style={{ color: active ? "#0d9488" : "#a8a29e" }}
       >
         {label}
       </label>
@@ -86,7 +88,7 @@ function Field({
           onBlur={() => setFocused(false)}
           disabled={disabled}
           style={shared}
-          className="[&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+          className="[&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] selection:bg-[#0d9488] selection:text-white"
         />
       ) : (
         <input
@@ -98,6 +100,7 @@ function Field({
           onBlur={() => setFocused(false)}
           disabled={disabled}
           style={shared}
+          className="selection:bg-[#0d9488] selection:text-white"
         />
       )}
     </div>
@@ -148,64 +151,57 @@ export default function DefaultContact() {
     <section
       id="contact"
       ref={sectionRef}
-      className="relative w-full bg-[#faf8f5] text-[#1c1917] font-sans overflow-hidden"
+      className="relative w-full bg-[#fdfbf7] text-[#1c1917] font-sans overflow-hidden selection:bg-[#0d9488] selection:text-white"
     >
-      {}
-      <div
-        className="absolute -top-40 -right-40 w-[500px] h-[500px] rounded-full pointer-events-none opacity-30"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(59,130,246,0.08) 0%, transparent 70%)",
-        }}
-      />
+      {/* Background Architectural Elements */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-[30%] left-[-10%] right-[30%] h-px bg-[#0d9488]/10" />
+        <div className="absolute bottom-[-20%] left-0 w-[60vw] h-[60vw] bg-[#0d9488]/5 blur-[150px] rounded-full" />
+      </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 lg:px-16 py-24 md:py-36">
-        {}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 lg:px-16 py-24 md:py-32">
+        {/* Section Header */}
         <motion.div
           ref={headerRef}
           initial={{ opacity: 0, y: 30 }}
           animate={headerInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-16 md:mb-24"
+          transition={{ duration: 0.9, ease: [0.19, 1, 0.22, 1] }}
+          className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-20 md:mb-28"
         >
-          <div className="flex items-center gap-3 mb-5">
-            <span className="w-8 h-px bg-[#a8a29e]" />
-            <span className="text-[10px] font-bold uppercase tracking-widest text-[#a8a29e]">
-              Get in Touch
-            </span>
+          <div>
+            <div className="flex items-center gap-3 mb-6">
+              <span className="w-12 h-px bg-[#0d9488]" />
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#0d9488]">
+                Get In Touch
+              </span>
+            </div>
+            <h2 className="text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter leading-[0.85] text-[#1c1917]">
+              Let&apos;s <br />
+              <span className="text-transparent bg-clip-text bg-linear-to-r from-[#0d9488] to-[#042f2e]">
+                Connect.
+              </span>
+            </h2>
           </div>
-          <h2 className="text-5xl md:text-7xl lg:text-[84px] font-extrabold tracking-tighter leading-[0.9]">
-            Let&apos;s{" "}
-            <motion.span
-              initial={{ opacity: 0, x: -10 }}
-              animate={headerInView ? { opacity: 1, x: 0 } : {}}
-              transition={{
-                duration: 0.8,
-                delay: 0.3,
-                ease: [0.16, 1, 0.3, 1],
-              }}
-              className="font-light text-blue-600"
-            >
-              connect.
-            </motion.span>
-          </h2>
+          <p className="max-w-[42ch] text-[#57534e] text-sm md:text-base lg:text-lg font-light leading-relaxed pb-2 md:text-right">
+            Have a project in mind or just want to chat? Send me an encrypted
+            message over the wire.
+          </p>
         </motion.div>
 
-        {}
         <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-start">
-          {}
+          {/* Form Side */}
           <motion.div
             ref={formRef}
-            initial={{ opacity: 0, y: 30 }}
-            animate={formInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            initial={{ opacity: 0, x: -30 }}
+            animate={formInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
             className="w-full lg:w-[58%]"
           >
-            <form onSubmit={handleSubmit} className="flex flex-col gap-8">
-              <div className="flex flex-col sm:flex-row gap-8 sm:gap-10">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-10">
+              <div className="flex flex-col sm:flex-row gap-10">
                 <div className="flex-1">
                   <Field
-                    label="Your Name"
+                    label="Identification"
                     id="contact-name"
                     value={form.senderName}
                     onChange={set("senderName")}
@@ -214,7 +210,7 @@ export default function DefaultContact() {
                 </div>
                 <div className="flex-1">
                   <Field
-                    label="Email Address"
+                    label="Return Address"
                     id="contact-email"
                     type="email"
                     value={form.senderEmail}
@@ -225,14 +221,14 @@ export default function DefaultContact() {
               </div>
 
               <Field
-                label="Subject"
+                label="Transmission Subject"
                 id="contact-subject"
                 value={form.subject}
                 onChange={set("subject")}
                 disabled={disabled}
               />
               <Field
-                label="Your Message"
+                label="Payload Data"
                 id="contact-message"
                 textarea
                 value={form.message}
@@ -240,21 +236,24 @@ export default function DefaultContact() {
                 disabled={disabled}
               />
 
-              {}
-              <div className="flex items-center gap-5 pt-4">
+              <div className="flex items-center gap-6 pt-6">
                 <motion.button
                   type="submit"
                   disabled={disabled}
-                  whileHover={disabled ? {} : { scale: 1.02 }}
-                  whileTap={disabled ? {} : { scale: 0.98 }}
-                  className="relative overflow-hidden flex items-center gap-2.5 px-8 py-3.5 rounded-xl text-[11px] font-bold uppercase tracking-widest transition-all duration-300"
+                  whileHover={disabled ? {} : { scale: 1.05 }}
+                  whileTap={disabled ? {} : { scale: 0.95 }}
+                  className="relative overflow-hidden flex items-center gap-3 px-10 py-4 border border-[#0d9488]/30 rounded-full text-xs font-bold uppercase tracking-[0.15em] transition-all duration-400 group shadow-sm hover:shadow-[0_10px_30px_-10px_rgba(13,148,136,0.4)]"
                   style={{
-                    background: status === "sent" ? "#d6cfc5" : "#1c1917",
-                    color: status === "sent" ? "#78716c" : "#fff",
+                    background: status === "sent" ? "#fdfbf7" : "#0d9488",
+                    color: status === "sent" ? "#0d9488" : "#fdfbf7",
                     cursor: disabled ? "default" : "pointer",
-                    border: "none",
                   }}
                 >
+                  {/* Sweep gradient hover on idle state */}
+                  {status === "idle" && (
+                    <span className="absolute inset-0 bg-linear-to-r from-[#0d9488] to-[#042f2e] opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
+                  )}
+
                   <AnimatePresence mode="wait">
                     {status === "sending" ? (
                       <motion.span
@@ -262,10 +261,10 @@ export default function DefaultContact() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="flex items-center gap-2"
+                        className="relative z-10 flex items-center gap-3"
                       >
-                        <span className="inline-block w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                        Sending
+                        <span className="inline-block w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                        Transmitting...
                       </motion.span>
                     ) : status === "sent" ? (
                       <motion.span
@@ -273,8 +272,23 @@ export default function DefaultContact() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
+                        className="relative z-10 flex items-center gap-2"
                       >
-                        Message Sent ✓
+                        Signal Received
+                        <svg
+                          width="14"
+                          height="14"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth={3}
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M5 13l4 4L19 7"
+                          />
+                        </svg>
                       </motion.span>
                     ) : status === "error" ? (
                       <motion.span
@@ -282,8 +296,23 @@ export default function DefaultContact() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
+                        className="relative z-10 flex items-center gap-2 text-rose-300"
                       >
-                        Retry ↗
+                        Transmit Failed
+                        <svg
+                          width="14"
+                          height="14"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth={3}
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                          />
+                        </svg>
                       </motion.span>
                     ) : (
                       <motion.span
@@ -291,12 +320,12 @@ export default function DefaultContact() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="flex items-center gap-2"
+                        className="relative z-10 flex items-center gap-2"
                       >
-                        Send Message
+                        Engage Link
                         <svg
-                          width="12"
-                          height="12"
+                          width="14"
+                          height="14"
                           fill="none"
                           viewBox="0 0 24 24"
                           stroke="currentColor"
@@ -305,110 +334,122 @@ export default function DefaultContact() {
                           <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
-                            d="M7 17L17 7M17 7H7M17 7v10"
+                            d="M14 5l7 7m0 0l-7 7m7-7H3"
                           />
                         </svg>
                       </motion.span>
                     )}
                   </AnimatePresence>
                 </motion.button>
-
-                <AnimatePresence>
-                  {status === "error" && (
-                    <motion.p
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      className="text-[11px] font-semibold tracking-wider text-red-500/70"
-                    >
-                      Something went wrong.
-                    </motion.p>
-                  )}
-                </AnimatePresence>
               </div>
             </form>
           </motion.div>
 
-          {}
+          {/* Details Side */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={formInView ? { opacity: 1, y: 0 } : {}}
+            initial={{ opacity: 0, x: 30 }}
+            animate={formInView ? { opacity: 1, x: 0 } : {}}
             transition={{
               duration: 0.8,
-              ease: [0.16, 1, 0.3, 1],
-              delay: 0.15,
+              ease: [0.19, 1, 0.22, 1],
+              delay: 0.2,
             }}
             className="w-full lg:w-[42%] flex flex-col gap-10"
           >
-            {}
-            <div className="bg-white border border-[#e7e2db] rounded-2xl p-8">
-              <p className="text-[10px] font-bold uppercase tracking-widest text-[#a8a29e] mb-4">
-                Let&apos;s Collaborate
+            {/* Info Box */}
+            <div className="relative bg-white border border-[#0d9488]/15 rounded-[32px] p-10 overflow-hidden shadow-[0_8px_30px_-12px_rgba(13,148,136,0.1)] group">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-[#0d9488]/5 rounded-bl-full pointer-events-none transition-transform duration-700 group-hover:scale-150" />
+              <p className="relative z-10 text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-[#0d9488] mb-5">
+                Establish Connection
               </p>
-              <p className="text-[15px] leading-[1.8] text-[#57534e] font-light">
-                Whether it&apos;s a product idea, a freelance project, or just a
-                conversation about tech — my inbox is always open. I&apos;ll
-                respond within 24 hours.
+              <p className="relative z-10 text-base leading-relaxed text-[#57534e] font-light">
+                Whether it&apos;s a product architecture idea, a complex
+                engineering problem, or an overarching aesthetic vision—I am
+                ready to architect the solution. My interface is always
+                pingable.
               </p>
             </div>
 
-            {}
+            {/* Social Links */}
             <div>
-              <p className="text-[10px] font-bold uppercase tracking-widest text-[#a8a29e] mb-5">
-                Find me on
+              <p className="text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-[#a8a29e] mb-6">
+                External Nodes
               </p>
-              <div className="flex flex-col gap-1">
+              <div className="flex flex-col">
                 {SOCIALS.map((s, i) => (
                   <motion.a
                     key={s.label}
                     href={s.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    initial={{ opacity: 0, x: 12 }}
-                    animate={formInView ? { opacity: 1, x: 0 } : {}}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={formInView ? { opacity: 1, y: 0 } : {}}
                     transition={{
                       duration: 0.5,
-                      ease: [0.16, 1, 0.3, 1],
-                      delay: 0.25 + i * 0.08,
+                      ease: [0.19, 1, 0.22, 1],
+                      delay: 0.3 + i * 0.1,
                     }}
-                    className="group flex items-center gap-4 py-3.5 border-b border-[#e7e2db] last:border-b-0 text-[#78716c] hover:text-[#1c1917] transition-colors duration-300"
+                    className="group relative flex items-center justify-between py-5 border-b border-[#0d9488]/10 last:border-b-0 overflow-hidden"
                     style={{ textDecoration: "none" }}
                   >
-                    <span className="transition-colors duration-300 group-hover:text-blue-600">
-                      {s.icon}
-                    </span>
-                    <span className="text-sm font-semibold tracking-wider uppercase">
-                      {s.label}
-                    </span>
-                    <span className="ml-auto text-[#d6cfc5] group-hover:text-blue-600 group-hover:translate-x-1 transition-all duration-300">
-                      →
+                    {/* Hover Sweep BG */}
+                    <span className="absolute inset-0 bg-linear-to-r from-[#0d9488]/5 to-transparent origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-[0.19,1,0.22,1]" />
+
+                    <div className="relative z-10 flex items-center gap-5">
+                      <div className="flex items-center justify-center w-10 h-10 rounded-full bg-[#fdfbf7] border border-[#0d9488]/20 text-[#57534e] group-hover:border-[#0d9488] group-hover:text-[#0d9488] group-hover:scale-110 transition-all duration-400">
+                        {s.icon}
+                      </div>
+                      <span className="text-sm font-bold tracking-wider uppercase text-[#1c1917] group-hover:text-[#0d9488] transition-colors duration-400">
+                        {s.label}
+                      </span>
+                    </div>
+
+                    <span className="relative z-10 text-[#a8a29e] group-hover:text-[#0d9488] group-hover:-rotate-45 transition-all duration-400">
+                      <svg
+                        width="20"
+                        height="20"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M14 5l7 7m0 0l-7 7m7-7H3"
+                        />
+                      </svg>
                     </span>
                   </motion.a>
                 ))}
               </div>
             </div>
 
-            {}
-            <div className="bg-[#f1ede8] rounded-2xl p-6 border border-[#e7e2db]">
-              <p className="text-[10px] font-bold uppercase tracking-widest text-[#a8a29e] mb-2">
-                Or write directly
+            {/* Direct Email Box */}
+            <a
+              href="mailto:musaiyab2003@gmail.com"
+              className="group relative bg-[#0d9488]/5 rounded-[24px] p-8 border border-[#0d9488]/15 overflow-hidden transition-all duration-500 hover:-translate-y-1 hover:shadow-lg hover:border-[#0d9488]/30"
+              style={{ textDecoration: "none" }}
+            >
+              <div className="absolute inset-0 bg-[#0d9488]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <p className="relative z-10 text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-[#0d9488] mb-3">
+                Direct Protocol
               </p>
-              <a
-                href="mailto:musaiyab2003@gmail.com"
-                className="text-sm font-semibold text-[#57534e] hover:text-blue-600 transition-colors duration-300"
-                style={{ textDecoration: "none" }}
-              >
+              <p className="relative z-10 text-base font-semibold text-[#1c1917] tracking-wide group-hover:text-[#0d9488] transition-colors duration-300">
                 musaiyab2003@gmail.com
-              </a>
-            </div>
+              </p>
+            </a>
           </motion.div>
         </div>
 
-        {}
-        <div className="w-full h-px bg-[#e7e2db] mt-24" />
-        <div className="flex items-center justify-between mt-6 pb-4">
-          <span className="text-[10px] font-bold uppercase tracking-widest text-[#a8a29e]">
-            © 2026 Mohd Musaiyab
+        {/* Footer separator */}
+        <div className="w-full h-px bg-linear-to-r from-transparent via-[#0d9488]/20 to-transparent mt-32 mb-8" />
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+          <span className="text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-[#a8a29e]">
+            © {new Date().getFullYear()} Mohd Musaiyab
+          </span>
+          <span className="text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-[#a8a29e]">
+            Architected & Engineered
           </span>
         </div>
       </div>

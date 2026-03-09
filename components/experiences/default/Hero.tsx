@@ -61,257 +61,227 @@ export default function BentoHero() {
   const degrees = getISTDegrees(time);
 
   return (
-    <section className="min-h-screen bg-[#f1ede8] flex items-center justify-center p-4 md:p-8 font-sans text-[#1c1917]">
-      <div className="grid grid-cols-12 gap-3 w-full max-w-[1160px] auto-rows-auto md:grid-rows-[minmax(340px,auto)_180px]">
-        {}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="col-span-12 md:col-span-7 bg-[#faf8f5] border border-[#e7e2db] rounded-[24px] p-8 md:p-12 flex flex-col justify-between"
-        >
-          <div>
-            <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-[#a8a29e] mb-6">
-              Mohd Musaiyab · 2026
-            </div>
-            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tighter leading-[0.95] mb-6">
-              Building systems <br />
-              that{" "}
-              <em className="italic font-light text-blue-600 not-italic">
-                scale.
-              </em>
-            </h1>
-            <div className="flex items-center gap-3 h-6 overflow-hidden mb-6">
-              <div className="w-6 h-[1px] bg-[#a8a29e]" />
-              <AnimatePresence mode="wait">
-                <motion.span
-                  key={ROLES[roleIdx]}
-                  initial={{ y: 10, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: -10, opacity: 0 }}
-                  className="text-sm font-medium text-[#57534e] uppercase tracking-wider"
-                >
-                  {ROLES[roleIdx]}
-                </motion.span>
-              </AnimatePresence>
-            </div>
-            <p className="text-[#57534e] text-sm md:text-base leading-relaxed max-w-[48ch]">
-              I&apos;m a backend-heavy full stack engineer focused on robust
-              infrastructure. Currently specializing in scalable architectures
-              and performant web products.
-            </p>
-          </div>
-          <div className="flex items-center gap-4 mt-8 pt-8 border-t border-[#e7e2db]">
+    <section className="relative min-h-screen flex items-center justify-start p-6 md:p-12 lg:p-24 font-sans text-[#292524] overflow-hidden">
+      {/* Full Background Image */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/default.jpg"
+          alt="Mohd Musaiyab Background"
+          fill
+          priority
+          className="object-cover object-center"
+        />
+        {/* Gradient Overlay for Text Readability - Beige to Cyan blend */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#fdfbf7]/95 via-[#fdfbf7]/80 to-[#0d9488]/30 z-10" />
+      </div>
+
+      {/* Foreground Content */}
+      <div className="relative z-20 w-full max-w-2xl transform -translate-y-16">
+        <div className="flex flex-col">
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1, ease: [0.19, 1, 0.22, 1] }}
+            className="flex items-center gap-2 text-[10px] md:text-xs font-bold uppercase tracking-widest text-[#78716c] mb-6"
+          >
+            Portfolio · {new Date().getFullYear()}
+          </motion.div>
+
+          <h1 className="text-6xl md:text-8xl lg:text-9xl font-extrabold tracking-tighter leading-[0.9] mb-6 drop-shadow-sm text-[#1c1917]">
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.8,
+                delay: 0.2,
+                ease: [0.19, 1, 0.22, 1],
+              }}
+            >
+              Mohd
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.8,
+                delay: 0.3,
+                ease: [0.19, 1, 0.22, 1],
+              }}
+            >
+              Musaiyab<span className="text-[#0d9488]">.</span>
+            </motion.div>
+          </h1>
+
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.5, ease: [0.19, 1, 0.22, 1] }}
+            className="flex items-center gap-4 h-8 overflow-hidden mb-6"
+          >
+            <div className="w-8 h-[2px] bg-[#0d9488]" />
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={ROLES[roleIdx]}
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: -20, opacity: 0 }}
+                transition={{ duration: 0.4, ease: [0.19, 1, 0.22, 1] }}
+                className="text-base md:text-xl font-medium text-[#57534e] uppercase tracking-wider drop-shadow-sm"
+              >
+                {ROLES[roleIdx]}
+              </motion.span>
+            </AnimatePresence>
+          </motion.div>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6, ease: [0.19, 1, 0.22, 1] }}
+            className="text-[#57534e] text-base md:text-lg lg:text-xl leading-relaxed max-w-[45ch] mb-10 drop-shadow-sm font-light"
+          >
+            I&apos;m a backend-heavy full stack engineer focused on robust
+            infrastructure. Currently specializing in scalable architectures and
+            performant web products.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.7, ease: [0.19, 1, 0.22, 1] }}
+            className="flex flex-wrap items-center gap-5"
+          >
             <a
               href="#projects"
-              className="bg-[#1c1917] text-white px-6 py-3 rounded-xl text-xs font-bold hover:scale-[1.02] transition-transform"
+              className="bg-[#1c1917] text-white px-8 py-4 rounded-xl text-sm md:text-base font-bold transition-all hover:scale-[1.02] shadow-xl hover:shadow-[#1c1917]/20"
             >
               View Projects ↗
             </a>
             <a
               href="/resume.pdf"
-              className="border border-[#e7e2db] px-6 py-3 rounded-xl text-xs font-bold text-[#57534e] hover:bg-[#f1ede8] transition-colors"
+              className="bg-white/60 backdrop-blur-md border border-[#0d9488]/20 px-8 py-4 rounded-xl text-sm md:text-base font-bold text-[#0d9488] hover:bg-white/90 hover:border-[#0d9488]/40 transition-all hover:scale-[1.02] shadow-[0_4px_20px_-4px_rgba(13,148,136,0.15)]"
             >
               Resume
             </a>
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
+      </div>
 
-        {}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="col-span-12 md:col-span-5 relative bg-[#d8d0c8] rounded-[24px] overflow-hidden group min-h-[300px]"
-        >
-          <Image
-            src="/personal1.jpg"
-            alt="Mohd Musaiyab"
-            fill
-            className="object-cover object-top group-hover:scale-105 transition-transform duration-700"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-        </motion.div>
-
-        {}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="col-span-12 md:col-span-4 bg-[#faf8f5] border border-[#e7e2db] rounded-[24px] flex flex-col overflow-hidden"
-        >
-          <div className="px-6 py-4 border-b border-[#e7e2db] text-[10px] font-bold uppercase tracking-widest text-[#a8a29e]">
-            Currently Learning
-          </div>
-          <div className="flex-1 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-            <div className="flex flex-col">
-              {FLOW_ITEMS.map((item, i) => (
-                <div
-                  key={i}
-                  className="px-6 py-3.5 border-b border-[#e7e2db] last:border-none text-xs font-semibold flex items-center justify-between group cursor-default hover:bg-[#f1ede8] transition-colors"
-                >
-                  {item}
-                  <span className="text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity">
-                    ↗
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </motion.div>
-
-        {}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.25 }}
-          className="col-span-12 md:col-span-3 bg-[#faf8f5] border border-[#e7e2db] rounded-[24px] p-6 flex flex-col overflow-hidden"
-        >
-          <div className="text-[10px] font-bold uppercase tracking-widest text-[#a8a29e] mb-2">
-            Connect
-          </div>
-          <p className="text-[11px] text-[#78716c] leading-relaxed mb-4">
-            Let&apos;s build something together — find me on these platforms.
+      {/* Floating Elements */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.6 }}
+        className="absolute bottom-8 right-8 z-20 hidden md:flex items-center gap-6 bg-[#fdfbf7]/80 backdrop-blur-xl border border-[#e7e5e4] rounded-[24px] p-6 shadow-[0_8px_30px_rgb(0,0,0,0.08)]"
+      >
+        <div className="flex flex-col gap-1">
+          <p className="text-[10px] font-bold uppercase tracking-widest text-[#a8a29e]">
+            Location
           </p>
-          <div className="flex flex-row flex-wrap gap-2 mt-auto">
-            <a
-              href="https://github.com/MohdMusaiyab"
-              target="_blank"
-              aria-label="GitHub"
-              className="flex items-center justify-center w-12 h-12 rounded-xl border border-[#e7e2db] hover:bg-[#f1ede8] hover:scale-110 transition-all duration-200 group"
-            >
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="text-[#57534e] group-hover:text-blue-500 transition-colors"
-              >
-                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-              </svg>
-            </a>
-            <a
-              href="https://linkedin.com"
-              target="_blank"
-              aria-label="LinkedIn"
-              className="flex items-center justify-center w-12 h-12 rounded-xl border border-[#e7e2db] hover:bg-[#f1ede8] hover:scale-110 transition-all duration-200 group"
-            >
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="text-[#57534e] group-hover:text-blue-500 transition-colors"
-              >
-                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                <rect x="2" y="9" width="4" height="12"></rect>
-                <circle cx="4" cy="4" r="2"></circle>
-              </svg>
-            </a>
-            <a
-              href="https://x.com"
-              target="_blank"
-              aria-label="Twitter"
-              className="flex items-center justify-center w-12 h-12 rounded-xl border border-[#e7e2db] hover:bg-[#f1ede8] hover:scale-110 transition-all duration-200 group"
-            >
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="text-[#57534e] group-hover:text-blue-500 transition-colors"
-              >
-                <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
-              </svg>
-            </a>
-          </div>
-        </motion.div>
-
-        {}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="col-span-12 md:col-span-5 bg-[#1c1917] rounded-[24px] p-6 flex items-center justify-between"
-        >
-          <div className="flex flex-col gap-1">
-            <p className="text-[10px] font-bold uppercase tracking-widest text-white/30">
-              Location
+          <p className="text-[#1c1917] font-bold text-base">Pune, IN</p>
+          <div className="flex items-center gap-3 mt-1 group cursor-default">
+            {/* Clock Face */}
+            <div className="relative w-5 h-5 rounded-full border border-[#0d9488]/40 flex items-center justify-center bg-white shadow-inner group-hover:border-[#0d9488]/80 group-hover:scale-110 group-hover:shadow-[0_0_10px_rgba(13,148,136,0.2)] transition-all duration-300">
+              {/* Hours */}
+              <div
+                className="absolute w-[2px] h-[5px] bg-[#1c1917] origin-bottom rounded-full"
+                style={{
+                  transform: `translateY(-2.5px) rotate(${degrees.h}deg)`,
+                }}
+              />
+              {/* Minutes */}
+              <div
+                className="absolute w-[1.5px] h-[7px] bg-[#57534e] origin-bottom rounded-full"
+                style={{
+                  transform: `translateY(-3.5px) rotate(${degrees.m}deg)`,
+                }}
+              />
+              {/* Seconds */}
+              <div
+                className="absolute w-[1px] h-[9px] bg-[#0d9488] origin-bottom rounded-full"
+                style={{
+                  transform: `translateY(-4.5px) rotate(${degrees.s}deg)`,
+                }}
+              />
+              <div className="absolute w-[3px] h-[3px] bg-[#1c1917] rounded-full z-10" />
+            </div>
+            <p className="text-[#57534e] text-xs font-mono leading-none">
+              {time ? formatIST(time) : "--:--:--"} IST
             </p>
-            <p className="text-white font-bold text-sm">Pune, IN</p>
-            <div className="flex items-center gap-2 mt-1">
-              {}
-              <div className="relative w-4 h-4 rounded-full border border-white/40 flex items-center justify-center bg-white/5 shadow-inner">
-                {}
-                <div
-                  className="absolute w-[1.5px] h-[4px] bg-white origin-bottom rounded-full"
-                  style={{
-                    transform: `translateY(-2px) rotate(${degrees.h}deg)`,
-                  }}
-                />
-                {}
-                <div
-                  className="absolute w-[1px] h-[6px] bg-white/80 origin-bottom rounded-full"
-                  style={{
-                    transform: `translateY(-3px) rotate(${degrees.m}deg)`,
-                  }}
-                />
-                {}
-                <div
-                  className="absolute w-[0.5px] h-[7px] bg-[#93E7FB] origin-bottom rounded-full"
-                  style={{
-                    transform: `translateY(-3.5px) rotate(${degrees.s}deg)`,
-                  }}
-                />
-                {}
-                <div className="absolute w-[2px] h-[2px] bg-white rounded-full z-10" />
-              </div>
-              <p className="text-white/40 text-[10px] font-mono leading-none">
-                {time ? formatIST(time) : "--:--:--"} IST
-              </p>
-            </div>
           </div>
-
-          <div className="h-8 w-[1px] bg-white/10" />
-
-          <div className="flex gap-6">
-            <div className="text-center">
-              <p className="text-xl font-bold text-white tracking-tighter">
-                1<sup className="text-[10px] text-blue-400 ml-0.5">YR</sup>
-              </p>
-              <p className="text-[9px] uppercase font-bold tracking-widest text-white/30">
-                Exp
-              </p>
-            </div>
-            <div className="text-center">
-              <p className="text-xl font-bold text-white tracking-tighter">
-                12<sup className="text-[10px] text-blue-400 ml-0.5">+</sup>
-              </p>
-              <p className="text-[9px] uppercase font-bold tracking-widest text-white/30">
-                Projects
-              </p>
-            </div>
-          </div>
-
-          <div className="bg-white/5 border border-white/10 px-3 py-2 rounded-xl flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-            <span className="text-[9px] text-white/80 font-bold uppercase tracking-widest">
+          <div className="h-12 w-px bg-[#e7e5e4]" />
+          <div className="flex items-center gap-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#0d9488] animate-pulse shadow-[0_0_10px_rgba(13,148,136,0.5)]" />
+            <span className="text-[10px] text-[#57534e] font-bold uppercase tracking-wider">
               Active
             </span>
           </div>
-        </motion.div>
-      </div>
+        </div>
+        <div className="h-12 w-px bg-[#e7e5e4]" />
+        <div className="flex gap-4">
+          <a
+            href="https://github.com/MohdMusaiyab"
+            target="_blank"
+            aria-label="GitHub"
+            className="group"
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="text-[#57534e] group-hover:text-[#1c1917] transition-colors"
+            >
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+            </svg>
+          </a>
+          <a
+            href="https://linkedin.com"
+            target="_blank"
+            aria-label="LinkedIn"
+            className="group"
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="text-[#57534e] group-hover:text-[#0d9488] transition-colors"
+            >
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+              <rect x="2" y="9" width="4" height="12"></rect>
+              <circle cx="4" cy="4" r="2"></circle>
+            </svg>
+          </a>
+          <a
+            href="https://x.com"
+            target="_blank"
+            aria-label="Twitter"
+            className="group"
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="text-[#57534e] group-hover:text-black transition-colors"
+            >
+              <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
+            </svg>
+          </a>
+        </div>
+      </motion.div>
     </section>
   );
 }

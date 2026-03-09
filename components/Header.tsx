@@ -14,8 +14,8 @@ const NAV = [
 function IconBriefcase() {
   return (
     <svg
-      width="18"
-      height="18"
+      width="20"
+      height="20"
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
@@ -32,8 +32,8 @@ function IconBriefcase() {
 function IconTimeline() {
   return (
     <svg
-      width="18"
-      height="18"
+      width="20"
+      height="20"
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
@@ -50,8 +50,8 @@ function IconTimeline() {
 function IconStar() {
   return (
     <svg
-      width="18"
-      height="18"
+      width="20"
+      height="20"
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
@@ -64,8 +64,8 @@ function IconStar() {
 function IconMail() {
   return (
     <svg
-      width="18"
-      height="18"
+      width="20"
+      height="20"
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
@@ -80,8 +80,8 @@ function IconMail() {
 function IconGraduate() {
   return (
     <svg
-      width="18"
-      height="18"
+      width="20"
+      height="20"
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
@@ -109,8 +109,8 @@ const MOB_NAV = [
 function IconSnow() {
   return (
     <svg
-      width="15"
-      height="15"
+      width="16"
+      height="16"
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
@@ -127,8 +127,8 @@ function IconSnow() {
 function IconSun() {
   return (
     <svg
-      width="15"
-      height="15"
+      width="16"
+      height="16"
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
@@ -186,84 +186,35 @@ export default function Header() {
 
   const toggleTheme = () => setExperience(isWinter ? "default" : "winter");
 
-  const ink = isWinter ? "rgba(255,255,255,0.85)" : "#1c1917";
-  const inkDim = isWinter ? "rgba(255,255,255,0.4)" : "#a8a29e";
-  const bg = scrolled
-    ? isWinter
-      ? "rgba(10,10,10,0.75)"
-      : "rgba(250,248,245,0.8)"
-    : "transparent";
-  const border = scrolled
-    ? isWinter
-      ? "rgba(255,255,255,0.07)"
-      : "rgba(28,25,23,0.08)"
-    : "transparent";
-
   if (!mounted) return null;
 
   return (
     <>
-      <style>{`
-        #site-header-desktop { display: none; }
-        #site-nav-mobile     { display: flex; }
-        @media (min-width: 768px) {
-          #site-header-desktop { display: flex; }
-          #site-nav-mobile     { display: none; }
-        }
-      `}</style>
-      {/* Desktop / tablet header */}
+      {/* --- DESKTOP HEADER --- */}
       <header
         id="site-header-desktop"
-        aria-label="Site navigation"
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          right: 0,
-          zIndex: 100,
-          alignItems: "center",
-          justifyContent: "space-between",
-          padding: "0 clamp(1.25rem, 4vw, 3rem)",
-          height: "60px",
-          background: bg,
-          borderBottom: `1px solid ${border}`,
-          backdropFilter: scrolled ? "blur(18px) saturate(160%)" : "none",
-          WebkitBackdropFilter: scrolled ? "blur(18px) saturate(160%)" : "none",
-          transition:
-            "background 0.35s ease, border-color 0.35s ease, backdrop-filter 0.35s ease",
-          willChange: "background",
-        }}
+        className={`fixed top-0 left-0 right-0 z-50 hidden md:flex items-center justify-between px-6 lg:px-12 h-20 transition-all duration-500 ${
+          scrolled
+            ? isWinter
+              ? "bg-[#09090b]/80 backdrop-blur-xl border-b border-white/10"
+              : "bg-[#fdfbf7]/80 backdrop-blur-xl border-b border-[#1c1917]/10"
+            : "bg-transparent border-b border-transparent"
+        }`}
       >
-        {}
+        {/* Logo */}
         <a
           href="#"
           aria-label="Back to top"
-          style={{
-            fontFamily: "var(--font-cinzel), serif",
-            fontSize: "0.88rem",
-            fontWeight: 700,
-            letterSpacing: "0.15em",
-            color: ink,
-            textDecoration: "none",
-            transition: "opacity 0.2s",
-          }}
-          onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.6")}
-          onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+          className={`font-serif text-lg lg:text-xl font-bold tracking-[0.15em] transition-opacity hover:opacity-70 ${
+            isWinter ? "text-white" : "text-[#1c1917]"
+          }`}
         >
           MM
         </a>
 
-        {}
-        <nav>
-          <ul
-            style={{
-              display: "flex",
-              gap: "2rem",
-              listStyle: "none",
-              margin: 0,
-              padding: 0,
-            }}
-          >
+        {/* Desktop Nav Links */}
+        <nav className="absolute left-1/2 -translate-x-1/2 hidden lg:block">
+          <ul className="flex items-center gap-10 list-none m-0 p-0">
             {NAV.map(({ label, href }) => {
               const id = href.replace("#", "");
               const isActive = active === id;
@@ -271,41 +222,22 @@ export default function Header() {
                 <li key={href}>
                   <a
                     href={href}
-                    style={{
-                      fontFamily: "var(--font-dm-mono), monospace",
-                      fontSize: "0.7rem",
-                      fontWeight: 600,
-                      letterSpacing: "0.1em",
-                      textTransform: "uppercase",
-                      color: isActive ? ink : inkDim,
-                      textDecoration: "none",
-                      position: "relative",
-                      paddingBottom: "2px",
-                      transition: "color 0.2s",
-                    }}
-                    onMouseEnter={(e) =>
-                      ((e.currentTarget as HTMLElement).style.color = ink)
-                    }
-                    onMouseLeave={(e) =>
-                      ((e.currentTarget as HTMLElement).style.color = isActive
-                        ? ink
-                        : inkDim)
-                    }
+                    className={`relative font-mono text-[11px] font-bold tracking-[0.15em] uppercase transition-colors duration-300 pb-1 ${
+                      isActive
+                        ? isWinter
+                          ? "text-white"
+                          : "text-[#0d9488]"
+                        : isWinter
+                          ? "text-white/50 hover:text-white"
+                          : "text-[#78716c] hover:text-[#1c1917]"
+                    }`}
                   >
                     {label}
-                    {}
+                    {/* Active Underline */}
                     <span
-                      style={{
-                        position: "absolute",
-                        bottom: 0,
-                        left: 0,
-                        right: 0,
-                        height: "1px",
-                        background: ink,
-                        transform: isActive ? "scaleX(1)" : "scaleX(0)",
-                        transformOrigin: "left",
-                        transition: "transform 0.3s ease",
-                      }}
+                      className={`absolute bottom-0 left-0 right-0 h-px transform origin-left transition-transform duration-300 ease-out ${
+                        isActive ? "scale-x-100" : "scale-x-0"
+                      } ${isWinter ? "bg-white" : "bg-[#0d9488]"}`}
                     />
                   </a>
                 </li>
@@ -314,156 +246,96 @@ export default function Header() {
           </ul>
         </nav>
 
-        {}
+        {/* Theme Toggle Button */}
         <button
           onClick={toggleTheme}
           aria-label={`Switch to ${isWinter ? "Default" : "Dark"} theme`}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "0.45rem",
-            fontFamily: "var(--font-dm-mono), monospace",
-            fontSize: "0.65rem",
-            fontWeight: 600,
-            letterSpacing: "0.12em",
-            textTransform: "uppercase",
-            color: inkDim,
-            background: "transparent",
-            border: `1px solid ${border || (isWinter ? "rgba(255,255,255,0.12)" : "rgba(28,25,23,0.12)")}`,
-            borderRadius: "100px",
-            padding: "0.38em 0.9em",
-            cursor: "pointer",
-            transition: "color 0.2s, border-color 0.2s, background 0.2s",
-          }}
-          onMouseEnter={(e) => {
-            const el = e.currentTarget;
-            el.style.color = ink;
-            el.style.borderColor = ink;
-          }}
-          onMouseLeave={(e) => {
-            const el = e.currentTarget;
-            el.style.color = inkDim;
-            el.style.borderColor =
-              border ||
-              (isWinter ? "rgba(255,255,255,0.12)" : "rgba(28,25,23,0.12)");
-          }}
+          className={`flex items-center gap-2.5 font-mono text-[10px] font-bold uppercase tracking-[0.15em] px-4 py-2 rounded-full border transition-all duration-300 ${
+            isWinter
+              ? "text-white/70 border-white/20 hover:text-white hover:border-white hover:bg-white/5"
+              : "text-[#1c1917] bg-white/70 backdrop-blur-md border-[#1c1917]/10 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] hover:bg-white/90 hover:scale-[1.02]"
+          }`}
         >
           {isWinter ? <IconSun /> : <IconSnow />}
-          {isWinter ? "Default" : "Dark"}
+          {isWinter ? "Default Theme" : "Dark Theme"}
         </button>
       </header>
 
-      {}
+      {/* --- MOBILE FLOATING DOCK --- */}
       <nav
         id="site-nav-mobile"
         aria-label="Mobile navigation"
-        style={{
-          position: "fixed",
-          bottom: "env(safe-area-inset-bottom, 0px)",
-          left: "50%",
-          transform: "translateX(-50%)",
-          zIndex: 100,
-          marginBottom: "16px",
-
-          alignItems: "center",
-          gap: "4px",
-
-          background: isWinter
-            ? "rgba(12,12,12,0.88)"
-            : "rgba(250,248,245,0.92)",
-          border: `1px solid ${isWinter ? "rgba(255,255,255,0.1)" : "rgba(28,25,23,0.1)"}`,
-          borderRadius: "100px",
-          padding: "6px 10px",
-          backdropFilter: "blur(20px) saturate(160%)",
-          WebkitBackdropFilter: "blur(20px) saturate(160%)",
-          boxShadow: isWinter
-            ? "0 8px 32px rgba(0,0,0,0.5)"
-            : "0 8px 32px rgba(0,0,0,0.12)",
-        }}
+        style={{ paddingBottom: "env(safe-area-inset-bottom, 16px)" }}
+        className={`fixed bottom-0 left-0 right-0 z-50 flex md:hidden justify-center items-end pointer-events-none pb-6`}
       >
-        {MOB_NAV.map(({ label, href, Icon }) => (
-          <a
-            key={href}
-            href={href}
-            aria-label={label}
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              gap: "2px",
-              padding: "8px 14px",
-              borderRadius: "100px",
-              color: active === href.replace("#", "") ? ink : inkDim,
-              textDecoration: "none",
-              background:
-                active === href.replace("#", "")
-                  ? isWinter
-                    ? "rgba(255,255,255,0.08)"
-                    : "rgba(28,25,23,0.07)"
-                  : "transparent",
-              transition: "color 0.2s, background 0.2s",
-            }}
-          >
-            <Icon />
-            <span
-              style={{
-                fontSize: "8px",
-                fontFamily: "var(--font-dm-mono), monospace",
-                fontWeight: 700,
-                letterSpacing: "0.08em",
-                textTransform: "uppercase",
-              }}
-            >
-              {label}
-            </span>
-          </a>
-        ))}
-
-        {}
         <div
-          style={{
-            width: "1px",
-            height: "24px",
-            background: isWinter ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)",
-            margin: "0 2px",
-          }}
-        />
-        <button
-          onClick={toggleTheme}
-          aria-label={`Switch to ${isWinter ? "Default" : "Dark"} theme`}
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: "2px",
-            padding: "8px 14px",
-            borderRadius: "100px",
-            background: "transparent",
-            border: "none",
-            cursor: "pointer",
-            color: inkDim,
-            transition: "color 0.2s",
-          }}
-          onMouseEnter={(e) =>
-            ((e.currentTarget as HTMLButtonElement).style.color = ink)
-          }
-          onMouseLeave={(e) =>
-            ((e.currentTarget as HTMLButtonElement).style.color = inkDim)
-          }
+          className={`pointer-events-auto flex items-center gap-1.5 px-3 py-2.5 rounded-[24px] shadow-2xl backdrop-blur-2xl border transition-colors duration-500 ${
+            isWinter
+              ? "bg-black/60 border-white/10 shadow-black/80"
+              : "bg-white/80 border-[#1c1917]/10 shadow-[#1c1917]/10"
+          }`}
         >
-          {isWinter ? <IconSun /> : <IconSnow />}
-          <span
-            style={{
-              fontSize: "8px",
-              fontFamily: "var(--font-dm-mono), monospace",
-              fontWeight: 700,
-              letterSpacing: "0.08em",
-              textTransform: "uppercase",
-            }}
+          {MOB_NAV.map(({ label, href, Icon }) => {
+            const id = href.replace("#", "");
+            const isActive = active === id;
+            return (
+              <a
+                key={href}
+                href={href}
+                aria-label={label}
+                className={`group flex flex-col items-center gap-1.5 p-2 rounded-xl transition-all duration-300 ${
+                  isActive
+                    ? isWinter
+                      ? "bg-white/10 text-white"
+                      : "bg-[#0d9488]/10 text-[#0d9488]"
+                    : isWinter
+                      ? "text-white/50 hover:text-white hover:bg-white/5"
+                      : "text-[#78716c] hover:text-[#1c1917] hover:bg-[#1c1917]/5"
+                }`}
+              >
+                <div
+                  className={`transition-transform duration-300 ${
+                    isActive ? "scale-110" : "group-hover:scale-110"
+                  }`}
+                >
+                  <Icon />
+                </div>
+                {/* 
+                  Hide labels on very small screens, show on slightly larger ones. 
+                  Currently opted to keep them hidden strictly to keep the dock minimalist, 
+                  but we can add a visual indicator (dot) instead.
+                */}
+                {isActive && (
+                  <span
+                    className={`w-1 h-1 rounded-full animate-pulse mt-0.5 ${
+                      isWinter ? "bg-white" : "bg-[#0d9488]"
+                    }`}
+                  />
+                )}
+              </a>
+            );
+          })}
+
+          <div
+            className={`w-px h-8 mx-1 ${
+              isWinter ? "bg-white/10" : "bg-[#1c1917]/10"
+            }`}
+          />
+
+          <button
+            onClick={toggleTheme}
+            aria-label={`Switch to ${isWinter ? "Default" : "Dark"} theme`}
+            className={`group flex flex-col items-center gap-1.5 p-2 rounded-xl transition-all duration-300 ${
+              isWinter
+                ? "text-white/50 hover:text-white hover:bg-white/5"
+                : "text-[#78716c] hover:text-[#1c1917] hover:bg-[#1c1917]/5"
+            }`}
           >
-            {isWinter ? "Light" : "Dark"}
-          </span>
-        </button>
+            <div className="transition-transform duration-300 group-hover:rotate-45">
+              {isWinter ? <IconSun /> : <IconSnow />}
+            </div>
+          </button>
+        </div>
       </nav>
     </>
   );

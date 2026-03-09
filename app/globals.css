@@ -20,20 +20,13 @@
 }
 
 :root[data-experience="default"] {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root[data-experience="default"] {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --background: #fdfbf7;
+  --foreground: #1c1917;
 }
 
 :root[data-experience="winter"] {
-  --background: #0a0a0a;
-  --foreground: #f5f0e8;
+  --background: #111111;
+  --foreground: #f8fafc;
 }
 
 body {

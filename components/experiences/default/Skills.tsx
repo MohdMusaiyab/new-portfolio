@@ -1,128 +1,165 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import skillsData from "@/app/data/skills.json";
 
-const CATEGORY_ACCENTS: Record<
-  string,
-  { bg: string; border: string; text: string; dot: string }
-> = {
-  "Programming Languages": {
-    bg: "bg-violet-50",
-    border: "border-violet-200",
-    text: "text-violet-600",
-    dot: "bg-violet-400",
-  },
-  "Backend Development": {
-    bg: "bg-sky-50",
-    border: "border-sky-200",
-    text: "text-sky-600",
-    dot: "bg-sky-400",
-  },
-  "Databases and ORM": {
-    bg: "bg-emerald-50",
-    border: "border-emerald-200",
-    text: "text-emerald-600",
-    dot: "bg-emerald-400",
-  },
-  "DevOps and Tools": {
-    bg: "bg-amber-50",
-    border: "border-amber-200",
-    text: "text-amber-600",
-    dot: "bg-amber-400",
-  },
-  "Frontend Development": {
-    bg: "bg-rose-50",
-    border: "border-rose-200",
-    text: "text-rose-600",
-    dot: "bg-rose-400",
-  },
-  "Core Competencies": {
-    bg: "bg-indigo-50",
-    border: "border-indigo-200",
-    text: "text-indigo-600",
-    dot: "bg-indigo-400",
-  },
-};
+function SkillNode({ name, delay = 0 }: { name: string; delay?: number }) {
+  const [hovered, setHovered] = useState(false);
 
-const fallbackAccent = {
-  bg: "bg-blue-50",
-  border: "border-blue-200",
-  text: "text-blue-600",
-  dot: "bg-blue-400",
-};
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 15 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-20px" }}
+      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1], delay }}
+      onHoverStart={() => setHovered(true)}
+      onHoverEnd={() => setHovered(false)}
+      className="relative z-10 inline-flex items-center justify-center px-4 md:px-5 py-2.5 bg-[#fdfbf7] border border-[#0d9488]/15 cursor-default group/node"
+    >
+      {/* SVG Trace Container */}
+      <svg
+        aria-hidden="true"
+        className="absolute inset-0 w-full h-full overflow-visible pointer-events-none"
+      >
+        {/* Glow Layer */}
+        <motion.rect
+          x="0"
+          y="0"
+          width="100%"
+          height="100%"
+          fill="none"
+          stroke="#0d9488"
+          strokeWidth="4"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{
+            pathLength: hovered ? 1 : 0,
+            opacity: hovered ? 0.3 : 0,
+          }}
+          transition={{
+            pathLength: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
+            opacity: { duration: 0.15 },
+          }}
+          className="blur-sm"
+        />
+
+        {/* Sharp inner line */}
+        <motion.rect
+          x="0"
+          y="0"
+          width="100%"
+          height="100%"
+          fill="none"
+          stroke="#0d9488"
+          strokeWidth="1.5"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{
+            pathLength: hovered ? 1 : 0,
+            opacity: hovered ? 1 : 0,
+          }}
+          transition={{
+            pathLength: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
+            opacity: { duration: 0.08 },
+          }}
+        />
+      </svg>
+
+      {/* Subtle inner glow on hover */}
+      <span
+        className={`absolute inset-0 bg-linear-to-b from-transparent to-[#0d9488]/10 transition-opacity duration-300 pointer-events-none ${
+          hovered ? "opacity-100" : "opacity-0"
+        }`}
+      />
+
+      <span
+        className={`relative z-10 text-xs md:text-sm font-bold tracking-wide transition-colors duration-300 ${
+          hovered ? "text-[#0d9488]" : "text-[#57534e]"
+        }`}
+      >
+        {name}
+      </span>
+    </motion.div>
+  );
+}
 
 export default function DefaultSkills() {
   return (
     <section
       id="skills"
-      className="w-full bg-[#f8f6f3] py-24 md:py-32 text-[#1c1917] font-sans"
+      className="relative w-full bg-[#fdfbf7] py-20 md:py-32 text-[#1c1917] font-sans overflow-hidden selection:bg-[#0d9488] selection:text-[#fdfbf7]"
     >
-      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16">
-        {}
+      {/* Background Architectural Elements */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        <div className="absolute bottom-0 left-[15%] top-0 w-px bg-[#0d9488]/10" />
+        <div className="absolute top-1/2 right-[-10%] w-[35vw] h-[35vw] bg-[#0d9488]/5 blur-[120px] rounded-full -translate-y-1/2" />
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-5 md:px-12 lg:px-16">
+        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
-          className="mb-16 md:mb-20"
+          className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 md:mb-28"
         >
-          <div className="flex items-center gap-3 mb-5">
-            <span className="w-8 h-px bg-[#a8a29e]" />
-            <span className="text-[10px] font-bold uppercase tracking-widest text-[#a8a29e]">
-              Technical Arsenal
-            </span>
+          <div>
+            <div className="flex items-center gap-3 mb-4 md:mb-6">
+              <span className="w-10 md:w-12 h-px bg-[#0d9488]" />
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#0d9488]">
+                Technical Arsenal
+              </span>
+            </div>
+            <h3 className="text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter leading-[0.85] text-[#1c1917]">
+              Tools I <br />
+              <span className="text-transparent bg-clip-text bg-linear-to-r from-[#0d9488] to-[#042f2e]">
+                Wield.
+              </span>
+            </h3>
           </div>
-          <h3 className="text-5xl md:text-7xl font-extrabold tracking-tighter leading-[0.9]">
-            Tools I <br />
-            <span className="font-light text-blue-600">wield.</span>
-          </h3>
+          <p className="max-w-[42ch] text-[#57534e] text-sm md:text-base lg:text-lg font-light leading-relaxed pb-2 md:text-right">
+            A comprehensive mapping of my technical capabilities, structured as
+            interconnected skill nodes.
+          </p>
         </motion.div>
 
-        {}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {skillsData.skills.map((category, cIdx) => {
-            const accent = CATEGORY_ACCENTS[category.name] || fallbackAccent;
-
-            return (
-              <motion.div
-                key={cIdx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ delay: Math.min(cIdx * 0.07, 0.35) }}
-                className="bg-[#faf8f5] border border-[#e7e2db] rounded-2xl p-6 hover:border-[#d6cfc5] hover:shadow-lg hover:shadow-stone-200/40 transition-all duration-400 group"
-              >
-                {}
-                <div className="flex items-center gap-2.5 mb-5">
-                  <span className={`w-2 h-2 rounded-full ${accent.dot}`} />
-                  <h4 className="text-xs font-bold uppercase tracking-widest text-[#78716c]">
-                    {category.name}
-                  </h4>
+        {/* Skills Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12 md:gap-y-16">
+          {skillsData.skills.map((category, cIdx) => (
+            <motion.div
+              key={cIdx}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{
+                delay: Math.min(cIdx * 0.1, 0.4),
+                ease: [0.19, 1, 0.22, 1],
+                duration: 0.6,
+              }}
+              className="relative flex flex-col pt-4 md:pt-6 group"
+            >
+              {/* Category Header */}
+              <div className="absolute top-0 left-0 right-0 flex items-center gap-4 border-b border-[#0d9488]/15 pb-4">
+                <div className="relative w-2 h-2 md:w-3 md:h-3 flex items-center justify-center">
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#0d9488] z-10" />
+                  <div className="absolute inset-0 border border-[#0d9488]/40 rounded-full animate-ping opacity-50" />
                 </div>
+                <h4 className="text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-[#1c1917] group-hover:text-[#0d9488] transition-colors duration-300">
+                  {category.name}
+                </h4>
+              </div>
 
-                {}
-                <div className="flex flex-wrap gap-2">
-                  {category.skills.map((skill, sIdx) => (
-                    <span
-                      key={sIdx}
-                      className={`
-                        inline-flex items-center gap-1.5
-                        px-3.5 py-2
-                        ${accent.bg} ${accent.border} border
-                        rounded-xl
-                        text-[12px] font-semibold ${accent.text}
-                        cursor-default
-                        hover:-translate-y-0.5 hover:shadow-md
-                        transition-all duration-300 ease-out
-                      `}
-                    >
-                      {skill.name}
-                    </span>
-                  ))}
-                </div>
-              </motion.div>
-            );
-          })}
+              {/* Skills Nodes container */}
+              <div className="flex flex-wrap gap-2 md:gap-3 pt-10 md:pt-12">
+                {category.skills.map((skill, sIdx) => (
+                  <SkillNode
+                    key={sIdx}
+                    name={skill.name}
+                    delay={cIdx * 0.05 + sIdx * 0.03}
+                  />
+                ))}
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
