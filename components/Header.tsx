@@ -76,7 +76,6 @@ function IconMail() {
     </svg>
   );
 }
-
 function IconGraduate() {
   return (
     <svg
@@ -156,9 +155,7 @@ export default function Header() {
   const raf = useRef<number | null>(null);
   const isWinter = activeExperience === "winter";
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  useEffect(() => setMounted(true), []);
 
   useEffect(() => {
     const onScroll = () => {
@@ -186,17 +183,19 @@ export default function Header() {
 
   const toggleTheme = () => setExperience(isWinter ? "default" : "winter");
 
-  const ink = isWinter ? "rgba(255,255,255,0.85)" : "#1c1917";
-  const inkDim = isWinter ? "rgba(255,255,255,0.4)" : "#a8a29e";
+  const ink = isWinter ? "#ffffff" : "#0f172a";
+  const inkDim = isWinter ? "rgba(255,255,255,0.5)" : "#94a3b8";
+
+  // Clean white glass for default, dark glass for winter
   const bg = scrolled
     ? isWinter
-      ? "rgba(10,10,10,0.75)"
-      : "rgba(250,248,245,0.8)"
+      ? "rgba(15,23,42,0.85)"
+      : "rgba(255,255,255,0.9)"
     : "transparent";
   const border = scrolled
     ? isWinter
-      ? "rgba(255,255,255,0.07)"
-      : "rgba(28,25,23,0.08)"
+      ? "rgba(255,255,255,0.1)"
+      : "rgba(15,23,42,0.08)"
     : "transparent";
 
   if (!mounted) return null;
@@ -224,24 +223,23 @@ export default function Header() {
           alignItems: "center",
           justifyContent: "space-between",
           padding: "0 clamp(1.25rem, 4vw, 3rem)",
-          height: "60px",
+          height: "64px",
           background: bg,
           borderBottom: `1px solid ${border}`,
-          backdropFilter: scrolled ? "blur(18px) saturate(160%)" : "none",
-          WebkitBackdropFilter: scrolled ? "blur(18px) saturate(160%)" : "none",
+          backdropFilter: scrolled ? "blur(20px) saturate(180%)" : "none",
+          WebkitBackdropFilter: scrolled ? "blur(20px) saturate(180%)" : "none",
           transition:
-            "background 0.35s ease, border-color 0.35s ease, backdrop-filter 0.35s ease",
+            "background 0.4s ease, border-color 0.4s ease, backdrop-filter 0.4s ease",
           willChange: "background",
         }}
       >
-        {}
         <a
           href="#"
           aria-label="Back to top"
           style={{
             fontFamily: "var(--font-cinzel), serif",
-            fontSize: "0.88rem",
-            fontWeight: 700,
+            fontSize: "0.95rem",
+            fontWeight: 800,
             letterSpacing: "0.15em",
             color: ink,
             textDecoration: "none",
@@ -253,12 +251,11 @@ export default function Header() {
           MM
         </a>
 
-        {}
         <nav>
           <ul
             style={{
               display: "flex",
-              gap: "2rem",
+              gap: "2.5rem",
               listStyle: "none",
               margin: 0,
               padding: 0,
@@ -273,15 +270,15 @@ export default function Header() {
                     href={href}
                     style={{
                       fontFamily: "var(--font-dm-mono), monospace",
-                      fontSize: "0.7rem",
-                      fontWeight: 600,
-                      letterSpacing: "0.1em",
+                      fontSize: "0.75rem",
+                      fontWeight: 700,
+                      letterSpacing: "0.15em",
                       textTransform: "uppercase",
                       color: isActive ? ink : inkDim,
                       textDecoration: "none",
                       position: "relative",
-                      paddingBottom: "2px",
-                      transition: "color 0.2s",
+                      paddingBottom: "4px",
+                      transition: "color 0.3s",
                     }}
                     onMouseEnter={(e) =>
                       ((e.currentTarget as HTMLElement).style.color = ink)
@@ -293,18 +290,18 @@ export default function Header() {
                     }
                   >
                     {label}
-                    {}
                     <span
                       style={{
                         position: "absolute",
                         bottom: 0,
                         left: 0,
                         right: 0,
-                        height: "1px",
+                        height: "2px",
                         background: ink,
                         transform: isActive ? "scaleX(1)" : "scaleX(0)",
                         transformOrigin: "left",
-                        transition: "transform 0.3s ease",
+                        transition:
+                          "transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
                       }}
                     />
                   </a>
@@ -314,38 +311,39 @@ export default function Header() {
           </ul>
         </nav>
 
-        {}
         <button
           onClick={toggleTheme}
           aria-label={`Switch to ${isWinter ? "Default" : "Dark"} theme`}
           style={{
             display: "flex",
             alignItems: "center",
-            gap: "0.45rem",
+            gap: "0.5rem",
             fontFamily: "var(--font-dm-mono), monospace",
-            fontSize: "0.65rem",
-            fontWeight: 600,
-            letterSpacing: "0.12em",
+            fontSize: "0.7rem",
+            fontWeight: 700,
+            letterSpacing: "0.15em",
             textTransform: "uppercase",
             color: inkDim,
             background: "transparent",
-            border: `1px solid ${border || (isWinter ? "rgba(255,255,255,0.12)" : "rgba(28,25,23,0.12)")}`,
+            border: `1px solid ${border || (isWinter ? "rgba(255,255,255,0.2)" : "rgba(15,23,42,0.15)")}`,
             borderRadius: "100px",
-            padding: "0.38em 0.9em",
+            padding: "0.4em 1em",
             cursor: "pointer",
-            transition: "color 0.2s, border-color 0.2s, background 0.2s",
+            transition: "all 0.3s ease",
           }}
           onMouseEnter={(e) => {
             const el = e.currentTarget;
-            el.style.color = ink;
+            el.style.color = isWinter ? "#0f172a" : "#ffffff";
+            el.style.backgroundColor = ink;
             el.style.borderColor = ink;
           }}
           onMouseLeave={(e) => {
             const el = e.currentTarget;
             el.style.color = inkDim;
+            el.style.backgroundColor = "transparent";
             el.style.borderColor =
               border ||
-              (isWinter ? "rgba(255,255,255,0.12)" : "rgba(28,25,23,0.12)");
+              (isWinter ? "rgba(255,255,255,0.2)" : "rgba(15,23,42,0.15)");
           }}
         >
           {isWinter ? <IconSun /> : <IconSnow />}
@@ -353,32 +351,30 @@ export default function Header() {
         </button>
       </header>
 
-      {}
+      {/* Mobile navigation floating pill */}
       <nav
         id="site-nav-mobile"
         aria-label="Mobile navigation"
         style={{
           position: "fixed",
-          bottom: "env(safe-area-inset-bottom, 0px)",
+          bottom: "env(safe-area-inset-bottom, 16px)",
           left: "50%",
           transform: "translateX(-50%)",
           zIndex: 100,
           marginBottom: "16px",
-
           alignItems: "center",
           gap: "4px",
-
           background: isWinter
-            ? "rgba(12,12,12,0.88)"
-            : "rgba(250,248,245,0.92)",
-          border: `1px solid ${isWinter ? "rgba(255,255,255,0.1)" : "rgba(28,25,23,0.1)"}`,
+            ? "rgba(15,23,42,0.9)"
+            : "rgba(255,255,255,0.95)",
+          border: `1px solid ${isWinter ? "rgba(255,255,255,0.1)" : "rgba(15,23,42,0.1)"}`,
           borderRadius: "100px",
           padding: "6px 10px",
-          backdropFilter: "blur(20px) saturate(160%)",
-          WebkitBackdropFilter: "blur(20px) saturate(160%)",
+          backdropFilter: "blur(24px) saturate(180%)",
+          WebkitBackdropFilter: "blur(24px) saturate(180%)",
           boxShadow: isWinter
-            ? "0 8px 32px rgba(0,0,0,0.5)"
-            : "0 8px 32px rgba(0,0,0,0.12)",
+            ? "0 10px 40px rgba(0,0,0,0.5)"
+            : "0 10px 40px rgba(15,23,42,0.1)",
         }}
       >
         {MOB_NAV.map(({ label, href, Icon }) => (
@@ -390,7 +386,7 @@ export default function Header() {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              gap: "2px",
+              gap: "3px",
               padding: "8px 14px",
               borderRadius: "100px",
               color: active === href.replace("#", "") ? ink : inkDim,
@@ -398,19 +394,19 @@ export default function Header() {
               background:
                 active === href.replace("#", "")
                   ? isWinter
-                    ? "rgba(255,255,255,0.08)"
-                    : "rgba(28,25,23,0.07)"
+                    ? "rgba(255,255,255,0.1)"
+                    : "rgba(15,23,42,0.06)"
                   : "transparent",
-              transition: "color 0.2s, background 0.2s",
+              transition: "all 0.3s ease",
             }}
           >
             <Icon />
             <span
               style={{
-                fontSize: "8px",
+                fontSize: "8.5px",
                 fontFamily: "var(--font-dm-mono), monospace",
                 fontWeight: 700,
-                letterSpacing: "0.08em",
+                letterSpacing: "0.1em",
                 textTransform: "uppercase",
               }}
             >
@@ -419,12 +415,13 @@ export default function Header() {
           </a>
         ))}
 
-        {}
         <div
           style={{
             width: "1px",
-            height: "24px",
-            background: isWinter ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)",
+            height: "28px",
+            background: isWinter
+              ? "rgba(255,255,255,0.15)"
+              : "rgba(15,23,42,0.15)",
             margin: "0 2px",
           }}
         />
@@ -435,14 +432,14 @@ export default function Header() {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            gap: "2px",
+            gap: "3px",
             padding: "8px 14px",
             borderRadius: "100px",
             background: "transparent",
             border: "none",
             cursor: "pointer",
             color: inkDim,
-            transition: "color 0.2s",
+            transition: "all 0.3s ease",
           }}
           onMouseEnter={(e) =>
             ((e.currentTarget as HTMLButtonElement).style.color = ink)
@@ -454,10 +451,10 @@ export default function Header() {
           {isWinter ? <IconSun /> : <IconSnow />}
           <span
             style={{
-              fontSize: "8px",
+              fontSize: "8.5px",
               fontFamily: "var(--font-dm-mono), monospace",
               fontWeight: 700,
-              letterSpacing: "0.08em",
+              letterSpacing: "0.1em",
               textTransform: "uppercase",
             }}
           >

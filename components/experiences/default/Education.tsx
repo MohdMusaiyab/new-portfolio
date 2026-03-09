@@ -8,130 +8,144 @@ export default function DefaultEducation() {
   return (
     <section
       id="education"
-      className="w-full bg-[#f1ede8] py-24 md:py-32 text-[#1c1917] font-sans overflow-hidden"
+      className="w-full bg-white py-20 md:py-32 font-sans border-t border-slate-100 overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16">
-        {/* ── Section header ── */}
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 md:px-10">
+        {/* ── Header ── */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
-          className="mb-14 md:mb-20"
+          className="mb-20 md:mb-32 text-center"
         >
-          <div className="flex items-center gap-3 mb-5">
-            <span className="w-8 h-px bg-[#a8a29e]" />
-            <span className="text-[10px] font-bold uppercase tracking-widest text-[#a8a29e]">
+          <div className="flex items-center justify-center gap-3 mb-6">
+            <span className="w-8 h-px bg-slate-300" />
+            <span className="text-[10px] font-bold uppercase tracking-[0.28em] text-slate-400">
               Academic Background
             </span>
+            <span className="w-8 h-px bg-slate-300" />
           </div>
-          <h3 className="text-5xl md:text-7xl font-extrabold tracking-tighter leading-[0.9]">
-            My <br />
-            <span className="font-light text-blue-600">education.</span>
-          </h3>
+          <h2 className="text-5xl md:text-7xl lg:text-[80px] font-extrabold tracking-tighter leading-none text-slate-900">
+            My{" "}
+            <span
+              className="bg-clip-text text-transparent"
+              style={{
+                backgroundImage:
+                  "linear-gradient(120deg, #0f172a 0%, #64748b 45%, #0f172a 100%)",
+                backgroundSize: "200% auto",
+                animation: "shine 4s linear infinite",
+              }}
+            >
+              education.
+            </span>
+          </h2>
+          <style>{`@keyframes shine { 0% { background-position: 0% center; } 100% { background-position: 200% center; } }`}</style>
         </motion.div>
 
-        {/* ── Education Grid ── */}
-        <div className="relative">
-          {/* Connectors (Desktop Horizontal & Mobile Vertical) */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 md:w-16 hidden md:flex items-center justify-center z-0 text-[#d6cfc5]">
-            <svg
-              width="40"
-              height="40"
-              viewBox="0 0 24 24"
-              fill="none"
-              className="animate-pulse"
-            >
-              <path
-                d="M5 12h14M12 5l7 7-7 7"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </div>
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-8 flex md:hidden flex-col items-center justify-center z-0 text-[#d6cfc5]">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              className="animate-pulse"
-            >
-              <path
-                d="M12 5v14M5 12l7 7 7-7"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </div>
+        {/* ── Staggered Layout ── */}
+        <div className="flex flex-col gap-24 md:gap-40">
+          {educationData.education.map((edu, idx) => {
+            const isEven = idx % 2 === 0;
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16 relative z-10">
-            {educationData.education.map((edu, idx) => (
+            return (
               <motion.div
                 key={idx}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.6, delay: idx * 0.15 }}
-                className="group relative bg-[#faf8f5] border border-[#e7e2db] rounded-[32px] overflow-hidden hover:border-[#d6cfc5] hover:shadow-2xl hover:shadow-stone-200/50 transition-all duration-500 flex flex-col items-center text-center p-12"
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className={`flex flex-col ${
+                  isEven ? "md:flex-row" : "md:flex-row-reverse"
+                } items-center gap-10 md:gap-20 group`}
               >
-                {/* Square Logo Box */}
-                <div className="relative w-32 h-32 md:w-40 md:h-40 bg-white rounded-3xl shadow-sm border border-[#e7e2db] flex items-center justify-center overflow-hidden p-5 mb-8 transform group-hover:-translate-y-3 group-hover:shadow-lg transition-all duration-500">
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 bg-blue-500" />
-                  {edu.logo ? (
-                    <Image
-                      src={edu.logo}
-                      alt={edu.institution}
-                      fill
-                      sizes="160px"
-                      className="object-contain p-4 group-hover:scale-110 transition-transform duration-500"
-                    />
-                  ) : (
-                    <span className="text-5xl font-black text-[#d6cfc5]">
-                      {edu.institution.charAt(0)}
+                {/* Visual Side (Logo Container) */}
+                <div className="w-full md:w-5/12 flex justify-center shrink-0">
+                  <div className="relative w-40 h-40 sm:w-48 sm:h-48 md:w-64 md:h-64 rounded-3xl md:rounded-[2.5rem] bg-slate-50 border border-slate-100 flex items-center justify-center shadow-sm group-hover:shadow-[0_20px_60px_rgba(15,23,42,0.06)] group-hover:scale-[1.02] group-hover:border-slate-200 transition-all duration-700 overflow-hidden">
+                    {/* Decorative blurred blob behind image */}
+                    <div className="absolute inset-0 bg-blue-100/30 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-full scale-150" />
+
+                    {edu.logo ? (
+                      <div className="relative w-24 h-24 sm:w-28 sm:h-28 md:w-36 md:h-36 z-10 transition-transform duration-700 group-hover:scale-110">
+                        <Image
+                          src={edu.logo}
+                          alt={edu.institution}
+                          fill
+                          priority={idx === 0}
+                          sizes="(max-width: 768px) 112px, 180px"
+                          unoptimized // FIX: Prevents Next.js from blurring external logos
+                          className="object-contain drop-shadow-sm p-4 md:p-0"
+                        />
+                      </div>
+                    ) : (
+                      <span className="text-6xl font-black text-slate-200 z-10">
+                        {edu.institution.charAt(0)}
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                {/* Content Side */}
+                <div
+                  className={`w-full md:w-7/12 flex flex-col ${isEven ? "md:items-start md:text-left" : "md:items-end md:text-right"} items-center text-center`}
+                >
+                  {/* Meta (Years & Score) */}
+                  <div
+                    className={`flex flex-wrap items-center gap-3 mb-6 ${isEven ? "justify-start" : "justify-center md:justify-end"}`}
+                  >
+                    <span className="px-3.5 py-1.5 bg-slate-50 border border-slate-200 text-slate-500 text-[10px] font-bold uppercase tracking-[0.2em] rounded-full">
+                      {edu.startYear} — {edu.endYear}
                     </span>
+                    {edu.score && (
+                      <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-slate-900 text-white text-[10px] font-bold uppercase tracking-widest rounded-full shadow-md">
+                        <svg
+                          width="10"
+                          height="10"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="3"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                        {edu.score}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Headings */}
+                  <h3 className="text-3xl md:text-4xl lg:text-[42px] font-extrabold tracking-tight text-slate-900 leading-[1.1] mb-3 md:mb-4 group-hover:text-slate-700 transition-colors duration-300">
+                    {edu.institution}
+                  </h3>
+                  <p className="text-base sm:text-lg md:text-xl text-slate-500 font-medium leading-relaxed max-w-[35ch] mb-8 md:mb-10 px-4 md:px-0">
+                    {edu.degree}
+                  </p>
+
+                  {/* Highlights (Numbered List) */}
+                  {edu.highlights.length > 0 && (
+                    <div className="flex flex-col gap-5 w-full max-w-[400px]">
+                      {edu.highlights.map((h, hIdx) => (
+                        <div
+                          key={hIdx}
+                          className={`flex items-start gap-4 group/item ${isEven ? "flex-row" : "flex-row md:flex-row-reverse"}`}
+                        >
+                          <span className="flex items-center justify-center w-6 h-6 rounded-full bg-slate-50 border border-slate-200 text-[9px] font-bold text-slate-400 shrink-0 group-hover/item:border-slate-900 group-hover/item:bg-slate-900 group-hover/item:text-white transition-all duration-300">
+                            {hIdx + 1}
+                          </span>
+                          <p
+                            className={`text-[15px] text-slate-500 leading-relaxed group-hover/item:text-slate-900 transition-colors ${isEven ? "text-left" : "text-center md:text-right"}`}
+                          >
+                            {h}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
                   )}
                 </div>
-
-                {/* Years badge */}
-                <div className="inline-flex items-center px-4 py-1.5 bg-white border border-[#e7e2db] rounded-full text-[11px] font-bold tracking-widest text-[#78716c] shadow-sm mb-6 group-hover:border-blue-200 group-hover:text-blue-600 transition-colors duration-500">
-                  {edu.startYear} — {edu.endYear}
-                </div>
-
-                {/* Text Data */}
-                <h4 className="text-2xl md:text-3xl font-extrabold tracking-tight leading-tight mb-3 text-[#1c1917] group-hover:text-blue-900 transition-colors duration-500">
-                  {edu.institution}
-                </h4>
-
-                {/* Score / Percentage display */}
-                {edu.score && (
-                  <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-green-50 text-green-700 border border-green-200 rounded-lg text-xs font-bold tracking-wide mb-3 group-hover:bg-green-100 transition-colors duration-500">
-                    <svg
-                      width="12"
-                      height="12"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                      <polyline points="22 4 12 14.01 9 11.01" />
-                    </svg>
-                    {edu.score}
-                  </div>
-                )}
-
-                <p className="text-base md:text-lg font-semibold text-[#57534e] group-hover:text-blue-600 transition-colors duration-500 max-w-[90%] leading-relaxed mt-1">
-                  {edu.degree}
-                </p>
               </motion.div>
-            ))}
-          </div>
+            );
+          })}
         </div>
       </div>
     </section>

@@ -6,223 +6,252 @@ import { motion, AnimatePresence } from "framer-motion";
 import projectsData from "@/app/data/projects.json";
 
 export default function DefaultProjects() {
-  const [expandedIdx, setExpandedIdx] = useState<number | null>(null);
-
-  const toggle = (idx: number) => {
-    setExpandedIdx((prev) => (prev === idx ? null : idx));
-  };
+  const [hovered, setHovered] = useState<number>(0);
+  const active = projectsData.projects[hovered];
 
   return (
     <section
       id="projects"
-      className="w-full bg-[#f1ede8] py-24 md:py-32 text-[#1c1917] font-sans"
+      className="w-full bg-white py-20 md:py-28 font-sans border-t border-slate-100"
     >
-      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16">
-        {}
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-10">
+        {/* ── Header ── */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
-          className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16"
+          className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12"
         >
           <div>
-            <div className="flex items-center gap-3 mb-5">
-              <span className="w-8 h-px bg-[#a8a29e]" />
-              <span className="text-[10px] font-bold uppercase tracking-widest text-[#a8a29e]">
+            <div className="flex items-center gap-3 mb-4">
+              <span className="w-6 h-px bg-slate-300" />
+              <span className="text-[10px] font-bold uppercase tracking-[0.28em] text-slate-400">
                 Selected Works
               </span>
             </div>
-            <h3 className="text-5xl md:text-7xl font-extrabold tracking-tighter leading-[0.9]">
-              Featured <br />
-              <span className="font-light text-blue-600">projects.</span>
-            </h3>
+            <h2 className="text-4xl md:text-6xl font-extrabold tracking-tighter leading-none text-slate-900">
+              Featured{" "}
+              <span
+                className="bg-clip-text text-transparent"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(120deg, #0f172a 0%, #64748b 45%, #0f172a 100%)",
+                  backgroundSize: "200% auto",
+                  animation: "shine 4s linear infinite",
+                }}
+              >
+                projects.
+              </span>
+            </h2>
           </div>
-          <p className="max-w-[38ch] text-[#57534e] text-sm leading-relaxed pb-2">
-            Click any project to explore its details, tech stack, and links.
+          <p className="text-sm text-slate-400 max-w-[30ch] leading-relaxed pb-1">
+            Hover a project to explore its stack and details.
           </p>
         </motion.div>
 
-        {}
-        <div className="border-t border-[#e7e2db]">
-          {projectsData.projects.map((project, idx) => {
-            const isOpen = expandedIdx === idx;
+        <style>{`@keyframes shine { 0% { background-position: 0% center; } 100% { background-position: 200% center; } }`}</style>
 
-            return (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ delay: Math.min(idx * 0.05, 0.2) }}
-                className="border-b border-[#e7e2db]"
-              >
-                {}
-                <button
-                  onClick={() => toggle(idx)}
-                  className="w-full flex items-center gap-4 md:gap-8 py-5 md:py-6 cursor-pointer group text-left"
+        {/* ── Main grid: list left + preview right ── */}
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start mt-8 md:mt-0">
+          {/* LEFT: Numbered project list */}
+          <div className="flex-1 flex flex-col w-full divide-y divide-slate-100 border-t border-slate-100">
+            {projectsData.projects.map((project, idx) => {
+              const isActive = hovered === idx;
+              return (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, x: -16 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-30px" }}
+                  transition={{ duration: 0.4, delay: idx * 0.06 }}
+                  onMouseEnter={() => setHovered(idx)}
+                  className={`group relative flex items-center gap-5 py-5 cursor-default transition-all duration-300 ${
+                    isActive ? "pl-4" : "pl-0"
+                  }`}
                 >
-                  {}
-                  <span className="text-[11px] font-mono text-[#a8a29e] w-6 shrink-0">
-                    0{idx + 1}
+                  {/* Active indicator bar */}
+                  <motion.div
+                    layout
+                    className={`absolute left-0 top-3 bottom-3 w-0.5 rounded-full transition-all duration-300 ${
+                      isActive ? "bg-slate-900" : "bg-transparent"
+                    }`}
+                  />
+
+                  {/* Index number */}
+                  <span
+                    className={`text-[11px] font-mono font-bold w-6 shrink-0 transition-colors duration-200 ${
+                      isActive ? "text-slate-900" : "text-slate-300"
+                    }`}
+                  >
+                    {String(idx + 1).padStart(2, "0")}
                   </span>
 
-                  {}
-                  <span className="text-lg md:text-2xl font-bold tracking-tight grow group-hover:text-blue-600 transition-colors">
-                    {project.name}
-                  </span>
+                  {/* Project name + description */}
+                  <div className="flex-1 min-w-0">
+                    <p
+                      className={`text-base md:text-lg font-bold tracking-tight leading-tight transition-colors duration-200 ${
+                        isActive
+                          ? "text-slate-900"
+                          : "text-slate-500 group-hover:text-slate-800"
+                      }`}
+                    >
+                      {project.name}
+                    </p>
+                    <p
+                      className={`text-xs mt-0.5 leading-relaxed transition-all duration-300 ${
+                        isActive
+                          ? "text-slate-500 max-h-10 opacity-100"
+                          : "text-transparent max-h-0 opacity-0 overflow-hidden"
+                      }`}
+                    >
+                      {project.description}
+                    </p>
+                  </div>
 
-                  {}
-                  <span className="hidden md:flex gap-1.5 shrink-0">
+                  {/* Tech badges (top 3) */}
+                  <div className="hidden md:flex gap-1.5 shrink-0">
                     {project.techStack.slice(0, 3).map((t, i) => (
                       <span
                         key={i}
-                        className="px-2 py-0.5 bg-[#faf8f5] border border-[#e7e2db] text-[9px] font-bold text-[#a8a29e] uppercase tracking-widest rounded"
+                        className={`px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest rounded border transition-all duration-300 ${
+                          isActive
+                            ? "bg-slate-900 text-white border-slate-900"
+                            : "bg-slate-50 text-slate-400 border-slate-200"
+                        }`}
                       >
                         {t}
                       </span>
                     ))}
-                  </span>
+                  </div>
 
-                  {}
-                  <motion.span
-                    animate={{ rotate: isOpen ? 45 : 0 }}
-                    transition={{ duration: 0.3, ease: "easeOut" }}
-                    className="w-8 h-8 rounded-full border border-[#e7e2db] grid place-items-center text-[#a8a29e] shrink-0 group-hover:border-blue-400 group-hover:text-blue-500 transition-colors"
+                  {/* Arrow indicator */}
+                  <span
+                    className={`text-xs font-mono transition-all duration-200 ${
+                      isActive
+                        ? "opacity-100 text-slate-900 translate-x-0"
+                        : "opacity-0 -translate-x-1"
+                    }`}
                   >
-                    <svg
-                      width="14"
-                      height="14"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                    >
-                      <line x1="12" y1="5" x2="12" y2="19" />
-                      <line x1="5" y1="12" x2="19" y2="12" />
-                    </svg>
-                  </motion.span>
-                </button>
+                    →
+                  </span>
+                </motion.div>
+              );
+            })}
+          </div>
 
-                {}
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.div
-                      key="panel"
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{
-                        duration: 0.45,
-                        ease: [0.25, 0.1, 0.25, 1],
-                      }}
-                      className="overflow-hidden"
-                    >
-                      <div className="pb-8 pl-10 md:pl-14 flex flex-col lg:flex-row gap-6 lg:gap-10">
-                        {}
-                        <div className="relative w-full lg:w-[320px] aspect-video rounded-xl overflow-hidden bg-[#faf8f5] border border-[#e7e2db] shrink-0">
-                          {project.images?.[0] ? (
-                            <Image
-                              src={project.images[0]}
-                              alt={`${project.name} screenshot`}
-                              fill
-                              sizes="(max-width:1024px) 100vw, 320px"
-                              className="object-cover"
-                            />
-                          ) : (
-                            <div className="absolute inset-0 grid place-items-center text-[#a8a29e] font-mono text-xs">
-                              No preview
-                            </div>
-                          )}
-                        </div>
-
-                        {}
-                        <div className="flex flex-col justify-between grow">
-                          <p className="text-[#57534e] text-sm leading-[1.7] mb-6 max-w-[55ch]">
-                            {project.description}
-                          </p>
-
-                          {}
-                          <div className="flex flex-col gap-2 mb-6">
-                            {project.keyPoints.slice(0, 2).map((kp, kIdx) => (
-                              <p
-                                key={kIdx}
-                                className="text-xs text-[#78716c] leading-[1.6] pl-3 border-l-2 border-[#e7e2db]"
-                              >
-                                {kp}
-                              </p>
-                            ))}
-                          </div>
-
-                          {}
-                          <div className="flex flex-wrap items-center gap-3">
-                            <div className="flex flex-wrap gap-1.5">
-                              {project.techStack.map((tech, tIdx) => (
-                                <span
-                                  key={tIdx}
-                                  className="px-2.5 py-1 bg-white border border-[#e7e2db] text-[10px] font-bold text-[#78716c] uppercase tracking-widest rounded-md"
-                                >
-                                  {tech}
-                                </span>
-                              ))}
-                            </div>
-
-                            <div className="flex gap-2 ml-auto">
-                              {project.githubRepo && (
-                                <a
-                                  href={project.githubRepo}
-                                  target="_blank"
-                                  rel="noreferrer"
-                                  className="px-4 py-2 rounded-lg bg-[#1c1917] text-white text-[10px] font-bold uppercase tracking-widest hover:bg-[#292524] transition-colors flex items-center gap-1.5"
-                                >
-                                  <svg
-                                    width="12"
-                                    height="12"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth="2.5"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                  >
-                                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
-                                  </svg>
-                                  Code
-                                </a>
-                              )}
-                              {project.liveSite && (
-                                <a
-                                  href={project.liveSite}
-                                  target="_blank"
-                                  rel="noreferrer"
-                                  className="px-4 py-2 rounded-lg bg-blue-600 text-white text-[10px] font-bold uppercase tracking-widest hover:bg-blue-700 transition-colors flex items-center gap-1.5"
-                                >
-                                  <svg
-                                    width="12"
-                                    height="12"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth="2.5"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                  >
-                                    <line x1="7" y1="17" x2="17" y2="7" />
-                                    <polyline points="7 7 17 7 17 17" />
-                                  </svg>
-                                  Live
-                                </a>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </motion.div>
+          {/* RIGHT: Preview panel (Hidden on small screens) */}
+          <div className="hidden lg:block w-full lg:w-[380px] shrink-0 sticky top-28">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={hovered}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-[0_4px_28px_rgba(15,23,42,0.07)]"
+              >
+                {/* Project image */}
+                <div className="relative w-full aspect-video bg-slate-100 overflow-hidden">
+                  {active.images?.[0] ? (
+                    <Image
+                      src={active.images[0]}
+                      alt={active.name}
+                      fill
+                      sizes="340px"
+                      className="object-cover"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="text-4xl font-black text-slate-200">
+                        {active.name.charAt(0)}
+                      </span>
+                    </div>
                   )}
-                </AnimatePresence>
+                  {/* Overlay gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+                  {/* Number watermark */}
+                  <span className="absolute top-3 left-3 text-[10px] font-mono font-bold text-white/60">
+                    {String(hovered + 1).padStart(2, "0")} /{" "}
+                    {projectsData.projects.length.toString().padStart(2, "0")}
+                  </span>
+                </div>
+
+                {/* Card body */}
+                <div className="p-5">
+                  <h3 className="text-base font-bold text-slate-900 mb-1">
+                    {active.name}
+                  </h3>
+                  <p className="text-xs text-slate-500 leading-relaxed mb-4">
+                    {active.description}
+                  </p>
+
+                  {/* Tech stack */}
+                  <div className="flex flex-wrap gap-1.5 mb-5">
+                    {active.techStack.map((t, i) => (
+                      <span
+                        key={i}
+                        className="px-2.5 py-1 bg-slate-50 border border-slate-200 text-[10px] font-semibold text-slate-600 rounded-md
+                          hover:bg-slate-900 hover:text-white hover:border-slate-900 transition-all duration-200 cursor-default"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Links */}
+                  <div className="flex gap-2">
+                    {active.githubRepo && (
+                      <a
+                        href={active.githubRepo}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg bg-slate-900 text-white text-[10px] font-bold uppercase tracking-widest
+                          hover:bg-slate-700 transition-colors"
+                      >
+                        <svg
+                          width="11"
+                          height="11"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+                        </svg>
+                        Code
+                      </a>
+                    )}
+                    {active.liveSite && (
+                      <a
+                        href={active.liveSite}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg border border-slate-200 text-slate-700 text-[10px] font-bold uppercase tracking-widest
+                          hover:border-slate-900 hover:bg-slate-50 transition-all"
+                      >
+                        <svg
+                          width="11"
+                          height="11"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <line x1="7" y1="17" x2="17" y2="7" />
+                          <polyline points="7 7 17 7 17 17" />
+                        </svg>
+                        Live
+                      </a>
+                    )}
+                  </div>
+                </div>
               </motion.div>
-            );
-          })}
+            </AnimatePresence>
+          </div>
         </div>
       </div>
     </section>
