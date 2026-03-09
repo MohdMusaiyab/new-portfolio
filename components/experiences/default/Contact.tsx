@@ -8,17 +8,8 @@ const SOCIALS = [
     label: "GitHub",
     href: "https://github.com/MohdMusaiyab",
     icon: (
-      <svg
-        width="18"
-        height="18"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
       </svg>
     ),
   },
@@ -26,56 +17,17 @@ const SOCIALS = [
     label: "LinkedIn",
     href: "https://linkedin.com",
     icon: (
-      <svg
-        width="18"
-        height="18"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z" />
-        <circle cx="4" cy="4" r="2" />
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
       </svg>
     ),
   },
   {
     label: "Twitter / X",
-    href: "https://x.com",
+    href: "https://twitter.com",
     icon: (
-      <svg
-        width="18"
-        height="18"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />
-      </svg>
-    ),
-  },
-  {
-    label: "Discord",
-    href: "https://discord.com",
-    icon: (
-      <svg
-        width="18"
-        height="18"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M18.16 6.84a14.54 14.54 0 00-3.66-1.12c-.2.35-.41.74-.58 1.1-1.32-.2-2.6-.2-3.86 0-.16-.36-.38-.75-.58-1.1-1.28.4-2.52.79-3.66 1.12C1 14.28.37 20.35 1 24c1.6 1.18 3.12 1.88 4.6 2.36.42-.55.8-1.13 1.13-1.74-.46-.17-.92-.38-1.34-.64.12-.09.22-.17.33-.26 2.87 1.3 5.96 1.3 8.76 0 .11.1.22.18.33.26-.43.26-.88.47-1.34.64.33.62.71 1.2 1.13 1.74 1.48-.48 3-1.18 4.6-2.36.7-4.32-.12-10.4-4.84-17.16z" />
-        <circle cx="8.5" cy="15.5" r="1.5" />
-        <circle cx="15.5" cy="15.5" r="1.5" />
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
       </svg>
     ),
   },
@@ -105,13 +57,12 @@ function Field({
     width: "100%",
     background: "transparent",
     border: "none",
-    borderBottom: `2px solid ${focused ? "#0f172a" : "#e2e8f0"}`,
-    color: "#0f172a",
+    borderBottom: `1.5px solid ${focused ? "#1c1917" : "#d6cfc5"}`,
+    color: "#1c1917",
     fontFamily: "inherit",
     fontSize: "15px",
-    fontWeight: 500,
     outline: "none",
-    padding: "12px 0 14px",
+    padding: "14px 0 10px",
     transition: "border-color 0.3s ease",
     resize: "none",
   };
@@ -120,8 +71,8 @@ function Field({
     <div className="relative flex flex-col">
       <label
         htmlFor={id}
-        className="text-[10px] font-bold uppercase tracking-[0.2em] transition-colors duration-300"
-        style={{ color: active ? "#0f172a" : "#94a3b8" }}
+        className="text-[10px] font-bold uppercase tracking-widest transition-colors duration-300"
+        style={{ color: active ? "#1c1917" : "#a8a29e" }}
       >
         {label}
       </label>
@@ -135,7 +86,7 @@ function Field({
           onBlur={() => setFocused(false)}
           disabled={disabled}
           style={shared}
-          className="[&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] placeholder:text-slate-300"
+          className="[&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
         />
       ) : (
         <input
@@ -177,6 +128,7 @@ export default function DefaultContact() {
     e.preventDefault();
     if (status === "sending" || status === "sent") return;
     setStatus("sending");
+
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
@@ -196,10 +148,19 @@ export default function DefaultContact() {
     <section
       id="contact"
       ref={sectionRef}
-      className="relative w-full bg-white text-slate-900 font-sans border-t border-slate-100"
+      className="relative w-full bg-[#faf8f5] text-[#1c1917] font-sans overflow-hidden"
     >
-      <div className="max-w-6xl mx-auto px-6 md:px-10 py-24 md:py-36">
-        {/* ── Header ── */}
+      {}
+      <div
+        className="absolute -top-40 -right-40 w-[500px] h-[500px] rounded-full pointer-events-none opacity-30"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(59,130,246,0.08) 0%, transparent 70%)",
+        }}
+      />
+
+      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 lg:px-16 py-24 md:py-36">
+        {}
         <motion.div
           ref={headerRef}
           initial={{ opacity: 0, y: 30 }}
@@ -208,8 +169,8 @@ export default function DefaultContact() {
           className="mb-16 md:mb-24"
         >
           <div className="flex items-center gap-3 mb-5">
-            <span className="w-6 h-px bg-slate-300" />
-            <span className="text-[10px] font-bold uppercase tracking-[0.28em] text-slate-400">
+            <span className="w-8 h-px bg-[#a8a29e]" />
+            <span className="text-[10px] font-bold uppercase tracking-widest text-[#a8a29e]">
               Get in Touch
             </span>
           </div>
@@ -220,25 +181,19 @@ export default function DefaultContact() {
               animate={headerInView ? { opacity: 1, x: 0 } : {}}
               transition={{
                 duration: 0.8,
-                delay: 0.2,
+                delay: 0.3,
                 ease: [0.16, 1, 0.3, 1],
               }}
-              className="bg-clip-text text-transparent"
-              style={{
-                backgroundImage:
-                  "linear-gradient(120deg, #0f172a 0%, #64748b 45%, #0f172a 100%)",
-                backgroundSize: "200% auto",
-                animation: "shine 4s linear infinite",
-              }}
+              className="font-light text-blue-600"
             >
               connect.
             </motion.span>
           </h2>
         </motion.div>
 
-        {/* ── Layout split ── */}
+        {}
         <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-start">
-          {/* Form */}
+          {}
           <motion.div
             ref={formRef}
             initial={{ opacity: 0, y: 30 }}
@@ -246,12 +201,12 @@ export default function DefaultContact() {
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="w-full lg:w-[58%]"
           >
-            <form onSubmit={handleSubmit} className="flex flex-col gap-10">
-              <div className="flex flex-col sm:flex-row gap-10">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-8">
+              <div className="flex flex-col sm:flex-row gap-8 sm:gap-10">
                 <div className="flex-1">
                   <Field
                     label="Your Name"
-                    id="name"
+                    id="contact-name"
                     value={form.senderName}
                     onChange={set("senderName")}
                     disabled={disabled}
@@ -260,7 +215,7 @@ export default function DefaultContact() {
                 <div className="flex-1">
                   <Field
                     label="Email Address"
-                    id="email"
+                    id="contact-email"
                     type="email"
                     value={form.senderEmail}
                     onChange={set("senderEmail")}
@@ -271,35 +226,33 @@ export default function DefaultContact() {
 
               <Field
                 label="Subject"
-                id="subject"
+                id="contact-subject"
                 value={form.subject}
                 onChange={set("subject")}
                 disabled={disabled}
               />
               <Field
                 label="Your Message"
-                id="message"
+                id="contact-message"
                 textarea
                 value={form.message}
                 onChange={set("message")}
                 disabled={disabled}
               />
 
+              {}
               <div className="flex items-center gap-5 pt-4">
                 <motion.button
                   type="submit"
                   disabled={disabled}
                   whileHover={disabled ? {} : { scale: 1.02 }}
                   whileTap={disabled ? {} : { scale: 0.98 }}
-                  className="relative overflow-hidden flex items-center gap-2.5 px-8 py-4 rounded-xl text-xs font-bold tracking-widest uppercase transition-all shadow-md"
+                  className="relative overflow-hidden flex items-center gap-2.5 px-8 py-3.5 rounded-xl text-[11px] font-bold uppercase tracking-widest transition-all duration-300"
                   style={{
-                    background: status === "sent" ? "#f1f5f9" : "#0f172a",
-                    color: status === "sent" ? "#94a3b8" : "#fff",
+                    background: status === "sent" ? "#d6cfc5" : "#1c1917",
+                    color: status === "sent" ? "#78716c" : "#fff",
                     cursor: disabled ? "default" : "pointer",
-                    boxShadow:
-                      status === "sent"
-                        ? "none"
-                        : "0 8px 30px rgba(15,23,42,0.15)",
+                    border: "none",
                   }}
                 >
                   <AnimatePresence mode="wait">
@@ -309,9 +262,9 @@ export default function DefaultContact() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="flex items-center gap-3"
+                        className="flex items-center gap-2"
                       >
-                        <span className="inline-block w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                        <span className="inline-block w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                         Sending
                       </motion.span>
                     ) : status === "sent" ? (
@@ -321,7 +274,7 @@ export default function DefaultContact() {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                       >
-                        Sent ✓
+                        Message Sent ✓
                       </motion.span>
                     ) : status === "error" ? (
                       <motion.span
@@ -330,7 +283,7 @@ export default function DefaultContact() {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                       >
-                        Retry
+                        Retry ↗
                       </motion.span>
                     ) : (
                       <motion.span
@@ -338,16 +291,16 @@ export default function DefaultContact() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="flex items-center gap-2 text-white"
+                        className="flex items-center gap-2"
                       >
                         Send Message
                         <svg
-                          width="14"
-                          height="14"
+                          width="12"
+                          height="12"
                           fill="none"
                           viewBox="0 0 24 24"
                           stroke="currentColor"
-                          strokeWidth={3}
+                          strokeWidth={2.5}
                         >
                           <path
                             strokeLinecap="round"
@@ -366,9 +319,9 @@ export default function DefaultContact() {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
-                      className="text-xs font-semibold tracking-wider text-rose-500"
+                      className="text-[11px] font-semibold tracking-wider text-red-500/70"
                     >
-                      Error sending.
+                      Something went wrong.
                     </motion.p>
                   )}
                 </AnimatePresence>
@@ -376,67 +329,87 @@ export default function DefaultContact() {
             </form>
           </motion.div>
 
-          {/* Socials / Text */}
+          {}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={formInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
-            className="w-full lg:w-[42%] flex flex-col gap-8"
+            transition={{
+              duration: 0.8,
+              ease: [0.16, 1, 0.3, 1],
+              delay: 0.15,
+            }}
+            className="w-full lg:w-[42%] flex flex-col gap-10"
           >
-            <div className="bg-slate-50 border border-slate-200 rounded-[2rem] p-8 md:p-10 shadow-sm">
-              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 mb-6 flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-slate-400" />{" "}
+            {}
+            <div className="bg-white border border-[#e7e2db] rounded-2xl p-8">
+              <p className="text-[10px] font-bold uppercase tracking-widest text-[#a8a29e] mb-4">
                 Let&apos;s Collaborate
               </p>
-              <p className="text-[15px] leading-relaxed text-slate-600 font-medium max-w-[34ch]">
-                Whether it&apos;s a product idea, a systems debate, or just a
-                conversation about tech — my inbox is always open.
+              <p className="text-[15px] leading-[1.8] text-[#57534e] font-light">
+                Whether it&apos;s a product idea, a freelance project, or just a
+                conversation about tech — my inbox is always open. I&apos;ll
+                respond within 24 hours.
               </p>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              {SOCIALS.map((s) => (
-                <a
-                  key={s.label}
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex flex-col items-center justify-center gap-3 p-6 bg-white border border-slate-200 rounded-[2rem]
-                    text-slate-400 hover:text-slate-900 hover:bg-slate-50 hover:border-slate-300 hover:scale-[1.03] hover:shadow-[0_8px_30px_rgba(15,23,42,0.06)] transition-all duration-300"
-                >
-                  <span>{s.icon}</span>
-                  <span className="text-[10px] font-bold tracking-widest uppercase">
-                    {s.label}
-                  </span>
-                </a>
-              ))}
+            {}
+            <div>
+              <p className="text-[10px] font-bold uppercase tracking-widest text-[#a8a29e] mb-5">
+                Find me on
+              </p>
+              <div className="flex flex-col gap-1">
+                {SOCIALS.map((s, i) => (
+                  <motion.a
+                    key={s.label}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    initial={{ opacity: 0, x: 12 }}
+                    animate={formInView ? { opacity: 1, x: 0 } : {}}
+                    transition={{
+                      duration: 0.5,
+                      ease: [0.16, 1, 0.3, 1],
+                      delay: 0.25 + i * 0.08,
+                    }}
+                    className="group flex items-center gap-4 py-3.5 border-b border-[#e7e2db] last:border-b-0 text-[#78716c] hover:text-[#1c1917] transition-colors duration-300"
+                    style={{ textDecoration: "none" }}
+                  >
+                    <span className="transition-colors duration-300 group-hover:text-blue-600">
+                      {s.icon}
+                    </span>
+                    <span className="text-sm font-semibold tracking-wider uppercase">
+                      {s.label}
+                    </span>
+                    <span className="ml-auto text-[#d6cfc5] group-hover:text-blue-600 group-hover:translate-x-1 transition-all duration-300">
+                      →
+                    </span>
+                  </motion.a>
+                ))}
+              </div>
             </div>
 
-            <a
-              href="mailto:musaiyab2003@gmail.com"
-              className="flex items-center justify-between p-5 bg-white border border-slate-200 rounded-[2rem]
-                group hover:bg-slate-50 hover:border-slate-300 hover:scale-[1.02] hover:shadow-[0_8px_30px_rgba(15,23,42,0.06)] transition-all duration-300"
-            >
-              <div className="flex flex-col gap-1">
-                <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-slate-400 group-hover:text-slate-500 transition-colors">
-                  Direct Email
-                </span>
-                <span className="font-mono text-sm font-bold text-slate-900 group-hover:text-slate-800 transition-colors">
-                  musaiyab2003@gmail.com
-                </span>
-              </div>
-              <span className="text-slate-300 group-hover:text-slate-500 group-hover:translate-x-1 transition-all">
-                →
-              </span>
-            </a>
+            {}
+            <div className="bg-[#f1ede8] rounded-2xl p-6 border border-[#e7e2db]">
+              <p className="text-[10px] font-bold uppercase tracking-widest text-[#a8a29e] mb-2">
+                Or write directly
+              </p>
+              <a
+                href="mailto:musaiyab2003@gmail.com"
+                className="text-sm font-semibold text-[#57534e] hover:text-blue-600 transition-colors duration-300"
+                style={{ textDecoration: "none" }}
+              >
+                musaiyab2003@gmail.com
+              </a>
+            </div>
           </motion.div>
         </div>
 
-        {/* Footer */}
-        <div className="w-full h-px bg-slate-200 mt-24 mb-6" />
-        <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">
-          <span>© 2026 Mohd Musaiyab</span>
-          <span>Pune, IN</span>
+        {}
+        <div className="w-full h-px bg-[#e7e2db] mt-24" />
+        <div className="flex items-center justify-between mt-6 pb-4">
+          <span className="text-[10px] font-bold uppercase tracking-widest text-[#a8a29e]">
+            © 2026 Mohd Musaiyab
+          </span>
         </div>
       </div>
     </section>
