@@ -21,7 +21,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative w-full min-h-[100dvh] flex flex-col items-center justify-center overflow-hidden bg-[#080808]">
+    <section className="relative w-full min-h-[100dvh] flex flex-col items-center justify-center overflow-hidden bg-[#080808] pt-20">
       {/* Background Image */}
       <motion.div
         initial={{ scale: 1.1, opacity: 0 }}
@@ -44,13 +44,13 @@ export default function Hero() {
       />
 
       {/* Content Container */}
-      <div className="relative z-10 w-full max-w-5xl mx-auto px-6 md:px-12 flex flex-col items-center text-center mt-[-5dvh]">
+      <div className="relative z-10 w-full max-w-5xl mx-auto px-6 md:px-12 flex flex-col items-center text-center">
         {/* Massive Name */}
         <motion.h1
           initial={{ opacity: 0, scale: 1.05, filter: "blur(12px)", y: 20 }}
           animate={{ opacity: 1, scale: 1, filter: "blur(0px)", y: 0 }}
           transition={{ duration: 1.2, delay: 0.1, ease: [0.19, 1, 0.22, 1] }}
-          className="font-cinzel font-bold leading-[0.9] tracking-[0.05em] md:tracking-[0.1em] mb-6 text-white text-[44px] sm:text-6xl md:text-8xl lg:text-[120px]"
+          className="font-cinzel font-bold leading-[0.9] tracking-[0.05em] md:tracking-[0.1em] mb-4 md:mb-6 text-white text-[clamp(2.75rem,12vmin,120px)]"
           style={{
             textShadow:
               "0 0 40px rgba(255,255,255,0.2), 0 4px 20px rgba(0,0,0,0.8)",
@@ -65,7 +65,7 @@ export default function Hero() {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.4, ease: [0.19, 1, 0.22, 1] }}
-          className="flex items-center justify-center gap-3 md:gap-6 mb-8 md:mb-12 h-6"
+          className="flex items-center justify-center gap-3 md:gap-6 mb-4 md:mb-8 lg:mb-12 h-6"
         >
           <div className="hidden md:block w-8 md:w-12 h-px bg-white/40" />
           <AnimatePresence mode="wait">
@@ -89,7 +89,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6, ease: [0.19, 1, 0.22, 1] }}
-          className="font-sans font-light text-sm md:text-base lg:text-lg leading-relaxed text-white/80 max-w-[32ch] md:max-w-[42ch] mb-10 md:mb-14 drop-shadow-xl"
+          className="font-sans font-light text-sm md:text-base lg:text-lg leading-relaxed text-white/80 max-w-[32ch] md:max-w-[42ch] mb-6 md:mb-10 lg:mb-14 drop-shadow-xl"
         >
           Engineering robust digital infrastructures with a focus on performance
           and scalability. I specialize in building high-concurrency systems and
@@ -137,7 +137,7 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.2, delay: 1, ease: "linear" }}
-          className="flex items-center justify-center gap-3 md:gap-6 mt-14 md:mt-20 font-mono text-[8px] md:text-[10px] tracking-[0.2em] md:tracking-[0.28em] uppercase text-white/50 drop-shadow-md"
+          className="flex items-center justify-center gap-3 md:gap-6 mt-8 md:mt-14 lg:mt-20 font-mono text-[8px] md:text-[10px] tracking-[0.2em] md:tracking-[0.28em] uppercase text-white/50 drop-shadow-md"
         >
           <span>2 Yrs Exp</span>
           <span className="w-px h-2.5 md:h-3 bg-white/30" />

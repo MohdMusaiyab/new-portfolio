@@ -61,7 +61,7 @@ export default function BentoHero() {
   const degrees = getISTDegrees(time);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-start p-6 md:p-12 lg:p-24 font-sans text-[#292524] overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-start p-6 md:p-12 lg:px-24 lg:py-12 font-sans text-[#292524] overflow-hidden">
       {/* Full Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
@@ -76,18 +76,9 @@ export default function BentoHero() {
       </div>
 
       {/* Foreground Content */}
-      <div className="relative z-20 w-full max-w-2xl transform -translate-y-16">
+      <div className="relative z-20 w-full max-w-2xl transform lg:-translate-y-8">
         <div className="flex flex-col">
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1, ease: [0.19, 1, 0.22, 1] }}
-            className="flex items-center gap-2 text-[10px] md:text-xs font-bold uppercase tracking-widest text-[#78716c] mb-6"
-          >
-            Portfolio · {new Date().getFullYear()}
-          </motion.div>
-
-          <h1 className="text-6xl md:text-8xl lg:text-9xl font-extrabold tracking-tighter leading-[0.9] mb-6 drop-shadow-sm text-[#1c1917]">
+          <h1 className="text-[clamp(3.5rem,12vmin,8rem)] font-extrabold tracking-tighter leading-[0.9] mb-4 md:mb-6 drop-shadow-sm text-[#1c1917]">
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}

@@ -27,7 +27,7 @@ const SOCIALS = [
   },
   {
     label: "LinkedIn",
-    href: "https://linkedin.com",
+    href: "https://www.linkedin.com/in/mohd-musaiyab/",
     icon: (
       <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
         <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
@@ -114,8 +114,8 @@ function Field({
 export default function Contact() {
   const headerRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLDivElement>(null);
-  const headerInView = useInView(headerRef, { once: true, margin: "-60px" });
-  const formInView = useInView(formRef, { once: true, margin: "-60px" });
+  const headerInView = useInView(headerRef, { once: false, margin: "-60px" });
+  const formInView = useInView(formRef, { once: false, margin: "-60px" });
 
   const [form, setForm] = useState({
     senderName: "",
@@ -159,16 +159,20 @@ export default function Contact() {
         ::placeholder { color: rgba(255,255,255,0.18); font-family: 'DM Mono', monospace; }
         input:-webkit-autofill,
         input:-webkit-autofill:focus {
-          -webkit-box-shadow: 0 0 0 1000px #0a0a0a inset;
+          -webkit-box-shadow: 0 0 0 1000px #111111 inset;
           -webkit-text-fill-color: #ffffff;
           transition: background-color 5000s ease-in-out 0s;
+        }
+        input:focus, textarea:focus {
+          box-shadow: 0 20px 25px -5px rgba(255, 255, 255, 0.05), 0 8px 10px -6px rgba(255, 255, 255, 0.05);
+          outline: none;
         }
       `}</style>
 
       <section
         id="contact"
         className="relative w-full overflow-hidden"
-        style={{ background: "#111111" }}
+        style={{ background: "#0a0a0a" }}
       >
         {}
         <div
@@ -180,14 +184,14 @@ export default function Contact() {
         />
         <div className="grain-overlay" aria-hidden="true" />
 
-        <div className="relative z-10 max-w-[1200px] mx-auto px-6 md:px-12 py-28 md:py-44">
+        <div className="relative z-10 max-w-[1200px] mx-auto px-6 md:px-12 py-16 md:py-24">
           {}
           <motion.div
             ref={headerRef}
             initial={{ opacity: 0, y: 40 }}
             animate={headerInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
-            className="mb-20 md:mb-28"
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            className="mb-12 md:mb-16"
           >
             <p
               className="font-dm-mono text-[10px] tracking-[0.45em] uppercase mb-5"
@@ -215,7 +219,7 @@ export default function Contact() {
               ref={formRef}
               initial={{ opacity: 0, x: -30 }}
               animate={formInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
               className="w-full lg:w-[58%]"
             >
               <form onSubmit={handleSubmit} className="flex flex-col gap-10">
@@ -265,7 +269,7 @@ export default function Contact() {
                     disabled={disabled}
                     whileHover={disabled ? {} : { scale: 1.02 }}
                     whileTap={disabled ? {} : { scale: 0.98 }}
-                    className="relative overflow-hidden flex items-center gap-3 px-10 py-4 transition-all duration-300"
+                    className="relative flex items-center gap-3 px-10 py-4 transition-all duration-300 hover:bg-white hover:text-black hover:drop-shadow-[0_0_15px_rgba(255,255,255,0.4)] W-[fit-content]"
                     style={{
                       fontFamily: "'DM Mono', monospace",
                       fontSize: "11px",
@@ -367,9 +371,9 @@ export default function Contact() {
               initial={{ opacity: 0, x: 30 }}
               animate={formInView ? { opacity: 1, x: 0 } : {}}
               transition={{
-                duration: 0.9,
-                ease: [0.16, 1, 0.3, 1],
-                delay: 0.15,
+                duration: 0.5,
+                ease: "easeOut",
+                delay: 0.1,
               }}
               className="w-full lg:w-[42%] flex flex-col gap-14"
             >
@@ -420,7 +424,7 @@ export default function Contact() {
                         ease: [0.16, 1, 0.3, 1],
                         delay: 0.25 + i * 0.08,
                       }}
-                      className="group flex items-center gap-4 py-4 border-b transition-colors duration-300"
+                      className="group flex items-center gap-4 py-4 border-b transition-all duration-300 hover:bg-white/5"
                       style={{
                         borderColor: WA(0.07),
                         textDecoration: "none",
@@ -428,17 +432,17 @@ export default function Contact() {
                       }}
                       whileHover={{ x: 6 }}
                     >
-                      <span className="transition-colors duration-300 group-hover:text-white">
+                      <span className="transition-colors duration-300 group-hover:text-white group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]">
                         {s.icon}
                       </span>
                       <span
-                        className="font-cinzel text-sm tracking-widest uppercase transition-colors duration-300 group-hover:text-white"
+                        className="font-cinzel text-sm tracking-widest uppercase transition-colors duration-300 group-hover:text-white group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]"
                         style={{ letterSpacing: "0.18em" }}
                       >
                         {s.label}
                       </span>
                       <span
-                        className="ml-auto text-base transition-all duration-300 group-hover:translate-x-1 group-hover:text-white"
+                        className="ml-auto text-base transition-all duration-300 group-hover:translate-x-1 group-hover:text-white group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]"
                         style={{ color: WA(0.2) }}
                       >
                         →
@@ -460,11 +464,11 @@ export default function Contact() {
                   Or write directly
                 </p>
                 <a
-                  href="mailto:musaiyabmohd@gmail.com"
+                  href="mailto:musaiyab2003@gmail.com"
                   className="font-dm-mono text-[13px] tracking-[0.12em] transition-colors duration-300 hover:text-white"
                   style={{ color: WA(0.5), textDecoration: "none" }}
                 >
-                  musaiyabmohd@gmail.com
+                  musaiyab2003@gmail.com
                 </a>
               </div>
             </motion.div>
@@ -472,7 +476,7 @@ export default function Contact() {
 
           {}
           <div
-            className="w-full h-px mt-28"
+            className="w-full h-px mt-16 md:mt-24"
             style={{
               background: `linear-gradient(to right, transparent, ${WA(0.08)} 50%, transparent)`,
             }}

@@ -14,19 +14,19 @@ type Education = (typeof educationData.education)[0];
 
 function EduCard({ item, index }: { item: Education; index: number }) {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
+  const inView = useInView(ref, { once: false, margin: "-100px" });
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 50 }}
+      initial={{ opacity: 0, y: 30 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{
-        duration: 0.9,
-        ease: [0.16, 1, 0.3, 1],
-        delay: index * 0.1,
+        duration: 0.5,
+        ease: "easeOut",
+        delay: index * 0.05,
       }}
-      className="relative md:pl-20 py-10 md:py-16 group"
+      className="relative md:pl-20 py-8 md:py-12 group"
     >
       {}
       <div className="hidden md:block absolute left-[27px] top-0 bottom-0 w-px bg-white/5 group-last:bottom-auto group-last:h-full">
@@ -84,13 +84,13 @@ function EduCard({ item, index }: { item: Education; index: number }) {
         {}
         <div className="flex-1">
           <h3
-            className="font-cinzel font-bold text-3xl md:text-4xl mb-2 transition-colors duration-300"
-            style={{ color: WHITE, letterSpacing: "0.02em" }}
+            className="font-cinzel font-bold text-3xl md:text-4xl mb-2 transition-all duration-300 group-hover:text-white group-hover:drop-shadow-[0_0_15px_rgba(255,255,255,0.6)]"
+            style={{ color: WA(0.85), letterSpacing: "0.02em" }}
           >
             {item.institution}
           </h3>
           <h4
-            className="font-dm-mono text-sm md:text-base tracking-widest uppercase mb-8"
+            className="font-dm-mono text-sm md:text-base tracking-widest uppercase mb-6 transition-colors duration-300 group-hover:text-white/80"
             style={{ color: WA(0.5) }}
           >
             {item.degree}
@@ -103,13 +103,13 @@ function EduCard({ item, index }: { item: Education; index: number }) {
               return (
                 <li key={i} className="flex gap-4 items-start group/li">
                   <span
-                    className="shrink-0 mt-[10px] w-1.5 h-1.5 rounded-full transition-all duration-300 group-hover/li:scale-150 group-hover/li:bg-[#93E7FB]"
+                    className="shrink-0 mt-[10px] w-1.5 h-[1.5px] transition-all duration-300 group-hover/li:w-3 group-hover/li:bg-white"
                     style={{ background: WA(0.3) }}
                   />
                   <span
-                    className="text-[14px] leading-[1.8]"
+                    className="text-[14px] md:text-[15px] leading-[1.8] transition-all duration-300 group-hover/li:text-white group-hover/li:font-normal group-hover/li:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]"
                     style={{
-                      color: "#888888",
+                      color: WA(0.65),
                       fontFamily: "Inter, sans-serif",
                       fontWeight: 300,
                     }}
@@ -118,7 +118,7 @@ function EduCard({ item, index }: { item: Education; index: number }) {
                       /[\d.%]+/.test(part) ? (
                         <span
                           key={pidx}
-                          className="font-dm-mono font-medium tracking-wider"
+                          className="font-dm-mono font-medium tracking-wider transition-colors duration-300 group-hover/li:text-white group-hover/li:drop-shadow-[0_0_10px_rgba(255,255,255,1)]"
                           style={{ color: WA(0.9) }}
                         >
                           {part}
@@ -140,7 +140,7 @@ function EduCard({ item, index }: { item: Education; index: number }) {
 
 export default function Education() {
   const headerRef = useRef<HTMLDivElement>(null);
-  const headerInView = useInView(headerRef, { once: true, margin: "-100px" });
+  const headerInView = useInView(headerRef, { once: false, margin: "-100px" });
 
   return (
     <section
@@ -167,45 +167,26 @@ export default function Education() {
         }}
       />
 
-      <div className="relative z-10 max-w-[1200px] mx-auto px-6 md:px-12 py-32 md:py-40">
+      <div className="relative z-10 max-w-[1200px] mx-auto px-6 md:px-12 py-16 md:py-24">
         {}
         <motion.div
           ref={headerRef}
           initial={{ opacity: 0, y: 40 }}
           animate={headerInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20 md:mb-32 border-b border-white/10 pb-12"
+          className="mb-12 md:mb-16 border-b border-white/10 pb-8"
         >
-          <div>
-            <p
-              className="font-dm-mono text-[11px] tracking-[0.5em] uppercase mb-6"
-              style={{ color: WA(0.5) }}
-            >
-              Academic Background
-            </p>
-            <h2
-              className="font-cinzel font-black leading-none"
-              style={{
-                fontSize: "clamp(50px, 8vw, 110px)",
-                color: WHITE,
-                letterSpacing: "0.02em",
-                textShadow: "0 10px 40px rgba(255,255,255,0.1)",
-              }}
-            >
-              Education
-            </h2>
-          </div>
-          <p
-            className="text-[14px] md:text-[16px] max-w-[280px] md:text-right leading-[1.8]"
+          <h2
+            className="font-cinzel font-black leading-none"
             style={{
-              color: WA(0.4),
-              fontFamily: "Inter, sans-serif",
-              fontWeight: 300,
+              fontSize: "clamp(50px, 8vw, 110px)",
+              color: WHITE,
+              letterSpacing: "0.02em",
+              textShadow: "0 10px 40px rgba(255,255,255,0.1)",
             }}
           >
-            Formal rigorous training paving the foundation for modern systems
-            design.
-          </p>
+            Education
+          </h2>
         </motion.div>
 
         {}

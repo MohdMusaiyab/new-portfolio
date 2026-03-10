@@ -55,7 +55,7 @@ function CategoryBlock({
   blockIndex: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
+  const inView = useInView(ref, { once: false, margin: "-60px" });
 
   return (
     <motion.div
@@ -63,11 +63,11 @@ function CategoryBlock({
       initial={{ opacity: 0, y: 32 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{
-        duration: 0.7,
-        ease: [0.16, 1, 0.3, 1],
-        delay: blockIndex * 0.06,
+        duration: 0.5,
+        ease: "easeOut",
+        delay: blockIndex * 0.05,
       }}
-      className="flex flex-col gap-5"
+      className="flex flex-col gap-4 md:gap-5 group/category"
     >
       {}
       <div className="flex items-center gap-4">
@@ -79,7 +79,7 @@ function CategoryBlock({
         </span>
         <div className="h-px flex-1" style={{ background: WA(0.08) }} />
         <h3
-          className="font-cinzel font-bold text-sm tracking-widest uppercase"
+          className="font-cinzel font-bold text-sm tracking-widest uppercase transition-all duration-300 group-hover/category:text-white group-hover/category:drop-shadow-[0_0_10px_rgba(255,255,255,0.7)]"
           style={{ color: WA(0.9), letterSpacing: "0.18em" }}
         >
           {group.category}
@@ -102,7 +102,7 @@ function CategoryBlock({
 
 export default function Skills() {
   const headerRef = useRef<HTMLDivElement>(null);
-  const headerInView = useInView(headerRef, { once: true, margin: "-80px" });
+  const headerInView = useInView(headerRef, { once: false, margin: "-80px" });
 
   return (
     <>
@@ -112,7 +112,7 @@ export default function Skills() {
 
       <section
         id="skills"
-        className="relative w-full overflow-hidden py-28 md:py-40"
+        className="relative w-full overflow-hidden py-16 md:py-24"
         style={{ background: "#0a0a0a" }}
       >
         <div
@@ -130,16 +130,10 @@ export default function Skills() {
             ref={headerRef}
             initial={{ opacity: 0, y: 30 }}
             animate={headerInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="mb-16 md:mb-24 flex flex-col md:flex-row md:items-end md:justify-between gap-4"
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            className="mb-10 md:mb-16 flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/10 pb-8"
           >
             <div>
-              <p
-                className="font-dm-mono text-[10px] tracking-[0.45em] uppercase mb-5"
-                style={{ color: WA(0.4) }}
-              >
-                Capabilities
-              </p>
               <h2
                 className="font-cinzel font-black leading-none"
                 style={{
@@ -152,13 +146,6 @@ export default function Skills() {
                 Skills
               </h2>
             </div>
-            <p
-              className="font-dm-mono text-[11px] tracking-widest max-w-[200px] md:text-right leading-relaxed"
-              style={{ color: WA(0.28) }}
-            >
-              {SKILL_GROUPS.reduce((acc, g) => acc + g.skills.length, 0)} skills
-              across {SKILL_GROUPS.length} domains.
-            </p>
           </motion.div>
 
           {}

@@ -16,7 +16,7 @@ type Project = (typeof projectsData.projects)[0];
 
 function ProjectRow({ project, index }: { project: Project; index: number }) {
   const ref = useRef<HTMLElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
+  const inView = useInView(ref, { once: false, margin: "-100px" });
   const [activeImg, setActiveImg] = useState(0);
 
   useEffect(() => {
@@ -34,10 +34,10 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
   return (
     <motion.article
       ref={ref}
-      initial={{ opacity: 0, y: 80 }}
+      initial={{ opacity: 0, y: 30 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-      className="relative w-full mb-32 md:mb-48 group"
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className="relative w-full mb-20 md:mb-28 group"
     >
       <div className="flex flex-col lg:flex-row gap-10 lg:gap-16 xl:gap-24 items-center lg:items-center">
         {}
@@ -114,10 +114,10 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
           </div>
 
           <motion.h3
-            className="font-cinzel font-bold leading-none mb-6"
+            className="font-cinzel font-bold leading-none mb-4 md:mb-6 transition-all duration-300 group-hover:text-white group-hover:drop-shadow-[0_0_15px_rgba(255,255,255,0.6)]"
             style={{
               fontSize: "clamp(40px, 4vw, 56px)",
-              color: WHITE,
+              color: WA(0.85),
               letterSpacing: "0.02em",
               textShadow: "0 4px 20px rgba(255,255,255,0.1)",
             }}
@@ -126,7 +126,7 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
           </motion.h3>
 
           <p
-            className="text-[15px] leading-[1.8] mb-8"
+            className="text-[15px] leading-[1.8] mb-8 transition-all duration-300 group-hover:text-white group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)] group-hover:scale-[1.01]"
             style={{
               color: MIST,
               fontFamily: "Inter, sans-serif",
@@ -144,8 +144,8 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
                   style={{ background: WA(0.3) }}
                 />
                 <span
-                  className="text-[13px] leading-[1.7]"
-                  style={{ color: WA(0.6), fontWeight: 300 }}
+                  className="text-[14px] md:text-[15px] leading-[1.7] transition-all duration-300 group-hover/kp:text-white group-hover/kp:font-normal group-hover/kp:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]"
+                  style={{ color: WA(0.65), fontWeight: 300 }}
                 >
                   {kp}
                 </span>
@@ -206,14 +206,14 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
 
 export default function Projects() {
   const all = projectsData.projects;
-  const INITIAL_DESKTOP = 5;
-  const INITIAL_MOBILE = 3;
+  const INITIAL_DESKTOP = 3;
+  const INITIAL_MOBILE = 2;
 
   const [showAll, setShowAll] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
   const headerRef = useRef<HTMLDivElement>(null);
-  const headerInView = useInView(headerRef, { once: true, margin: "-100px" });
+  const headerInView = useInView(headerRef, { once: false, margin: "-100px" });
 
   const isClient = typeof window !== "undefined";
 
@@ -277,14 +277,14 @@ export default function Projects() {
           }}
         />
 
-        <div className="relative z-10 max-w-[1400px] mx-auto px-6 md:px-12 py-32 md:py-48">
+        <div className="relative z-10 max-w-[1400px] mx-auto px-6 md:px-12 py-16 md:py-24">
           {}
           <motion.div
             ref={headerRef}
             initial={{ opacity: 0, y: 40 }}
             animate={headerInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-32 md:mb-48 border-b border-white/10 pb-12"
+            className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16 md:mb-24 border-b border-white/10 pb-8"
           >
             <div>
               <h2
