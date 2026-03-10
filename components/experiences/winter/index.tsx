@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Hero from "./Hero";
 import Projects from "./Projects";
+import GithubActivity from "./GithubActivity";
 import Experience from "./Experience";
 import Education from "./Education";
 import Skills from "./Skills";
@@ -20,6 +21,7 @@ export default function WinterExperience() {
       <Hero />
       <Experience />
       <Projects />
+      <GithubActivity />
       <Education />
       <Skills />
       <Contact />
