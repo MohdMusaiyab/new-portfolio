@@ -17,7 +17,7 @@ export default function DefaultEducation() {
         <div className="absolute bottom-0 right-0 w-[60vw] h-[60vw] bg-[#0d9488]/5 blur-[200px] rounded-full translate-x-1/4 translate-y-1/4" />
       </div>
 
-      <div className="relative z-10 max-w-5xl mx-auto px-6 md:px-12 lg:px-16">
+      <div className="relative z-10 max-w-7xl mx-auto px-5 md:px-12 lg:px-16">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -46,7 +46,7 @@ export default function DefaultEducation() {
         </motion.div>
 
         {/* Structured List Layout */}
-        <div className="flex flex-col gap-12 lg:gap-16 relative z-10 pb-8">
+        <div className="flex flex-col gap-12 lg:gap-16 relative z-10 pb-8 max-w-5xl mx-auto w-full">
           {sortedEducation.map((edu, idx) => (
             <motion.div
               key={idx}

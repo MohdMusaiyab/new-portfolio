@@ -1,13 +1,35 @@
 {
   "projects": [
     {
+      "name": "NearH",
+      "description": "Centralized real-time healthcare network for India, bridging the communication gap during medical emergencies through live resource tracking.",
+      "keyPoints": [
+        "Architected a centralized healthcare network using Next.js 16 and Supabase, implementing multi-tenant isolation to provide live tracking of bed, ICU, and blood bank availability.",
+        "Engineered a multi-tier distributed caching strategy using Upstash Redis, reducing database read load by 60% and maintaining sub-100ms latency for critical resource discovery.",
+        "Provisioned a secure data layer using Supabase Row Level Security (RLS) and Edge Rate Limiting, ensuring 100% data integrity for inter-hospital patient referrals.",
+        "Designed an RBAC-protected dashboard for hospitals to manage live inventory and streamline emergency response coordination."
+      ],
+      "techStack": [
+        "Next.js 16",
+        "Supabase",
+        "PostgreSQL",
+        "Upstash Redis",
+        "TypeScript",
+        "Tailwind CSS",
+        "Framer Motion"
+      ],
+      "githubRepo": "https://github.com/MohdMusaiyab/nearH",
+      "liveSite": "https://nearh-beta.vercel.app/",
+      "images": ["/nearH-one.png", "/nearH-two.png"]
+    },
+    {
       "name": "Infybite",
       "description": "High-concurrency multi-tenant system built with Go to digitize enterprise food court operations and inventory tracking.",
       "keyPoints": [
-        "Architected a high-performance backend in Go (Gin) featuring 4-level Role-Based Access Control (RBAC) for Admins, Vendors, Managers, and Users.",
-        "Engineered real-time state synchronization via WebSockets, allowing zero-latency menu updates and item tracking across multiple locations.",
-        "Implemented a secure authentication pipeline using JWT with Refresh Tokens and HttpOnly Cookies to mitigate XSS and CSRF vulnerabilities.",
-        "Designed a scalable multi-tenant data model using GORM and MongoDB to manage independent inventory and vendor statuses."
+        "Designed and implemented a Go-based multi-tenant management system with 4-level RBAC (Admin, Vendor, Manager, User), streamlining food court operations and inventory workflows.",
+        "Built a high-concurrency WebSocket hub in Go to synchronize real-time menu state for 16,000+ concurrent users, incorporating slow-client disconnection to maintain <50ms latency.",
+        "Developed a secure authentication pipeline using JWT + HttpOnly cookies, enabling silent token rotation with 100% session reliability while mitigating XSS and CSRF attacks.",
+        "Architected a scalable data model using GORM and MongoDB to handle high-frequency transaction logs and independent vendor state management."
       ],
       "techStack": [
         "Go (Golang)",
@@ -25,12 +47,12 @@
     },
     {
       "name": "Mess-Bazaar",
-      "description": "Next.js bidding platform connecting mess contractors with institutions through a competitive tendering system.",
+      "description": "Next.js bidding platform connecting mess contractors with institutions through a competitive real-time tendering system.",
       "keyPoints": [
-        "Orchestrated a full-stack tendering platform using Next.js and Prisma, supporting 10+ production-grade pages for institutional bidding workflows.",
-        "Engineered real-time WebSocket-based chat and profile management with a 5-point rating system for multiple user roles.",
-        "Implemented smooth UI animations using Framer Motion for bidding transitions and interactive elements.",
-        "Designed a secure platform with JWT authentication, role-based access control (4+ roles), and a mobile-friendly UI."
+        "Orchestrated a full-stack tendering platform using Next.js and Prisma, supporting 10+ production-grade pages for complex institutional bidding workflows.",
+        "Engineered real-time synchronization for instant bid updates, maintaining 100% data consistency across diverse institutional dashboards.",
+        "Optimized relational queries via Prisma ORM, implementing efficient indexing and parallel data fetching that reduced server-side latency by 30%.",
+        "Developed a mobile-responsive UI with Framed Motion and Tailwind CSS, featuring a 5-point rating system and real-time Socket.IO chat."
       ],
       "techStack": [
         "Next.js",
@@ -49,20 +71,21 @@
     },
     {
       "name": "Gossipyfy",
-      "description": "Anonymous content sharing platform with support for multiple categories, languages, and audio content.",
+      "description": "Anonymous voice-first social platform with scalable audio streaming and multilingual content support.",
       "keyPoints": [
-        "Developed a voice-first social platform utilizing AWS S3 for scalable, category-based audio uploads and multilingual content handling.",
-        "Implemented sophisticated animations using Framer Motion and a responsive UI with Next.js for an engaging user experience.",
-        "Built secure and scalable user authentication using NextAuth, supporting both Google OAuth and email-password login.",
-        "Optimized media storage infrastructure with AWS S3 to handle large-scale audio content efficiently."
+        "Developed a secure media mutation pipeline using Server Actions and Zod validation, significantly reducing client-side bundle size while enhancing security.",
+        "Built an enterprise-grade storage infrastructure using AWS S3 for scalable audio uploads and category-based content streaming.",
+        "Standardized authentication with NextAuth and custom Middleware to neutralize XSS/CSRF risks while supporting Google OAuth and secure sessions.",
+        "Integrated Razorpay for server-side payment handling and automated webhook verification to ensure accurate billing for digital services."
       ],
       "techStack": [
         "PostgreSQL",
         "NextJS",
-        "AWS",
+        "AWS S3",
         "NextAuth",
         "Prisma",
-        "Docker"
+        "Docker",
+        "Zod"
       ],
       "githubRepo": "https://github.com/MohdMusaiyab/gossipyfy",
       "liveSite": "https://gossipyfy.vercel.app/",
@@ -70,12 +93,12 @@
     },
     {
       "name": "Canteen Connect",
-      "description": "Food Delivery Web/Mobile Application for College Shops and Cafeteria.",
+      "description": "Cross-platform food delivery ecosystem for campus cafeterias, reducing peak-hour wait times.",
       "keyPoints": [
-        "Digitizing the canteen system to reduce wait times, enhancing customer satisfaction during peak hours.",
-        "Utilized the MERN stack for the web-based admin panel and Flutter for the mobile user app, ensuring a seamless experience.",
-        "Provided admin features for menu, order, and inventory management, along with real-time tracking for users.",
-        "Implemented secure user authentication and payment gateways to ensure data privacy and secure transactions."
+        "Digitized campus canteen workflows using a MERN-based admin panel and a Flutter mobile app, resulting in a significant reduction in queue wait times.",
+        "Implemented a real-time order tracking system using WebSockets to provide users with live updates on preparation and pickup status.",
+        "Engineered specialized administrative features for menu management, live inventory tracking, and sales analytics.",
+        "Provisioned secure payment gateway integration and Firebase-based authentication for robust user data privacy."
       ],
       "techStack": [
         "React.JS",
@@ -83,8 +106,8 @@
         "Express JS",
         "MongoDB",
         "Firebase",
-        "Tailwind CSS",
-        "Web Socket"
+        "Flutter",
+        "Web Sockets"
       ],
       "githubRepo": "https://github.com/Canteen-Connect",
       "liveSite": "https://github.com/Canteen-Connect",
@@ -92,12 +115,12 @@
     },
     {
       "name": "E-Estate",
-      "description": "MERN stack based E-Estate Web Application with advanced search and image management.",
+      "description": "High-performance real estate marketplace featuring advanced search algorithms and optimized asset management.",
       "keyPoints": [
-        "Implemented advanced search filters for properties based on location, price, and amenities, enhancing user satisfaction.",
-        "Achieved efficient image storage by leveraging Firebase, reducing MongoDB storage utilization significantly.",
-        "Implemented robust authentication protocols to ensure secure user access and data protection.",
-        "Integrated Google Sign-In functionality for enhanced user accessibility and secure login."
+        "Constructed an advanced property search engine with dynamic filters for location, pricing, and amenities to enhance user discovery.",
+        "Optimized cloud asset management by leveraging Firebase for image storage, reducing MongoDB storage costs and improving page load speeds.",
+        "Implemented secure JWT-based authentication protocols and Google Sign-In for a seamless and protected user onboarding experience.",
+        "Built a responsive property listing dashboard with automated image compression and lazy loading for high-density visual content."
       ],
       "techStack": [
         "React.JS",
@@ -105,6 +128,7 @@
         "MongoDB",
         "Express JS",
         "Redux",
+        "Firebase",
         "Tailwind CSS"
       ],
       "githubRepo": "https://github.com/MohdMusaiyab/real-estate",
@@ -113,12 +137,12 @@
     },
     {
       "name": "E-Commerce Web App",
-      "description": "Full-featured MERN stack E-commerce Application with admin and user panels.",
+      "description": "Full-stack e-commerce solution with integrated payment processing and comprehensive administrative controls.",
       "keyPoints": [
-        "Designed and developed intuitive admin and user panels catering to specific administrative and customer needs.",
-        "Implemented a secure payment gateway to facilitate seamless and secure transactions within the application.",
-        "Developed advanced search filters and a user-friendly cart system for simplified product discovery.",
-        "Implemented robust error-handling mechanisms to manage system errors effectively and enhance reliability."
+        "Designed and shipped independent Admin and User modules, featuring comprehensive inventory management and order lifecycle tracking.",
+        "Integrated a secure Stripe/Razorpay payment gateway to facilitate reliable end-to-end e-commerce transactions.",
+        "Developed a dynamic product discovery system with real-time search filters and a persistent shopping cart state.",
+        "Implemented centralized error-handling and global state management to ensure a high-availability shopping experience."
       ],
       "techStack": [
         "Node JS",

@@ -104,8 +104,8 @@ export default function Hero() {
           className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6 w-full sm:w-auto"
         >
           <a
-            href="/resume.pdf"
-            download
+            href={process.env.NEXT_PUBLIC_RESUME_LINK}
+            target="blank"
             className="w-full sm:w-auto flex items-center justify-center gap-2 md:gap-3 px-8 md:px-10 py-4 font-mono text-[10px] md:text-xs tracking-[0.2em] md:tracking-[0.3em] uppercase bg-white text-black border border-white/80 hover:bg-transparent hover:text-white hover:border-white transition-all duration-300"
           >
             Resume

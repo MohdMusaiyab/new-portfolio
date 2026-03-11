@@ -65,10 +65,11 @@ export default function BentoHero() {
       {/* Full Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/default.jpg"
+          src="/default.png"
           alt="Mohd Musaiyab Background"
           fill
           priority
+          quality={100}
           className="object-cover object-center"
         />
         {/* Gradient Overlay for Text Readability - Beige to Cyan blend */}
@@ -148,7 +149,8 @@ export default function BentoHero() {
               View Projects ↗
             </a>
             <a
-              href="/resume.pdf"
+              href={process.env.NEXT_PUBLIC_RESUME_LINK || "/resume.pdf"}
+              target="blank"
               className="bg-white/60 backdrop-blur-md border border-[#0d9488]/20 px-8 py-4 rounded-xl text-sm md:text-base font-bold text-[#0d9488] hover:bg-white/90 hover:border-[#0d9488]/40 transition-all hover:scale-[1.02] shadow-[0_4px_20px_-4px_rgba(13,148,136,0.15)]"
             >
               Resume
@@ -168,7 +170,7 @@ export default function BentoHero() {
           <p className="text-[10px] font-bold uppercase tracking-widest text-[#a8a29e]">
             Location
           </p>
-          <p className="text-[#1c1917] font-bold text-base">Pune, IN</p>
+          <p className="text-[#1c1917] font-bold text-base">INDIA</p>
           <div className="flex items-center gap-3 mt-1 group cursor-default">
             {/* Clock Face */}
             <div className="relative w-5 h-5 rounded-full border border-[#0d9488]/40 flex items-center justify-center bg-white shadow-inner group-hover:border-[#0d9488]/80 group-hover:scale-110 group-hover:shadow-[0_0_10px_rgba(13,148,136,0.2)] transition-all duration-300">
@@ -230,7 +232,10 @@ export default function BentoHero() {
             </svg>
           </a>
           <a
-            href="https://linkedin.com"
+            href={
+              process.env.NEXT_PUBLIC_PERSONAL_LINKEDIN ||
+              "https://linkedin.com"
+            }
             target="_blank"
             aria-label="LinkedIn"
             className="group"
@@ -252,7 +257,7 @@ export default function BentoHero() {
             </svg>
           </a>
           <a
-            href="https://x.com"
+            href={process.env.NEXT_PUBLIC_PERSONAL_TWITTER}
             target="_blank"
             aria-label="Twitter"
             className="group"

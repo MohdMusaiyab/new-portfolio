@@ -5,10 +5,10 @@
       "url": "https://static.vecteezy.com/system/resources/previews/004/815/622/original/software-development-programming-language-coding-3d-isometric-laptop-computer-with-digital-application-isolated-on-white-background-design-vector.jpg",
       "skills": [
         { "name": "Go (Golang)", "icon": "FaGo" },
-        { "name": "TypeScript", "icon": "FaDatabase" },
+        { "name": "TypeScript", "icon": "SiTypescript" },
         { "name": "JavaScript", "icon": "FaJsSquare" },
         { "name": "Java", "icon": "FaJava" },
-        { "name": "C++", "icon": "FaCode" },
+        { "name": "C++", "icon": "SiCplusplus" },
         { "name": "SQL", "icon": "FaDatabase" }
       ]
     },
@@ -16,9 +16,9 @@
       "name": "Backend Development",
       "url": "https://t4.ftcdn.net/jpg/02/99/62/11/360_F_299621124_vutDKbNwRJG6poJRQQIMYfsc4tJCTO5E.jpg",
       "skills": [
-        { "name": "Gin Gonic", "icon": "FaRocket" },
-        { "name": "Node.js", "icon": "FaServer" },
-        { "name": "Express.js", "icon": "FaToolbox" },
+        { "name": "Gin Gonic", "icon": "SiGin" },
+        { "name": "Node.js", "icon": "FaNodeJs" },
+        { "name": "Express.js", "icon": "SiExpress" },
         { "name": "WebSockets", "icon": "FaNetworkWired" },
         { "name": "RESTful APIs", "icon": "FaPlug" }
       ]
@@ -27,11 +27,11 @@
       "name": "Databases and ORM",
       "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWgseiwlVfBo-60fELz9BiuSrB9mV9vlfX3Q&s",
       "skills": [
-        { "name": "PostgreSQL", "icon": "FaDatabase" },
-        { "name": "MongoDB", "icon": "FaLeaf" },
-        { "name": "MySQL", "icon": "FaDatabase" },
+        { "name": "PostgreSQL", "icon": "SiPostgresql" },
+        { "name": "MongoDB", "icon": "SiMongodb" },
+        { "name": "MySQL", "icon": "SiMysql" },
         { "name": "GORM", "icon": "FaLink" },
-        { "name": "Prisma ORM", "icon": "FaLink" }
+        { "name": "Prisma ORM", "icon": "SiPrisma" }
       ]
     },
     {
@@ -41,7 +41,7 @@
         { "name": "Docker", "icon": "FaDocker" },
         { "name": "AWS S3", "icon": "FaCloud" },
         { "name": "Git / GitHub Actions", "icon": "FaGithub" },
-        { "name": "Postman", "icon": "FaTerminal" },
+        { "name": "Postman", "icon": "SiPostman" },
         { "name": "Linux / Bash", "icon": "FaLinux" }
       ]
     },
@@ -50,9 +50,9 @@
       "url": "https://t3.ftcdn.net/jpg/05/31/71/02/360_F_531710260_ByieqNe7Ut6QBHgIR7xgdsxH7gICrHr1.jpg",
       "skills": [
         { "name": "React.JS", "icon": "FaReact" },
-        { "name": "Next.js", "icon": "RiNextjsLine" },
-        { "name": "Redux Toolkit", "icon": "FaBox" },
-        { "name": "Tailwind CSS", "icon": "FaWind" }
+        { "name": "Next.js", "icon": "SiNextdotjs" },
+        { "name": "Redux Toolkit", "icon": "SiRedux" },
+        { "name": "Tailwind CSS", "icon": "SiTailwindcss" }
       ]
     },
     {
@@ -62,7 +62,7 @@
         { "name": "System Design", "icon": "FaProjectDiagram" },
         { "name": "RBAC Security", "icon": "FaLock" },
         { "name": "Multi-tenant Architecture", "icon": "FaUsers" },
-        { "name": "Data Structures & Algorithms", "icon": "FaMicrochip" }
+        { "name": "DSA", "icon": "FaMicrochip" }
       ]
     }
   ]
