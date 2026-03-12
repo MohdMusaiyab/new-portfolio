@@ -9,11 +9,10 @@ import experienceData from "@/app/data/experience.json";
 const DEEP_BLACK = "#0a0a0a";
 const WHITE = "#ffffff";
 const WA = (a: number) => `rgba(255,255,255,${a})`;
-const MIST = "#888888";
 
 type Experience = (typeof experienceData.experience)[0];
 
-function ExperienceCard({ item, index }: { item: Experience; index: number }) {
+function ExperienceCard({ item }: { item: Experience; index: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: false, margin: "-100px" });
 

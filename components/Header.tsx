@@ -1,14 +1,15 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { useExperience } from "@/store/useExperience";
 
 const NAV = [
-  { label: "Experience", href: "#experience" },
-  { label: "Projects", href: "#projects" },
-  { label: "Education", href: "#education" },
-  { label: "Skills", href: "#skills" },
-  { label: "Contact", href: "#contact" },
+  { label: "Experience", href: "/#experience" },
+  { label: "Projects", href: "/#projects" },
+  { label: "Education", href: "/#education" },
+  { label: "Skills", href: "/#skills" },
+  { label: "Contact", href: "/#contact" },
 ] as const;
 
 function IconBriefcase() {
@@ -99,11 +100,11 @@ function IconGraduate() {
 }
 
 const MOB_NAV = [
-  { label: "Experience", href: "#experience", Icon: IconTimeline },
-  { label: "Projects", href: "#projects", Icon: IconBriefcase },
-  { label: "Education", href: "#education", Icon: IconGraduate },
-  { label: "Skills", href: "#skills", Icon: IconStar },
-  { label: "Contact", href: "#contact", Icon: IconMail },
+  { label: "Experience", href: "/#experience", Icon: IconTimeline },
+  { label: "Projects", href: "/#projects", Icon: IconBriefcase },
+  { label: "Education", href: "/#education", Icon: IconGraduate },
+  { label: "Skills", href: "/#skills", Icon: IconStar },
+  { label: "Contact", href: "/#contact", Icon: IconMail },
 ] as const;
 
 function IconSnow() {
@@ -157,6 +158,7 @@ export default function Header() {
   const isWinter = activeExperience === "winter";
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
 
@@ -166,7 +168,7 @@ export default function Header() {
       raf.current = requestAnimationFrame(() => {
         setScrolled(window.scrollY > 20);
 
-        const ids = NAV.map((n) => n.href.replace("#", ""));
+        const ids = NAV.map((n) => n.href.replace("/#", ""));
         for (let i = ids.length - 1; i >= 0; i--) {
           const el = document.getElementById(ids[i]);
           if (el && el.getBoundingClientRect().top <= 120) {
@@ -202,25 +204,25 @@ export default function Header() {
         }`}
       >
         {/* Logo */}
-        <a
-          href="#"
+        <Link
+          href="/"
           aria-label="Back to top"
           className={`font-serif text-lg lg:text-xl font-bold tracking-[0.15em] transition-opacity hover:opacity-70 ${
             isWinter ? "text-white" : "text-[#1c1917]"
           }`}
         >
           MM
-        </a>
+        </Link>
 
         {/* Desktop Nav Links */}
         <nav className="absolute left-1/2 -translate-x-1/2 hidden lg:block">
           <ul className="flex items-center gap-10 list-none m-0 p-0">
             {NAV.map(({ label, href }) => {
-              const id = href.replace("#", "");
+              const id = href.replace("/#", "");
               const isActive = active === id;
               return (
                 <li key={href}>
-                  <a
+                  <Link
                     href={href}
                     className={`relative font-mono text-[11px] font-bold tracking-[0.15em] uppercase transition-colors duration-300 pb-1 ${
                       isActive
@@ -239,7 +241,7 @@ export default function Header() {
                         isActive ? "scale-x-100" : "scale-x-0"
                       } ${isWinter ? "bg-white" : "bg-[#0d9488]"}`}
                     />
-                  </a>
+                  </Link>
                 </li>
               );
             })}
@@ -276,10 +278,10 @@ export default function Header() {
           }`}
         >
           {MOB_NAV.map(({ label, href, Icon }) => {
-            const id = href.replace("#", "");
+            const id = href.replace("/#", "");
             const isActive = active === id;
             return (
-              <a
+              <Link
                 key={href}
                 href={href}
                 aria-label={label}
@@ -312,7 +314,7 @@ export default function Header() {
                     }`}
                   />
                 )}
-              </a>
+              </Link>
             );
           })}
 

@@ -43,6 +43,9 @@ export const metadata: Metadata = {
   title: "Mohd Musaiyab — Full Stack Developer",
   description:
     "Portfolio of Mohd Musaiyab — Full Stack & Backend Engineer specialising in high-concurrency systems, React, Next.js, Go, and Node.js.",
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+  },
 };
 
 export default function RootLayout({

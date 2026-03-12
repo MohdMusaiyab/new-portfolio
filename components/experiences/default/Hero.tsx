@@ -11,12 +11,6 @@ const ROLES = [
   "API Design Specialist",
 ];
 
-const FLOW_ITEMS = [
-  "Backend Principles",
-  "Artificial Intelligence",
-  "Data Structures & Algorithms",
-];
-
 export default function BentoHero() {
   const [roleIdx, setRoleIdx] = useState(0);
   const [time, setTime] = useState<Date | null>(null);
@@ -73,7 +67,7 @@ export default function BentoHero() {
           className="object-cover object-center"
         />
         {/* Gradient Overlay for Text Readability - Beige to Cyan blend */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#fdfbf7]/95 via-[#fdfbf7]/80 to-[#0d9488]/30 z-10" />
+        <div className="absolute inset-0 bg-linear-to-r from-[#fdfbf7]/95 via-[#fdfbf7]/80 to-[#0d9488]/30 z-10" />
       </div>
 
       {/* Foreground Content */}
@@ -100,7 +94,7 @@ export default function BentoHero() {
                 ease: [0.19, 1, 0.22, 1],
               }}
             >
-              Musaiyab<span className="text-[#0d9488]">.</span>
+              Musaiyab
             </motion.div>
           </h1>
 
@@ -190,7 +184,7 @@ export default function BentoHero() {
               />
               {/* Seconds */}
               <div
-                className="absolute w-[1px] h-[9px] bg-[#0d9488] origin-bottom rounded-full"
+                className="absolute w-px h-[9px] bg-[#0d9488] origin-bottom rounded-full"
                 style={{
                   transform: `translateY(-4.5px) rotate(${degrees.s}deg)`,
                 }}

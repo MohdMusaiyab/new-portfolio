@@ -8,7 +8,6 @@ import educationData from "@/app/data/education.json";
 const CHARCOAL = "#0a0a0a";
 const WHITE = "#ffffff";
 const WA = (a: number) => `rgba(255,255,255,${a})`;
-const TRACE = "#93E7FB";
 
 type Education = (typeof educationData.education)[0];
 

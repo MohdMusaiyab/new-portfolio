@@ -23,9 +23,22 @@ export default function Home() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
+  useEffect(() => {
+    if (!mounted) return;
 
+    const hash = window.location.hash; // e.g. "#skills"
+    if (!hash) return;
+
+    const id = hash.replace("#", "");
+    const el = document.getElementById(id);
+
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [mounted]); //
   if (!mounted) return null;
 
   return (
