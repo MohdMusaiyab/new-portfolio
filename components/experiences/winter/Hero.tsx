@@ -139,7 +139,7 @@ export default function Hero() {
           transition={{ duration: 1.2, delay: 1, ease: "linear" }}
           className="flex items-center justify-center gap-3 md:gap-6 mt-8 md:mt-14 lg:mt-20 font-mono text-[8px] md:text-[10px] tracking-[0.2em] md:tracking-[0.28em] uppercase text-white/50 drop-shadow-md"
         >
-          <span>2 Yrs Exp</span>
+          <span>1 Yrs Exp</span>
           <span className="w-px h-2.5 md:h-3 bg-white/30" />
           <span>Full Stack</span>
           <span className="w-px h-2.5 md:h-3 bg-white/30" />

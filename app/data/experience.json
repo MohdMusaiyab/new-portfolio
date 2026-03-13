@@ -10,20 +10,20 @@
       "position": "System Engineer",
       "location": "Mysore, India",
       "highlights": [
-        "Architecting high-performance backend modules using Core Java and DSA, optimizing execution time by 30% through advanced algorithmic implementation.",
-        "Engineering enterprise-grade cloud solutions on the Salesforce Platform, utilizing Apex (Triggers, Batch, Asynchronous) and LWC to automate complex CRM workflows.",
-        "Designing and optimizing relational schemas in HSQL, implementing complex indexing and query logic to ensure sub-100ms data retrieval for large-scale datasets.",
-        "Applying industry-standard SDLC and Clean Code principles within Agile workflows to maintain 99.9% deployment reliability and minimize technical debt."
+        "Architecting high-performance backend modules using Core Java, optimizing execution speed by 30% through advanced algorithmic design.",
+        "Engineering enterprise cloud solutions on the Salesforce Platform, leveraging Apex and LWC to automate critical business workflows.",
+        "Designing and optimizing relational schemas in HSQL, ensuring sub-100ms data retrieval for large-scale enterprise datasets.",
+        "Maintaining 99.9% deployment reliability by applying Clean Code principles and Agile methodologies within the SDLC."
       ],
       "skills": [
         "Core Java",
-        "Data Structures & Algorithms",
+        "DSA",
         "SQL/HSQL",
-        "Salesforce CRM",
-        "Apex Development",
+        "Salesforce",
+        "Apex",
         "LWC",
         "System Design",
-        "Agile Methodologies"
+        "Agile"
       ]
     },
     {
@@ -36,11 +36,11 @@
       "position": "React Intern",
       "location": "Remote (India)",
       "highlights": [
-        "Developed 15+ high-performance reusable React components using TypeScript and Tailwind CSS, reducing overall frontend development cycles by 30%.",
-        "Engineered a centralized state management architecture using Redux Toolkit with 6+ independent slices, ensuring predictable data flow across 10+ dynamic modules.",
-        "Optimized frontend rendering performance using React.memo and useCallback hooks, achieving a measurable 40% improvement in FPS for data-heavy dashboards.",
-        "Integrated 50+ RESTful APIs with sophisticated error-handling patterns and Zod-validated schemas to ensure seamless frontend-backend synchronization.",
-        "Implemented fluid UI transitions and micro-interactions using Framer Motion, contributing to a significant boost in user retention and engagement metrics."
+        "Developed 15+ reusable React components using TypeScript and Tailwind CSS, accelerating typical frontend cycles by 30%.",
+        "Engineered a centralized state architecture with Redux Toolkit, managing complex data flow across 10+ dynamic application modules.",
+        "Boosted dashboard performance by 40% through advanced React memoization techniques and rendering optimizations.",
+        "Integrated 50+ RESTful APIs with robust error-handling and Zod-validated schemas for high-integrity data synchronization.",
+        "Crafted immersive UI transitions and micro-interactions using Framer Motion, significantly enhancing user engagement."
       ],
       "skills": [
         "TypeScript",
@@ -48,9 +48,9 @@
         "Redux Toolkit",
         "Tailwind CSS",
         "Framer Motion",
-        "RESTful API Integration",
-        "Frontend Performance Optimization",
-        "Git/GitHub",
+        "REST APIs",
+        "Performance Opt",
+        "Git",
         "Jira"
       ]
     }
