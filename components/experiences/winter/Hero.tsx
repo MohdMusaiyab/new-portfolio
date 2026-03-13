@@ -22,7 +22,7 @@ export default function Hero() {
 
   return (
     <section className="relative w-full min-h-[100dvh] flex flex-col items-center justify-center overflow-hidden bg-[#080808] pt-20">
-      {/* Background Image */}
+      {}
       <motion.div
         initial={{ scale: 1.1, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
@@ -34,7 +34,7 @@ export default function Hero() {
         }}
       />
 
-      {/* Dark Gradient Overlay */}
+      {}
       <div
         className="absolute inset-0 z-[1]"
         style={{
@@ -43,9 +43,9 @@ export default function Hero() {
         }}
       />
 
-      {/* Content Container */}
+      {}
       <div className="relative z-10 w-full max-w-5xl mx-auto px-6 md:px-12 flex flex-col items-center text-center">
-        {/* Massive Name */}
+        {}
         <motion.h1
           initial={{ opacity: 0, scale: 1.05, filter: "blur(12px)", y: 20 }}
           animate={{ opacity: 1, scale: 1, filter: "blur(0px)", y: 0 }}
@@ -60,7 +60,7 @@ export default function Hero() {
           Musaiyab
         </motion.h1>
 
-        {/* Animated Roles */}
+        {}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -84,7 +84,7 @@ export default function Hero() {
           <div className="hidden md:block w-8 md:w-12 h-px bg-white/40" />
         </motion.div>
 
-        {/* Description */}
+        {}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -96,7 +96,7 @@ export default function Hero() {
           immersive user experiences.
         </motion.p>
 
-        {/* Action Buttons */}
+        {}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -132,7 +132,7 @@ export default function Hero() {
           </a>
         </motion.div>
 
-        {/* Meta info block */}
+        {}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -147,7 +147,7 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      {/* Enhanced Scroll Indicator */}
+      {}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
