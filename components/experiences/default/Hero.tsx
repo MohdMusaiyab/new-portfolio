@@ -11,6 +11,22 @@ const ROLES = [
   "Distributed Systems",
 ];
 
+const fadeUpVariant = {
+  hidden: { opacity: 0, y: 22 },
+  visible: { opacity: 1, y: 0 },
+};
+
+const statusBarVariant = {
+  hidden: { opacity: 0, y: 8 },
+  visible: { opacity: 1, y: 0 },
+};
+
+const roleVariant = {
+  initial: { opacity: 0, y: 5, filter: "blur(4px)" },
+  animate: { opacity: 1, y: 0, filter: "blur(0px)" },
+  exit:    { opacity: 0, y: -5, filter: "blur(4px)" },
+};
+
 export default function WaterSandHero() {
   const [roleIdx, setRoleIdx] = useState(0);
   const [time, setTime] = useState<Date | null>(null);
@@ -45,6 +61,7 @@ export default function WaterSandHero() {
 
   return (
     <>
+      {/* Only keyframe animations and Google Fonts stay in <style> — unavoidable */}
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap');
 
@@ -54,45 +71,27 @@ export default function WaterSandHero() {
           60%  { transform: translateY(-16px) rotate(-0.15deg); }
           100% { transform: translateY(0px) rotate(-0.3deg); }
         }
-
         @keyframes rippleBar {
           0%, 100% { transform: translateX(-50%) scaleX(0.72); opacity: 0.45; }
           50%       { transform: translateX(-50%) scaleX(1.08); opacity: 0.18; }
         }
-
         @keyframes pulse-dot {
-          0%, 100% { box-shadow: 0 0 0 0 rgba(93,202,165,0.55); }
-          50%       { box-shadow: 0 0 0 5px rgba(93,202,165,0); }
+          0%, 100% { box-shadow: 0 0 0 0 rgba(180,220,215,0.4); }
+          50%       { box-shadow: 0 0 0 5px rgba(180,220,215,0); }
         }
-
         .name-float {
           animation: float 5.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
           font-family: 'Cormorant Garamond', Georgia, serif;
-          display: inline-block;
           will-change: transform;
-        }
-
-        .ui-text { font-family: 'DM Sans', sans-serif; }
-
-        .cta-primary {
-          font-family: 'DM Sans', sans-serif;
-          transition: transform 0.28s ease, box-shadow 0.28s ease;
-        }
-        .cta-primary:hover {
-          transform: scale(1.05) rotate(1deg);
-          box-shadow: 0 18px 50px rgba(15,110,86,0.35);
-        }
-        .cta-secondary {
-          font-family: 'DM Sans', sans-serif;
-          transition: transform 0.28s ease, background 0.28s ease;
-        }
-        .cta-secondary:hover {
-          transform: scale(1.05) rotate(-1deg);
-          background: rgba(255,255,255,0.22) !important;
         }
       `}</style>
 
-      <section className="relative min-h-screen w-full flex flex-col overflow-hidden" style={{ background: "#EFE7DB" }}>
+      {/* ── SECTION ── */}
+      <section
+        className="relative min-h-screen w-full flex flex-col overflow-hidden"
+        style={{ background: "#EFE7DB" }}
+      >
+
         {/* Background image */}
         <div className="absolute inset-0 z-0">
           <Image
@@ -100,12 +99,11 @@ export default function WaterSandHero() {
             alt="Background"
             fill
             priority
-            className="object-cover object-center"
-            style={{ opacity: 0.88 }}
+            className="object-cover object-center opacity-[0.88]"
           />
         </div>
 
-        {/* Mid-zone contrast scrim — only where name/roles live */}
+        {/* Mid-zone contrast scrim */}
         <div
           className="absolute inset-0 z-[1] pointer-events-none"
           style={{
@@ -114,21 +112,19 @@ export default function WaterSandHero() {
           }}
         />
 
-        {/* Bottom scrim — makes quote + clock area legible */}
+        {/* Bottom scrim */}
         <div
-          className="absolute bottom-0 left-0 right-0 z-[2] pointer-events-none"
+          className="absolute bottom-0 left-0 right-0 z-[2] pointer-events-none h-[42%]"
           style={{
-            height: "42%",
             background:
-              "linear-gradient(to top, rgba(4,52,44,0.72) 0%, rgba(4,52,44,0.45) 40%, transparent 100%)",
+              "linear-gradient(to top, rgba(4,52,44,0.38) 0%, rgba(4,52,44,0.18) 40%, transparent 100%)",
           }}
         />
 
         {/* Top water shimmer */}
         <div
-          className="absolute top-0 w-full z-[2] pointer-events-none"
+          className="absolute top-0 w-full z-[2] pointer-events-none h-[48%]"
           style={{
-            height: "48%",
             background: "linear-gradient(to bottom, rgba(110,167,163,0.07) 0%, transparent 100%)",
           }}
         />
@@ -150,10 +146,10 @@ export default function WaterSandHero() {
         {/* ── MAIN CONTENT ── */}
         <div className="relative z-10 w-full flex-1 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-20 sm:py-24 text-center">
 
-          {/* NAME — pure float, no distortion filter */}
+          {/* NAME */}
           <div className="relative mb-5 sm:mb-6 w-full">
             <h1
-              className="name-float select-none leading-[0.88] tracking-tight w-full"
+              className="name-float select-none leading-[0.88] tracking-tight w-full inline-block"
               style={{
                 fontSize: "clamp(3.2rem, 11.5vw, 9rem)",
                 fontWeight: 800,
@@ -176,11 +172,10 @@ export default function WaterSandHero() {
 
             {/* Ripple beneath name */}
             <div
-              className="absolute -bottom-2 left-1/2 pointer-events-none"
+              className="absolute -bottom-2 left-1/2 pointer-events-none h-px"
               style={{
                 transform: "translateX(-50%)",
                 width: "52%",
-                height: "1px",
                 background:
                   "linear-gradient(to right, transparent, rgba(155,200,195,0.55) 30%, rgba(242,246,244,0.7) 50%, rgba(155,200,195,0.55) 70%, transparent)",
                 animation: "rippleBar 4.5s ease-in-out infinite",
@@ -191,65 +186,56 @@ export default function WaterSandHero() {
           {/* ROLES PILL */}
           <div className="flex items-center gap-3 sm:gap-4 mb-10 sm:mb-14 w-full justify-center">
             <div
-              style={{
-                width: "clamp(24px, 4vw, 44px)",
-                height: "1.5px",
-                background: "rgba(155,200,195,0.75)",
-                borderRadius: 2,
-                flexShrink: 0,
-              }}
+              className="flex-shrink-0 rounded-sm"
+              style={{ width: "clamp(24px, 4vw, 44px)", height: "1.5px", background: "rgba(155,200,195,0.75)" }}
             />
+
             <AnimatePresence mode="wait">
               <motion.span
                 key={ROLES[roleIdx]}
-                initial={{ opacity: 0, y: 5, filter: "blur(4px)" }}
-                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                exit={{ opacity: 0, y: -5, filter: "blur(4px)" }}
+                variants={roleVariant}
+                initial="initial"
+                animate="animate"
+                exit="exit"
                 transition={{ duration: 0.42, ease: "easeOut" }}
-                className="ui-text uppercase"
+                className="uppercase whitespace-nowrap font-bold tracking-[0.2em] backdrop-blur-sm"
                 style={{
+                  fontFamily: "'DM Sans', sans-serif",
                   fontSize: "clamp(0.58rem, 1.4vw, 0.82rem)",
-                  fontWeight: 700,
-                  letterSpacing: "0.2em",
                   background: "rgba(4,52,44,0.62)",
-                  backdropFilter: "blur(14px)",
                   WebkitBackdropFilter: "blur(14px)",
                   color: "#9BC8C3",
                   border: "0.5px solid rgba(155,200,195,0.38)",
                   padding: "5px 16px",
                   borderRadius: 999,
-                  whiteSpace: "nowrap",
                 }}
               >
                 {ROLES[roleIdx]}
               </motion.span>
             </AnimatePresence>
+
             <div
-              style={{
-                width: "clamp(24px, 4vw, 44px)",
-                height: "1.5px",
-                background: "rgba(155,200,195,0.75)",
-                borderRadius: 2,
-                flexShrink: 0,
-              }}
+              className="flex-shrink-0 rounded-sm"
+              style={{ width: "clamp(24px, 4vw, 44px)", height: "1.5px", background: "rgba(155,200,195,0.75)" }}
             />
           </div>
 
           {/* QUOTE + CTAs */}
           <motion.div
-            initial={{ opacity: 0, y: 22 }}
-            animate={{ opacity: 1, y: 0 }}
+            variants={fadeUpVariant}
+            initial="hidden"
+            animate="visible"
             transition={{ delay: 0.85, duration: 0.7 }}
             className="w-full max-w-2xl space-y-8 sm:space-y-10 px-2"
           >
-            {/* Quote — strong contrast, no more muddy beige */}
+            {/* Quote */}
             <p
-              className="ui-text italic font-light leading-relaxed"
+              className="italic font-light leading-relaxed tracking-[0.01em]"
               style={{
+                fontFamily: "'DM Sans', sans-serif",
                 fontSize: "clamp(0.9rem, 1.9vw, 1.12rem)",
                 color: "rgba(244,236,225,0.92)",
                 textShadow: "0 1px 8px rgba(4,52,44,0.8), 0 2px 20px rgba(4,52,44,0.5)",
-                letterSpacing: "0.01em",
               }}
             >
               &ldquo;Crafting digital architectures that feel as natural as gravity and as fluid as the tides.&rdquo;
@@ -257,10 +243,20 @@ export default function WaterSandHero() {
 
             {/* CTAs */}
             <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-5">
-              <a
+
+              {/* Primary CTA — hover via Framer Motion replacing CSS class */}
+              <motion.a
                 href="#projects"
-                className="cta-primary flex items-center gap-3 rounded-2xl font-bold uppercase tracking-widest"
+                whileHover={{
+                  scale: 1.05,
+                  rotate: 1,
+                  boxShadow: "0 18px 50px rgba(15,110,86,0.35)",
+                }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                className="flex items-center gap-3 rounded-2xl font-bold uppercase tracking-widest"
                 style={{
+                  fontFamily: "'DM Sans', sans-serif",
                   padding: "clamp(0.75rem, 2vw, 1rem) clamp(1.5rem, 4vw, 2.25rem)",
                   fontSize: "clamp(0.65rem, 1.3vw, 0.8rem)",
                   background: "#0F6E56",
@@ -271,44 +267,56 @@ export default function WaterSandHero() {
               >
                 Dive In
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                  <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
-              </a>
+              </motion.a>
 
-              <a
+              {/* Secondary CTA */}
+              <motion.a
                 href={process.env.NEXT_PUBLIC_RESUME_LINK || "/resume.pdf"}
-                className="cta-secondary rounded-2xl font-bold uppercase tracking-widest"
+                whileHover={{
+                  scale: 1.05,
+                  rotate: -1,
+                  background: "rgba(255,255,255,0.22)",
+                }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                className="rounded-2xl font-bold uppercase tracking-widest backdrop-blur-md"
                 style={{
+                  fontFamily: "'DM Sans', sans-serif",
                   padding: "clamp(0.75rem, 2vw, 1rem) clamp(1.5rem, 4vw, 2.25rem)",
                   fontSize: "clamp(0.65rem, 1.3vw, 0.8rem)",
                   background: "rgba(4,52,44,0.42)",
                   color: "#F4ECE1",
                   border: "1px solid rgba(244,236,225,0.25)",
-                  backdropFilter: "blur(16px)",
                   WebkitBackdropFilter: "blur(16px)",
                 }}
               >
                 Resume
-              </a>
+              </motion.a>
             </div>
           </motion.div>
         </div>
 
         {/* ── BOTTOM STATUS BAR ── */}
         <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
+          variants={statusBarVariant}
+          initial="hidden"
+          animate="visible"
           transition={{ delay: 1.4, duration: 0.6 }}
-          className="absolute bottom-5 sm:bottom-8 left-1/2 -translate-x-1/2 z-20 flex items-center gap-4 sm:gap-7 px-5 sm:px-7 py-2.5 sm:py-3 rounded-full ui-text"
+          className="absolute bottom-24 sm:bottom-8 left-1/2 -translate-x-1/2 z-20
+                     flex items-center gap-4 sm:gap-7
+                     px-5 sm:px-7 py-2.5 sm:py-3
+                     rounded-full whitespace-nowrap backdrop-blur-[36px]"
           style={{
-            background: "rgba(4,52,44,0.58)",
-            backdropFilter: "blur(28px)",
-            WebkitBackdropFilter: "blur(28px)",
-            border: "0.5px solid rgba(155,200,195,0.28)",
-            boxShadow: "0 4px 24px rgba(4,52,44,0.4)",
-            whiteSpace: "nowrap",
+            fontFamily: "'DM Sans', sans-serif",
+            background: "rgba(4,52,44,0.28)",
+            WebkitBackdropFilter: "blur(36px)",
+            border: "0.5px solid rgba(200,230,228,0.18)",
+            boxShadow: "0 4px 24px rgba(4,52,44,0.18)",
           }}
         >
+
           {/* Analog clock */}
           <div className="flex items-center gap-2 sm:gap-3">
             <div
@@ -322,55 +330,62 @@ export default function WaterSandHero() {
             >
               {/* Hour hand */}
               <motion.div
-                className="absolute origin-bottom"
-                style={{ width: 1.5, height: 8, background: "#0F6E56", borderRadius: 1, bottom: "50%" }}
+                className="absolute origin-bottom rounded-sm"
+                style={{ width: 1.5, height: 8, background: "#0F6E56", bottom: "50%" }}
                 animate={{ rotate: degrees.h }}
                 transition={{ type: "tween", ease: "linear", duration: 0.5 }}
               />
               {/* Minute hand */}
               <motion.div
-                className="absolute origin-bottom"
-                style={{ width: 1, height: 11, background: "#6EA7A3", borderRadius: 1, bottom: "50%" }}
+                className="absolute origin-bottom rounded-sm"
+                style={{ width: 1, height: 11, background: "#6EA7A3", bottom: "50%" }}
                 animate={{ rotate: degrees.m }}
                 transition={{ type: "tween", ease: "linear", duration: 0.5 }}
               />
               {/* Second hand */}
               <motion.div
-                className="absolute origin-bottom"
-                style={{ width: 0.75, height: 12, background: "#D85A30", borderRadius: 1, bottom: "50%" }}
+                className="absolute origin-bottom rounded-sm"
+                style={{ width: 0.75, height: 12, background: "#D85A30", bottom: "50%" }}
                 animate={{ rotate: degrees.s }}
                 transition={{ type: "tween", ease: "linear", duration: 0.2 }}
               />
-              <div style={{ width: 3, height: 3, borderRadius: "50%", background: "#043424", position: "absolute" }} />
+              {/* Center dot */}
+              <div className="absolute w-[3px] h-[3px] rounded-full bg-[#043424]" />
             </div>
 
+            {/* Digital readout */}
             <div className="text-left">
-              <p style={{ fontSize: 8, fontWeight: 700, color: "rgba(155,200,195,0.75)", textTransform: "uppercase", letterSpacing: "0.1em", lineHeight: 1, marginBottom: 3 }}>
+              <p className="uppercase leading-none mb-[3px] tracking-[0.1em]"
+                style={{ fontSize: 8, fontWeight: 700, color: "rgba(200,228,224,0.6)" }}>
                 IST (GMT+5:30)
               </p>
-              <p style={{ fontSize: 12, fontWeight: 600, color: "#F4ECE1", fontVariantNumeric: "tabular-nums" }}>
+              <p className="tabular-nums"
+                style={{ fontSize: 12, fontWeight: 600, color: "#F4ECE1" }}>
                 {time ? formatIST(time) : "00:00:00"}
               </p>
             </div>
           </div>
 
-          <div style={{ width: "0.5px", height: 18, background: "rgba(155,200,195,0.22)", flexShrink: 0 }} />
+          {/* Divider */}
+          <div className="flex-shrink-0 w-px h-[18px]" style={{ background: "rgba(200,228,224,0.15)" }} />
 
+          {/* Active status */}
           <div className="flex items-center gap-2">
             <div
+              className="flex-shrink-0 w-1.5 h-1.5 rounded-full"
               style={{
-                width: 6,
-                height: 6,
-                borderRadius: "50%",
-                background: "#5DCAA5",
-                flexShrink: 0,
+                background: "#A8D8D2",
                 animation: "pulse-dot 2s ease-in-out infinite",
               }}
             />
-            <span style={{ fontSize: 8, fontWeight: 700, color: "rgba(155,200,195,0.78)", textTransform: "uppercase", letterSpacing: "0.1em" }}>
-              Active · Noida, IN
+            <span
+              className="uppercase tracking-[0.1em]"
+              style={{ fontSize: 8, fontWeight: 700, color: "rgba(220,238,236,0.55)" }}
+            >
+              Active · INDIA
             </span>
           </div>
+
         </motion.div>
       </section>
     </>

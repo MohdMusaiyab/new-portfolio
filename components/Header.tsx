@@ -190,18 +190,18 @@ export default function Header() {
 
   const defaultLogoColor = scrolled
     ? "text-[#1c1917]"
-    : "text-white drop-shadow-[0_2px_10px_rgba(4,52,44,0.5)]";
-  const defaultNavColor = scrolled ? "text-[#78716c]" : "text-white/85";
+    : "text-[#043424] drop-shadow-[0_2px_12px_rgba(242,247,246,0.85)]";
+  const defaultNavColor = scrolled ? "text-[#78716c]" : "text-[#043424]/85";
   const defaultNavHover = scrolled
     ? "hover:text-[#1c1917]"
-    : "hover:text-white";
+    : "hover:text-[#043424]";
   const defaultNavActive = scrolled
     ? "text-[#0d9488]"
-    : "text-white font-extrabold drop-shadow-[0_2px_8px_rgba(93,202,165,0.4)]";
-  const defaultUnderline = scrolled ? "bg-[#0d9488]" : "bg-white";
+    : "text-[#043424] font-extrabold drop-shadow-[0_2px_10px_rgba(155,200,195,0.45)]";
+  const defaultUnderline = scrolled ? "bg-[#0d9488]" : "bg-[#043424]";
   const defaultToggle = scrolled
     ? "text-[#1c1917] bg-white/70 backdrop-blur-md border-[#1c1917]/10 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] hover:bg-white/90 hover:scale-[1.02]"
-    : "text-white/85 border-white/30 hover:text-white hover:border-white/60 hover:bg-white/10";
+    : "text-[#043424]/85 border-[#043424]/30 hover:text-[#043424] hover:border-[#043424]/60 hover:bg-[#043424]/10";
 
   return (
     <>
@@ -220,7 +220,7 @@ export default function Header() {
         <Link
           href="/"
           aria-label="Back to top"
-          className={`font-serif text-xl lg:text-2xl font-bold tracking-[0.2em] transition-opacity hover:opacity-70 ${
+          className={`font-serif text-2xl lg:text-3xl font-black tracking-[0.25em] transition-opacity hover:opacity-70 ${
             isWinter ? "text-white" : defaultLogoColor
           }`}
         >
@@ -229,7 +229,7 @@ export default function Header() {
 
         {}
         <nav className="absolute left-1/2 -translate-x-1/2 hidden lg:block">
-          <ul className="flex items-center gap-10 list-none m-0 p-0">
+          <ul className="flex items-center gap-12 list-none m-0 p-0">
             {NAV.map(({ label, href }) => {
               const id = href.replace("/#", "");
               const isActive = active === id;
@@ -237,7 +237,7 @@ export default function Header() {
                 <li key={href}>
                   <Link
                     href={href}
-                    className={`relative font-mono text-[11.5px] lg:text-[12.5px] font-bold tracking-[0.18em] uppercase transition-colors duration-300 pb-1 ${
+                    className={`relative font-mono text-[13px] lg:text-[14px] font-black tracking-[0.2em] uppercase transition-colors duration-300 pb-1.5 ${
                       isWinter
                         ? isActive
                           ? "text-white"
@@ -271,7 +271,7 @@ export default function Header() {
           }`}
         >
           {isWinter ? <IconSun /> : <IconSnow />}
-          {isWinter ? "Default Theme" : "Dark Theme"}
+          {isWinter ? "Beach Mode" : "Fog Mode"}
         </button>
       </header>
 
