@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import { useExperience } from "@/store/useExperience";
 
 const ROLES = [
   "API Design Specialist",
@@ -28,6 +29,7 @@ const roleVariant = {
 };
 
 export default function WaterSandHero() {
+  const { setExperience } = useExperience();
   const [roleIdx, setRoleIdx] = useState(0);
   const [time, setTime] = useState<Date | null>(null);
 
@@ -63,8 +65,6 @@ export default function WaterSandHero() {
     <>
       {/* Only keyframe animations and Google Fonts stay in <style> — unavoidable */}
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap');
-
         @keyframes float {
           0%   { transform: translateY(0px) rotate(-0.3deg); }
           30%  { transform: translateY(-10px) rotate(0.2deg); }
@@ -83,6 +83,33 @@ export default function WaterSandHero() {
           animation: float 5.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
           font-family: 'Cormorant Garamond', Georgia, serif;
           will-change: transform;
+        }
+
+        @media (max-width: 640px) {
+          .portal-shimmer {
+             display: none;
+          }
+        }
+
+        /* ── NEST HUB / LANDSCAPE OPTIMIZATION ── */
+        @media (max-height: 720px) {
+          .hero-title {
+            font-size: clamp(2rem, 10vh, 4.5rem) !important;
+          }
+          .hero-bio {
+            font-size: clamp(0.85rem, 5vh, 1.1rem) !important;
+            margin-bottom: 1.5rem !important;
+          }
+          .hero-buttons {
+            gap: 1rem !important;
+          }
+          .hero-btn {
+            padding: 0.6rem 1.25rem !important;
+            border-radius: 12px !important;
+          }
+          .status-bar {
+            bottom: 1.5rem !important;
+          }
         }
       `}</style>
 
@@ -112,12 +139,12 @@ export default function WaterSandHero() {
           }}
         />
 
-        {/* Bottom scrim */}
+        {/* Bottom scrim - reduced teal, more natural */}
         <div
-          className="absolute bottom-0 left-0 right-0 z-[2] pointer-events-none h-[42%]"
+          className="absolute bottom-0 left-0 right-0 z-[2] pointer-events-none h-[35%]"
           style={{
             background:
-              "linear-gradient(to top, rgba(4,52,44,0.38) 0%, rgba(4,52,44,0.18) 40%, transparent 100%)",
+              "linear-gradient(to top, rgba(13,148,136,0.12) 0%, rgba(13,148,136,0.04) 40%, transparent 100%)",
           }}
         />
 
@@ -149,9 +176,9 @@ export default function WaterSandHero() {
           {/* NAME */}
           <div className="relative mb-5 sm:mb-6 w-full">
             <h1
-              className="name-float select-none leading-[0.88] tracking-tight w-full inline-block"
+              className="name-float select-none leading-[0.88] tracking-tight w-full inline-block hero-title"
               style={{
-                fontSize: "clamp(3.2rem, 11.5vw, 9rem)",
+                fontSize: "clamp(3.2rem, 14vh, 9rem)",
                 fontWeight: 800,
                 fontFamily: "'Cormorant Garamond', Georgia, serif",
                 color: "#F4ECE1",
@@ -228,23 +255,23 @@ export default function WaterSandHero() {
             transition={{ delay: 0.85, duration: 0.7 }}
             className="w-full max-w-2xl space-y-8 sm:space-y-10 px-2"
           >
-            {/* Quote */}
+            {/* Bio */}
             <p
-              className="italic font-light leading-relaxed tracking-[0.01em]"
+              className="font-light leading-relaxed tracking-wide text-balance md:px-6 mb-8 md:mb-12 hero-bio"
               style={{
                 fontFamily: "'DM Sans', sans-serif",
-                fontSize: "clamp(0.9rem, 1.9vw, 1.12rem)",
-                color: "rgba(244,236,225,0.92)",
-                textShadow: "0 1px 8px rgba(4,52,44,0.8), 0 2px 20px rgba(4,52,44,0.5)",
+                fontSize: "clamp(1rem, 2.2vw, 1.25rem)",
+                color: "rgba(244,236,225,1)",
+                textShadow: "0 2px 12px rgba(4,52,44,0.9)",
               }}
             >
-              &ldquo;Crafting digital architectures that feel as natural as gravity and as fluid as the tides.&rdquo;
+              Senior Full Stack Engineer specializing in high-concurrency architectures and distributed systems. Expert in Go, Next.js, and cloud-native solutions, I turn complex business requirements into scalable, performance-optimized digital experiences. Currently driving architectural innovations at Infosys Mysore.
             </p>
 
-            {/* CTAs */}
+            {/* VVIP CTAs */}
             <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-5">
 
-              {/* Primary CTA — hover via Framer Motion replacing CSS class */}
+              {/* Primary CTA - Projects */}
               <motion.a
                 href="#projects"
                 whileHover={{
@@ -254,7 +281,7 @@ export default function WaterSandHero() {
                 }}
                 whileTap={{ scale: 0.97 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                className="flex items-center gap-3 rounded-2xl font-bold uppercase tracking-widest"
+                className="hero-btn flex items-center gap-3 rounded-2xl font-bold uppercase tracking-widest"
                 style={{
                   fontFamily: "'DM Sans', sans-serif",
                   padding: "clamp(0.75rem, 2vw, 1rem) clamp(1.5rem, 4vw, 2.25rem)",
@@ -271,22 +298,24 @@ export default function WaterSandHero() {
                 </svg>
               </motion.a>
 
-              {/* Secondary CTA */}
+              {/* Secondary CTA - Resume */}
               <motion.a
                 href={process.env.NEXT_PUBLIC_RESUME_LINK || "/resume.pdf"}
+                target="_blank"
                 whileHover={{
                   scale: 1.05,
                   rotate: -1,
-                  background: "rgba(255,255,255,0.22)",
+                  background: "rgba(4,52,44,0.65)",
+                  borderColor: "rgba(244,236,225,0.5)",
                 }}
                 whileTap={{ scale: 0.97 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                className="rounded-2xl font-bold uppercase tracking-widest backdrop-blur-md"
+                className="hero-btn rounded-2xl font-bold uppercase tracking-widest backdrop-blur-md"
                 style={{
                   fontFamily: "'DM Sans', sans-serif",
                   padding: "clamp(0.75rem, 2vw, 1rem) clamp(1.5rem, 4vw, 2.25rem)",
                   fontSize: "clamp(0.65rem, 1.3vw, 0.8rem)",
-                  background: "rgba(4,52,44,0.42)",
+                  background: "rgba(4,52,44,0.45)",
                   color: "#F4ECE1",
                   border: "1px solid rgba(244,236,225,0.25)",
                   WebkitBackdropFilter: "blur(16px)",
@@ -294,6 +323,34 @@ export default function WaterSandHero() {
               >
                 Resume
               </motion.a>
+
+              {/* Portal CTA - Switch Mode */}
+              <motion.button
+                onClick={() => setExperience("winter")}
+                whileHover={{
+                  scale: 1.05,
+                  background: "rgba(4,52,44,0.5)",
+                  borderColor: "rgba(155,200,195,0.8)",
+                }}
+                whileTap={{ scale: 0.97 }}
+                className="portal-shimmer flex items-center gap-3 rounded-2xl font-bold uppercase tracking-widest backdrop-blur-sm border"
+                style={{
+                  fontFamily: "'DM Sans', sans-serif",
+                  padding: "clamp(0.75rem, 2vw, 1rem) clamp(1.2rem, 3.5vw, 1.8rem)",
+                  fontSize: "clamp(0.6rem, 1.2vw, 0.75rem)",
+                  color: "#F4ECE1",
+                  background: "rgba(4,52,44,0.3)",
+                  WebkitBackdropFilter: "blur(8px)",
+                }}
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                    <line x1="12" y1="2" x2="12" y2="22" />
+                    <line x1="2" y1="12" x2="22" y2="12" />
+                    <line x1="4.93" y1="4.93" x2="19.07" y2="19.07" />
+                    <line x1="19.07" y1="4.93" x2="4.93" y2="19.07" />
+                </svg>
+                Experience Fog
+              </motion.button>
             </div>
           </motion.div>
         </div>
@@ -304,16 +361,16 @@ export default function WaterSandHero() {
           initial="hidden"
           animate="visible"
           transition={{ delay: 1.4, duration: 0.6 }}
-          className="absolute bottom-24 sm:bottom-8 left-1/2 -translate-x-1/2 z-20
-                     flex items-center gap-4 sm:gap-7
-                     px-5 sm:px-7 py-2.5 sm:py-3
-                     rounded-full whitespace-nowrap backdrop-blur-[36px]"
+          className="absolute bottom-24 sm:bottom-8 left-1/2 -translate-x-1/2 z-20 
+                     flex items-center gap-4 sm:gap-7 
+                     px-5 sm:px-7 py-2.5 sm:py-3 
+                     rounded-2xl whitespace-nowrap backdrop-blur-[36px] status-bar"
           style={{
             fontFamily: "'DM Sans', sans-serif",
-            background: "rgba(4,52,44,0.28)",
+            background: "rgba(255, 255, 255, 0.92)",
             WebkitBackdropFilter: "blur(36px)",
-            border: "0.5px solid rgba(200,230,228,0.18)",
-            boxShadow: "0 4px 24px rgba(4,52,44,0.18)",
+            border: "1px solid rgba(4, 52, 44, 0.08)",
+            boxShadow: "0 10px 40px -10px rgba(4, 52, 44, 0.2)",
           }}
         >
 
@@ -355,32 +412,32 @@ export default function WaterSandHero() {
 
             {/* Digital readout */}
             <div className="text-left">
-              <p className="uppercase leading-none mb-[3px] tracking-[0.1em]"
-                style={{ fontSize: 8, fontWeight: 700, color: "rgba(200,228,224,0.6)" }}>
+              <p className="uppercase leading-none mb-[3px] tracking-widest"
+                style={{ fontSize: 8, fontWeight: 700, color: "rgba(4, 52, 44, 0.5)" }}>
                 IST (GMT+5:30)
               </p>
               <p className="tabular-nums"
-                style={{ fontSize: 12, fontWeight: 600, color: "#F4ECE1" }}>
+                style={{ fontSize: 12, fontWeight: 700, color: "#043424" }}>
                 {time ? formatIST(time) : "00:00:00"}
               </p>
             </div>
           </div>
 
           {/* Divider */}
-          <div className="flex-shrink-0 w-px h-[18px]" style={{ background: "rgba(200,228,224,0.15)" }} />
+          <div className="flex-shrink-0 w-px h-[18px]" style={{ background: "rgba(4, 52, 44, 0.1)" }} />
 
           {/* Active status */}
           <div className="flex items-center gap-2">
             <div
               className="flex-shrink-0 w-1.5 h-1.5 rounded-full"
               style={{
-                background: "#A8D8D2",
+                background: "#0d9488",
                 animation: "pulse-dot 2s ease-in-out infinite",
               }}
             />
             <span
-              className="uppercase tracking-[0.1em]"
-              style={{ fontSize: 8, fontWeight: 700, color: "rgba(220,238,236,0.55)" }}
+              className="uppercase tracking-widest"
+              style={{ fontSize: 8, fontWeight: 700, color: "rgba(4, 52, 44, 0.45)" }}
             >
               Active · INDIA
             </span>

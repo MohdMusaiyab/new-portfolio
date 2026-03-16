@@ -9,7 +9,7 @@ export default function DefaultEducation() {
   return (
     <section
       id="education"
-      className="relative w-full bg-[#fdfbf7] py-24 md:py-32 text-[#1c1917] font-sans overflow-hidden selection:bg-[#0d9488] selection:text-[#fdfbf7]"
+      className="relative w-full bg-[#fdfbf7] py-24 md:py-32 px-6 sm:px-12 lg:px-24 text-[#1c1917] font-sans overflow-hidden selection:bg-[#0d9488] selection:text-[#fdfbf7]"
     >
       {/* Background Subtle Elements */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
@@ -32,7 +32,7 @@ export default function DefaultEducation() {
             </span>
           </div>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-            <h3 className="text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter leading-[0.85] text-[#1c1917]">
+            <h3 className="text-4xl sm:text-7xl lg:text-8xl font-black uppercase tracking-tighter leading-[0.85] text-[#1c1917]">
               Education <br />
               <span className="text-transparent bg-clip-text bg-linear-to-r from-[#0d9488] to-[#042f2e]">
                 History.

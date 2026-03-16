@@ -9,7 +9,7 @@ export default function DefaultExperience() {
   return (
     <section
       id="experience"
-      className="relative w-full py-20 md:py-32 px-5 md:px-12 lg:px-24 text-[#292524] font-sans overflow-hidden bg-[#fdfbf7]"
+      className="relative w-full py-20 md:py-32 px-6 sm:px-12 lg:px-24 text-[#292524] font-sans overflow-hidden bg-[#fdfbf7]"
     >
       <div className="relative z-10 max-w-5xl mx-auto w-full">
         {/* Section Header */}
@@ -25,7 +25,7 @@ export default function DefaultExperience() {
               Professional History
             </span>
           </div>
-          <h3 className="text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter leading-[0.85] text-[#1c1917]">
+          <h3 className="text-4xl sm:text-7xl lg:text-8xl font-black uppercase tracking-tighter leading-[0.85] text-[#1c1917]">
             Work <br />
             <span className="text-transparent bg-clip-text bg-linear-to-r from-[#0d9488] to-[#042f2e]">
               Experience.

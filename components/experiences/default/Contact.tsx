@@ -175,7 +175,7 @@ export default function DefaultContact() {
                 Get In Touch
               </span>
             </div>
-            <h2 className="text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter leading-[0.85] text-[#1c1917]">
+            <h2 className="text-4xl sm:text-7xl lg:text-8xl font-black uppercase tracking-tighter leading-[0.85] text-[#1c1917]">
               Let&apos;s <br />
               <span className="text-transparent bg-clip-text bg-linear-to-r from-[#0d9488] to-[#042f2e]">
                 Connect.

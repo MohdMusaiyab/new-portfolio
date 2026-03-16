@@ -15,7 +15,7 @@ export default function DefaultProjects() {
   return (
     <section
       id="projects"
-      className="relative w-full bg-[#fdfbf7] py-20 md:py-32 text-[#1c1917] font-sans overflow-hidden selection:bg-[#0d9488] selection:text-[#fdfbf7]"
+      className="relative w-full bg-[#fdfbf7] py-20 md:py-32 px-6 sm:px-12 lg:px-16 text-[#1c1917] font-sans overflow-hidden selection:bg-[#0d9488] selection:text-[#fdfbf7]"
     >
       {/* Background Architectural Elements */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
@@ -38,7 +38,7 @@ export default function DefaultProjects() {
                 Selected Works
               </span>
             </div>
-            <h3 className="text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter leading-[0.85] text-[#1c1917]">
+            <h3 className="text-4xl sm:text-7xl lg:text-8xl font-black uppercase tracking-tighter leading-[0.85] text-[#1c1917]">
               Featured <br />
               <span className="text-transparent bg-clip-text bg-linear-to-r from-[#0d9488] to-[#042f2e]">
                 Projects.

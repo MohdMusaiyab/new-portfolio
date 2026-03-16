@@ -220,7 +220,7 @@ export default function Header() {
         <Link
           href="/"
           aria-label="Back to top"
-          className={`font-serif text-2xl lg:text-3xl font-black tracking-[0.25em] transition-opacity hover:opacity-70 ${
+          className={`font-cormorant text-2xl lg:text-3xl font-black tracking-[0.25em] transition-opacity hover:opacity-70 ${
             isWinter ? "text-white" : defaultLogoColor
           }`}
         >
@@ -237,7 +237,7 @@ export default function Header() {
                 <li key={href}>
                   <Link
                     href={href}
-                    className={`relative font-mono text-[13px] lg:text-[14px] font-black tracking-[0.2em] uppercase transition-colors duration-300 pb-1.5 ${
+                    className={`relative font-cormorant text-[13px] lg:text-[14px] font-black tracking-[0.2em] uppercase transition-colors duration-300 pb-1.5 ${
                       isWinter
                         ? isActive
                           ? "text-white"
