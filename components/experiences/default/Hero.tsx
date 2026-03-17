@@ -1,450 +1,298 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
-import { useExperience } from "@/store/useExperience";
+import { motion, Variants } from "framer-motion";
+import { useEffect, useState } from "react";
+import { 
+  Github, 
+  Linkedin, 
+  Mail, 
+  Download, 
+  Cpu, 
+  MousePointer2,
+  Code,
+  MapPin,
+  Clock,
+  Cat
+} from "lucide-react";
 
-const ROLES = [
-  "API Design Specialist",
-  "Backend Architect",
-  "Full Stack Engineer",
-  "Distributed Systems",
-];
+/* ═══════════════════════════════════════════════════
+   THEME & CONSTANTS
+═══════════════════════════════════════════════════ */
+const THEME = {
+  bg: "#fdfbf7",
+  card: "rgba(255,255,255,0.45)",
+  cardStrong: "rgba(255,255,255,0.85)",
+  border: "rgba(13,148,136,0.12)",
+  accent: "#0d9488",
+  text: "#1c1917",
+  textSub: "#44403c",
+  textMuted: "#78716c",
+  shadow: "rgba(13,148,136,0.1)",
+} as const;
 
-const fadeUpVariant = {
-  hidden: { opacity: 0, y: 22 },
-  visible: { opacity: 1, y: 0 },
+const fadeUp: Variants = {
+  initial: { opacity: 0, y: 20 },
+  animate: (i: number) => ({
+    opacity: 1, 
+    y: 0,
+    transition: { 
+      delay: 0.1 * i, 
+      duration: 0.7, 
+      ease: [0.22, 1, 0.36, 1] as [number, number, number, number]
+    }
+  })
 };
 
-const statusBarVariant = {
-  hidden: { opacity: 0, y: 8 },
-  visible: { opacity: 1, y: 0 },
-};
+/* ═══════════════════════════════════════════════════
+   COMPONENTS
+═══════════════════════════════════════════════════ */
 
-const roleVariant = {
-  initial: { opacity: 0, y: 5, filter: "blur(4px)" },
-  animate: { opacity: 1, y: 0, filter: "blur(0px)" },
-  exit:    { opacity: 0, y: -5, filter: "blur(4px)" },
-};
-
-export default function WaterSandHero() {
-  const { setExperience } = useExperience();
-  const [roleIdx, setRoleIdx] = useState(0);
-  const [time, setTime] = useState<Date | null>(null);
+/**
+ * Live Clock and Status Card
+ * Features aggregate Glassmorphism + Neomorphism
+ */
+function StatusCard() {
+  const [time, setTime] = useState("");
 
   useEffect(() => {
-    const tick = () => setTime(new Date());
-    tick();
-    const timer = setInterval(tick, 1000);
-    const roleTimer = setInterval(() => {
-      setRoleIdx((prev) => (prev + 1) % ROLES.length);
-    }, 3000);
-    return () => {
-      clearInterval(timer);
-      clearInterval(roleTimer);
+    const updateTime = () => {
+      const istTime = new Intl.DateTimeFormat("en-US", {
+        timeZone: "Asia/Kolkata",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false,
+      }).format(new Date());
+      setTime(istTime);
     };
+    updateTime();
+    const id = setInterval(updateTime, 1000);
+    return () => clearInterval(id);
   }, []);
 
-  const formatIST = (d: Date) =>
-    d.toLocaleTimeString("en-US", {
-      hour: "2-digit", minute: "2-digit", second: "2-digit",
-      hour12: false, timeZone: "Asia/Kolkata",
-    });
-
-  const getISTDegrees = (d: Date | null) => {
-    if (!d) return { h: 0, m: 0, s: 0 };
-    const ist = new Date(d.toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
-    const s = ist.getSeconds(), m = ist.getMinutes(), h = ist.getHours();
-    return { s: s * 6, m: m * 6 + s * 0.1, h: (h % 12) * 30 + m * 0.5 };
-  };
-
-  const degrees = getISTDegrees(time);
-
   return (
-    <>
-      {/* Only keyframe animations and Google Fonts stay in <style> — unavoidable */}
-      <style>{`
-        @keyframes float {
-          0%   { transform: translateY(0px) rotate(-0.3deg); }
-          30%  { transform: translateY(-10px) rotate(0.2deg); }
-          60%  { transform: translateY(-16px) rotate(-0.15deg); }
-          100% { transform: translateY(0px) rotate(-0.3deg); }
-        }
-        @keyframes rippleBar {
-          0%, 100% { transform: translateX(-50%) scaleX(0.72); opacity: 0.45; }
-          50%       { transform: translateX(-50%) scaleX(1.08); opacity: 0.18; }
-        }
-        @keyframes pulse-dot {
-          0%, 100% { box-shadow: 0 0 0 0 rgba(180,220,215,0.4); }
-          50%       { box-shadow: 0 0 0 5px rgba(180,220,215,0); }
-        }
-        .name-float {
-          animation: float 5.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
-          font-family: 'Cormorant Garamond', Georgia, serif;
-          will-change: transform;
-        }
-
-        @media (max-width: 640px) {
-          .portal-shimmer {
-             display: none;
-          }
-        }
-
-        /* ── NEST HUB / LANDSCAPE OPTIMIZATION ── */
-        @media (max-height: 720px) {
-          .hero-title {
-            font-size: clamp(2rem, 10vh, 4.5rem) !important;
-          }
-          .hero-bio {
-            font-size: clamp(0.85rem, 5vh, 1.1rem) !important;
-            margin-bottom: 1.5rem !important;
-          }
-          .hero-buttons {
-            gap: 1rem !important;
-          }
-          .hero-btn {
-            padding: 0.6rem 1.25rem !important;
-            border-radius: 12px !important;
-          }
-          .status-bar {
-            bottom: 1.5rem !important;
-          }
-        }
-      `}</style>
-
-      {/* ── SECTION ── */}
-      <section
-        className="relative min-h-screen w-full flex flex-col overflow-hidden"
-        style={{ background: "#EFE7DB" }}
-      >
-
-        {/* Background image */}
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/default.png"
-            alt="Background"
-            fill
-            priority
-            className="object-cover object-center opacity-[0.88]"
-          />
+    <motion.div
+      initial={{ opacity: 0, x: 30 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 1, delay: 0.8 }}
+      className="relative group w-full lg:w-[420px]"
+    >
+      {/* Glow Backplate */}
+      <div className="absolute -inset-1 bg-gradient-to-r from-teal-500/10 to-transparent blur-2xl opacity-50 group-hover:opacity-100 transition-opacity" />
+      
+      <div className="relative overflow-hidden rounded-[2.5rem] border border-white/40 bg-white/40 backdrop-blur-3xl p-8 shadow-[20px_20px_60px_-15px_rgba(13,148,136,0.1),-10px_-10px_30px_rgba(255,255,255,0.8)]">
+        {/* Time Section */}
+        <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center gap-3">
+             <div className="p-3 rounded-2xl bg-teal-50 shadow-inner">
+                <Clock size={20} className="text-teal-600" />
+             </div>
+             <div>
+                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-teal-800/40">Current Time (IST)</p>
+                <p className="text-3xl font-black tabular-nums tracking-tighter text-stone-900">{time || "00:00:00"}</p>
+             </div>
+          </div>
+          <div className="w-12 h-12 rounded-full bg-teal-600/5 flex items-center justify-center animate-pulse">
+             <div className="w-2 h-2 rounded-full bg-teal-500" />
+          </div>
         </div>
 
-        {/* Mid-zone contrast scrim */}
-        <div
-          className="absolute inset-0 z-[1] pointer-events-none"
-          style={{
-            background:
-              "linear-gradient(to bottom, transparent 5%, rgba(4,52,44,0.32) 28%, rgba(4,52,44,0.48) 50%, rgba(4,52,44,0.26) 66%, transparent 82%)",
-          }}
-        />
-
-        {/* Bottom scrim - reduced teal, more natural */}
-        <div
-          className="absolute bottom-0 left-0 right-0 z-[2] pointer-events-none h-[35%]"
-          style={{
-            background:
-              "linear-gradient(to top, rgba(13,148,136,0.12) 0%, rgba(13,148,136,0.04) 40%, transparent 100%)",
-          }}
-        />
-
-        {/* Top water shimmer */}
-        <div
-          className="absolute top-0 w-full z-[2] pointer-events-none h-[48%]"
-          style={{
-            background: "linear-gradient(to bottom, rgba(110,167,163,0.07) 0%, transparent 100%)",
-          }}
-        />
-
-        {/* Foam horizon line */}
-        <div
-          className="absolute z-[3] pointer-events-none"
-          style={{
-            top: "51%",
-            left: "50%",
-            width: "78%",
-            height: "1.5px",
-            background:
-              "linear-gradient(to right, transparent, rgba(247,245,242,0.5) 25%, rgba(242,246,244,0.75) 50%, rgba(247,245,242,0.5) 75%, transparent)",
-            animation: "rippleBar 5s ease-in-out infinite",
-          }}
-        />
-
-        {/* ── MAIN CONTENT ── */}
-        <div className="relative z-10 w-full flex-1 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-20 sm:py-24 text-center">
-
-          {/* NAME */}
-          <div className="relative mb-5 sm:mb-6 w-full">
-            <h1
-              className="name-float select-none leading-[0.88] tracking-tight w-full inline-block hero-title"
-              style={{
-                fontSize: "clamp(3.2rem, 14vh, 9rem)",
-                fontWeight: 800,
-                fontFamily: "'Cormorant Garamond', Georgia, serif",
-                color: "#F4ECE1",
-                WebkitTextStroke: "1.8px rgba(255,255,255,0.6)",
-                textShadow: `
-                  2px  2px 0 rgba(4,52,44,0.95),
-                 -1px -1px 0 rgba(4,52,44,0.85),
-                  1px -1px 0 rgba(4,52,44,0.85),
-                 -1px  1px 0 rgba(4,52,44,0.85),
-                  0    5px 20px rgba(4,52,44,0.75),
-                  0   10px 45px rgba(15,110,86,0.4),
-                  0    0   70px rgba(93,202,165,0.1)
-                `,
-              }}
-            >
-              Mohd Musaiyab
-            </h1>
-
-            {/* Ripple beneath name */}
-            <div
-              className="absolute -bottom-2 left-1/2 pointer-events-none h-px"
-              style={{
-                transform: "translateX(-50%)",
-                width: "52%",
-                background:
-                  "linear-gradient(to right, transparent, rgba(155,200,195,0.55) 30%, rgba(242,246,244,0.7) 50%, rgba(155,200,195,0.55) 70%, transparent)",
-                animation: "rippleBar 4.5s ease-in-out infinite",
-              }}
-            />
+        {/* Status Section */}
+        <div className="space-y-6">
+          <div className="flex items-center gap-4">
+             <MapPin size={18} className="text-stone-400" />
+             <span className="text-sm font-bold text-stone-600">Based in Delhi, India</span>
           </div>
-
-          {/* ROLES PILL */}
-          <div className="flex items-center gap-3 sm:gap-4 mb-10 sm:mb-14 w-full justify-center">
-            <div
-              className="flex-shrink-0 rounded-sm"
-              style={{ width: "clamp(24px, 4vw, 44px)", height: "1.5px", background: "rgba(155,200,195,0.75)" }}
-            />
-
-            <AnimatePresence mode="wait">
-              <motion.span
-                key={ROLES[roleIdx]}
-                variants={roleVariant}
-                initial="initial"
-                animate="animate"
-                exit="exit"
-                transition={{ duration: 0.42, ease: "easeOut" }}
-                className="uppercase whitespace-nowrap font-bold tracking-[0.2em] backdrop-blur-sm"
-                style={{
-                  fontFamily: "'DM Sans', sans-serif",
-                  fontSize: "clamp(0.58rem, 1.4vw, 0.82rem)",
-                  background: "rgba(4,52,44,0.62)",
-                  WebkitBackdropFilter: "blur(14px)",
-                  color: "#9BC8C3",
-                  border: "0.5px solid rgba(155,200,195,0.38)",
-                  padding: "5px 16px",
-                  borderRadius: 999,
-                }}
-              >
-                {ROLES[roleIdx]}
-              </motion.span>
-            </AnimatePresence>
-
-            <div
-              className="flex-shrink-0 rounded-sm"
-              style={{ width: "clamp(24px, 4vw, 44px)", height: "1.5px", background: "rgba(155,200,195,0.75)" }}
-            />
+          <div className="flex items-center gap-4">
+             <div className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+             <span className="text-sm font-bold text-stone-600">Currently building premium UI systems</span>
           </div>
+        </div>
 
-          {/* QUOTE + CTAs */}
+        {/* Centered Profile Avatar (Neomorphic) */}
+        <div className="absolute -bottom-4 -right-4 w-24 h-24 rounded-full bg-[#fdfbf7] p-3 shadow-[8px_8px_16px_rgba(0,0,0,0.05),-8px_-8px_16px_rgba(255,255,255,1)]">
+            <div className="w-full h-full rounded-full bg-teal-600 flex items-center justify-center text-white text-2xl font-black">M</div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+function PencilArrow() {
+  return (
+    <motion.svg
+      width="100"
+      height="45"
+      viewBox="0 0 100 45"
+      fill="none"
+      className="absolute -bottom-12 -right-16 hidden lg:block"
+    >
+      <motion.path
+        d="M5 5C15 15 65 35 95 40M95 40L80 32M95 40L83 48"
+        stroke={THEME.accent}
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        initial={{ pathLength: 0, opacity: 0 }}
+        animate={{ pathLength: 1, opacity: 0.5 }}
+        transition={{ delay: 1.5, duration: 1.2 }}
+      />
+    </motion.svg>
+  );
+}
+
+const HIGHLIGHTS = [
+  { Icon: Code, title: "Full Stack", sub: "MERN Engineer" },
+  { Icon: Cpu, title: "Architecture", sub: "Backend systems" },
+  { Icon: MousePointer2, title: "UX Design", sub: "Bespoke craft" },
+] as const;
+
+function HighlightRow() {
+  return (
+    <div className="grid grid-cols-2 md:flex md:flex-wrap items-center gap-4 lg:gap-12 w-full pt-4">
+      {HIGHLIGHTS.map((c, i) => {
+        const Icon = c.Icon;
+        return (
           <motion.div
-            variants={fadeUpVariant}
-            initial="hidden"
-            animate="visible"
-            transition={{ delay: 0.85, duration: 0.7 }}
-            className="w-full max-w-2xl space-y-8 sm:space-y-10 px-2"
+            key={c.title}
+            custom={8 + i}
+            variants={fadeUp}
+            initial="initial"
+            animate="animate"
+            whileHover={{ 
+              scale: 1.05, 
+              boxShadow: "0 15px 35px -5px rgba(13,148,136,0.18)",
+              borderColor: "rgba(13,148,136,0.3)" 
+            }}
+            className="flex flex-col sm:flex-row items-center sm:items-start gap-2 sm:gap-4 px-3 py-3 rounded-2xl border border-transparent cursor-default last:col-span-2 last:mx-auto md:last:col-span-1 md:last:mx-0 min-w-0"
           >
-            {/* Bio */}
-            <p
-              className="font-light leading-relaxed tracking-wide text-balance md:px-6 mb-8 md:mb-12 hero-bio"
-              style={{
-                fontFamily: "'DM Sans', sans-serif",
-                fontSize: "clamp(1rem, 2.2vw, 1.25rem)",
-                color: "rgba(244,236,225,1)",
-                textShadow: "0 2px 12px rgba(4,52,44,0.9)",
-              }}
-            >
-              Senior Full Stack Engineer specializing in high-concurrency architectures and distributed systems. Expert in Go, Next.js, and cloud-native solutions, I turn complex business requirements into scalable, performance-optimized digital experiences. Currently driving architectural innovations at Infosys Mysore.
-            </p>
-
-            {/* VVIP CTAs */}
-            <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-5">
-
-              {/* Primary CTA - Projects */}
-              <motion.a
-                href="#projects"
-                whileHover={{
-                  scale: 1.05,
-                  rotate: 1,
-                  boxShadow: "0 18px 50px rgba(15,110,86,0.35)",
-                }}
-                whileTap={{ scale: 0.97 }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                className="hero-btn flex items-center gap-3 rounded-2xl font-bold uppercase tracking-widest"
-                style={{
-                  fontFamily: "'DM Sans', sans-serif",
-                  padding: "clamp(0.75rem, 2vw, 1rem) clamp(1.5rem, 4vw, 2.25rem)",
-                  fontSize: "clamp(0.65rem, 1.3vw, 0.8rem)",
-                  background: "#0F6E56",
-                  color: "#F4ECE1",
-                  border: "1px solid rgba(93,202,165,0.28)",
-                  boxShadow: "0 8px 32px rgba(4,52,44,0.4)",
-                }}
-              >
-                Dive In
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-              </motion.a>
-
-              {/* Secondary CTA - Resume */}
-              <motion.a
-                href={process.env.NEXT_PUBLIC_RESUME_LINK || "/resume.pdf"}
-                target="_blank"
-                whileHover={{
-                  scale: 1.05,
-                  rotate: -1,
-                  background: "rgba(4,52,44,0.65)",
-                  borderColor: "rgba(244,236,225,0.5)",
-                }}
-                whileTap={{ scale: 0.97 }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                className="hero-btn rounded-2xl font-bold uppercase tracking-widest backdrop-blur-md"
-                style={{
-                  fontFamily: "'DM Sans', sans-serif",
-                  padding: "clamp(0.75rem, 2vw, 1rem) clamp(1.5rem, 4vw, 2.25rem)",
-                  fontSize: "clamp(0.65rem, 1.3vw, 0.8rem)",
-                  background: "rgba(4,52,44,0.45)",
-                  color: "#F4ECE1",
-                  border: "1px solid rgba(244,236,225,0.25)",
-                  WebkitBackdropFilter: "blur(16px)",
-                }}
-              >
-                Resume
-              </motion.a>
-
-              {/* Portal CTA - Switch Mode */}
-              <motion.button
-                onClick={() => setExperience("winter")}
-                whileHover={{
-                  scale: 1.05,
-                  background: "rgba(4,52,44,0.5)",
-                  borderColor: "rgba(155,200,195,0.8)",
-                }}
-                whileTap={{ scale: 0.97 }}
-                className="portal-shimmer flex items-center gap-3 rounded-2xl font-bold uppercase tracking-widest backdrop-blur-sm border"
-                style={{
-                  fontFamily: "'DM Sans', sans-serif",
-                  padding: "clamp(0.75rem, 2vw, 1rem) clamp(1.2rem, 3.5vw, 1.8rem)",
-                  fontSize: "clamp(0.6rem, 1.2vw, 0.75rem)",
-                  color: "#F4ECE1",
-                  background: "rgba(4,52,44,0.3)",
-                  WebkitBackdropFilter: "blur(8px)",
-                }}
-              >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                    <line x1="12" y1="2" x2="12" y2="22" />
-                    <line x1="2" y1="12" x2="22" y2="12" />
-                    <line x1="4.93" y1="4.93" x2="19.07" y2="19.07" />
-                    <line x1="19.07" y1="4.93" x2="4.93" y2="19.07" />
-                </svg>
-                Experience Fog
-              </motion.button>
+            <div className="w-10 h-10 rounded-xl bg-white shadow-sm flex items-center justify-center border border-teal-500/5 group-hover:scale-110 shrink-0">
+                <Icon size={18} className="text-teal-600" />
+            </div>
+            <div className="text-center sm:text-left">
+              <p className="text-[11px] font-black uppercase tracking-widest text-stone-900 leading-tight truncate">{c.title}</p>
+              <p className="text-[10px] font-medium text-stone-400 tracking-wide uppercase truncate">{c.sub}</p>
             </div>
           </motion.div>
+        );
+      })}
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════
+   MAIN HERO
+═══════════════════════════════════════════════════ */
+export default function Hero2() {
+  const resumeLink = process.env.NEXT_PUBLIC_RESUME_LINK || "#";
+
+  return (
+    <section className="relative w-full min-h-screen flex items-center bg-[#fdfbf7] overflow-hidden py-16 px-6 md:px-12 lg:px-24">
+      {/* Background Decor */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <motion.div 
+           animate={{ scale: [1, 1.1, 1], rotate: [0, 5, 0] }} transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+           className="absolute -top-1/4 -right-1/4 w-[80%] h-[80%] bg-teal-50/50 rounded-full blur-[160px]" 
+        />
+        <div className="absolute inset-0 opacity-[0.1]" style={{ backgroundImage: "linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto w-full">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-20">
+          
+          {/* LEFT: TEXT CONTENT */}
+          <div className="flex-1 flex flex-col gap-10 items-center lg:items-start text-center lg:text-left max-w-2xl">
+            
+            {/* Headline */}
+            <motion.div custom={0} variants={fadeUp} initial="initial" animate="animate">
+              <h1 className="text-5xl md:text-7xl lg:text-[100px] font-black uppercase tracking-tighter leading-[0.82] text-stone-900">
+                Hello,<br />
+                <span className="text-[0.6em] text-stone-400 font-extrabold mr-4">I&apos;m</span>
+                <span className="text-[0.6em] bg-clip-text text-transparent bg-gradient-to-r from-teal-600 to-teal-800">Musaiyab.</span>
+              </h1>
+            </motion.div>
+
+            {/* Subtext */}
+            <div className="relative max-w-lg">
+              <motion.p
+                custom={1} variants={fadeUp} initial="initial" animate="animate"
+                className="text-base md:text-lg font-medium leading-relaxed text-stone-500"
+              >
+                Full Stack Developer specializing in <span className="text-teal-700 font-bold decoration-teal-200 decoration-2 underline underline-offset-4">MERN, Next.js, and Go</span>. 
+                Focused on architectural web systems, robust API design, and creating scalable, premium digital experiences.
+              </motion.p>
+              <PencilArrow />
+            </div>
+
+            {/* Actions */}
+            <motion.div
+              custom={2} variants={fadeUp} initial="initial" animate="animate"
+              className="w-full max-w-sm lg:max-w-none grid grid-cols-2 lg:flex lg:items-center gap-3 md:gap-4"
+            >
+              <motion.a
+                href="#contact"
+                whileHover={{ scale: 1.05, y: -2, boxShadow: "0 15px 30px rgba(13,148,136,0.25)" }}
+                whileTap={{ scale: 0.98 }}
+                className="flex items-center justify-center px-4 md:px-8 py-3 md:py-3.5 rounded-xl bg-teal-600 text-white text-[11px] md:text-[12px] font-black uppercase tracking-widest shadow-lg shadow-teal-500/20 text-center"
+              >
+                Hire Expert
+              </motion.a>
+              <motion.a
+                href="#projects"
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                className="group flex items-center justify-center gap-2 px-4 md:px-8 py-3 md:py-3.5 rounded-xl bg-white border border-stone-200 text-stone-800 text-[11px] md:text-[12px] font-black uppercase tracking-widest hover:border-teal-500/30 hover:bg-teal-50/10 transition-all text-center"
+              >
+                Explore <Cat size={14} className="group-hover:rotate-12 transition-transform hidden sm:block" />
+              </motion.a>
+              <motion.a
+                href={resumeLink}
+                target="_blank" rel="noopener noreferrer"
+                whileHover={{ scale: 1.1, rotate: -3 }}
+                className="col-span-2 lg:col-auto mx-auto lg:mx-0 w-fit p-3.5 rounded-xl bg-stone-100 text-stone-500 hover:text-teal-600 transition-colors"
+              >
+                <Download size={18} />
+              </motion.a>
+            </motion.div>
+
+            <HighlightRow />
+
+            {/* Socials */}
+            <motion.div
+              custom={5} variants={fadeUp} initial="initial" animate="animate"
+              className="flex items-center gap-4 py-4"
+            >
+              {[
+                { Icon: Github, href: "https://github.com/musaiyab" },
+                { Icon: Linkedin, href: "https://linkedin.com/in/musaiyab" },
+                { Icon: Mail, href: "mailto:hello@musaiyab.com" }
+              ].map(({ Icon, href }, i) => (
+                <motion.a
+                  key={i} href={href} 
+                  whileHover={{ scale: 1.2, y: -2 }}
+                  className="w-8 h-8 flex items-center justify-center text-stone-400 hover:text-teal-600 transition-colors"
+                >
+                  <Icon size={18} />
+                </motion.a>
+              ))}
+            </motion.div>
+          </div>
+
+          {/* RIGHT: STATUS CARD */}
+          <StatusCard />
+
         </div>
+      </div>
 
-        {/* ── BOTTOM STATUS BAR ── */}
-        <motion.div
-          variants={statusBarVariant}
-          initial="hidden"
-          animate="visible"
-          transition={{ delay: 1.4, duration: 0.6 }}
-          className="absolute bottom-24 sm:bottom-8 left-1/2 -translate-x-1/2 z-20 
-                     flex items-center gap-4 sm:gap-7 
-                     px-5 sm:px-7 py-2.5 sm:py-3 
-                     rounded-2xl whitespace-nowrap backdrop-blur-[36px] status-bar"
-          style={{
-            fontFamily: "'DM Sans', sans-serif",
-            background: "rgba(255, 255, 255, 0.92)",
-            WebkitBackdropFilter: "blur(36px)",
-            border: "1px solid rgba(4, 52, 44, 0.08)",
-            boxShadow: "0 10px 40px -10px rgba(4, 52, 44, 0.2)",
-          }}
-        >
+      {/* Modern Scroll Reveal */}
+      <motion.div
+        animate={{ y: [0, 6, 0] }} transition={{ duration: 2.5, repeat: Infinity }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-30"
+      >
+        <span className="text-[8px] font-black uppercase tracking-[0.4em] text-stone-500">Scroll</span>
+        <div className="w-px h-8 bg-gradient-to-b from-stone-400 to-transparent" />
+      </motion.div>
 
-          {/* Analog clock */}
-          <div className="flex items-center gap-2 sm:gap-3">
-            <div
-              className="relative flex items-center justify-center rounded-full flex-shrink-0"
-              style={{
-                width: 32,
-                height: 32,
-                background: "rgba(244,236,225,0.92)",
-                border: "0.5px solid rgba(110,167,163,0.5)",
-              }}
-            >
-              {/* Hour hand */}
-              <motion.div
-                className="absolute origin-bottom rounded-sm"
-                style={{ width: 1.5, height: 8, background: "#0F6E56", bottom: "50%" }}
-                animate={{ rotate: degrees.h }}
-                transition={{ type: "tween", ease: "linear", duration: 0.5 }}
-              />
-              {/* Minute hand */}
-              <motion.div
-                className="absolute origin-bottom rounded-sm"
-                style={{ width: 1, height: 11, background: "#6EA7A3", bottom: "50%" }}
-                animate={{ rotate: degrees.m }}
-                transition={{ type: "tween", ease: "linear", duration: 0.5 }}
-              />
-              {/* Second hand */}
-              <motion.div
-                className="absolute origin-bottom rounded-sm"
-                style={{ width: 0.75, height: 12, background: "#D85A30", bottom: "50%" }}
-                animate={{ rotate: degrees.s }}
-                transition={{ type: "tween", ease: "linear", duration: 0.2 }}
-              />
-              {/* Center dot */}
-              <div className="absolute w-[3px] h-[3px] rounded-full bg-[#043424]" />
-            </div>
-
-            {/* Digital readout */}
-            <div className="text-left">
-              <p className="uppercase leading-none mb-[3px] tracking-widest"
-                style={{ fontSize: 8, fontWeight: 700, color: "rgba(4, 52, 44, 0.5)" }}>
-                IST (GMT+5:30)
-              </p>
-              <p className="tabular-nums"
-                style={{ fontSize: 12, fontWeight: 700, color: "#043424" }}>
-                {time ? formatIST(time) : "00:00:00"}
-              </p>
-            </div>
-          </div>
-
-          {/* Divider */}
-          <div className="flex-shrink-0 w-px h-[18px]" style={{ background: "rgba(4, 52, 44, 0.1)" }} />
-
-          {/* Active status */}
-          <div className="flex items-center gap-2">
-            <div
-              className="flex-shrink-0 w-1.5 h-1.5 rounded-full"
-              style={{
-                background: "#0d9488",
-                animation: "pulse-dot 2s ease-in-out infinite",
-              }}
-            />
-            <span
-              className="uppercase tracking-widest"
-              style={{ fontSize: 8, fontWeight: 700, color: "rgba(4, 52, 44, 0.45)" }}
-            >
-              Active · INDIA
-            </span>
-          </div>
-
-        </motion.div>
-      </section>
-    </>
+    </section>
   );
 }

@@ -42,7 +42,13 @@ export default function DefaultExperience() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.6, delay: idx * 0.1, ease: "easeOut" }}
-              className="group relative bg-white/60 backdrop-blur-md border border-[#e7e5e4] rounded-[24px] md:rounded-[32px] p-6 sm:p-10 hover:shadow-[0_20px_50px_-15px_rgba(13,148,136,0.12)] transition-all duration-500 hover:border-[#0d9488]/30 hover:bg-white overflow-hidden"
+              whileHover={{ 
+                scale: 1.02, 
+                y: -8,
+                boxShadow: "0 25px 50px -12px rgba(13,148,136,0.25)",
+                borderColor: "rgba(13,148,136,0.3)"
+              }}
+              className="group relative bg-white/60 backdrop-blur-md border border-[#e7e5e4] rounded-[24px] md:rounded-[32px] p-6 sm:p-10 hover:bg-white overflow-hidden transition-colors duration-300"
             >
               {/* Subtle accent corner */}
               <div className="absolute top-0 right-0 w-32 h-32 bg-linear-to-bl from-[#0d9488]/5 to-transparent pointer-events-none" />
@@ -99,8 +105,8 @@ export default function DefaultExperience() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-5 mb-10">
                   {exp.highlights.map((highlight, hIdx) => (
                     <div key={hIdx} className="flex gap-4 group/item">
-                      <div className="mt-2.5 w-1 h-1 rounded-full bg-[#0d9488]/40 group-hover/item:bg-[#0d9488] transition-colors shrink-0" />
-                      <p className="text-sm sm:text-[15px] text-[#57534e] leading-relaxed font-light">
+                      <div className="mt-2.5 w-1.5 h-1.5 rounded-full bg-[#0d9488]/40 group-hover/item:bg-[#0d9488] transition-colors shrink-0" />
+                      <p className="text-sm sm:text-base text-stone-600 leading-[1.7] font-medium">
                         {highlight}
                       </p>
                     </div>

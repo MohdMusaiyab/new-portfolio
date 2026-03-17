@@ -155,18 +155,17 @@ export default function DefaultContact() {
     >
       {/* Background Architectural Elements */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-[30%] left-[-10%] right-[30%] h-px bg-[#0d9488]/10" />
         <div className="absolute bottom-[-20%] left-0 w-[60vw] h-[60vw] bg-[#0d9488]/5 blur-[150px] rounded-full" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 lg:px-16 py-24 md:py-32">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 lg:px-16 py-16 md:py-20">
         {/* Section Header */}
         <motion.div
           ref={headerRef}
           initial={{ opacity: 0, y: 30 }}
           animate={headerInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.9, ease: [0.19, 1, 0.22, 1] }}
-          className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-20 md:mb-28"
+          className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 md:mb-16"
         >
           <div>
             <div className="flex items-center gap-3 mb-6">
@@ -188,7 +187,7 @@ export default function DefaultContact() {
           </p>
         </motion.div>
 
-        <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-start">
+        <div className="flex flex-col lg:flex-row gap-10 lg:gap-16 items-start">
           {/* Form Side */}
           <motion.div
             ref={formRef}
@@ -197,8 +196,8 @@ export default function DefaultContact() {
             transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
             className="w-full lg:w-[58%]"
           >
-            <form onSubmit={handleSubmit} className="flex flex-col gap-10">
-              <div className="flex flex-col sm:flex-row gap-10">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-8">
+              <div className="flex flex-col sm:flex-row gap-8">
                 <div className="flex-1">
                   <Field
                     label="Identification"
@@ -354,15 +353,15 @@ export default function DefaultContact() {
               ease: [0.19, 1, 0.22, 1],
               delay: 0.2,
             }}
-            className="w-full lg:w-[42%] flex flex-col gap-10"
+            className="w-full lg:w-[42%] flex flex-col gap-8"
           >
             {/* Info Box */}
-            <div className="relative bg-white border border-[#0d9488]/15 rounded-[32px] p-10 overflow-hidden shadow-[0_8px_30px_-12px_rgba(13,148,136,0.1)] group">
+            <div className="relative bg-white border border-[#0d9488]/15 rounded-[32px] p-8 overflow-hidden shadow-[0_8px_30px_-12px_rgba(13,148,136,0.1)] group">
               <div className="absolute top-0 right-0 w-32 h-32 bg-[#0d9488]/5 rounded-bl-full pointer-events-none transition-transform duration-700 group-hover:scale-150" />
-              <p className="relative z-10 text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-[#0d9488] mb-5">
+              <p className="relative z-10 text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-[#0d9488] mb-4">
                 Establish Connection
               </p>
-              <p className="relative z-10 text-base leading-relaxed text-[#57534e] font-light">
+              <p className="relative z-10 text-sm md:text-base leading-relaxed text-[#57534e] font-light">
                 Whether it&apos;s a product architecture idea, a complex
                 engineering problem, or an overarching aesthetic vision—I am
                 ready to architect the solution. My interface is always
@@ -389,7 +388,7 @@ export default function DefaultContact() {
                       ease: [0.19, 1, 0.22, 1],
                       delay: 0.3 + i * 0.1,
                     }}
-                    className="group relative flex items-center justify-between py-5 border-b border-[#0d9488]/10 last:border-b-0 overflow-hidden"
+                    className="group relative flex items-center justify-between py-3.5 border-b border-[#0d9488]/10 last:border-b-0 overflow-hidden"
                     style={{ textDecoration: "none" }}
                   >
                     {/* Hover Sweep BG */}
@@ -444,7 +443,7 @@ export default function DefaultContact() {
         </div>
 
         {/* Footer separator */}
-        <div className="w-full h-px bg-linear-to-r from-transparent via-[#0d9488]/20 to-transparent mt-32 mb-8" />
+        <div className="w-full h-px bg-linear-to-r from-transparent via-[#0d9488]/20 to-transparent mt-16 mb-8" />
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <span className="text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-[#a8a29e]">
             © {new Date().getFullYear()} Mohd Musaiyab

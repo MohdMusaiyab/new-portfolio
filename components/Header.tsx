@@ -188,20 +188,12 @@ export default function Header() {
 
   if (!mounted) return null;
 
-  const defaultLogoColor = scrolled
-    ? "text-[#1c1917]"
-    : "text-[#043424] drop-shadow-[0_2px_12px_rgba(242,247,246,0.85)]";
-  const defaultNavColor = scrolled ? "text-[#78716c]" : "text-[#043424]/85";
-  const defaultNavHover = scrolled
-    ? "hover:text-[#1c1917]"
-    : "hover:text-[#043424]";
-  const defaultNavActive = scrolled
-    ? "text-[#0d9488]"
-    : "text-[#043424] font-extrabold drop-shadow-[0_2px_10px_rgba(155,200,195,0.45)]";
-  const defaultUnderline = scrolled ? "bg-[#0d9488]" : "bg-[#043424]";
-  const defaultToggle = scrolled
-    ? "text-[#1c1917] bg-white/70 backdrop-blur-md border-[#1c1917]/10 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] hover:bg-white/90 hover:scale-[1.02]"
-    : "text-[#043424]/85 border-[#043424]/30 hover:text-[#043424] hover:border-[#043424]/60 hover:bg-[#043424]/10";
+  const defaultLogoColor = "text-[#134E4A] drop-shadow-[0_1px_4px_rgba(255,255,255,0.8)]";
+  const defaultNavColor = "text-[#134E4A]/70";
+  const defaultNavHover = "hover:text-[#134E4A]";
+  const defaultNavActive = "text-[#134E4A] font-black underline decoration-[#0D9488] decoration-2 underline-offset-8";
+  const defaultUnderline = "bg-[#0D9488]";
+  const defaultToggle = "text-[#134E4A] bg-white/30 backdrop-blur-xl border-white/40 shadow-sm hover:bg-white/50 transition-all";
 
   return (
     <>
@@ -209,11 +201,13 @@ export default function Header() {
       <header
         id="site-header-desktop"
         className={`fixed top-0 left-0 right-0 z-50 hidden md:flex items-center justify-between px-6 lg:px-12 h-20 transition-all duration-500 ${
-          scrolled
-            ? isWinter
+          isWinter
+            ? scrolled
               ? "bg-[#09090b]/80 backdrop-blur-xl border-b border-white/10"
-              : "bg-[#fdfbf7]/80 backdrop-blur-xl border-b border-[#1c1917]/10"
-            : "bg-transparent border-b border-transparent"
+              : "bg-transparent border-b border-transparent"
+            : scrolled
+              ? "bg-white/20 backdrop-blur-[32px] border-b border-white/30 shadow-[0_4px_30px_rgba(0,0,0,0.05)]"
+              : "bg-transparent border-b border-transparent"
         }`}
       >
         {}
@@ -283,10 +277,10 @@ export default function Header() {
         className="fixed bottom-0 left-0 right-0 z-50 flex md:hidden justify-center items-end pointer-events-none pb-6"
       >
         <div
-          className={`pointer-events-auto flex items-center gap-1.5 px-3 py-2.5 rounded-[24px] shadow-2xl backdrop-blur-2xl border transition-colors duration-500 ${
+          className={`pointer-events-auto flex items-center gap-1.5 px-3 py-2.5 rounded-[24px] shadow-2xl backdrop-blur-3xl border transition-colors duration-500 ${
             isWinter
               ? "bg-black/60 border-white/10 shadow-black/80"
-              : "bg-white/80 border-[#1c1917]/10 shadow-[#1c1917]/10"
+              : "bg-white/20 border-white/30 shadow-xl"
           }`}
         >
           {MOB_NAV.map(({ label, href, Icon }) => {
