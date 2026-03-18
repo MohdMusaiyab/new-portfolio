@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Cinzel, DM_Mono, Inter, Geist, Geist_Mono, Cormorant_Garamond } from "next/font/google";
 import ExperienceProvider from "@/components/ExperienceProvider";
+import SoundProvider from "@/components/SoundProvider";
 import "./globals.css";
 
 const cinzel = Cinzel({
@@ -113,7 +114,9 @@ export default function RootLayout({
             `,
           }}
         />
-        <ExperienceProvider>{children}</ExperienceProvider>
+        <ExperienceProvider>
+          <SoundProvider>{children}</SoundProvider>
+        </ExperienceProvider>
       </body>
     </html>
   );
