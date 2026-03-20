@@ -8,7 +8,7 @@ export default function DefaultSkills() {
   return (
     <section
       id="skills"
-      className="relative w-full bg-[#fdfbf7] py-20 md:py-32 px-6 sm:px-12 lg:px-16 text-[#1c1917] font-sans overflow-hidden selection:bg-[#0d9488] selection:text-[#fdfbf7]"
+      className="relative w-full bg-[#fdfbf7] py-20 md:py-[clamp(2.5rem,8vh,8rem)] px-6 sm:px-12 lg:px-16 text-[#1c1917] font-sans overflow-hidden selection:bg-[#0d9488] selection:text-[#fdfbf7]"
     >
       {/* Background Architectural Elements */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
@@ -31,17 +31,13 @@ export default function DefaultSkills() {
                 Technical Arsenal
               </span>
             </div>
-            <h3 className="text-4xl sm:text-7xl lg:text-8xl font-black uppercase tracking-tighter leading-[0.85] text-[#1c1917]">
+            <h3 className="text-[clamp(1.75rem,min(5vw,8vh),6rem)] font-black uppercase tracking-tighter leading-[0.85] text-[#1c1917]">
               Tools I <br />
               <span className="text-transparent bg-clip-text bg-linear-to-r from-[#0d9488] to-[#042f2e]">
                 Wield.
               </span>
             </h3>
           </div>
-          <p className="max-w-[42ch] text-[#57534e] text-sm md:text-base lg:text-lg font-light leading-relaxed pb-2 md:text-right">
-            A comprehensive mapping of my technical capabilities, structured as
-            interconnected skill nodes.
-          </p>
         </motion.div>
 
         {/* Skills Grid */}

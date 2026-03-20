@@ -158,7 +158,7 @@ export default function DefaultContact() {
         <div className="absolute bottom-[-20%] left-0 w-[60vw] h-[60vw] bg-[#0d9488]/5 blur-[150px] rounded-full" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 lg:px-16 py-16 md:py-20">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 lg:px-16 py-16 md:py-[clamp(2.5rem,8vh,5rem)]">
         {/* Section Header */}
         <motion.div
           ref={headerRef}
@@ -174,16 +174,21 @@ export default function DefaultContact() {
                 Get In Touch
               </span>
             </div>
-            <h2 className="text-4xl sm:text-7xl lg:text-8xl font-black uppercase tracking-tighter leading-[0.85] text-[#1c1917]">
+            <h2 className="text-[clamp(1.75rem,min(5vw,8vh),6rem)] font-black uppercase tracking-tighter leading-[0.85] text-[#1c1917]">
               Let&apos;s <br />
               <span className="text-transparent bg-clip-text bg-linear-to-r from-[#0d9488] to-[#042f2e]">
                 Connect.
               </span>
             </h2>
           </div>
+
+          {/* ✦ Improved tagline copy — dev-specific, memorable */}
           <p className="max-w-[42ch] text-[#57534e] text-sm md:text-base lg:text-lg font-light leading-relaxed pb-2 md:text-right">
-            Have a project in mind or just want to chat? Send me an encrypted
-            message over the wire.
+            I write code that ships, systems that scale, and interfaces people
+            remember.{" "}
+            <span className="text-[#0d9488] font-medium">
+              Drop a message — let&apos;s build something worth talking about.
+            </span>
           </p>
         </motion.div>
 
@@ -200,7 +205,7 @@ export default function DefaultContact() {
               <div className="flex flex-col sm:flex-row gap-8">
                 <div className="flex-1">
                   <Field
-                    label="Identification"
+                    label="Your Name"
                     id="contact-name"
                     value={form.senderName}
                     onChange={set("senderName")}
@@ -209,7 +214,7 @@ export default function DefaultContact() {
                 </div>
                 <div className="flex-1">
                   <Field
-                    label="Return Address"
+                    label="Your Email"
                     id="contact-email"
                     type="email"
                     value={form.senderEmail}
@@ -220,14 +225,14 @@ export default function DefaultContact() {
               </div>
 
               <Field
-                label="Transmission Subject"
+                label="Subject"
                 id="contact-subject"
                 value={form.subject}
                 onChange={set("subject")}
                 disabled={disabled}
               />
               <Field
-                label="Payload Data"
+                label="Message"
                 id="contact-message"
                 textarea
                 value={form.message}
@@ -236,12 +241,13 @@ export default function DefaultContact() {
               />
 
               <div className="flex items-center gap-6 pt-6">
+                {/* ✦ Sharp-cornered send button — feels more like a terminal action */}
                 <motion.button
                   type="submit"
                   disabled={disabled}
-                  whileHover={disabled ? {} : { scale: 1.05 }}
-                  whileTap={disabled ? {} : { scale: 0.95 }}
-                  className="relative overflow-hidden flex items-center gap-3 px-10 py-4 border border-[#0d9488]/30 rounded-full text-xs font-bold uppercase tracking-[0.15em] transition-all duration-400 group shadow-sm hover:shadow-[0_10px_30px_-10px_rgba(13,148,136,0.4)]"
+                  whileHover={disabled ? {} : { scale: 1.03 }}
+                  whileTap={disabled ? {} : { scale: 0.97 }}
+                  className="relative overflow-hidden flex items-center gap-3 px-10 py-4 border border-[#0d9488]/30 rounded-sm text-xs font-bold uppercase tracking-[0.15em] transition-all duration-400 group shadow-sm hover:shadow-[0_8px_24px_-6px_rgba(13,148,136,0.5)]"
                   style={{
                     background: status === "sent" ? "#fdfbf7" : "#0d9488",
                     color: status === "sent" ? "#0d9488" : "#fdfbf7",
@@ -353,26 +359,26 @@ export default function DefaultContact() {
               ease: [0.19, 1, 0.22, 1],
               delay: 0.2,
             }}
-            className="w-full lg:w-[42%] flex flex-col gap-8"
+            className="w-full lg:w-[42%] flex flex-col gap-6"
           >
-            {/* Info Box */}
-            <div className="relative bg-white border border-[#0d9488]/15 rounded-[32px] p-8 overflow-hidden shadow-[0_8px_30px_-12px_rgba(13,148,136,0.1)] group">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-[#0d9488]/5 rounded-bl-full pointer-events-none transition-transform duration-700 group-hover:scale-150" />
-              <p className="relative z-10 text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-[#0d9488] mb-4">
-                Establish Connection
+            {/* ✦ Info Box — tightened padding, reworded heading, sharper corners */}
+            <div className="relative bg-white border border-[#0d9488]/15 rounded-xl p-6 overflow-hidden shadow-[0_8px_30px_-12px_rgba(13,148,136,0.1)] group">
+              <div className="absolute top-0 right-0 w-28 h-28 bg-[#0d9488]/5 rounded-bl-full pointer-events-none transition-transform duration-700 group-hover:scale-150" />
+              {/* ✦ Replaced "Establish Connection" with dev-toned heading */}
+              <p className="relative z-10 text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-[#0d9488] mb-3">
+                <span className="font-mono opacity-60 mr-1">{'//'}</span> Always Reachable
               </p>
-              <p className="relative z-10 text-sm md:text-base leading-relaxed text-[#57534e] font-light">
-                Whether it&apos;s a product architecture idea, a complex
-                engineering problem, or an overarching aesthetic vision—I am
-                ready to architect the solution. My interface is always
-                pingable.
+              <p className="relative z-10 text-sm leading-relaxed text-[#57534e] font-light">
+                Got a tricky architecture problem, a product idea, or just want
+                to nerd out over tech? My inbox is open — no ticket system, no
+                gatekeeping.
               </p>
             </div>
 
-            {/* Social Links */}
+            {/* ✦ Socials — renamed heading, glow + scale hover */}
             <div>
-              <p className="text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-[#a8a29e] mb-6">
-                External Nodes
+              <p className="text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-[#a8a29e] mb-5">
+                Follow the Signal
               </p>
               <div className="flex flex-col">
                 {SOCIALS.map((s, i) => (
@@ -388,25 +394,26 @@ export default function DefaultContact() {
                       ease: [0.19, 1, 0.22, 1],
                       delay: 0.3 + i * 0.1,
                     }}
-                    className="group relative flex items-center justify-between py-3.5 border-b border-[#0d9488]/10 last:border-b-0 overflow-hidden"
+                    whileHover={{ scale: 1.02 }}
+                    className="group relative flex items-center justify-between py-3 border-b border-[#0d9488]/10 last:border-b-0 overflow-hidden transition-all duration-300 hover:shadow-[0_0_18px_-4px_rgba(13,148,136,0.25)] rounded-lg px-2 -mx-2"
                     style={{ textDecoration: "none" }}
                   >
                     {/* Hover Sweep BG */}
-                    <span className="absolute inset-0 bg-linear-to-r from-[#0d9488]/5 to-transparent origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-[0.19,1,0.22,1]" />
+                    <span className="absolute inset-0 bg-linear-to-r from-[#0d9488]/8 to-transparent origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-[0.19,1,0.22,1] rounded-lg" />
 
-                    <div className="relative z-10 flex items-center gap-5">
-                      <div className="flex items-center justify-center w-10 h-10 rounded-full bg-[#fdfbf7] border border-[#0d9488]/20 text-[#57534e] group-hover:border-[#0d9488] group-hover:text-[#0d9488] group-hover:scale-110 transition-all duration-400">
+                    <div className="relative z-10 flex items-center gap-4">
+                      <div className="flex items-center justify-center w-9 h-9 rounded-lg bg-[#fdfbf7] border border-[#0d9488]/20 text-[#57534e] group-hover:border-[#0d9488] group-hover:text-[#0d9488] group-hover:scale-110 group-hover:shadow-[0_0_12px_-2px_rgba(13,148,136,0.4)] transition-all duration-300">
                         {s.icon}
                       </div>
-                      <span className="text-sm font-bold tracking-wider uppercase text-[#1c1917] group-hover:text-[#0d9488] transition-colors duration-400">
+                      <span className="text-sm font-bold tracking-wider uppercase text-[#1c1917] group-hover:text-[#0d9488] transition-colors duration-300">
                         {s.label}
                       </span>
                     </div>
 
-                    <span className="relative z-10 text-[#a8a29e] group-hover:text-[#0d9488] group-hover:-rotate-45 transition-all duration-400">
+                    <span className="relative z-10 text-[#a8a29e] group-hover:text-[#0d9488] group-hover:-rotate-45 transition-all duration-300">
                       <svg
-                        width="20"
-                        height="20"
+                        width="18"
+                        height="18"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -424,17 +431,17 @@ export default function DefaultContact() {
               </div>
             </div>
 
-            {/* Direct Email Box */}
+            {/* ✦ Email box — sharp corners, tighter padding */}
             <a
               href={`mailto:${process.env.NEXT_PUBLIC_PERSONAL_EMAIL || "musaiyab2003@gmail.com"}`}
-              className="group relative bg-[#0d9488]/5 rounded-[24px] p-8 border border-[#0d9488]/15 overflow-hidden transition-all duration-500 hover:-translate-y-1 hover:shadow-lg hover:border-[#0d9488]/30"
+              className="group relative bg-[#0d9488]/5 p-5 border border-[#0d9488]/15 overflow-hidden transition-all duration-500 hover:-translate-y-0.5 hover:shadow-[0_6px_24px_-8px_rgba(13,148,136,0.35)] hover:border-[#0d9488]/40"
               style={{ textDecoration: "none" }}
             >
               <div className="absolute inset-0 bg-[#0d9488]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <p className="relative z-10 text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-[#0d9488] mb-3">
-                Direct Protocol
+              <p className="relative z-10 text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-[#0d9488] mb-2">
+                <span className="font-mono opacity-60 mr-1">&gt;</span> Direct Line
               </p>
-              <p className="relative z-10 text-base font-semibold text-[#1c1917] tracking-wide group-hover:text-[#0d9488] transition-colors duration-300">
+              <p className="relative z-10 text-sm font-semibold text-[#1c1917] tracking-wide group-hover:text-[#0d9488] transition-colors duration-300">
                 {process.env.NEXT_PUBLIC_PERSONAL_EMAIL ||
                   "musaiyab2003@gmail.com"}
               </p>

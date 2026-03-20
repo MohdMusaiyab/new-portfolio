@@ -15,7 +15,7 @@ export default function DefaultProjects() {
   return (
     <section
       id="projects"
-      className="relative w-full bg-[#fdfbf7] py-20 md:py-32 px-6 sm:px-12 lg:px-16 text-[#1c1917] font-sans overflow-hidden selection:bg-[#0d9488] selection:text-[#fdfbf7]"
+      className="relative w-full bg-[#fdfbf7] py-20 md:py-[clamp(2.5rem,8vh,8rem)] px-6 sm:px-12 lg:px-16 text-[#1c1917] font-sans overflow-hidden selection:bg-[#0d9488] selection:text-[#fdfbf7]"
     >
       {/* Background Architectural Elements */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
@@ -38,7 +38,7 @@ export default function DefaultProjects() {
                 Selected Works
               </span>
             </div>
-            <h3 className="text-4xl sm:text-7xl lg:text-8xl font-black uppercase tracking-tighter leading-[0.85] text-[#1c1917]">
+            <h3 className="text-[clamp(1.75rem,min(5vw,8vh),6rem)] font-black uppercase tracking-tighter leading-[0.85] text-[#1c1917]">
               Featured <br />
               <span className="text-transparent bg-clip-text bg-linear-to-r from-[#0d9488] to-[#042f2e]">
                 Projects.
@@ -71,7 +71,7 @@ export default function DefaultProjects() {
                 {/* Accordion Header */}
                 <button
                   onClick={() => toggle(idx)}
-                  className="w-full flex items-center justify-between gap-4 md:gap-6 py-5 md:py-8 cursor-pointer group text-left relative overflow-hidden"
+                  className="w-full flex items-center justify-between gap-3 md:gap-4 py-3 md:py-[clamp(0.75rem,2vh,2rem)] cursor-pointer group text-left relative overflow-hidden"
                 >
                   {/* Subtle hover background highlight */}
                   <div className="absolute inset-0 bg-[#0d9488]/5 -translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[0.19,1,0.22,1] z-0" />
@@ -80,7 +80,7 @@ export default function DefaultProjects() {
                     <span className="text-[10px] md:text-sm font-bold font-mono text-[#0d9488]/60 w-6 md:w-8 shrink-0 tracking-widest">
                       0{idx + 1}
                     </span>
-                    <span className="text-2xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-[#1c1917] group-hover:text-[#0d9488] transition-colors duration-300">
+                    <span className="text-xl md:text-[clamp(1.25rem,min(3vw,4vh),3rem)] font-extrabold tracking-tight text-[#1c1917] group-hover:text-[#0d9488] transition-colors duration-300">
                       {project.name}
                     </span>
                   </div>
@@ -156,18 +156,26 @@ export default function DefaultProjects() {
                         {/* Project Details */}
                         <div className="flex flex-col justify-between grow py-2 px-2 sm:px-0">
                           <div>
-                            <p className="text-[#57534e] text-sm md:text-base lg:text-lg font-light leading-relaxed mb-6 md:mb-8 max-w-[55ch]">
-                              {project.description}
-                            </p>
+                            <div className="group/desc relative mb-6 md:mb-8 overflow-hidden rounded-lg">
+                              {/* Hover Sweep Background */}
+                              <span className="absolute inset-0 bg-linear-to-r from-[#0d9488]/5 to-transparent origin-left scale-x-0 group-hover/desc:scale-x-100 transition-transform duration-500 ease-[0.19,1,0.22,1] pointer-events-none" />
+                              
+                              <p className="relative z-10 text-[#57534e] text-sm md:text-base lg:text-lg font-light leading-relaxed max-w-[55ch] group-hover/desc:text-[#0d9488] transition-colors duration-400">
+                                {project.description}
+                              </p>
+                            </div>
 
                             <div className="flex flex-col gap-3 md:gap-4 mb-8">
                               {project.keyPoints.slice(0, 3).map((kp, kIdx) => (
                                 <div
                                   key={kIdx}
-                                  className="flex gap-3 md:gap-4 items-start"
+                                  className="group/point relative flex gap-3 md:gap-4 items-start overflow-hidden rounded-lg px-2 py-1.5 -mx-2 -my-1.5"
                                 >
-                                  <div className="w-1.5 h-1.5 rounded-full bg-[#0d9488] mt-[6px] shrink-0" />
-                                  <p className="text-xs md:text-sm text-[#78716c] leading-relaxed">
+                                  {/* Hover Sweep Background */}
+                                  <span className="absolute inset-0 bg-linear-to-r from-[#0d9488]/5 to-transparent origin-left scale-x-0 group-hover/point:scale-x-100 transition-transform duration-500 ease-[0.19,1,0.22,1] pointer-events-none" />
+                                  
+                                  <div className="relative z-10 w-1.5 h-1.5 rounded-full bg-[#0d9488] mt-[6px] shrink-0 group-hover/point:scale-125 transition-transform duration-400" />
+                                  <p className="relative z-10 text-xs md:text-sm text-[#78716c] leading-relaxed group-hover/point:text-[#0d9488] transition-colors duration-400">
                                     {kp}
                                   </p>
                                 </div>

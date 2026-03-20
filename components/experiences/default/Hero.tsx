@@ -234,10 +234,10 @@ export default function Hero() {
       />
 
       {/* ── BODY ──
-          pt-8 on md catches Nest Hub (1024×600) — gives breathing room below header
-          gap is tighter on landscape-short screens via gap-4 md:gap-6 lg:gap-16
+          pt-28 on md/lg to clear fixed header and allow vertical centering below it.
+          pb-24 clears mobile nav when applicable.
       ── */}
-      <div className="relative z-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 md:gap-6 lg:gap-16 flex-1 max-w-7xl mx-auto w-full px-5 sm:px-10 lg:px-20 pt-8 md:pt-10 lg:pt-0 pb-6 sm:pb-10 lg:pb-0">
+      <div className="relative z-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 md:gap-4 lg:gap-8 flex-1 max-w-7xl mx-auto w-full px-5 sm:px-10 lg:px-20 pt-8 md:pt-24 lg:pt-24 pb-16 sm:pb-20 lg:pb-8">
 
         {/* ════════ LEFT ════════ */}
         <div className="flex flex-col gap-4 md:gap-5 lg:gap-6 lg:max-w-[640px]">
@@ -247,7 +247,7 @@ export default function Hero() {
           {/* Name — letter-by-letter */}
           <h1
             className="font-black uppercase tracking-tighter leading-[0.84] text-[#1c1917]"
-            style={{ fontSize: "clamp(48px, 10.5vw, 110px)" }}
+            style={{ fontSize: "clamp(32px, min(9vw, 11vh), 110px)" }}
           >
             <AnimatedWord text="Mohd" delay={0.08} />
             <br />
@@ -305,7 +305,7 @@ export default function Hero() {
             >
               {/* shimmer sweep */}
               <motion.span
-                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12"
+                className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -skew-x-12"
                 initial={{ x: "-120%" }}
                 animate={{ x: "220%" }}
                 transition={{
@@ -384,7 +384,7 @@ export default function Hero() {
         </div>
 
         {/* ════════ RIGHT: INFO PANEL ════════ */}
-        <div className="flex flex-col gap-3 w-full lg:w-[300px] lg:min-w-[300px] shrink-0">
+        <div className="flex flex-col gap-2 w-full lg:w-[280px] lg:min-w-[280px] shrink-0">
 
           {/* Clock — float up */}
           <motion.div

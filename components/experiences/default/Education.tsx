@@ -9,7 +9,7 @@ export default function DefaultEducation() {
   return (
     <section
       id="education"
-      className="relative w-full bg-[#fdfbf7] py-24 md:py-32 px-6 sm:px-12 lg:px-24 text-[#1c1917] font-sans overflow-hidden selection:bg-[#0d9488] selection:text-[#fdfbf7]"
+      className="relative w-full bg-[#fdfbf7] py-24 md:py-[clamp(2.5rem,8vh,8rem)] px-6 sm:px-12 lg:px-24 text-[#1c1917] font-sans overflow-hidden selection:bg-[#0d9488] selection:text-[#fdfbf7]"
     >
       {/* Background Subtle Elements */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
@@ -32,16 +32,12 @@ export default function DefaultEducation() {
             </span>
           </div>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-            <h3 className="text-4xl sm:text-7xl lg:text-8xl font-black uppercase tracking-tighter leading-[0.85] text-[#1c1917]">
+            <h3 className="text-[clamp(1.75rem,min(5vw,8vh),6rem)] font-black uppercase tracking-tighter leading-[0.85] text-[#1c1917]">
               Education <br />
               <span className="text-transparent bg-clip-text bg-linear-to-r from-[#0d9488] to-[#042f2e]">
                 History.
               </span>
             </h3>
-            <p className="max-w-[42ch] text-[#57534e] text-sm md:text-base lg:text-lg font-light leading-relaxed pb-2 md:text-right">
-              A chronological timeline of my academic journey, foundations, and
-              qualifications.
-            </p>
           </div>
         </motion.div>
 
@@ -77,7 +73,7 @@ export default function DefaultEducation() {
 
               {/* Right Column: Content Card */}
               <div className="w-full relative">
-                <div className="relative w-full bg-white border border-[#0d9488]/10 rounded-2xl md:rounded-3xl p-6 md:p-10 shadow-[0_4px_20px_-10px_rgba(13,148,136,0.05)] transition-all duration-700 ease-[0.19,1,0.22,1] group-hover:shadow-[0_20px_40px_-15px_rgba(13,148,136,0.15)] group-hover:-translate-y-2 group-hover:border-[#0d9488]/30">
+                <div className="relative w-full bg-white border border-[#0d9488]/10 rounded-2xl md:rounded-3xl p-5 md:p-[clamp(1.25rem,3vh,2.5rem)] shadow-[0_4px_20px_-10px_rgba(13,148,136,0.05)] transition-all duration-700 ease-[0.19,1,0.22,1] group-hover:shadow-[0_20px_40px_-15px_rgba(13,148,136,0.15)] group-hover:-translate-y-2 group-hover:border-[#0d9488]/30">
                   {/* Decorative corner accent */}
                   <div className="absolute top-0 right-0 w-24 h-24 bg-linear-to-bl from-[#0d9488]/5 to-transparent rounded-tr-2xl md:rounded-tr-3xl pointer-events-none" />
 

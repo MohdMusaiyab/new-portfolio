@@ -9,7 +9,7 @@ export default function DefaultExperience() {
   return (
     <section
       id="experience"
-      className="relative w-full py-20 md:py-32 px-6 sm:px-12 lg:px-24 text-[#292524] font-sans overflow-hidden bg-[#fdfbf7]"
+      className="relative w-full py-20 md:py-[clamp(2.5rem,8vh,8rem)] px-6 sm:px-12 lg:px-24 text-[#292524] font-sans overflow-hidden bg-[#fdfbf7]"
     >
       <div className="relative z-10 max-w-5xl mx-auto w-full">
         {/* Section Header */}
@@ -25,7 +25,7 @@ export default function DefaultExperience() {
               Professional History
             </span>
           </div>
-          <h3 className="text-4xl sm:text-7xl lg:text-8xl font-black uppercase tracking-tighter leading-[0.85] text-[#1c1917]">
+          <h3 className="text-[clamp(1.75rem,min(5vw,8vh),6rem)] font-black uppercase tracking-tighter leading-[0.85] text-[#1c1917]">
             Work <br />
             <span className="text-transparent bg-clip-text bg-linear-to-r from-[#0d9488] to-[#042f2e]">
               Experience.
@@ -48,7 +48,7 @@ export default function DefaultExperience() {
                 boxShadow: "0 25px 50px -12px rgba(13,148,136,0.25)",
                 borderColor: "rgba(13,148,136,0.3)"
               }}
-              className="group relative bg-white/60 backdrop-blur-md border border-[#e7e5e4] rounded-[24px] md:rounded-[32px] p-6 sm:p-10 hover:bg-white overflow-hidden transition-colors duration-300"
+              className="group relative bg-white/60 backdrop-blur-md border border-[#e7e5e4] rounded-[24px] md:rounded-[32px] p-5 sm:p-[clamp(1.25rem,3vh,2.5rem)] hover:bg-white overflow-hidden transition-colors duration-300"
             >
               {/* Subtle accent corner */}
               <div className="absolute top-0 right-0 w-32 h-32 bg-linear-to-bl from-[#0d9488]/5 to-transparent pointer-events-none" />
@@ -75,10 +75,10 @@ export default function DefaultExperience() {
                     </div>
                     
                     <div className="space-y-0.5">
-                      <h4 className="text-xl sm:text-2xl md:text-3xl font-black tracking-tight text-[#1c1917] group-hover:text-[#0d9488] transition-colors">
+                      <h4 className="text-xl md:text-[clamp(1.125rem,min(2.5vw,3vh),1.875rem)] font-black tracking-tight text-[#1c1917] group-hover:text-[#0d9488] transition-colors">
                         {exp.company}
                       </h4>
-                      <p className="text-base md:text-lg text-[#0d9488] font-semibold tracking-tight">
+                      <p className="text-sm md:text-base lg:text-lg text-[#0d9488] font-semibold tracking-tight">
                         {exp.position}
                       </p>
                     </div>
