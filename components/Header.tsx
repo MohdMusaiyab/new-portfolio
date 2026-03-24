@@ -188,12 +188,15 @@ export default function Header() {
 
   if (!mounted) return null;
 
-  const defaultLogoColor = "text-[#134E4A] drop-shadow-[0_1px_4px_rgba(255,255,255,0.8)]";
+  const defaultLogoColor =
+    "text-[#134E4A] drop-shadow-[0_1px_4px_rgba(255,255,255,0.8)]";
   const defaultNavColor = "text-[#134E4A]/70";
   const defaultNavHover = "hover:text-[#134E4A]";
-  const defaultNavActive = "text-[#134E4A] font-black underline decoration-[#0D9488] decoration-2 underline-offset-8";
+  const defaultNavActive =
+    "text-[#134E4A] font-black underline decoration-[#0D9488] decoration-2 underline-offset-8";
   const defaultUnderline = "bg-[#0D9488]";
-  const defaultToggle = "text-[#134E4A] bg-white/30 backdrop-blur-xl border-white/40 shadow-sm hover:bg-white/50 transition-all";
+  const defaultToggle =
+    "text-[#134E4A] bg-white/30 backdrop-blur-xl border-white/40 shadow-sm hover:bg-white/50 transition-all";
 
   return (
     <>
@@ -265,7 +268,7 @@ export default function Header() {
           }`}
         >
           {isWinter ? <IconSun /> : <IconSnow />}
-          {isWinter ? "Beach Mode" : "Fog Mode"}
+          {isWinter ? "Day" : "Night"}
         </button>
       </header>
 

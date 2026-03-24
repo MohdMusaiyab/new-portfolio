@@ -35,7 +35,6 @@ const SOCIALS = [
     ),
   },
 ];
-
 function Field({
   label,
   id,
@@ -424,7 +423,7 @@ export default function Contact() {
                         ease: [0.16, 1, 0.3, 1],
                         delay: 0.25 + i * 0.08,
                       }}
-                      className="group flex items-center gap-4 py-4 border-b transition-all duration-300 hover:bg-white/5"
+                      className="group flex items-center gap-4 py-4 border-b last:border-none transition-all duration-300 hover:bg-white/5"
                       style={{
                         borderColor: WA(0.07),
                         textDecoration: "none",
@@ -482,10 +481,10 @@ export default function Contact() {
               background: `linear-gradient(to right, transparent, ${WA(0.08)} 50%, transparent)`,
             }}
           />
-          <div className="flex items-center justify-between mt-8">
+          <div className="flex items-center justify-between mt-8 ">
             <span
-              className="font-dm-mono text-[10px] tracking-[0.3em] uppercase"
-              style={{ color: WA(0.2) }}
+              className="font-dm-mono text-[10px]  tracking-[0.3em] uppercase"
+              style={{ color: "white" }}
             >
               © 2026 Mohd Musaiyab
             </span>

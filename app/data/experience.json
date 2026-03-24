@@ -10,10 +10,10 @@
       "position": "System Engineer",
       "location": "Pune, India",
       "highlights": [
-        "Architecting high-performance backend modules using Core Java, optimizing execution speed by 30% through advanced algorithmic design.",
-        "Engineering enterprise cloud solutions on the Salesforce Platform, leveraging Apex and LWC to automate critical business workflows.",
-        "Designing and optimizing relational schemas in HSQL, ensuring sub-100ms data retrieval for large-scale enterprise datasets.",
-        "Maintaining 99.9% deployment reliability by applying Clean Code principles and Agile methodologies within the SDLC."
+        "Architected Core Java backend modules, improving execution speed by 30%.",
+        "Built Salesforce enterprise solutions using Apex and LWC to automate workflows.",
+        "Optimized HSQL relational schemas for sub-100ms data retrieval.",
+        "Maintained 99.9% deployment reliability via Clean Code & Agile practices."
       ],
       "skills": [
         "Core Java",
@@ -36,11 +36,11 @@
       "position": "React Intern",
       "location": "Remote (India)",
       "highlights": [
-        "Developed 15+ reusable React components using TypeScript and Tailwind CSS, accelerating typical frontend cycles by 30%.",
-        "Engineered a centralized state architecture with Redux Toolkit, managing complex data flow across 10+ dynamic application modules.",
-        "Boosted dashboard performance by 40% through advanced React memoization techniques and rendering optimizations.",
-        "Integrated 50+ RESTful APIs with robust error-handling and Zod-validated schemas for high-integrity data synchronization.",
-        "Crafted immersive UI transitions and micro-interactions using Framer Motion, significantly enhancing user engagement."
+        "Developed 15+ reusable React components with TypeScript & Tailwind CSS.",
+        "Implemented centralized state with Redux Toolkit across 10+ modules.",
+        "Boosted dashboard performance by 40% via React memoization.",
+        "Integrated 50+ REST APIs with Zod-validated schemas.",
+        "Enhanced UI with Framer Motion transitions and micro-interactions."
       ],
       "skills": [
         "TypeScript",

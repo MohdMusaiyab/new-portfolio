@@ -117,12 +117,11 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6, ease: [0.19, 1, 0.22, 1] }}
-            className="font-sans font-light text-sm md:text-base lg:text-lg leading-relaxed text-white/90 max-w-2xl mb-8 md:mb-12 drop-shadow-xl text-balance winter-bio"
+            className="font-sans font-light text-sm md:text-base lg:text-lg leading-relaxed text-white/90 max-w-2xl mb-6 md:mb-8 drop-shadow-xl text-balance winter-bio"
           >
-            Hey, I&apos;m a full stack engineer who lives at the
-            intersection of clean UI and solid backend architecture — I build
-            products end to end, and I care deeply about how they&apos;re designed
-            under the hood.
+            Hey, I’m Musaiyab — a full stack developer who enjoys building
+            clean, fast, and reliable products. I care about both how things
+            look and how they work under the hood.
           </motion.p>
 
           {}
@@ -134,60 +133,22 @@ export default function Hero() {
               delay: 0.75,
               ease: [0.19, 1, 0.22, 1],
             }}
-            className="flex flex-wrap items-center justify-center gap-4 md:gap-6 w-full winter-buttons"
+            className="flex flex-wrap items-center justify-center gap-3 md:gap-4 winter-buttons"
           >
             <a
               href="#projects"
-              className="winter-btn w-full sm:w-auto flex items-center justify-center gap-2 md:gap-3 px-8 md:px-10 py-4 font-mono text-[10px] md:text-xs tracking-[0.2em] md:tracking-[0.3em] uppercase bg-white text-black border border-white/80 hover:bg-transparent hover:text-white hover:border-white transition-all duration-300"
+              className="winter-btn inline-flex items-center justify-center gap-2 px-4 md:px-6 py-2.5 md:py-3 font-mono text-[9px] md:text-xs tracking-[0.14em] md:tracking-[0.22em] uppercase bg-white text-black border border-white/80 hover:bg-transparent hover:text-white hover:border-white transition-all duration-300"
             >
-              Dive In
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
+              Explore
             </a>
 
             <a
               href={process.env.NEXT_PUBLIC_RESUME_LINK || "/resume.pdf"}
               target="_blank"
-              className="winter-btn w-full sm:w-auto flex items-center justify-center gap-2 md:gap-3 px-8 md:px-10 py-4 font-mono text-[10px] md:text-xs tracking-[0.2em] md:tracking-[0.3em] uppercase text-white/90 bg-white/5 backdrop-blur-md border border-white/20 hover:bg-white/10 hover:border-white/60 hover:text-white transition-all duration-300"
+              className="winter-btn inline-flex items-center justify-center gap-2 px-4 md:px-6 py-2.5 md:py-3 font-mono text-[9px] md:text-xs tracking-[0.14em] md:tracking-[0.22em] uppercase text-white/90 bg-white/5 backdrop-blur-md border border-white/20 hover:bg-white/10 hover:border-white/60 hover:text-white transition-all duration-300"
             >
               Resume
             </a>
-
-            <button
-              onClick={() => setExperience("default")}
-              className="winter-btn w-full sm:w-auto flex items-center justify-center gap-2 md:gap-3 px-8 md:px-8 py-4 font-mono text-[10px] md:text-xs tracking-[0.2em] md:tracking-[0.3em] uppercase text-white/70 bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 hover:border-white/40 hover:text-white transition-all duration-300"
-            >
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-              >
-                <circle cx="12" cy="12" r="4" />
-                <line x1="12" y1="2" x2="12" y2="4" />
-                <line x1="12" y1="20" x2="12" y2="22" />
-                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-                <line x1="2" y1="12" x2="4" y2="12" />
-                <line x1="20" y1="12" x2="22" y2="12" />
-                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-              </svg>
-              Beach Mode
-            </button>
           </motion.div>
 
           {}

@@ -2,18 +2,18 @@
   "projects": [
     {
       "name": "NearH",
-      "description": "Centralized real-time healthcare network for India, bridging the communication gap during medical emergencies through live resource tracking.",
+      "description": "Centralized real-time healthcare network for India, bridging communication gaps during emergencies.",
       "keyPoints": [
-        "Architected a centralized healthcare network using Next.js 16 and Supabase, implementing multi-tenant isolation to provide live tracking of bed, ICU, and blood bank availability.",
-        "Engineered a multi-tier distributed caching strategy using Upstash Redis, reducing database read load by 60% and maintaining sub-100ms latency for critical resource discovery.",
-        "Provisioned a secure data layer using Supabase Row Level Security (RLS) and Edge Rate Limiting, ensuring 100% data integrity for inter-hospital patient referrals.",
-        "Designed an RBAC-protected dashboard for hospitals to manage live inventory and streamline emergency response coordination."
+        "Built a multi-tenant healthcare network using Next.js 16 and Supabase for live tracking of beds, ICU, and blood banks.",
+        "Implemented Redis caching to reduce DB load by 60%, keeping resource discovery <100ms.",
+        "Secure data layer with Supabase RLS and Edge Rate Limiting.",
+        "RBAC dashboard for hospitals to manage live inventory and emergencies."
       ],
       "techStack": [
         "Next.js 16",
         "Supabase",
         "PostgreSQL",
-        "Upstash Redis",
+        "Redis",
         "TypeScript",
         "Tailwind CSS",
         "Framer Motion"
@@ -24,15 +24,15 @@
     },
     {
       "name": "Infybite",
-      "description": "High-concurrency multi-tenant system built with Go to digitize enterprise food court operations and inventory tracking.",
+      "description": "High-concurrency multi-tenant system for enterprise food court operations.",
       "keyPoints": [
-        "Designed and implemented a Go-based multi-tenant management system with 4-level RBAC (Admin, Vendor, Manager, User), streamlining food court operations and inventory workflows.",
-        "Built a high-concurrency WebSocket hub in Go to synchronize real-time menu state for 16,000+ concurrent users, incorporating slow-client disconnection to maintain <50ms latency.",
-        "Developed a secure authentication pipeline using JWT + HttpOnly cookies, enabling silent token rotation with 100% session reliability while mitigating XSS and CSRF attacks.",
-        "Architected a scalable data model using GORM and MongoDB to handle high-frequency transaction logs and independent vendor state management."
+        "Go-based multi-tenant system with 4-level RBAC to manage vendors and operations.",
+        "WebSocket hub for 16,000+ concurrent users with <50ms latency.",
+        "Secure JWT authentication with HttpOnly cookies.",
+        "Scalable data model with GORM + MongoDB."
       ],
       "techStack": [
-        "Go (Golang)",
+        "Go",
         "Gin Gonic",
         "React",
         "MongoDB",
@@ -47,12 +47,11 @@
     },
     {
       "name": "Mess-Bazaar",
-      "description": "Next.js bidding platform connecting mess contractors with institutions through a competitive real-time tendering system.",
+      "description": "Next.js bidding platform connecting mess contractors with institutions.",
       "keyPoints": [
-        "Orchestrated a full-stack tendering platform using Next.js and Prisma, supporting 10+ production-grade pages for complex institutional bidding workflows.",
-        "Engineered real-time synchronization for instant bid updates, maintaining 100% data consistency across diverse institutional dashboards.",
-        "Optimized relational queries via Prisma ORM, implementing efficient indexing and parallel data fetching that reduced server-side latency by 30%.",
-        "Developed a mobile-responsive UI with Framed Motion and Tailwind CSS, featuring a 5-point rating system and real-time Socket.IO chat."
+        "Full-stack platform using Next.js + Prisma for institutional bidding.",
+        "Real-time bid updates with 100% data consistency.",
+        "Mobile-responsive UI with Framer Motion and Tailwind CSS."
       ],
       "techStack": [
         "Next.js",
@@ -71,12 +70,11 @@
     },
     {
       "name": "Gossipyfy",
-      "description": "Anonymous voice-first social platform with scalable audio streaming and multilingual content support.",
+      "description": "Anonymous voice-first social platform with scalable audio streaming.",
       "keyPoints": [
-        "Developed a secure media mutation pipeline using Server Actions and Zod validation, significantly reducing client-side bundle size while enhancing security.",
-        "Built an enterprise-grade storage infrastructure using AWS S3 for scalable audio uploads and category-based content streaming.",
-        "Standardized authentication with NextAuth and custom Middleware to neutralize XSS/CSRF risks while supporting Google OAuth and secure sessions.",
-        "Integrated Razorpay for server-side payment handling and automated webhook verification to ensure accurate billing for digital services."
+        "Secure media upload pipeline using Server Actions and Zod.",
+        "Audio streaming infrastructure on AWS S3.",
+        "NextAuth authentication with Google OAuth."
       ],
       "techStack": [
         "PostgreSQL",
@@ -93,12 +91,11 @@
     },
     {
       "name": "Canteen Connect",
-      "description": "Cross-platform food delivery ecosystem for campus cafeterias, reducing peak-hour wait times.",
+      "description": "Cross-platform food delivery ecosystem for campus cafeterias.",
       "keyPoints": [
-        "Digitized campus canteen workflows using a MERN-based admin panel and a Flutter mobile app, resulting in a significant reduction in queue wait times.",
-        "Implemented a real-time order tracking system using WebSockets to provide users with live updates on preparation and pickup status.",
-        "Engineered specialized administrative features for menu management, live inventory tracking, and sales analytics.",
-        "Provisioned secure payment gateway integration and Firebase-based authentication for robust user data privacy."
+        "Admin panel + Flutter app to reduce queue times.",
+        "Real-time order tracking via WebSockets.",
+        "Menu management and live inventory tracking."
       ],
       "techStack": [
         "React.JS",
@@ -115,12 +112,11 @@
     },
     {
       "name": "E-Estate",
-      "description": "High-performance real estate marketplace featuring advanced search algorithms and optimized asset management.",
+      "description": "High-performance real estate marketplace with advanced search.",
       "keyPoints": [
-        "Constructed an advanced property search engine with dynamic filters for location, pricing, and amenities to enhance user discovery.",
-        "Optimized cloud asset management by leveraging Firebase for image storage, reducing MongoDB storage costs and improving page load speeds.",
-        "Implemented secure JWT-based authentication protocols and Google Sign-In for a seamless and protected user onboarding experience.",
-        "Built a responsive property listing dashboard with automated image compression and lazy loading for high-density visual content."
+        "Dynamic property search engine with filters for pricing and amenities.",
+        "Firebase asset management for faster loads.",
+        "JWT authentication and Google Sign-In for secure onboarding."
       ],
       "techStack": [
         "React.JS",
@@ -137,12 +133,11 @@
     },
     {
       "name": "E-Commerce Web App",
-      "description": "Full-stack e-commerce solution with integrated payment processing and comprehensive administrative controls.",
+      "description": "Full-stack e-commerce solution with payment and admin controls.",
       "keyPoints": [
-        "Designed and shipped independent Admin and User modules, featuring comprehensive inventory management and order lifecycle tracking.",
-        "Integrated a secure Stripe/Razorpay payment gateway to facilitate reliable end-to-end e-commerce transactions.",
-        "Developed a dynamic product discovery system with real-time search filters and a persistent shopping cart state.",
-        "Implemented centralized error-handling and global state management to ensure a high-availability shopping experience."
+        "Independent Admin and User modules with inventory management.",
+        "Stripe/Razorpay payment integration.",
+        "Dynamic product discovery with real-time search."
       ],
       "techStack": [
         "Node JS",

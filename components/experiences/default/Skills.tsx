@@ -28,13 +28,13 @@ export default function DefaultSkills() {
             <div className="flex items-center gap-3 mb-4 md:mb-6">
               <span className="w-10 md:w-12 h-px bg-[#0d9488]" />
               <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#0d9488]">
-                Technical Arsenal
+                Skill Set
               </span>
             </div>
             <h3 className="text-[clamp(1.75rem,min(5vw,8vh),6rem)] font-black uppercase tracking-tighter leading-[0.85] text-[#1c1917]">
-              Tools I <br />
+              What  <br />
               <span className="text-transparent bg-clip-text bg-linear-to-r from-[#0d9488] to-[#042f2e]">
-                Wield.
+               I Use.
               </span>
             </h3>
           </div>

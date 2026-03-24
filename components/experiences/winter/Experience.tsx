@@ -50,8 +50,8 @@ function ExperienceCard({ item }: { item: Experience; index: number }) {
                 src={item.logo}
                 alt={`${item.company} logo`}
                 fill
-                className="object-cover p-3"
-                style={{ filter: "grayscale(100%) brightness(1.2)" }}
+                className="object-contain p-2"
+                sizes="80px"
               />
             ) : (
               <span className="font-cinzel text-xl text-white/50">
