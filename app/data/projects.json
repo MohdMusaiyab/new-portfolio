@@ -20,7 +20,7 @@
       ],
       "githubRepo": "https://github.com/MohdMusaiyab/nearH",
       "liveSite": "https://nearh-beta.vercel.app/",
-      "images": ["/nearH-one.png", "/nearH-two.png"]
+      "images": ["/nearH-one.webp", "/nearH-two.webp"]
     },
     {
       "name": "Infybite",
@@ -43,7 +43,7 @@
       ],
       "githubRepo": "https://github.com/MohdMusaiyab/infybyte",
       "liveSite": "https://infybite.vercel.app/",
-      "images": ["/infyOne.png", "/infytwo.png"]
+      "images": ["/infyOne.webp", "/infytwo.webp"]
     },
     {
       "name": "Mess-Bazaar",
@@ -66,7 +66,7 @@
       ],
       "githubRepo": "https://github.com/MohdMusaiyab/MessMatch",
       "liveSite": "https://mess-bazaar.vercel.app",
-      "images": ["/mess-bazaar1.png", "/mess-bazaar2.png"]
+      "images": ["/mess-bazaar1.webp", "/mess-bazaar2.webp"]
     },
     {
       "name": "Gossipyfy",
@@ -87,7 +87,7 @@
       ],
       "githubRepo": "https://github.com/MohdMusaiyab/gossipyfy",
       "liveSite": "https://gossipyfy.vercel.app/",
-      "images": ["/gossipyfy1.png", "/gossipyfy2.png"]
+      "images": ["/gossipyfy1.webp", "/gossipyfy2.webp"]
     },
     {
       "name": "Canteen Connect",
@@ -108,7 +108,7 @@
       ],
       "githubRepo": "https://github.com/Canteen-Connect",
       "liveSite": "https://github.com/Canteen-Connect",
-      "images": ["/canteen-1.png", "/canteen-2.png"]
+      "images": ["/canteen-1.webp", "/canteen-2.webp"]
     },
     {
       "name": "E-Estate",
@@ -129,7 +129,7 @@
       ],
       "githubRepo": "https://github.com/MohdMusaiyab/real-estate",
       "liveSite": "https://e-estate.onrender.com/",
-      "images": ["/e-estate1.png", "/e-estate2.png"]
+      "images": ["/e-estate1.webp", "/e-estate2.webp"]
     },
     {
       "name": "E-Commerce Web App",
@@ -149,7 +149,7 @@
       ],
       "githubRepo": "https://github.com/MohdMusaiyab/e-commerce-frontend",
       "liveSite": "https://mandmecommerce.onrender.com/",
-      "images": ["/e-com1.png", "/e-com2.png"]
+      "images": ["/e-com1.webp", "/e-com2.webp"]
     }
   ]
 }

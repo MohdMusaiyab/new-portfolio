@@ -42,7 +42,11 @@ export default function Home() {
   if (!mounted) return null;
 
   return (
-    <main className="w-full min-h-screen relative overflow-hidden pb-[100px] md:pb-0">
+    <main
+      className={`w-full min-h-screen relative overflow-hidden pb-[100px] md:pb-0 transition-colors duration-500 ${
+        activeExperience === "winter" ? "bg-[#09090b]" : "bg-[#fdfbf7]"
+      }`}
+    >
       <AnimatePresence mode="wait">
         {activeExperience === "default" && <DefaultExperience key="default" />}
         {activeExperience === "winter" && <WinterExperience key="winter" />}

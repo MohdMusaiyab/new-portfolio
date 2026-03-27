@@ -1,5 +1,12 @@
 import type { Metadata } from "next";
-import { Cinzel, DM_Mono, Inter, Geist, Geist_Mono, Cormorant_Garamond } from "next/font/google";
+import {
+  Cinzel,
+  DM_Mono,
+  Inter,
+  Geist,
+  Geist_Mono,
+  Cormorant_Garamond,
+} from "next/font/google";
 import ExperienceProvider from "@/components/ExperienceProvider";
 import SoundProvider from "@/components/SoundProvider";
 import "./globals.css";
@@ -49,12 +56,14 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://itsmusaiyab.vercel.app"),
   title: "Mohd Musaiyab — Full Stack Developer",
   description:
     "Portfolio of Mohd Musaiyab — Full Stack & Backend Engineer specialising in high-concurrency systems, React, Next.js, Go, and Node.js.",
   openGraph: {
     title: "Mohd Musaiyab — Full Stack Developer",
-    description: "Full Stack & Backend Engineer specialising in high-concurrency systems, React, Next.js, Go, and Node.js.",
+    description:
+      "Full Stack & Backend Engineer specialising in high-concurrency systems, React, Next.js, Go, and Node.js.",
     url: "https://itsmusaiyab.vercel.app",
     siteName: "Mohd Musaiyab Portfolio",
     images: [
@@ -75,7 +84,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Mohd Musaiyab — Full Stack Developer",
-    description: "Full Stack & Backend Engineer specialising in high-concurrency systems, React, Next.js, Go, and Node.js.",
+    description:
+      "Full Stack & Backend Engineer specialising in high-concurrency systems, React, Next.js, Go, and Node.js.",
     creator: "@MohdMusaiyab",
     images: ["/portfolio.png"],
   },

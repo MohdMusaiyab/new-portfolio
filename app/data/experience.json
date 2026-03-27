@@ -2,7 +2,7 @@
   "experience": [
     {
       "company": "Infosys",
-      "logo": "/experience2.png",
+      "logo": "/experience2.webp",
       "duration": {
         "start": "Aug 2025",
         "end": "Present"
@@ -28,7 +28,7 @@
     },
     {
       "company": "Lightning Technologies",
-      "logo": "/experience1.png",
+      "logo": "/experience1.webp",
       "duration": {
         "start": "Jan 2025",
         "end": "June 2025"

@@ -44,7 +44,6 @@ const letterChild: Variants = {
   },
 };
 
-
 /** Spring pop for chips / cards */
 const springPop: Variants = {
   hidden: { opacity: 0, scale: 0.78 },
@@ -156,13 +155,21 @@ const SKILLS = [
 ] as const;
 
 const SOCIALS = [
-  { Icon: Github, href: "https://github.com/MohdMusaiyab", label: "GitHub" },
+  {
+    Icon: Github,
+    href: `${process.env.NEXT_PUBLIC_PERSONAL_GITHUB}`,
+    label: "GitHub",
+  },
   {
     Icon: Linkedin,
-    href: "https://linkedin.com/in/musaiyab",
+    href: `${process.env.NEXT_PUBLIC_PERSONAL_LINKEDIN}`,
     label: "LinkedIn",
   },
-  { Icon: Mail, href: "mailto:musaiyab2003@gmail.com", label: "Email" },
+  {
+    Icon: Mail,
+    href: `mailto:${process.env.NEXT_PUBLIC_PERSONAL_EMAIL}`,
+    label: "Email",
+  },
 ] as const;
 
 const STATS = [
@@ -180,7 +187,6 @@ export default function Hero() {
 
   return (
     <section className="relative w-full min-h-screen bg-[#fdfbf7] flex flex-col overflow-hidden">
-
       {/* ── Animated ambient blob (top-right) ── */}
       <motion.div
         className="pointer-events-none absolute -top-24 -right-24 w-[520px] h-[520px] rounded-full bg-teal-300/10 blur-[140px]"
@@ -230,12 +236,8 @@ export default function Hero() {
           pb-24 clears mobile nav when applicable.
       ── */}
       <div className="relative z-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 md:gap-4 lg:gap-8 flex-1 max-w-7xl mx-auto w-full px-5 sm:px-10 lg:px-20 pt-8 md:pt-24 lg:pt-24 pb-16 sm:pb-20 lg:pb-8">
-
         {/* ════════ LEFT ════════ */}
         <div className="flex flex-col gap-4 md:gap-5 lg:gap-6 lg:max-w-[640px]">
-
-          
-
           {/* Name — letter-by-letter */}
           <h1
             className="font-black uppercase tracking-tighter leading-[0.84] text-[#1c1917]"
@@ -346,21 +348,21 @@ export default function Hero() {
                 href={href}
                 aria-label={label}
                 initial={{ opacity: 0, y: 10 }}
-                animate={{ 
-                  opacity: 1, 
+                animate={{
+                  opacity: 1,
                   y: 0,
                   transition: {
                     delay: 0.75 + i * 0.08,
                     duration: 0.45,
                     ease: "easeOut",
-                  }
+                  },
                 }}
                 whileHover={{
                   scale: 1.3,
                   y: -4,
                   color: "#0d9488",
                   filter: "drop-shadow(0 0 8px rgba(13,148,136,0.3))",
-                  transition: { type: "spring", stiffness: 400, damping: 20 }
+                  transition: { type: "spring", stiffness: 400, damping: 20 },
                 }}
                 className="text-[#a8a29e] pointer-events-auto"
               >
@@ -386,7 +388,6 @@ export default function Hero() {
 
         {/* ════════ RIGHT: INFO PANEL ════════ */}
         <div className="flex flex-col gap-2 w-full lg:w-[280px] lg:min-w-[280px] shrink-0">
-
           {/* Clock — float up */}
           <motion.div
             custom={0}
