@@ -32,9 +32,9 @@ export default function DefaultSkills() {
               </span>
             </div>
             <h3 className="text-[clamp(1.75rem,min(5vw,8vh),6rem)] font-black uppercase tracking-tighter leading-[0.85] text-[#1c1917]">
-              What  <br />
+              My  <br />
               <span className="text-transparent bg-clip-text bg-linear-to-r from-[#0d9488] to-[#042f2e]">
-               I Use.
+               Toolkit
               </span>
             </h3>
           </div>

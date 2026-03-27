@@ -91,7 +91,7 @@ export default function DefaultProjects() {
                       {project.techStack.slice(0, 3).map((t, i) => (
                         <span
                           key={i}
-                          className="px-3 py-1 bg-white border border-[#0d9488]/20 text-[10px] font-bold text-[#57534e] uppercase tracking-widest rounded-full shadow-sm"
+                          className="px-3 py-1 bg-white border border-[#0d9488]/20 text-[10px] font-bold text-[#57534e] uppercase tracking-widest rounded-none shadow-sm"
                         >
                           {t}
                         </span>
@@ -106,7 +106,7 @@ export default function DefaultProjects() {
                         color: isOpen ? "#fdfbf7" : "#1c1917",
                       }}
                       transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                      className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-[#0d9488]/30 grid place-items-center shrink-0 group-hover:border-[#0d9488] transition-colors"
+                      className="w-10 h-10 md:w-12 md:h-12 rounded-none border border-[#0d9488]/30 grid place-items-center shrink-0 group-hover:border-[#0d9488] transition-colors"
                     >
                       <svg
                         width="18"
@@ -137,7 +137,7 @@ export default function DefaultProjects() {
                     >
                       <div className="pt-2 pb-10 px-0 sm:px-4 md:px-12 flex flex-col lg:flex-row gap-8 lg:gap-16">
                         {/* Project Image - Fully visible, mobile optimized */}
-                        <div className="relative w-full lg:w-[45%] h-[200px] sm:h-[240px] md:h-[320px] rounded-xl md:rounded-2xl overflow-hidden bg-[#fdfbf7] border border-[#0d9488]/20 shrink-0 shadow-[0_10px_30px_-15px_rgba(13,148,136,0.15)] group/img">
+                        <div className="relative w-full lg:w-[45%] h-[200px] sm:h-[240px] md:h-[320px] rounded-none overflow-hidden bg-[#fdfbf7] border border-[#0d9488]/20 shrink-0 shadow-[0_10px_30px_-15px_rgba(13,148,136,0.15)] group/img">
                           {project.images?.[0] ? (
                             <Image
                               src={project.images[0]}
@@ -156,7 +156,7 @@ export default function DefaultProjects() {
                         {/* Project Details */}
                         <div className="flex flex-col justify-between grow py-2 px-2 sm:px-0">
                           <div>
-                            <div className="group/desc relative mb-6 md:mb-8 overflow-hidden rounded-lg">
+                            <div className="group/desc relative mb-6 md:mb-8 overflow-hidden rounded-none">
                               {/* Hover Sweep Background */}
                               <span className="absolute inset-0 bg-linear-to-r from-[#0d9488]/5 to-transparent origin-left scale-x-0 group-hover/desc:scale-x-100 transition-transform duration-500 ease-[0.19,1,0.22,1] pointer-events-none" />
                               
@@ -169,7 +169,7 @@ export default function DefaultProjects() {
                               {project.keyPoints.slice(0, 3).map((kp, kIdx) => (
                                 <div
                                   key={kIdx}
-                                  className="group/point relative flex gap-3 md:gap-4 items-start overflow-hidden rounded-lg px-2 py-1.5 -mx-2 -my-1.5"
+                                  className="group/point relative flex gap-3 md:gap-4 items-start overflow-hidden rounded-none px-2 py-1.5 -mx-2 -my-1.5"
                                 >
                                   {/* Hover Sweep Background */}
                                   <span className="absolute inset-0 bg-linear-to-r from-[#0d9488]/5 to-transparent origin-left scale-x-0 group-hover/point:scale-x-100 transition-transform duration-500 ease-[0.19,1,0.22,1] pointer-events-none" />
@@ -189,7 +189,7 @@ export default function DefaultProjects() {
                               {project.techStack.map((tech, tIdx) => (
                                 <span
                                   key={tIdx}
-                                  className="px-3 py-1.5 bg-[#fdfbf7] border border-[#0d9488]/20 text-[10px] font-bold text-[#0d9488] uppercase tracking-widest rounded-lg shadow-sm hover:bg-[#0d9488] hover:text-white hover:scale-105 hover:shadow-[0_4px_12px_rgba(13,148,136,0.3)] transition-all duration-300 cursor-default"
+                                  className="px-3 py-1.5 bg-[#fdfbf7] border border-[#0d9488]/20 text-[10px] font-bold text-[#0d9488] uppercase tracking-widest rounded-none shadow-sm hover:bg-[#0d9488] hover:text-white hover:scale-105 hover:shadow-[0_4px_12px_rgba(13,148,136,0.3)] transition-all duration-300 cursor-default"
                                 >
                                   {tech}
                                 </span>
@@ -203,7 +203,7 @@ export default function DefaultProjects() {
                                   href={project.githubRepo}
                                   target="_blank"
                                   rel="noreferrer"
-                                  className="flex-1 sm:flex-none justify-center px-4 md:px-5 py-3 rounded-xl border border-[#e7e5e4] bg-white text-[#1c1917] hover:border-[#1c1917] text-[10px] md:text-xs font-bold uppercase tracking-widest transition-all hover:-translate-y-1 shadow-sm flex items-center gap-2"
+                                  className="flex-1 sm:flex-none justify-center px-4 md:px-5 py-3 rounded-none border border-[#e7e5e4] bg-white text-[#1c1917] hover:border-[#1c1917] text-[10px] md:text-xs font-bold uppercase tracking-widest transition-all hover:-translate-y-1 shadow-sm flex items-center gap-2"
                                 >
                                   <svg
                                     width="14"
@@ -225,7 +225,7 @@ export default function DefaultProjects() {
                                   href={project.liveSite}
                                   target="_blank"
                                   rel="noreferrer"
-                                  className="group flex-1 sm:flex-none justify-center relative overflow-hidden px-4 md:px-5 py-3 rounded-xl bg-[#0d9488] text-white text-[10px] md:text-xs font-bold uppercase tracking-widest transition-all hover:-translate-y-1 shadow-[0_8px_20px_-8px_rgba(13,148,136,0.6)] flex items-center gap-2"
+                                  className="group flex-1 sm:flex-none justify-center relative overflow-hidden px-4 md:px-5 py-3 rounded-none bg-[#0d9488] text-white text-[10px] md:text-xs font-bold uppercase tracking-widest transition-all hover:-translate-y-1 shadow-[0_8px_20px_-8px_rgba(13,148,136,0.6)] flex items-center gap-2"
                                 >
                                   <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out z-0" />
                                   <span className="relative z-10 flex items-center gap-2">

@@ -65,7 +65,7 @@ export default function DefaultEducation() {
                   </span>
                 </div>
                 {edu.score && (
-                  <span className="text-[11px] md:text-xs font-bold text-[#1c1917] tracking-wider uppercase bg-white px-3 py-1.5 rounded-md border border-[#0d9488]/15 shadow-sm">
+                  <span className="text-[11px] md:text-xs font-bold text-[#1c1917] tracking-wider uppercase bg-white px-3 py-1.5 rounded-none border border-[#0d9488]/15 shadow-sm">
                     Score: {edu.score}
                   </span>
                 )}
@@ -73,13 +73,13 @@ export default function DefaultEducation() {
 
               {/* Right Column: Content Card */}
               <div className="w-full relative">
-                <div className="relative w-full bg-white border border-[#0d9488]/10 rounded-2xl md:rounded-3xl p-5 md:p-[clamp(1.25rem,3vh,2.5rem)] shadow-[0_4px_20px_-10px_rgba(13,148,136,0.05)] transition-all duration-700 ease-[0.19,1,0.22,1] group-hover:shadow-[0_20px_40px_-15px_rgba(13,148,136,0.15)] group-hover:-translate-y-2 group-hover:border-[#0d9488]/30">
+                <div className="relative w-full bg-white border border-[#0d9488]/10 rounded-none p-5 md:p-[clamp(1.25rem,3vh,2.5rem)] shadow-[0_4px_20px_-10px_rgba(13,148,136,0.05)] transition-all duration-700 ease-[0.19,1,0.22,1] group-hover:shadow-[0_20px_40px_-15px_rgba(13,148,136,0.15)] group-hover:-translate-y-2 group-hover:border-[#0d9488]/30">
                   {/* Decorative corner accent */}
-                  <div className="absolute top-0 right-0 w-24 h-24 bg-linear-to-bl from-[#0d9488]/5 to-transparent rounded-tr-2xl md:rounded-tr-3xl pointer-events-none" />
+                  <div className="absolute top-0 right-0 w-24 h-24 bg-linear-to-bl from-[#0d9488]/5 to-transparent rounded-none pointer-events-none" />
 
                   <div className="flex flex-col sm:flex-row gap-6 sm:gap-8 items-start relative z-10">
                     {/* Logo/Icon Area */}
-                    <div className="shrink-0 w-16 h-16 md:w-20 md:h-20 bg-[#fdfbf7] rounded-xl md:rounded-2xl border border-[#0d9488]/15 flex items-center justify-center overflow-hidden p-3 shadow-inner group-hover:border-[#0d9488]/50 transition-colors duration-500">
+                    <div className="shrink-0 w-16 h-16 md:w-20 md:h-20 bg-[#fdfbf7] rounded-none border border-[#0d9488]/15 flex items-center justify-center overflow-hidden p-3 shadow-inner group-hover:border-[#0d9488]/50 transition-colors duration-500">
                       <span className="font-cinzel text-3xl font-black text-[#0d9488]/30 group-hover:text-[#0d9488]/70 transition-colors duration-500">
                         {edu.institution.charAt(0)}
                       </span>

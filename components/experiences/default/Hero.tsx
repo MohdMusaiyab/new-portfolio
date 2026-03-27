@@ -44,14 +44,6 @@ const letterChild: Variants = {
   },
 };
 
-/** Teal line draw */
-const lineDraw: Variants = {
-  hidden: { scaleX: 0, originX: 0 },
-  show: {
-    scaleX: 1,
-    transition: { delay: 0.1, duration: 0.7, ease: [0.22, 1, 0.36, 1] },
-  },
-};
 
 /** Spring pop for chips / cards */
 const springPop: Variants = {
@@ -175,7 +167,7 @@ const SOCIALS = [
 
 const STATS = [
   { value: "1+", label: "Years" },
-  { value: "5+", label: "Projects" },
+  { value: "7+", label: "Projects" },
   { value: "∞", label: "Tea" },
 ] as const;
 
@@ -354,16 +346,25 @@ export default function Hero() {
                 href={href}
                 aria-label={label}
                 initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  delay: 0.75 + i * 0.08,
-                  duration: 0.45,
-                  ease: "easeOut",
+                animate={{ 
+                  opacity: 1, 
+                  y: 0,
+                  transition: {
+                    delay: 0.75 + i * 0.08,
+                    duration: 0.45,
+                    ease: "easeOut",
+                  }
                 }}
-                whileHover={{ scale: 1.22, y: -2, color: "#0d9488" }}
-                className="text-[#a8a29e] transition-colors"
+                whileHover={{
+                  scale: 1.3,
+                  y: -4,
+                  color: "#0d9488",
+                  filter: "drop-shadow(0 0 8px rgba(13,148,136,0.3))",
+                  transition: { type: "spring", stiffness: 400, damping: 20 }
+                }}
+                className="text-[#a8a29e] pointer-events-auto"
               >
-                <Icon size={18} strokeWidth={1.8} />
+                <Icon size={18} strokeWidth={2} />
               </motion.a>
             ))}
             <motion.div

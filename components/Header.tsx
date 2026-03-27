@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import { useExperience } from "@/store/useExperience";
 
 const NAV = [
@@ -148,6 +149,65 @@ function IconSun() {
   );
 }
 
+function ThemedLogo({ isWinter }: { isWinter: boolean }) {
+  return (
+    <motion.svg
+      width="42"
+      height="42"
+      viewBox="0 0 120 80"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className="overflow-visible"
+    >
+      {/* Decorative Shadow/Glow Layer */}
+      <motion.path
+        d="M10 60V20L35 45L60 20V60 M60 60V20L85 45L110 20V60"
+        stroke={isWinter ? "rgba(255,255,255,0.1)" : "rgba(19,78,74,0.05)"}
+        strokeWidth="14"
+        strokeLinecap="square"
+        strokeLinejoin="miter"
+        animate={{
+          stroke: isWinter ? "rgba(255,255,255,0.1)" : "rgba(19,78,74,0.05)",
+        }}
+        transition={{ duration: 0.8 }}
+      />
+      
+      {/* Main Logo Path */}
+      <motion.path
+        d="M10 60V20L35 45L60 20V60 M60 60V20L85 45L110 20V60"
+        stroke={isWinter ? "#FFFFFF" : "#134E4A"}
+        strokeWidth="8"
+        strokeLinecap="square"
+        strokeLinejoin="miter"
+        animate={{
+          stroke: isWinter ? "#FFFFFF" : "#134E4A",
+          filter: isWinter 
+            ? "drop-shadow(0 0 12px rgba(255,255,255,0.6))" 
+            : "drop-shadow(0 2px 4px rgba(19,78,74,0.1))",
+        }}
+        transition={{ duration: 0.8, ease: "easeInOut" }}
+      />
+
+      {/* Modern Accent Dot */}
+      <motion.circle
+        cx="115"
+        cy="60"
+        r="4"
+        animate={{
+          fill: isWinter ? "#FFFFFF" : "#0D9488",
+          opacity: [0.4, 1, 0.4],
+          scale: [1, 1.2, 1],
+        }}
+        transition={{ 
+          fill: { duration: 0.8 },
+          opacity: { duration: 2, repeat: Infinity },
+          scale: { duration: 2, repeat: Infinity }
+        }}
+      />
+    </motion.svg>
+  );
+}
+
 export default function Header() {
   const { activeExperience, setExperience } = useExperience();
   const [scrolled, setScrolled] = useState(false);
@@ -188,8 +248,6 @@ export default function Header() {
 
   if (!mounted) return null;
 
-  const defaultLogoColor =
-    "text-[#134E4A] drop-shadow-[0_1px_4px_rgba(255,255,255,0.8)]";
   const defaultNavColor = "text-[#134E4A]/70";
   const defaultNavHover = "hover:text-[#134E4A]";
   const defaultNavActive =
@@ -217,11 +275,9 @@ export default function Header() {
         <Link
           href="/"
           aria-label="Back to top"
-          className={`font-cormorant text-2xl lg:text-3xl font-black tracking-[0.25em] transition-opacity hover:opacity-70 ${
-            isWinter ? "text-white" : defaultLogoColor
-          }`}
+          className="flex items-center transition-transform duration-300 hover:scale-105 active:scale-95 translate-y-2 md:translate-y-0"
         >
-          MM
+          <ThemedLogo isWinter={isWinter} />
         </Link>
 
         {}

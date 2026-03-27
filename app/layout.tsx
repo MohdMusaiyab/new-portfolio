@@ -52,6 +52,33 @@ export const metadata: Metadata = {
   title: "Mohd Musaiyab — Full Stack Developer",
   description:
     "Portfolio of Mohd Musaiyab — Full Stack & Backend Engineer specialising in high-concurrency systems, React, Next.js, Go, and Node.js.",
+  openGraph: {
+    title: "Mohd Musaiyab — Full Stack Developer",
+    description: "Full Stack & Backend Engineer specialising in high-concurrency systems, React, Next.js, Go, and Node.js.",
+    url: "https://itsmusaiyab.vercel.app",
+    siteName: "Mohd Musaiyab Portfolio",
+    images: [
+      {
+        url: "/portfolio.png",
+        width: 1200,
+        height: 630,
+        alt: "Mohd Musaiyab Portfolio Preview",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  icons: {
+    icon: "/icon.svg",
+    apple: "/icon.svg",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Mohd Musaiyab — Full Stack Developer",
+    description: "Full Stack & Backend Engineer specialising in high-concurrency systems, React, Next.js, Go, and Node.js.",
+    creator: "@MohdMusaiyab",
+    images: ["/portfolio.png"],
+  },
   verification: {
     google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
   },

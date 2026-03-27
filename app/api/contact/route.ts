@@ -5,19 +5,16 @@ export async function POST(req: NextRequest) {
   try {
     const body = (await req.json()) as Partial<ContactPayload>;
 
-    const { senderName, senderEmail, subject, message } = body;
+    const { 
+      senderName = "Anonymous Visitor", 
+      senderEmail = "no-reply@portfolio.com", 
+      subject, 
+      message 
+    } = body;
 
-    if (!senderName || !senderEmail || !subject || !message) {
+    if (!subject || !message) {
       return NextResponse.json(
-        { success: false, error: "All fields are required." },
-        { status: 400 },
-      );
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(senderEmail)) {
-      return NextResponse.json(
-        { success: false, error: "Invalid email address." },
+        { success: false, error: "Subject and Message are required." },
         { status: 400 },
       );
     }

@@ -117,8 +117,6 @@ export default function Contact() {
   const formInView = useInView(formRef, { once: false, margin: "-60px" });
 
   const [form, setForm] = useState({
-    senderName: "",
-    senderEmail: "",
     subject: "",
     message: "",
   });
@@ -223,27 +221,6 @@ export default function Contact() {
             >
               <form onSubmit={handleSubmit} className="flex flex-col gap-10">
                 {}
-                <div className="flex flex-col sm:flex-row gap-10 sm:gap-12">
-                  <div className="flex-1">
-                    <Field
-                      label="Name"
-                      id="name"
-                      value={form.senderName}
-                      onChange={set("senderName")}
-                      disabled={disabled}
-                    />
-                  </div>
-                  <div className="flex-1">
-                    <Field
-                      label="Email"
-                      id="email"
-                      type="email"
-                      value={form.senderEmail}
-                      onChange={set("senderEmail")}
-                      disabled={disabled}
-                    />
-                  </div>
-                </div>
 
                 <Field
                   label="Subject"
@@ -423,25 +400,42 @@ export default function Contact() {
                         ease: [0.16, 1, 0.3, 1],
                         delay: 0.25 + i * 0.08,
                       }}
-                      className="group flex items-center gap-4 py-4 border-b last:border-none transition-all duration-300 hover:bg-white/5"
+                      className="group relative flex items-center gap-4 py-5 px-4 -mx-4 border-b last:border-none transition-all duration-500 overflow-hidden"
                       style={{
-                        borderColor: WA(0.07),
+                        borderColor: WA(0.06),
                         textDecoration: "none",
                         color: WA(0.5),
+                        background: "transparent",
                       }}
-                      whileHover={{ x: 6 }}
                     >
-                      <span className="transition-colors duration-300 group-hover:text-white group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]">
+                      {/* Premium Hover Sweep Background */}
+                      <motion.div
+                        className="absolute inset-0 z-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                        initial={false}
+                        whileHover={{ x: ["-100%", "0%"] }}
+                        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                        style={{
+                          background: `linear-gradient(90deg, transparent 0%, ${WA(0.04)} 50%, transparent 100%)`,
+                        }}
+                      />
+
+                      {/* Hover Glow / Accent Line */}
+                      <div 
+                        className="absolute bottom-0 left-0 w-full h-[1.5px] scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-[0.16,1,0.3,1] origin-left"
+                        style={{ background: `linear-gradient(90deg, ${WA(0.2)}, transparent)` }}
+                      />
+
+                      <span className="relative z-10 transition-all duration-500 group-hover:text-white group-hover:scale-110 group-hover:drop-shadow-[0_0_12px_rgba(255,255,255,0.5)]">
                         {s.icon}
                       </span>
                       <span
-                        className="font-cinzel text-sm tracking-widest uppercase transition-colors duration-300 group-hover:text-white group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]"
-                        style={{ letterSpacing: "0.18em" }}
+                        className="relative z-10 font-cinzel text-sm tracking-widest uppercase transition-all duration-500 group-hover:text-white group-hover:translate-x-1 group-hover:drop-shadow-[0_0_12px_rgba(255,255,255,0.5)]"
+                        style={{ letterSpacing: "0.22em" }}
                       >
                         {s.label}
                       </span>
                       <span
-                        className="ml-auto text-base transition-all duration-300 group-hover:translate-x-1 group-hover:text-white group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]"
+                        className="relative z-10 ml-auto text-base transition-all duration-500 group-hover:translate-x-2 group-hover:text-white group-hover:drop-shadow-[0_0_12px_rgba(255,255,255,0.5)]"
                         style={{ color: WA(0.2) }}
                       >
                         →

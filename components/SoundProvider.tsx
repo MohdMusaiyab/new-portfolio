@@ -30,7 +30,7 @@ export default function SoundProvider({
     };
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.repeat) return;
+      if (e.repeat || !e.key) return;
       playSound(e.key.charCodeAt(0));
     };
 

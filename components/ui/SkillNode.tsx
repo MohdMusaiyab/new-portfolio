@@ -9,7 +9,11 @@ interface SkillNodeProps {
   small?: boolean;
 }
 
-export default function SkillNode({ name, delay = 0, small = false }: SkillNodeProps) {
+export default function SkillNode({
+  name,
+  delay = 0,
+  small = false,
+}: SkillNodeProps) {
   const [hovered, setHovered] = useState(false);
 
   return (

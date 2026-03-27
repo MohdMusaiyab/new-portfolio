@@ -115,8 +115,6 @@ export default function DefaultContact() {
   const formInView = useInView(formRef, { once: true, margin: "-80px" });
 
   const [form, setForm] = useState({
-    senderName: "",
-    senderEmail: "",
     subject: "",
     message: "",
   });
@@ -202,27 +200,6 @@ export default function DefaultContact() {
             className="w-full lg:w-[58%]"
           >
             <form onSubmit={handleSubmit} className="flex flex-col gap-8">
-              <div className="flex flex-col sm:flex-row gap-8">
-                <div className="flex-1">
-                  <Field
-                    label="Your Name"
-                    id="contact-name"
-                    value={form.senderName}
-                    onChange={set("senderName")}
-                    disabled={disabled}
-                  />
-                </div>
-                <div className="flex-1">
-                  <Field
-                    label="Your Email"
-                    id="contact-email"
-                    type="email"
-                    value={form.senderEmail}
-                    onChange={set("senderEmail")}
-                    disabled={disabled}
-                  />
-                </div>
-              </div>
 
               <Field
                 label="Subject"
@@ -279,7 +256,7 @@ export default function DefaultContact() {
                         exit={{ opacity: 0 }}
                         className="relative z-10 flex items-center gap-2"
                       >
-                        Signal Received
+                        Message Sent
                         <svg
                           width="14"
                           height="14"
