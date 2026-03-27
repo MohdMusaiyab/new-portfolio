@@ -111,8 +111,8 @@ export default function DefaultContact() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLDivElement>(null);
-  const headerInView = useInView(headerRef, { once: true, margin: "-80px" });
-  const formInView = useInView(formRef, { once: true, margin: "-80px" });
+  const headerInView = useInView(headerRef, { once: true, margin: "100px" });
+  const formInView = useInView(formRef, { once: true, margin: "100px" });
 
   const [form, setForm] = useState({
     subject: "",

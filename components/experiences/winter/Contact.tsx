@@ -113,8 +113,8 @@ function Field({
 export default function Contact() {
   const headerRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLDivElement>(null);
-  const headerInView = useInView(headerRef, { once: true, margin: "-20px" });
-  const formInView = useInView(formRef, { once: true, margin: "-20px" });
+  const headerInView = useInView(headerRef, { once: true, margin: "100px" });
+  const formInView = useInView(formRef, { once: true, margin: "100px" });
 
   const [form, setForm] = useState({
     subject: "",

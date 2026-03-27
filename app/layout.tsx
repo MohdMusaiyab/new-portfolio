@@ -68,7 +68,7 @@ export const metadata: Metadata = {
     siteName: "Mohd Musaiyab Portfolio",
     images: [
       {
-        url: "/portfolio.png",
+        url: "/portfolio.jpg",
         width: 1200,
         height: 630,
         alt: "Mohd Musaiyab Portfolio Preview",
@@ -87,10 +87,13 @@ export const metadata: Metadata = {
     description:
       "Full Stack & Backend Engineer specialising in high-concurrency systems, React, Next.js, Go, and Node.js.",
     creator: "@MohdMusaiyab",
-    images: ["/portfolio.png"],
+    images: ["/portfolio.jpg"],
   },
   verification: {
     google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+  },
+  other: {
+    "og:logo": "https://itsmusaiyab.vercel.app/icon.svg",
   },
 };
 
