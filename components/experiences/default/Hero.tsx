@@ -484,8 +484,8 @@ export default function Hero() {
             <div className="pl-3 border-l-2 border-[#0d9488]/25">
               <p className="text-[13px] font-bold text-[#1c1917]">Snippitt</p>
               <p className="text-[11px] text-[#78716c] font-medium mt-0.5 leading-relaxed">
-                A developer-first code snippet manager with tagging, search &
-                sharing.
+                A searchable knowledge base to capture, organize, and share
+                insights.
               </p>
             </div>
             <div className="flex items-center gap-1.5 pl-3">

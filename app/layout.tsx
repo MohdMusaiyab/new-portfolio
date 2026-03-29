@@ -66,14 +66,6 @@ export const metadata: Metadata = {
       "Full Stack & Backend Engineer specialising in high-concurrency systems, React, Next.js, Go, and Node.js.",
     url: "https://itsmusaiyab.vercel.app",
     siteName: "Mohd Musaiyab Portfolio",
-    images: [
-      {
-        url: "/portfolio.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Mohd Musaiyab Portfolio Preview",
-      },
-    ],
     locale: "en_US",
     type: "website",
   },
@@ -87,13 +79,24 @@ export const metadata: Metadata = {
     description:
       "Full Stack & Backend Engineer specialising in high-concurrency systems, React, Next.js, Go, and Node.js.",
     creator: "@MohdMusaiyab",
-    images: ["/portfolio.jpg"],
+    site: "@MohdMusaiyab",
   },
-  verification: {
-    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
   other: {
     "og:logo": "https://itsmusaiyab.vercel.app/icon.svg",
+  },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
   },
 };
 
