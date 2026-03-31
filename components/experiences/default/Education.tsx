@@ -94,36 +94,7 @@ export default function DefaultEducation() {
                         {edu.degree}
                       </p>
 
-                      <ul className="space-y-3">
-                        {edu.highlights.map((highlight, i) => {
-                          const parts = highlight
-                            .split(/([\d.%]+)/g)
-                            .filter(Boolean);
 
-                          return (
-                            <li
-                              key={i}
-                              className="flex gap-3 items-start group/li text-[#57534e]"
-                            >
-                              <span className="shrink-0 mt-[6px] w-[5px] h-[5px] rounded-full bg-[#0d9488]/30 group-hover/li:bg-[#0d9488] group-hover/li:scale-150 transition-all duration-300" />
-                              <span className="text-sm md:text-[15px] font-light leading-relaxed group-hover/li:text-[#1c1917] transition-colors duration-300">
-                                {parts.map((part, pidx) =>
-                                  /[\d.%]+/.test(part) ? (
-                                    <span
-                                      key={pidx}
-                                      className="font-mono font-bold text-[#0d9488] tracking-wider"
-                                    >
-                                      {part}
-                                    </span>
-                                  ) : (
-                                    <span key={pidx}>{part}</span>
-                                  ),
-                                )}
-                              </span>
-                            </li>
-                          );
-                        })}
-                      </ul>
                     </div>
                   </div>
                 </div>

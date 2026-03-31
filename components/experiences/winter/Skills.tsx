@@ -112,7 +112,7 @@ export default function Skills() {
 
       <section
         id="skills"
-        className="relative w-full overflow-hidden py-16 md:py-24"
+        className="relative w-full overflow-hidden py-10 md:py-24"
         style={{ background: "#0a0a0a" }}
       >
         <div
@@ -131,13 +131,13 @@ export default function Skills() {
             initial={{ opacity: 0, y: 30 }}
             animate={headerInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, ease: "easeOut" }}
-            className="mb-10 md:mb-16 flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/10 pb-8"
+            className="mb-8 md:mb-16 flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/10 pb-6 md:pb-8"
           >
             <div>
               <h2
                 className="font-cinzel font-black leading-none"
                 style={{
-                  fontSize: "clamp(48px, 8vw, 108px)",
+                  fontSize: "clamp(34px, 7vw, 84px)",
                   color: WHITE,
                   letterSpacing: "0.02em",
                   textShadow: "0 8px 40px rgba(255,255,255,0.08)",
@@ -150,12 +150,12 @@ export default function Skills() {
 
           {}
           <div
-            className="w-full h-px mb-16 md:mb-20"
+            className="w-full h-px mb-10 md:mb-20"
             style={{ background: WA(0.07) }}
           />
 
           {}
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-14 md:gap-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-10 md:gap-16">
             {SKILL_GROUPS.map((group, i) => (
               <CategoryBlock
                 key={group.category}

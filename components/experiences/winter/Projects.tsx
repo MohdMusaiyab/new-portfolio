@@ -141,7 +141,7 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
       initial={{ opacity: 0, y: 30 }}
       animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
       transition={{ duration: 0.55, ease: [0.25, 0.1, 0.25, 1] }}
-      className="relative w-full mb-12 sm:mb-16 md:mb-24 lg:mb-28 group"
+      className="relative w-full mb-10 sm:mb-16 md:mb-24 lg:mb-28 group"
     >
       <div className="flex flex-col lg:flex-row gap-6 sm:gap-8 md:gap-10 lg:gap-16 xl:gap-24 items-start lg:items-center">
         {/* ── IMAGE ────────────────────────────────────────────────────────── */}
@@ -264,7 +264,7 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
 
           {/* Description */}
           <p
-            className="text-[13px] sm:text-[14px] md:text-[15px] leading-[1.65] mb-5 md:mb-7"
+            className="text-[13px] sm:text-[14px] md:text-[15px] leading-[1.65] mb-6 md:mb-10"
             style={{
               color: MIST,
               fontFamily: "Inter, sans-serif",
@@ -274,23 +274,6 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
             {project.description}
           </p>
 
-          {/* Key points */}
-          <ul className="space-y-2 md:space-y-3 mb-5 md:mb-8">
-            {project.keyPoints.slice(0, 3).map((kp, i) => (
-              <li key={i} className="flex gap-3 items-start">
-                <span
-                  className="mt-[8px] w-1.5 h-1.5 rounded-full shrink-0"
-                  style={{ background: WA(0.3) }}
-                />
-                <span
-                  className="text-[13px] sm:text-[14px] md:text-[15px] leading-[1.6]"
-                  style={{ color: WA(0.65), fontWeight: 300 }}
-                >
-                  {kp}
-                </span>
-              </li>
-            ))}
-          </ul>
 
           {/* ─── Fix #1: Skills row with properly styled overflow pill ───── */}
           <div className="flex flex-wrap gap-1.5 md:gap-2 mb-5 md:mb-8 items-center">
@@ -344,7 +327,7 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6 md:p-10"
+            className="fixed inset-0 z-9999 flex items-center justify-center p-4 sm:p-6 md:p-10"
             style={{
               background: "rgba(0,0,0,0.92)",
               backdropFilter: "blur(12px)",
@@ -467,19 +450,19 @@ export default function Projects() {
       className="relative w-full overflow-hidden"
       style={{ background: DEEP_BLACK }}
     >
-      <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 md:px-10 lg:px-12 py-12 sm:py-16 md:py-20 lg:py-24">
+      <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 md:px-10 lg:px-12 py-10 sm:py-16 md:py-20 lg:py-24">
         {/* Header */}
         <motion.div
           ref={headerRef}
           initial={{ opacity: 0, y: 40 }}
           animate={headerInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
           transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1] }}
-          className="mb-12 sm:mb-16 md:mb-20 lg:mb-24 border-b border-white/10 pb-6 md:pb-8"
+          className="mb-8 sm:mb-16 md:mb-20 lg:mb-24 border-b border-white/10 pb-5 md:pb-8"
         >
           <h2
             className="font-cinzel font-black"
             style={{
-              fontSize: "clamp(40px, 8vw, 110px)",
+              fontSize: "clamp(34px, 7vw, 84px)",
               color: WHITE,
             }}
           >

@@ -83,7 +83,7 @@ function EduCard({ item, index }: { item: Education; index: number }) {
         {}
         <div className="flex-1">
           <h3
-            className="font-cinzel font-bold text-3xl md:text-4xl mb-2 transition-all duration-300 group-hover:text-white group-hover:drop-shadow-[0_0_15px_rgba(255,255,255,0.6)]"
+            className="font-cinzel font-bold text-2xl md:text-4xl mb-2 transition-all duration-300 group-hover:text-white group-hover:drop-shadow-[0_0_15px_rgba(255,255,255,0.6)]"
             style={{ color: WA(0.85), letterSpacing: "0.02em" }}
           >
             {item.institution}
@@ -95,42 +95,7 @@ function EduCard({ item, index }: { item: Education; index: number }) {
             {item.degree}
           </h4>
 
-          <ul className="space-y-4 mb-4">
-            {item.highlights.map((highlight, i) => {
-              const parts = highlight.split(/([\d.%]+)/g).filter(Boolean);
 
-              return (
-                <li key={i} className="flex gap-4 items-start group/li">
-                  <span
-                    className="shrink-0 mt-[10px] w-1.5 h-[1.5px] transition-all duration-300 group-hover/li:w-3 group-hover/li:bg-white"
-                    style={{ background: WA(0.3) }}
-                  />
-                  <span
-                    className="text-[14px] md:text-[15px] leading-[1.8] transition-all duration-300 group-hover/li:text-white group-hover/li:font-normal group-hover/li:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]"
-                    style={{
-                      color: WA(0.65),
-                      fontFamily: "Inter, sans-serif",
-                      fontWeight: 300,
-                    }}
-                  >
-                    {parts.map((part, pidx) =>
-                      /[\d.%]+/.test(part) ? (
-                        <span
-                          key={pidx}
-                          className="font-dm-mono font-medium tracking-wider transition-colors duration-300 group-hover/li:text-white group-hover/li:drop-shadow-[0_0_10px_rgba(255,255,255,1)]"
-                          style={{ color: WA(0.9) }}
-                        >
-                          {part}
-                        </span>
-                      ) : (
-                        <span key={pidx}>{part}</span>
-                      ),
-                    )}
-                  </span>
-                </li>
-              );
-            })}
-          </ul>
         </div>
       </div>
     </motion.div>
@@ -166,19 +131,19 @@ export default function Education() {
         }}
       />
 
-      <div className="relative z-10 max-w-[1200px] mx-auto px-6 md:px-12 py-16 md:py-24">
+      <div className="relative z-10 max-w-[1200px] mx-auto px-6 md:px-12 py-10 md:py-24">
         {}
         <motion.div
           ref={headerRef}
           initial={{ opacity: 0, y: 40 }}
           animate={headerInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-12 md:mb-16 border-b border-white/10 pb-8"
+          className="mb-8 md:mb-16 border-b border-white/10 pb-6 md:pb-8"
         >
           <h2
             className="font-cinzel font-black leading-none"
             style={{
-              fontSize: "clamp(50px, 8vw, 110px)",
+              fontSize: "clamp(34px, 7vw, 84px)",
               color: WHITE,
               letterSpacing: "0.02em",
               textShadow: "0 10px 40px rgba(255,255,255,0.1)",

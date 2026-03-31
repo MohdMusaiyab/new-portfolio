@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import projectsData from "@/app/data/projects.json";
+import SkillNode from "@/components/ui/SkillNode";
 
 export default function DefaultProjects() {
   const [expandedIdx, setExpandedIdx] = useState<number | null>(null);
@@ -89,12 +90,7 @@ export default function DefaultProjects() {
                     {/* Tech Stack Preview pills */}
                     <span className="hidden lg:flex gap-2">
                       {project.techStack.slice(0, 3).map((t, i) => (
-                        <span
-                          key={i}
-                          className="px-3 py-1 bg-white border border-[#0d9488]/20 text-[10px] font-bold text-[#57534e] uppercase tracking-widest rounded-none shadow-sm"
-                        >
-                          {t}
-                        </span>
+                        <SkillNode key={i} name={t} small delay={idx * 0.1 + i * 0.02} />
                       ))}
                     </span>
 
@@ -156,30 +152,13 @@ export default function DefaultProjects() {
                         {/* Project Details */}
                         <div className="flex flex-col justify-between grow py-2 px-2 sm:px-0">
                           <div>
-                            <div className="group/desc relative mb-6 md:mb-8 overflow-hidden rounded-none">
+                            <div className="group/desc relative mb-5 md:mb-8 p-4 md:p-6 overflow-hidden rounded-xl border border-[#0d9488]/10 bg-[#0d9488]/2 transition-all duration-500 hover:border-[#0d9488]/30 hover:shadow-[0_0_25px_-5px_rgba(13,148,136,0.15)] hover:bg-[#0d9488]/4">
                               {/* Hover Sweep Background */}
-                              <span className="absolute inset-0 bg-linear-to-r from-[#0d9488]/5 to-transparent origin-left scale-x-0 group-hover/desc:scale-x-100 transition-transform duration-500 ease-[0.19,1,0.22,1] pointer-events-none" />
+                              <span className="absolute inset-0 bg-linear-to-r from-[#0d9488]/5 to-transparent origin-left scale-x-0 group-hover/desc:scale-x-100 transition-transform duration-700 ease-[0.19,1,0.22,1] pointer-events-none" />
                               
-                              <p className="relative z-10 text-[#57534e] text-sm md:text-base lg:text-lg font-light leading-relaxed max-w-[55ch] group-hover/desc:text-[#0d9488] transition-colors duration-400">
+                              <p className="relative z-10 font-inter text-[#57534e] text-sm md:text-base lg:text-lg font-normal leading-relaxed max-w-[55ch] transition-colors duration-400">
                                 {project.description}
                               </p>
-                            </div>
-
-                            <div className="flex flex-col gap-3 md:gap-4 mb-8">
-                              {project.keyPoints.slice(0, 3).map((kp, kIdx) => (
-                                <div
-                                  key={kIdx}
-                                  className="group/point relative flex gap-3 md:gap-4 items-start overflow-hidden rounded-none px-2 py-1.5 -mx-2 -my-1.5"
-                                >
-                                  {/* Hover Sweep Background */}
-                                  <span className="absolute inset-0 bg-linear-to-r from-[#0d9488]/5 to-transparent origin-left scale-x-0 group-hover/point:scale-x-100 transition-transform duration-500 ease-[0.19,1,0.22,1] pointer-events-none" />
-                                  
-                                  <div className="relative z-10 w-1.5 h-1.5 rounded-full bg-[#0d9488] mt-[6px] shrink-0 group-hover/point:scale-125 transition-transform duration-400" />
-                                  <p className="relative z-10 text-xs md:text-sm text-[#78716c] leading-relaxed group-hover/point:text-[#0d9488] transition-colors duration-400">
-                                    {kp}
-                                  </p>
-                                </div>
-                              ))}
                             </div>
                           </div>
 
@@ -187,12 +166,12 @@ export default function DefaultProjects() {
                             {/* Skills / Tech Stack */}
                             <div className="flex flex-wrap gap-2 max-w-full xl:max-w-[60%]">
                               {project.techStack.map((tech, tIdx) => (
-                                <span
+                                <SkillNode
                                   key={tIdx}
-                                  className="px-3 py-1.5 bg-[#fdfbf7] border border-[#0d9488]/20 text-[10px] font-bold text-[#0d9488] uppercase tracking-widest rounded-none shadow-sm hover:bg-[#0d9488] hover:text-white hover:scale-105 hover:shadow-[0_4px_12px_rgba(13,148,136,0.3)] transition-all duration-300 cursor-default"
-                                >
-                                  {tech}
-                                </span>
+                                  name={tech}
+                                  small={true}
+                                  delay={idx * 0.1 + tIdx * 0.02}
+                                />
                               ))}
                             </div>
 

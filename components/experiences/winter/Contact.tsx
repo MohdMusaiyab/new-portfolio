@@ -111,9 +111,7 @@ function Field({
 }
 
 export default function Contact() {
-  const headerRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLDivElement>(null);
-  const headerInView = useInView(headerRef, { once: true, margin: "100px" });
   const formInView = useInView(formRef, { once: true, margin: "100px" });
 
   const [form, setForm] = useState({
@@ -181,33 +179,9 @@ export default function Contact() {
         />
         <div className="grain-overlay" aria-hidden="true" />
 
-        <div className="relative z-10 max-w-[1200px] mx-auto px-6 md:px-12 py-16 md:py-24">
+        <div className="relative z-10 max-w-[1200px] mx-auto px-6 md:px-12 py-10 md:py-16">
           {}
-          <motion.div
-            ref={headerRef}
-            initial={{ opacity: 0, y: 40 }}
-            animate={headerInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-            className="mb-12 md:mb-16"
-          >
-            <p
-              className="font-dm-mono text-[10px] tracking-[0.45em] uppercase mb-5"
-              style={{ color: WA(0.4) }}
-            >
-              Get in Touch
-            </p>
-            <h2
-              className="font-cinzel font-black leading-none"
-              style={{
-                fontSize: "clamp(48px, 9vw, 120px)",
-                color: W,
-                letterSpacing: "0.02em",
-                textShadow: "0 8px 40px rgba(255,255,255,0.08)",
-              }}
-            >
-              Contact
-            </h2>
-          </motion.div>
+
 
           {}
           <div className="flex flex-col lg:flex-row gap-20 lg:gap-32 items-start">
@@ -219,6 +193,26 @@ export default function Contact() {
               transition={{ duration: 0.5, ease: "easeOut" }}
               className="w-full lg:w-[58%]"
             >
+              {/* Header Section (Moved inside for alignment) */}
+              <div className="mb-10 md:mb-14">
+                <p
+                  className="font-dm-mono text-[10px] tracking-[0.45em] uppercase mb-5"
+                  style={{ color: WA(0.4) }}
+                >
+                  Get in Touch
+                </p>
+                <h2
+                  className="font-cinzel font-black leading-none"
+                  style={{
+                    fontSize: "clamp(34px, 7vw, 84px)",
+                    color: W,
+                    letterSpacing: "0.02em",
+                    textShadow: "0 8px 40px rgba(255,255,255,0.08)",
+                  }}
+                >
+                  Contact
+                </h2>
+              </div>
               <form onSubmit={handleSubmit} className="flex flex-col gap-10">
                 {}
 
@@ -470,7 +464,7 @@ export default function Contact() {
 
           {}
           <div
-            className="w-full h-px mt-16 md:mt-24"
+            className="w-full h-px mt-12 md:mt-14"
             style={{
               background: `linear-gradient(to right, transparent, ${WA(0.08)} 50%, transparent)`,
             }}

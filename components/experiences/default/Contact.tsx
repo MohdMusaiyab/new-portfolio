@@ -181,7 +181,7 @@ export default function DefaultContact() {
           </div>
 
           {/* ✦ Improved tagline copy — dev-specific, memorable */}
-          <p className="max-w-[42ch] text-[#57534e] text-sm md:text-base lg:text-lg font-light leading-relaxed pb-2 md:text-right">
+          <p className="max-w-[42ch] text-[#57534e] text-sm md:text-base lg:text-lg font-inter font-normal leading-relaxed pb-2 md:text-right">
             I write code that ships, systems that scale, and interfaces people
             remember.{" "}
             <span className="text-[#0d9488] font-medium">
@@ -345,7 +345,7 @@ export default function DefaultContact() {
                 <span className="font-mono opacity-60 mr-1">{"//"}</span> Always
                 Reachable
               </p>
-              <p className="relative z-10 text-sm leading-relaxed text-[#57534e] font-light">
+              <p className="relative z-10 text-sm leading-relaxed text-[#57534e] font-inter font-normal">
                 Got a tricky architecture problem, a product idea, or just want
                 to nerd out over tech? My inbox is open — no ticket system, no
                 gatekeeping.

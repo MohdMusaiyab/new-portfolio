@@ -99,19 +99,7 @@ export default function DefaultExperience() {
                   </div>
                 </div>
 
-                <div className="h-px bg-linear-to-r from-[#0d9488]/10 via-[#e7e5e4] to-transparent w-full mb-8" />
 
-                {/* Highlights */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-5 mb-10">
-                  {exp.highlights.map((highlight, hIdx) => (
-                    <div key={hIdx} className="flex gap-4 group/item">
-                      <div className="mt-2.5 w-1.5 h-1.5 rounded-full bg-[#0d9488]/40 group-hover/item:bg-[#0d9488] transition-colors shrink-0" />
-                      <p className="text-sm sm:text-base text-stone-600 leading-[1.7] font-medium">
-                        {highlight}
-                      </p>
-                    </div>
-                  ))}
-                </div>
 
                 {/* Shared Skill Nodes Rendering */}
                 <div className="flex flex-wrap gap-2 md:gap-3 pt-6 border-t border-[#e7e5e4]/50">

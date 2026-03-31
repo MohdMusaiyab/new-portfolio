@@ -26,9 +26,9 @@ export default function Hero() {
     <>
       <style>{`
         /* ── NEST HUB / LANDSCAPE OPTIMIZATION ── */
-        @media (max-height: 720px) {
+        @media (max-height: 720px) and (min-width: 768px) {
           .winter-title {
-            font-size: clamp(2rem, 10vh, 5rem) !important;
+            font-size: clamp(2rem, 9vh, 4.5rem) !important;
             margin-bottom: 1rem !important;
           }
           .winter-bio {
@@ -78,7 +78,7 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 1.05, filter: "blur(12px)", y: 20 }}
             animate={{ opacity: 1, scale: 1, filter: "blur(0px)", y: 0 }}
             transition={{ duration: 1.2, delay: 0.1, ease: [0.19, 1, 0.22, 1] }}
-            className="font-cinzel font-bold leading-[0.9] tracking-widest md:tracking-widest mb-4 md:mb-6 text-white text-[clamp(2.75rem,12vmin,120px)] winter-title"
+            className="font-cinzel font-bold leading-[0.9] tracking-wider md:tracking-widest mb-3 md:mb-6 text-white text-[clamp(1.85rem,9vmin,105px)] winter-title"
             style={{
               textShadow:
                 "0 0 40px rgba(255,255,255,0.2), 0 4px 20px rgba(0,0,0,0.8)",
@@ -93,7 +93,7 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.4, ease: [0.19, 1, 0.22, 1] }}
-            className="flex items-center justify-center gap-3 md:gap-6 mb-4 md:mb-8 lg:mb-12 h-6"
+            className="flex items-center justify-center gap-3 md:gap-6 mb-3 md:mb-8 lg:mb-12 h-6"
           >
             <div className="hidden md:block w-8 md:w-12 h-px bg-white/40" />
             <AnimatePresence mode="wait">
@@ -117,7 +117,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6, ease: [0.19, 1, 0.22, 1] }}
-            className="font-sans font-light text-sm md:text-base lg:text-lg leading-relaxed text-white/90 max-w-2xl mb-6 md:mb-8 drop-shadow-xl text-balance winter-bio"
+            className="font-sans font-light text-[13px] md:text-base lg:text-lg leading-relaxed text-white/90 max-w-2xl mb-5 md:mb-8 drop-shadow-xl text-balance winter-bio"
           >
             Hey, I’m Musaiyab — a full stack developer who enjoys building
             clean, fast, and reliable products. I care about both how things
@@ -156,7 +156,7 @@ export default function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1.2, delay: 1, ease: "linear" }}
-            className="flex items-center justify-center gap-3 md:gap-6 mt-8 md:mt-14 lg:mt-20 font-mono text-[8px] md:text-[10px] tracking-[0.2em] md:tracking-[0.28em] uppercase text-white/50 drop-shadow-md winter-footer"
+            className="flex items-center justify-center gap-3 md:gap-6 mt-6 md:mt-14 lg:mt-20 font-mono text-[8px] md:text-[10px] tracking-[0.2em] md:tracking-[0.28em] uppercase text-white/50 drop-shadow-md winter-footer"
           >
             <span>1 Yrs Exp</span>
             <span className="w-px h-2.5 md:h-3 bg-white/30" />
