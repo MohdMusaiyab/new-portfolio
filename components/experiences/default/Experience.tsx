@@ -1,11 +1,15 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import experienceData from "@/app/data/experience.json";
 import SkillNode from "@/components/ui/SkillNode";
+import CollapsibleHighlights from "@/components/ui/CollapsibleHighlights";
 
 export default function DefaultExperience() {
+  const [openIdx, setOpenIdx] = useState<number | null>(null);
+
   return (
     <section
       id="experience"
@@ -48,7 +52,8 @@ export default function DefaultExperience() {
                 boxShadow: "0 25px 50px -12px rgba(13,148,136,0.25)",
                 borderColor: "rgba(13,148,136,0.3)"
               }}
-              className="group relative bg-white/60 backdrop-blur-md border border-[#e7e5e4] rounded-none p-5 sm:p-[clamp(1.25rem,3vh,2.5rem)] hover:bg-white overflow-hidden transition-colors duration-300"
+              onClick={() => setOpenIdx(openIdx === idx ? null : idx)}
+              className="group relative bg-white/60 backdrop-blur-md border border-[#e7e5e4] rounded-none p-5 sm:p-[clamp(1.25rem,3vh,2.5rem)] hover:bg-white overflow-hidden transition-all duration-300 cursor-pointer"
             >
               {/* Subtle accent corner */}
               <div className="absolute top-0 right-0 w-32 h-32 bg-linear-to-bl from-[#0d9488]/5 to-transparent pointer-events-none" />
@@ -89,17 +94,30 @@ export default function DefaultExperience() {
                       <span className="w-1.5 h-1.5 rounded-full bg-[#0d9488] animate-pulse" />
                       {exp.duration.start} — {exp.duration.end}
                     </span>
-                    <span className="flex items-center gap-1.5 text-[10px] md:text-xs font-bold uppercase tracking-widest text-[#a8a29e]">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                        <circle cx="12" cy="10" r="3" />
-                      </svg>
-                      {exp.location}
-                    </span>
+                    <div className="flex items-center gap-3">
+                      <span className="flex items-center gap-1.5 text-[10px] md:text-xs font-bold uppercase tracking-widest text-[#a8a29e]">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                          <circle cx="12" cy="10" r="3" />
+                        </svg>
+                        {exp.location}
+                      </span>
+                      {/* Expand Icon */}
+                      <span className={`flex items-center justify-center w-6 h-6 rounded-full border border-[#0d9488]/20 text-[#0d9488] transition-all duration-500 ${openIdx === idx ? 'rotate-180 bg-[#0d9488] text-white' : 'group-hover:border-[#0d9488]/50'}`}>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                          <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                      </span>
+                    </div>
                   </div>
                 </div>
 
-
+                {/* Collapsible Highlights */}
+                <CollapsibleHighlights
+                  highlights={exp.highlights}
+                  theme="default"
+                  isOpen={openIdx === idx}
+                />
 
                 {/* Shared Skill Nodes Rendering */}
                 <div className="flex flex-wrap gap-2 md:gap-3 pt-6 border-t border-[#e7e5e4]/50">

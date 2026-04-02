@@ -1,10 +1,11 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import SkillPill from "@/components/ui/SkillPill";
 import experienceData from "@/app/data/experience.json";
+import CollapsibleHighlights from "@/components/ui/CollapsibleHighlights";
 
 const DEEP_BLACK = "#0a0a0a";
 const WHITE = "#ffffff";
@@ -13,6 +14,7 @@ const WA = (a: number) => `rgba(255,255,255,${a})`;
 type Experience = (typeof experienceData.experience)[0];
 
 function ExperienceCard({ item }: { item: Experience; index: number }) {
+  const [isOpen, setIsOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: false, margin: "-100px" });
 
@@ -22,7 +24,8 @@ function ExperienceCard({ item }: { item: Experience; index: number }) {
       initial={{ opacity: 0, y: 30 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.5, ease: "easeOut", delay: 0 }}
-      className="relative md:pl-20 py-8 md:py-12 group"
+      onClick={() => setIsOpen(!isOpen)}
+      className="relative md:pl-20 py-8 md:py-12 group cursor-pointer"
     >
       {}
       <div className="hidden md:block absolute left-[27px] top-0 bottom-0 w-px bg-white/5 group-last:bottom-auto group-last:h-full">
@@ -36,7 +39,7 @@ function ExperienceCard({ item }: { item: Experience; index: number }) {
           }}
         />
         <div
-          className="absolute left-1/2 -translate-x-1/2 top-[76px] w-[9px] h-[9px] rounded-full border border-black z-10 transition-colors duration-500 group-hover:bg-white"
+          className={`absolute left-1/2 -translate-x-1/2 top-[76px] w-[9px] h-[9px] rounded-full border border-black z-10 transition-all duration-500 ${isOpen ? 'bg-white scale-125' : 'group-hover:bg-white'}`}
           style={{ background: WA(0.3) }}
         />
       </div>
@@ -77,7 +80,14 @@ function ExperienceCard({ item }: { item: Experience; index: number }) {
         </div>
 
         {}
-        <div className="flex-1">
+        <div className="flex-1 relative">
+          {/* Expand Icon for Winter */}
+          <div className={`absolute top-0 right-0 w-8 h-8 rounded-full border border-white/10 flex items-center justify-center transition-all duration-500 ${isOpen ? 'rotate-180 bg-white/10' : 'group-hover:border-white/30'}`}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={WA(0.6)} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </div>
+
           <h3
             className="font-cinzel font-bold text-2xl md:text-4xl mb-2 transition-all duration-300 group-hover:text-white group-hover:drop-shadow-[0_0_15px_rgba(255,255,255,0.6)]"
             style={{ color: WA(0.85), letterSpacing: "0.02em" }}
@@ -91,7 +101,12 @@ function ExperienceCard({ item }: { item: Experience; index: number }) {
             {item.company}
           </h4>
 
-
+          {/* Collapsible Highlights */}
+          <CollapsibleHighlights
+            highlights={item.highlights}
+            theme="winter"
+            isOpen={isOpen}
+          />
 
           <div className="flex flex-wrap gap-2">
             {item.skills.map((skill) => (
