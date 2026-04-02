@@ -262,17 +262,29 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
             {project.name}
           </motion.h3>
 
-          {/* Description */}
-          <p
-            className="text-[13px] sm:text-[14px] md:text-[15px] leading-[1.65] mb-6 md:mb-10"
-            style={{
-              color: MIST,
-              fontFamily: "Inter, sans-serif",
-              fontWeight: 300,
-            }}
-          >
-            {project.description}
-          </p>
+          {/* Key Points (Bulleted) */}
+          <ul className="mb-6 md:mb-10 space-y-3">
+            {project.keyPoints.map((point, pIdx) => (
+              <motion.li
+                key={pIdx}
+                initial={{ opacity: 0, x: -10 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.1 + pIdx * 0.05 }}
+                whileHover={{ x: 5, color: WHITE }}
+                className="group/point flex gap-3 text-[13px] sm:text-[14px] md:text-[15px] leading-[1.65] transition-all duration-300"
+                style={{
+                  color: MIST,
+                  fontFamily: "Inter, sans-serif",
+                  fontWeight: 300,
+                }}
+              >
+                <span 
+                  className="mt-2 shrink-0 w-1 h-1 rounded-full bg-white/20 group-hover/point:bg-white/60 transition-colors"
+                />
+                <span>{point}</span>
+              </motion.li>
+            ))}
+          </ul>
 
 
           {/* ─── Fix #1: Skills row with properly styled overflow pill ───── */}

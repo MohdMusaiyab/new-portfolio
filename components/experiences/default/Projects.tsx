@@ -151,15 +151,22 @@ export default function DefaultProjects() {
 
                         {/* Project Details */}
                         <div className="flex flex-col justify-between grow py-2 px-2 sm:px-0">
-                          <div>
-                            <div className="group/desc relative mb-5 md:mb-8 p-4 md:p-6 overflow-hidden rounded-xl border border-[#0d9488]/10 bg-[#0d9488]/2 transition-all duration-500 hover:border-[#0d9488]/30 hover:shadow-[0_0_25px_-5px_rgba(13,148,136,0.15)] hover:bg-[#0d9488]/4">
-                              {/* Hover Sweep Background */}
-                              <span className="absolute inset-0 bg-linear-to-r from-[#0d9488]/5 to-transparent origin-left scale-x-0 group-hover/desc:scale-x-100 transition-transform duration-700 ease-[0.19,1,0.22,1] pointer-events-none" />
-                              
-                              <p className="relative z-10 font-inter text-[#57534e] text-sm md:text-base lg:text-lg font-normal leading-relaxed max-w-[55ch] transition-colors duration-400">
-                                {project.description}
-                              </p>
-                            </div>
+                          <div className="mb-6 md:mb-8">
+                            <ul className="space-y-2 md:space-y-3">
+                              {project.keyPoints.map((point, pIdx) => (
+                                <motion.li
+                                  key={pIdx}
+                                  initial={{ x: -10, opacity: 0 }}
+                                  animate={{ x: 0, opacity: 1 }}
+                                  transition={{ delay: 0.1 + pIdx * 0.05 }}
+                                  whileHover={{ x: 5, color: "#1c1917" }}
+                                  className="group/point flex gap-3 text-sm md:text-base text-[#57534e] font-normal leading-relaxed transition-all duration-300"
+                                >
+                                  <span className="mt-2.5 shrink-0 w-1.5 h-1.5 rounded-full bg-[#0d9488]/30 group-hover/point:bg-[#0d9488] transition-colors" />
+                                  <span>{point}</span>
+                                </motion.li>
+                              ))}
+                            </ul>
                           </div>
 
                           <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-6 md:gap-8 pt-6 border-t border-[#0d9488]/10">
