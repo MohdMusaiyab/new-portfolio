@@ -30,7 +30,7 @@ export default function DefaultGithubActivity() {
             </div>
             <h3 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter leading-[0.85] text-[#1c1917]">
               GitHub <br />
-              <span className="text-transparent bg-clip-text bg-linear-to-r from-[#0d9488] to-[#042f2e]">
+              <span className="text-[#0d9488] md:text-transparent md:bg-clip-text md:bg-linear-to-r md:from-[#0d9488] md:to-[#042f2e]">
                 Activity.
               </span>
             </h3>

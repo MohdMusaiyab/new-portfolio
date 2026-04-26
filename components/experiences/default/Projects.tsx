@@ -21,7 +21,7 @@ export default function DefaultProjects() {
       {/* Background Architectural Elements */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         <div className="absolute top-0 right-[15%] bottom-0 w-px bg-[#0d9488]/10" />
-        <div className="absolute top-[20%] left-[-10%] w-[40vw] h-[40vw] bg-[#0d9488]/5 blur-[120px] rounded-full" />
+        <div className="absolute top-[20%] left-[-10%] w-[60vw] h-[60vw] md:w-[40vw] md:h-[40vw] bg-[#0d9488]/[0.03] md:bg-[#0d9488]/5 blur-[80px] md:blur-[120px] rounded-full" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-5 md:px-12 lg:px-16">
@@ -41,7 +41,7 @@ export default function DefaultProjects() {
             </div>
             <h3 className="text-[clamp(1.75rem,min(5vw,8vh),6rem)] font-black uppercase tracking-tighter leading-[0.85] text-[#1c1917]">
               Featured <br />
-              <span className="text-transparent bg-clip-text bg-linear-to-r from-[#0d9488] to-[#042f2e]">
+              <span className="text-[#0d9488] md:text-transparent md:bg-clip-text md:bg-linear-to-r md:from-[#0d9488] md:to-[#042f2e]">
                 Projects.
               </span>
             </h3>

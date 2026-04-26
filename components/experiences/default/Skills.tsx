@@ -13,7 +13,7 @@ export default function DefaultSkills() {
       {/* Background Architectural Elements */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         <div className="absolute bottom-0 left-[15%] top-0 w-px bg-[#0d9488]/10" />
-        <div className="absolute top-1/2 right-[-10%] w-[35vw] h-[35vw] bg-[#0d9488]/5 blur-[120px] rounded-full -translate-y-1/2" />
+        <div className="absolute top-1/2 right-[-10%] w-[50vw] h-[50vw] md:w-[35vw] md:h-[35vw] bg-[#0d9488]/[0.03] md:bg-[#0d9488]/5 blur-[80px] md:blur-[120px] rounded-full -translate-y-1/2" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-5 md:px-12 lg:px-16">
@@ -33,7 +33,7 @@ export default function DefaultSkills() {
             </div>
             <h3 className="text-[clamp(1.75rem,min(5vw,8vh),6rem)] font-black uppercase tracking-tighter leading-[0.85] text-[#1c1917]">
               My  <br />
-              <span className="text-transparent bg-clip-text bg-linear-to-r from-[#0d9488] to-[#042f2e]">
+              <span className="text-[#0d9488] md:text-transparent md:bg-clip-text md:bg-linear-to-r md:from-[#0d9488] md:to-[#042f2e]">
                Toolkit
               </span>
             </h3>

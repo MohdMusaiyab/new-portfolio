@@ -189,7 +189,7 @@ export default function Hero() {
     <section className="relative w-full min-h-screen bg-[#fdfbf7] flex flex-col overflow-hidden">
       {/* ── Animated ambient blob (top-right) ── */}
       <motion.div
-        className="pointer-events-none absolute -top-24 -right-24 w-[520px] h-[520px] rounded-full bg-teal-300/10 blur-[140px]"
+        className="pointer-events-none absolute -top-24 -right-24 w-[280px] h-[280px] md:w-[520px] md:h-[520px] rounded-full bg-teal-300/[0.07] md:bg-teal-300/10 blur-[80px] md:blur-[140px]"
         animate={
           prefersReduced
             ? {}
@@ -203,7 +203,7 @@ export default function Hero() {
       />
       {/* ── Animated ambient blob (bottom-left) ── */}
       <motion.div
-        className="pointer-events-none absolute -bottom-16 -left-16 w-[340px] h-[340px] rounded-full bg-teal-200/10 blur-[100px]"
+        className="pointer-events-none absolute -bottom-16 -left-16 w-[180px] h-[180px] md:w-[340px] md:h-[340px] rounded-full bg-teal-200/[0.05] md:bg-teal-200/10 blur-[60px] md:blur-[100px]"
         animate={
           prefersReduced
             ? {}
@@ -235,9 +235,22 @@ export default function Hero() {
           pt-28 on md/lg to clear fixed header and allow vertical centering below it.
           pb-24 clears mobile nav when applicable.
       ── */}
-      <div className="relative z-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 md:gap-4 lg:gap-8 flex-1 max-w-7xl mx-auto w-full px-5 sm:px-10 lg:px-20 pt-8 md:pt-24 lg:pt-24 pb-16 sm:pb-20 lg:pb-8">
+      <div className="relative z-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-10 md:gap-12 lg:gap-8 flex-1 max-w-7xl mx-auto w-full px-5 sm:px-10 lg:px-20 pt-20 md:pt-24 lg:pt-24 pb-16 sm:pb-20 lg:pb-8">
         {/* ════════ LEFT ════════ */}
-        <div className="flex flex-col gap-4 md:gap-5 lg:gap-6 lg:max-w-[640px]">
+        <div className="flex flex-col gap-5 md:gap-6 lg:gap-8 lg:max-w-[640px]">
+          {/* Intro Badge */}
+          <motion.div
+            custom={0}
+            variants={rise}
+            initial="hidden"
+            animate="show"
+            className="flex items-center gap-2"
+          >
+            <span className="flex h-1.5 w-1.5 rounded-full bg-[#0d9488]" />
+            <span className="text-[10px] font-black uppercase tracking-[0.25em] text-[#0d9488]/80">
+              Full Stack Engineer
+            </span>
+          </motion.div>
           {/* Name — letter-by-letter */}
           <h1
             className="font-black uppercase tracking-tighter leading-[0.84] text-[#1c1917]"
@@ -284,7 +297,7 @@ export default function Hero() {
             variants={rise}
             initial="hidden"
             animate="show"
-            className="flex flex-wrap items-center gap-2.5 pt-1"
+            className="flex flex-wrap items-center gap-2 md:gap-2.5 pt-1"
           >
             {/* Primary */}
             <motion.a
@@ -295,7 +308,7 @@ export default function Hero() {
                 boxShadow: "0 14px 32px rgba(13,148,136,0.28)",
               }}
               whileTap={{ scale: 0.97 }}
-              className="relative overflow-hidden flex items-center gap-2 px-6 py-2.5 bg-[#0d9488] text-white text-[11px] font-black uppercase tracking-[0.18em] rounded-xl shadow-lg shadow-teal-500/20"
+              className="relative overflow-hidden flex items-center gap-1.5 px-3 py-1.5 md:px-6 md:py-2.5 bg-[#0d9488] text-white text-[9px] md:text-[11px] font-black uppercase tracking-[0.18em] rounded-md md:rounded-xl shadow-lg shadow-teal-500/20"
             >
               {/* shimmer sweep */}
               <motion.span
@@ -310,14 +323,14 @@ export default function Hero() {
                   repeatDelay: 5,
                 }}
               />
-              Let&apos;s Connect <ArrowUpRight size={13} />
+              Let&apos;s Connect <ArrowUpRight size={11} className="md:size-[13px]" />
             </motion.a>
 
             <motion.a
               href="#projects"
               whileHover={{ scale: 1.04, y: -2 }}
               whileTap={{ scale: 0.97 }}
-              className="flex items-center gap-2 px-6 py-2.5 bg-white border border-[#e7e5e4] text-[#1c1917] text-[11px] font-black uppercase tracking-[0.18em] rounded-xl hover:border-[#0d9488]/30 hover:bg-teal-50/20 transition-all"
+              className="flex items-center gap-1.5 px-3 py-1.5 md:px-6 md:py-2.5 bg-white border border-[#e7e5e4] text-[#1c1917] text-[9px] md:text-[11px] font-black uppercase tracking-[0.18em] rounded-md md:rounded-xl hover:border-[#0d9488]/30 hover:bg-teal-50/20 transition-all"
             >
               Projects
             </motion.a>
@@ -328,9 +341,9 @@ export default function Hero() {
               rel="noopener noreferrer"
               whileHover={{ scale: 1.04, y: -2 }}
               whileTap={{ scale: 0.97 }}
-              className="flex items-center gap-1.5 px-5 py-2.5 bg-white border border-[#e7e5e4] text-[#57534e] text-[11px] font-black uppercase tracking-[0.18em] rounded-xl hover:border-[#0d9488]/30 hover:text-[#0d9488] transition-all"
+              className="flex items-center gap-1 px-3 py-1.5 md:px-5 md:py-2.5 bg-white border border-[#e7e5e4] text-[#57534e] text-[9px] md:text-[11px] font-black uppercase tracking-[0.18em] rounded-md md:rounded-xl hover:border-[#0d9488]/30 hover:text-[#0d9488] transition-all"
             >
-              Resume <ExternalLink size={11} />
+              Resume <ExternalLink size={10} className="md:size-[11px]" />
             </motion.a>
           </motion.div>
 
@@ -340,80 +353,75 @@ export default function Hero() {
             variants={rise}
             initial="hidden"
             animate="show"
-            className="flex items-center gap-5 pt-1"
+            className="flex items-center gap-6 pt-2"
           >
-            {SOCIALS.map(({ Icon, href, label }, i) => (
-              <motion.a
-                key={label}
-                href={href}
-                aria-label={label}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{
-                  opacity: 1,
-                  y: 0,
-                  transition: {
-                    delay: 0.75 + i * 0.08,
-                    duration: 0.45,
-                    ease: "easeOut",
-                  },
-                }}
-                whileHover={{
-                  scale: 1.3,
-                  y: -4,
-                  color: "#0d9488",
-                  filter: "drop-shadow(0 0 8px rgba(13,148,136,0.3))",
-                  transition: { type: "spring", stiffness: 400, damping: 20 },
-                }}
-                className="text-[#a8a29e] pointer-events-auto"
-              >
-                <Icon size={18} strokeWidth={2} />
-              </motion.a>
-            ))}
-            <motion.div
-              initial={{ scaleY: 0 }}
-              animate={{ scaleY: 1 }}
-              transition={{ delay: 1, duration: 0.4 }}
-              className="w-px h-4 bg-[#e7e5e4] origin-center"
-            />
-            <motion.span
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1.05 }}
-              className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#c7c3bf]"
-            >
-              Pune, India
-            </motion.span>
+            <div className="flex items-center gap-5">
+              {SOCIALS.map(({ Icon, href, label }, i) => (
+                <motion.a
+                  key={label}
+                  href={href}
+                  aria-label={label}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{
+                    opacity: 1,
+                    scale: 1,
+                    transition: {
+                      delay: 0.8 + i * 0.08,
+                      duration: 0.4,
+                      ease: "easeOut",
+                    },
+                  }}
+                  whileHover={{
+                    scale: 1.25,
+                    y: -3,
+                    color: "#0d9488",
+                    transition: { type: "spring", stiffness: 400, damping: 15 },
+                  }}
+                  className="text-[#a8a29e] transition-colors"
+                >
+                  <Icon size={19} strokeWidth={2} />
+                </motion.a>
+              ))}
+            </div>
+            <div className="w-px h-5 bg-[#e7e5e4]" />
+            <div className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#0d9488]/40" />
+              <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#c7c3bf]">
+                Pune, India
+              </span>
+            </div>
           </motion.div>
         </div>
 
         {/* ════════ RIGHT: INFO PANEL ════════ */}
-        <div className="flex flex-col gap-2 w-full lg:w-[280px] lg:min-w-[280px] shrink-0">
+        <div className="flex flex-col gap-3 w-full lg:w-[300px] lg:min-w-[300px] shrink-0 mt-8 lg:mt-0">
           {/* Clock — float up */}
           <motion.div
             custom={0}
             variants={floatUp}
             initial="hidden"
             animate="show"
-            className="flex items-center justify-between px-4 py-3.5 bg-white/85 border border-[#e7e5e4] rounded-2xl shadow-sm backdrop-blur-sm"
+            className="flex items-center justify-between px-5 py-4 bg-white/90 border border-[#e7e5e4] rounded-2xl shadow-[0_8px_30px_-12px_rgba(0,0,0,0.05)] backdrop-blur-md"
           >
             <div>
-              <p className="text-[9px] font-black uppercase tracking-[0.22em] text-[#a8a29e] mb-0.5">
+              <p className="text-[9px] font-black uppercase tracking-[0.25em] text-[#a8a29e] mb-1">
                 Local Time
               </p>
               <LiveClock />
             </div>
             {/* Subtle rotating ring */}
-            <motion.div
-              className="w-8 h-8 rounded-full border border-[#0d9488]/20 flex items-center justify-center"
-              animate={{ rotate: 360 }}
-              transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-            >
-              <div className="w-2 h-2 rounded-full bg-[#0d9488] animate-pulse" />
-            </motion.div>
+            <div className="relative flex items-center justify-center">
+              <motion.div
+                className="w-10 h-10 rounded-full border border-[#0d9488]/10"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+              />
+              <div className="absolute w-2 h-2 rounded-full bg-[#0d9488] shadow-[0_0_10px_rgba(13,148,136,0.5)] animate-pulse" />
+            </div>
           </motion.div>
 
           {/* Stats — staggered spring */}
-          <div className="grid grid-cols-3 gap-2.5">
+          <div className="grid grid-cols-3 gap-3">
             {STATS.map(({ value, label }, i) => (
               <motion.div
                 key={label}
@@ -422,11 +430,11 @@ export default function Hero() {
                 initial="hidden"
                 animate="show"
                 whileHover={{
-                  scale: 1.06,
-                  borderColor: "rgba(13,148,136,0.3)",
-                  backgroundColor: "rgba(13,148,136,0.05)",
+                  scale: 1.05,
+                  borderColor: "rgba(13,148,136,0.25)",
+                  backgroundColor: "rgba(255,255,255,1)",
                 }}
-                className="flex flex-col items-center py-3 md:py-4 bg-white/85 border border-[#e7e5e4] rounded-2xl shadow-sm transition-colors cursor-default"
+                className="flex flex-col items-center py-4 bg-white/90 border border-[#e7e5e4] rounded-2xl shadow-[0_4px_20px_-12px_rgba(0,0,0,0.05)] transition-all cursor-default"
               >
                 <motion.span
                   initial={{ opacity: 0, scale: 0.5 }}
@@ -441,7 +449,7 @@ export default function Hero() {
                 >
                   {value}
                 </motion.span>
-                <span className="text-[9px] font-bold uppercase tracking-[0.14em] text-[#a8a29e] mt-0.5">
+                <span className="text-[9px] font-bold uppercase tracking-[0.14em] text-[#a8a29e] mt-1">
                   {label}
                 </span>
               </motion.div>
@@ -460,14 +468,18 @@ export default function Hero() {
             whileHover={{
               scale: 1.02,
               y: -2,
-              boxShadow: "0 12px 28px rgba(13,148,136,0.12)",
+              boxShadow: "0 20px 40px -15px rgba(13,148,136,0.15)",
+              borderColor: "rgba(13,148,136,0.3)",
             }}
-            className="group flex flex-col gap-2 px-4 py-3.5 bg-[#0d9488]/6 border border-[#0d9488]/15 rounded-2xl hover:border-[#0d9488]/30 hover:bg-[#0d9488]/10 transition-all"
+            className="group flex flex-col gap-3 px-5 py-4 bg-white/90 border border-[#e7e5e4] rounded-2xl shadow-[0_8px_30px_-12px_rgba(0,0,0,0.05)] transition-all"
           >
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#0d9488] animate-pulse" />
-                <span className="text-[9px] font-black uppercase tracking-[0.22em] text-[#0d9488]">
+              <div className="flex items-center gap-2.5">
+                <div className="relative flex items-center justify-center">
+                  <span className="absolute w-2 h-2 rounded-full bg-[#0d9488] animate-ping opacity-40" />
+                  <span className="relative w-1.5 h-1.5 rounded-full bg-[#0d9488]" />
+                </div>
+                <span className="text-[9px] font-black uppercase tracking-[0.25em] text-[#0d9488]">
                   Currently Building
                 </span>
               </div>
@@ -476,21 +488,20 @@ export default function Hero() {
                 transition={{ type: "spring", stiffness: 400 }}
               >
                 <ArrowUpRight
-                  size={13}
-                  className="text-[#0d9488]/50 group-hover:text-[#0d9488] transition-colors"
+                  size={14}
+                  className="text-[#a8a29e] group-hover:text-[#0d9488] transition-colors"
                 />
               </motion.div>
             </div>
-            <div className="pl-3 border-l-2 border-[#0d9488]/25">
-              <p className="text-[13px] font-bold text-[#1c1917]">Snippitt</p>
-              <p className="text-[11px] text-[#78716c] font-medium mt-0.5 leading-relaxed">
-                A searchable knowledge base to capture, organize, and share
-                insights.
+            <div className="pl-4 border-l-2 border-[#0d9488]/20 group-hover:border-[#0d9488]/40 transition-colors">
+              <p className="text-[13px] font-black text-[#1c1917] tracking-tight">Snippitt</p>
+              <p className="text-[11px] text-[#57534e] font-medium mt-1 leading-relaxed">
+                A searchable knowledge base to capture and organize insights.
               </p>
             </div>
-            <div className="flex items-center gap-1.5 pl-3">
-              <Github size={10} className="text-[#a8a29e]" />
-              <span className="text-[10px] font-bold text-[#a8a29e]">
+            <div className="flex items-center gap-2 pl-4">
+              <Github size={12} className="text-[#a8a29e]" />
+              <span className="text-[10px] font-bold text-[#a8a29e] tracking-tight">
                 MohdMusaiyab/snippitt
               </span>
             </div>

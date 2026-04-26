@@ -153,7 +153,7 @@ export default function DefaultContact() {
     >
       {/* Background Architectural Elements */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        <div className="absolute bottom-[-20%] left-0 w-[60vw] h-[60vw] bg-[#0d9488]/5 blur-[150px] rounded-full" />
+        <div className="absolute bottom-[-20%] left-0 w-[80vw] h-[80vw] md:w-[60vw] md:h-[60vw] bg-[#0d9488]/[0.03] md:bg-[#0d9488]/5 blur-[80px] md:blur-[150px] rounded-full" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 lg:px-16 py-16 md:py-[clamp(2.5rem,8vh,5rem)]">
@@ -174,7 +174,7 @@ export default function DefaultContact() {
             </div>
             <h2 className="text-[clamp(1.75rem,min(5vw,8vh),6rem)] font-black uppercase tracking-tighter leading-[0.85] text-[#1c1917]">
               Let&apos;s <br />
-              <span className="text-transparent bg-clip-text bg-linear-to-r from-[#0d9488] to-[#042f2e]">
+              <span className="text-[#0d9488] md:text-transparent md:bg-clip-text md:bg-linear-to-r md:from-[#0d9488] md:to-[#042f2e]">
                 Connect.
               </span>
             </h2>
