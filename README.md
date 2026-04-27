@@ -99,5 +99,5 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ---
 
 <div align="center">
-  Made with ❤️ by <a href="https://github.com/your-username">Mohd Musaiyab</a>
+  Made with ❤️ by <a href="https://github.com/mohdmusaiyab">Mohd Musaiyab</a>
 </div>
