@@ -56,7 +56,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://itsmusaiyab.vercel.app"),
+  metadataBase: new URL(`${process.env.NEXT_PUBLIC_SITE_URL}`),
   title: "Mohd Musaiyab — Full Stack Developer",
   description:
     "Portfolio of Mohd Musaiyab — Full Stack & Backend Engineer specialising in high-concurrency systems, React, Next.js, Go, and Node.js.",
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
     title: "Mohd Musaiyab — Full Stack Developer",
     description:
       "Full Stack & Backend Engineer specialising in high-concurrency systems, React, Next.js, Go, and Node.js.",
-    url: "https://itsmusaiyab.vercel.app",
+    url: `${process.env.NEXT_PUBLIC_SITE_URL}`,
     siteName: "Mohd Musaiyab Portfolio",
     locale: "en_US",
     type: "website",
@@ -93,7 +93,7 @@ export const metadata: Metadata = {
     },
   },
   other: {
-    "og:logo": "https://itsmusaiyab.vercel.app/icon.svg",
+    "og:logo": `${process.env.NEXT_PUBLIC_SITE_URL}/icon.svg`,
   },
   verification: {
     google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
