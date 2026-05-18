@@ -1,6 +1,29 @@
 {
   "projects": [
     {
+      "name": "Bails on Fire",
+      "description": "AI-powered, retro-themed digital broadsheet newspaper roasting catastrophic IPL match collapses.",
+      "keyPoints": [
+        "Built a highly custom vintage 1920s newspaper layout with real-time AI-powered satirical articles.",
+        "Orchestrated Google Gemini API with Google Search Grounding to generate context-aware sports critiques.",
+        "Integrated Aiven PostgreSQL with Prisma ORM, implementing sequential transactional upserts to prevent pool locks.",
+        "Implemented NextAuth and Resend passwordless OTP email verification with client-side cooldown states."
+      ],
+      "techStack": [
+        "Next.js 16",
+        "React 19",
+        "Google Gemini API",
+        "Prisma ORM",
+        "Aiven PostgreSQL",
+        "Resend",
+        "TailwindCSS",
+        "Framer Motion"
+      ],
+      "githubRepo": "https://github.com/MohdMusaiyab/bailsonfire",
+      "liveSite": "https://bailsonfire.vercel.app",
+      "images": ["/bails-one.png", "/bails-two.png"]
+    },
+    {
       "name": "NearH",
       "description": "Centralized real-time healthcare network for India, bridging communication gaps during emergencies.",
       "keyPoints": [
