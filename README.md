@@ -17,7 +17,7 @@
 ---
 
 ## 🔗 Live Links
-- **New Portfolio (Vercel):** [itsmusaiyab.vercel.app](https://itsmusaiyab.vercel.app/)
+- **New Portfolio (Vercel):** [itsmusaiyab.in](https://www.itsmusaiyab.in/)
 - **Old Portfolio (Render):** [mohd-musaiyab.onrender.com](https://mohd-musaiyab.onrender.com/)
 
 ---
@@ -94,7 +94,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## 📬 Contact
 - **Name**: Mohd Musaiyab
-- **Website**: [itsmusaiyab.vercel.app](https://itsmusaiyab.vercel.app/)
+- **Website**: [itsmusaiyab.in](https://www.itsmusaiyab.in/)
 - **LinkedIn**: https://www.linkedin.com/in/mohd-musaiyab/
 ---
 
