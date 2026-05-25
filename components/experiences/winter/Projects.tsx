@@ -62,7 +62,11 @@ function OverflowPill({
           ? "Show fewer technologies"
           : `Show ${count} more technologies`
       }
-      className="relative flex items-center gap-2.5 px-4 py-2.5 cursor-pointer hover:bg-white/5 transition-colors duration-200"
+      className={`relative flex items-center justify-center cursor-pointer transition-all duration-300 ${
+        isExpanded
+          ? "w-9 h-9 rounded-full hover:bg-[#93E7FB]/20"
+          : "gap-2.5 px-4 py-2.5 hover:bg-white/5"
+      }`}
       style={{
         border: "1px solid rgba(255,255,255,0.06)",
         background: isExpanded
@@ -70,20 +74,38 @@ function OverflowPill({
           : "rgba(255,255,255,0.02)",
       }}
     >
-      {/* Dot — same dimensions as SkillPill, dimmed to signal inactive */}
-      <span
-        className="shrink-0 w-1.5 h-1.5 rounded-full transition-colors duration-300"
-        style={{
-          background: isExpanded ? "#93E7FB" : "rgba(255,255,255,0.3)",
-        }}
-      />
-      {/* Label — identical font/size/tracking/case to SkillPill */}
-      <span
-        className="font-dm-mono text-[11px] tracking-[0.16em] uppercase whitespace-nowrap transition-colors duration-300"
-        style={{ color: isExpanded ? "#93E7FB" : "rgba(255,255,255,0.4)" }}
-      >
-        {isExpanded ? "Collapse" : `+${count}`}
-      </span>
+      {!isExpanded ? (
+        <>
+          <span
+            className="shrink-0 w-1.5 h-1.5 rounded-full transition-colors duration-300"
+            style={{
+              background: "rgba(255,255,255,0.3)",
+            }}
+          />
+          <span
+            className="font-dm-mono text-[11px] tracking-[0.16em] uppercase whitespace-nowrap transition-colors duration-300"
+            style={{ color: "rgba(255,255,255,0.4)" }}
+          >
+            +{count}
+          </span>
+        </>
+      ) : (
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 14 14"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M3.5 9L7 5.5L10.5 9"
+            stroke="#93E7FB"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      )}
     </button>
   );
 }
@@ -307,10 +329,13 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
               href={project.githubRepo}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-4 sm:px-5 py-2 border border-white/20 hover:border-white/50 text-[11px] sm:text-xs tracking-[0.2em] uppercase transition-colors duration-200"
+              className="flex items-center gap-2 px-4 sm:px-5 py-2 border border-white/20 hover:border-white/50 text-[11px] sm:text-xs tracking-[0.2em] uppercase transition-colors duration-200 group/link"
               style={{ color: WHITE }}
             >
-              GitHub
+              <span>GitHub</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="opacity-70 group-hover/link:opacity-100 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5 transition-transform duration-200">
+                <path d="M7 17l9.2-9.2M17 16.8V7H7.2" />
+              </svg>
             </a>
 
             {project.liveSite && project.liveSite !== project.githubRepo && (
@@ -318,10 +343,13 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
                 href={project.liveSite}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 sm:px-5 py-2 border border-white/20 hover:border-white/50 text-[11px] sm:text-xs tracking-[0.2em] uppercase opacity-70 hover:opacity-100 transition-all duration-200"
+                className="flex items-center gap-2 px-4 sm:px-5 py-2 border border-white/20 hover:border-white/50 text-[11px] sm:text-xs tracking-[0.2em] uppercase opacity-70 hover:opacity-100 transition-all duration-200 group/link"
                 style={{ color: WHITE }}
               >
-                Live
+                <span>Live</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="opacity-70 group-hover/link:opacity-100 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5 transition-transform duration-200">
+                  <path d="M7 17l9.2-9.2M17 16.8V7H7.2" />
+                </svg>
               </a>
             )}
           </div>
