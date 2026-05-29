@@ -125,9 +125,14 @@ export default function Contact() {
   const set = (key: keyof typeof form) => (v: string) =>
     setForm((prev) => ({ ...prev, [key]: v }));
 
+  const isFormValid = form.subject.trim().length > 0 && form.message.trim().length > 0;
+  const isSubmitting = status === "sending" || status === "sent";
+  const disabled = isSubmitting || !isFormValid;
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (status === "sending" || status === "sent") return;
+    if (!isFormValid) return;
+    if (isSubmitting) return;
     setStatus("sending");
 
     try {
@@ -142,8 +147,6 @@ export default function Contact() {
       setStatus("error");
     }
   };
-
-  const disabled = status === "sending" || status === "sent";
 
   return (
     <>
@@ -221,7 +224,7 @@ export default function Contact() {
                   id="subject"
                   value={form.subject}
                   onChange={set("subject")}
-                  disabled={disabled}
+                  disabled={isSubmitting}
                 />
                 <Field
                   label="Message"
@@ -229,7 +232,7 @@ export default function Contact() {
                   textarea
                   value={form.message}
                   onChange={set("message")}
-                  disabled={disabled}
+                  disabled={isSubmitting}
                 />
 
                 {}
@@ -248,7 +251,8 @@ export default function Contact() {
                       color: status === "sent" ? WA(0.5) : W,
                       border: `1px solid ${status === "sent" ? WA(0.12) : WA(0.3)}`,
                       background: "transparent",
-                      cursor: disabled ? "default" : "pointer",
+                      cursor: disabled ? "not-allowed" : "pointer",
+                      opacity: disabled && status !== "sending" && status !== "sent" ? 0.4 : 1,
                     }}
                   >
                     {}

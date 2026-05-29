@@ -125,8 +125,13 @@ export default function DefaultContact() {
   const set = (key: keyof typeof form) => (v: string) =>
     setForm((prev) => ({ ...prev, [key]: v }));
 
+  const isFormValid = form.subject.trim().length > 0 && form.message.trim().length > 0;
+  const isSubmitting = status === "sending" || status === "sent";
+  const disabled = isSubmitting || !isFormValid;
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!isFormValid) return;
     if (status === "sending" || status === "sent") return;
     setStatus("sending");
 
@@ -142,8 +147,6 @@ export default function DefaultContact() {
       setStatus("error");
     }
   };
-
-  const disabled = status === "sending" || status === "sent";
 
   return (
     <section
@@ -205,7 +208,7 @@ export default function DefaultContact() {
                 id="contact-subject"
                 value={form.subject}
                 onChange={set("subject")}
-                disabled={disabled}
+                disabled={isSubmitting}
               />
               <Field
                 label="Message"
@@ -213,7 +216,7 @@ export default function DefaultContact() {
                 textarea
                 value={form.message}
                 onChange={set("message")}
-                disabled={disabled}
+                disabled={isSubmitting}
               />
 
               <div className="flex items-center gap-6 pt-6">
@@ -227,11 +230,12 @@ export default function DefaultContact() {
                   style={{
                     background: status === "sent" ? "#fdfbf7" : "#0d9488",
                     color: status === "sent" ? "#0d9488" : "#fdfbf7",
-                    cursor: disabled ? "default" : "pointer",
+                    cursor: disabled ? "not-allowed" : "pointer",
+                    opacity: disabled && status !== "sending" && status !== "sent" ? 0.6 : 1,
                   }}
                 >
                   {/* Sweep gradient hover on idle state */}
-                  {status === "idle" && (
+                  {status === "idle" && !disabled && (
                     <span className="absolute inset-0 bg-linear-to-r from-[#0d9488] to-[#042f2e] opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
                   )}
 
