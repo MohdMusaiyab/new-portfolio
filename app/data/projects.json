@@ -134,6 +134,25 @@
       "images": ["/canteen-1.webp", "/canteen-2.webp"]
     },
     {
+      "name": "Backend Sandbox",
+      "description": "A collection of fundamental backend projects built from scratch with a focus on core engineering concepts and minimal AI assistance.",
+      "keyPoints": [
+        "Todo Backend: A simple todo API to practice CRUD, routes, and data handling.",
+        "Booking System: A concurrent booking API written in Go to simulate real-world booking scenarios with race condition handling and goroutine-based concurrency.",
+        "Async Image Processor: A production-grade background worker and queue system using BullMQ, Redis, and Express to process images asynchronously without blocking the main event loop."
+      ],
+      "techStack": [
+        "Node.js",
+        "TypeScript",
+        "Go",
+        "Redis",
+        "Express"
+      ],
+      "githubRepo": "https://github.com/mohdMusaiyab/backend",
+      "liveSite": "https://github.com/mohdMusaiyab/backend",
+      "images": ["/backend.png"]
+    },
+    {
       "name": "E-Estate",
       "description": "High-performance real estate marketplace with advanced search.",
       "keyPoints": [
