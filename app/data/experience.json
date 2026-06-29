@@ -1,31 +1,31 @@
 {
   "experience": [
     {
-      "company": "Infosys",
-      "logo": "/experience2.webp",
-      "duration": {
-        "start": "Aug 2025",
-        "end": "Present"
-      },
-      "position": "System Engineer",
-      "location": "Pune, India",
-      "highlights": [
-        "Architected Core Java backend modules, improving execution speed by 30%.",
-        "Built Salesforce enterprise solutions using Apex and LWC to automate workflows.",
-        "Optimized HSQL relational schemas for sub-100ms data retrieval.",
-        "Maintained 99.9% deployment reliability via Clean Code & Agile practices."
-      ],
-      "skills": [
-        "Core Java",
-        "DSA",
-        "SQL/HSQL",
-        "Salesforce",
-        "Apex",
-        "LWC",
-        "System Design",
-        "Agile"
-      ]
-    },
+  "company": "Infosys",
+  "logo": "/experience2.webp",
+  "duration": {
+    "start": "Aug 2025",
+    "end": "Present"
+  },
+  "position": "System Engineer",
+  "location": "Pune, India",
+  "highlights": [
+    "Completed intensive enterprise training in Core Java, SQL, and cloud architectures, successfully clearing all milestone evaluations.",
+    "Diagnosed and resolved 120+ production issues by debugging backend logic and database inconsistencies.",
+    "Maintained a 95%+ on-time resolution rate for business-critical applications in an Agile development environment.",
+    "Collaborated with senior engineers to troubleshoot recurring defects and improve application stability."
+  ],
+  "skills": [
+    "Core Java",
+    "SQL",
+    "Cloud",
+    "Debugging",
+    "Production Support",
+    "Agile",
+    "Problem Solving",
+    "System Design"
+  ]
+},
     {
       "company": "Lightning Technologies",
       "logo": "/experience1.webp",
