@@ -14,6 +14,15 @@ const ROLES = [
 export default function Hero() {
   const { setExperience } = useExperience();
   const [roleIdx, setRoleIdx] = useState(0);
+  const [expYears, setExpYears] = useState("1.0");
+
+  useEffect(() => {
+    const diffInMs = new Date().getTime() - new Date("2025-01-01").getTime();
+    const diffInYears = diffInMs / (1000 * 60 * 60 * 24 * 365.25);
+    // Snaps to the nearest 0.5 (e.g., 1.0, 1.5, 2.0)
+    const snappedYears = Math.floor(diffInYears * 2) / 2;
+    setExpYears(Math.max(1, snappedYears) + "+");
+  }, []);
 
   useEffect(() => {
     const id = setInterval(() => {
@@ -158,7 +167,7 @@ export default function Hero() {
             transition={{ duration: 1.2, delay: 1, ease: "linear" }}
             className="flex items-center justify-center gap-3 md:gap-6 mt-6 md:mt-14 lg:mt-20 font-mono text-[8px] md:text-[10px] tracking-[0.2em] md:tracking-[0.28em] uppercase text-white/50 drop-shadow-md winter-footer"
           >
-            <span>1 Yrs Exp</span>
+            <span>{expYears} Yrs Exp</span>
             <span className="w-px h-2.5 md:h-3 bg-white/30" />
             <span>Full Stack</span>
             <span className="w-px h-2.5 md:h-3 bg-white/30" />

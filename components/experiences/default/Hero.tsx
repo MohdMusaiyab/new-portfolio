@@ -172,8 +172,7 @@ const SOCIALS = [
   },
 ] as const;
 
-const STATS = [
-  { value: "1+", label: "Years" },
+const BASE_STATS = [
   { value: "7+", label: "Projects" },
   { value: "∞", label: "Tea" },
 ] as const;
@@ -184,6 +183,20 @@ const STATS = [
 export default function Hero() {
   const resumeLink = process.env.NEXT_PUBLIC_RESUME_LINK || "#";
   const prefersReduced = useReducedMotion();
+  const [expYears, setExpYears] = useState("1.0+");
+
+  useEffect(() => {
+    const diffInMs = new Date().getTime() - new Date("2025-01-01").getTime();
+    const diffInYears = diffInMs / (1000 * 60 * 60 * 24 * 365.25);
+    // Snaps to the nearest 0.5 (e.g., 1.0, 1.5, 2.0)
+    const snappedYears = Math.floor(diffInYears * 2) / 2;
+    setExpYears(Math.max(1, snappedYears) + "+");
+  }, []);
+
+  const currentStats = [
+    { value: expYears, label: "Years" },
+    ...BASE_STATS,
+  ];
 
   return (
     <section className="relative w-full min-h-screen bg-[#fdfbf7] flex flex-col overflow-hidden">
@@ -422,7 +435,7 @@ export default function Hero() {
 
           {/* Stats — staggered spring */}
           <div className="grid grid-cols-3 gap-3">
-            {STATS.map(({ value, label }, i) => (
+            {currentStats.map(({ value, label }, i) => (
               <motion.div
                 key={label}
                 custom={i + 1}
