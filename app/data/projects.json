@@ -134,12 +134,34 @@
       "images": ["/canteen-1.webp", "/canteen-2.webp"]
     },
     {
-      "name": "Backend Sandbox",
+      "name": "Distributed Notification Engine",
+      "description": "Scalable Go microservice for high-throughput, asynchronous real-time notifications.",
+      "keyPoints": [
+        "Event-driven architecture using Redis Pub/Sub, distributed worker pools, and Docker.",
+        "Resilient delivery with Dead Letter Queues, exponential backoff, and idempotency keys.",
+        "Live observability dashboard built with Next.js, WebSockets, and Prometheus metrics."
+      ],
+      "techStack": [
+        "Go",
+        "Redis",
+        "Docker",
+        "Prometheus",
+        "Next.js",
+        "WebSockets",
+        "PostgreSQL"
+      ],
+      "githubRepo": "https://github.com/MohdMusaiyab/backend/tree/main/notification-system",
+      "liveSite": "https://backend-journal.vercel.app/",
+      "images": ["/notification-two.png", "/notification-one.png"]
+    },
+    {
+      "name": "Backend Journal",
       "description": "A collection of fundamental backend projects built from scratch with a focus on core engineering concepts and minimal AI assistance.",
       "keyPoints": [
         "Todo Backend: A simple todo API to practice CRUD, routes, and data handling.",
         "Booking System: A concurrent booking API written in Go to simulate real-world booking scenarios with race condition handling and goroutine-based concurrency.",
-        "Async Image Processor: A production-grade background worker and queue system using BullMQ, Redis, and Express to process images asynchronously without blocking the main event loop."
+        "Async Image Processor: A production-grade background worker and queue system using BullMQ, Redis, and Express to process images asynchronously without blocking the main event loop.",
+        "Notification System: A scalable, asynchronous notification engine built in Go using Redis Pub/Sub, distributed worker pools, and server-sent events for real-time delivery."
       ],
       "techStack": [
         "Node.js",
@@ -148,9 +170,9 @@
         "Redis",
         "Express"
       ],
-      "githubRepo": "https://github.com/mohdMusaiyab/backend",
-      "liveSite": "https://github.com/mohdMusaiyab/backend",
-      "images": ["/backend.png"]
+      "githubRepo": "https://github.com/MohdMusaiyab/backend",
+      "liveSite": "https://backend-journal.vercel.app/",
+      "images": ["/backend-one.png"]
     },
     {
       "name": "E-Estate",
