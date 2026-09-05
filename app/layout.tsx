@@ -57,13 +57,13 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(`${process.env.NEXT_PUBLIC_SITE_URL}`),
-  title: "Mohd Musaiyab — Full Stack Developer",
+  title: "Mohd Musaiyab — Backend & Full Stack Engineer",
   description:
-    "Portfolio of Mohd Musaiyab — Full Stack & Backend Engineer specialising in high-concurrency systems, React, Next.js, Go, and Node.js.",
+    "Portfolio of Mohd Musaiyab — Systems & Full Stack Engineer specializing in distributed architectures, high-concurrency Go backends, Next.js, and Redis.",
   openGraph: {
-    title: "Mohd Musaiyab — Full Stack Developer",
+    title: "Mohd Musaiyab — Backend & Full Stack Engineer",
     description:
-      "Full Stack & Backend Engineer specialising in high-concurrency systems, React, Next.js, Go, and Node.js.",
+      "Systems & Full Stack Engineer specializing in distributed architectures, high-concurrency Go backends, Next.js, and Redis.",
     url: `${process.env.NEXT_PUBLIC_SITE_URL}`,
     siteName: "Mohd Musaiyab Portfolio",
     locale: "en_US",
@@ -75,9 +75,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mohd Musaiyab — Full Stack Developer",
+    title: "Mohd Musaiyab — Backend & Full Stack Engineer",
     description:
-      "Full Stack & Backend Engineer specialising in high-concurrency systems, React, Next.js, Go, and Node.js.",
+      "Systems & Full Stack Engineer specializing in distributed architectures, high-concurrency Go backends, Next.js, and Redis.",
     creator: "@MohdMusaiyab",
     site: "@MohdMusaiyab",
   },

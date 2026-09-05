@@ -146,8 +146,10 @@ function AnimatedWord({
    CONSTANTS
 ───────────────────────────────────────────── */
 const SKILLS = [
-  "Next.js",
   "Go",
+  "Redis",
+  "Docker",
+  "Next.js",
   "React",
   "Node.js",
   "TypeScript",
@@ -173,7 +175,7 @@ const SOCIALS = [
 ] as const;
 
 const BASE_STATS = [
-  { value: "7+", label: "Projects" },
+  { value: "10+", label: "Projects" },
   { value: "∞", label: "Tea" },
 ] as const;
 
@@ -469,9 +471,9 @@ export default function Hero() {
             ))}
           </div>
 
-          {/* Currently Building */}
+          {/* Currently Learning */}
           <motion.a
-            href="https://github.com/MohdMusaiyab/snippitt"
+            href="https://github.com/MohdMusaiyab/backend"
             target="_blank"
             rel="noopener noreferrer"
             custom={4}
@@ -493,7 +495,7 @@ export default function Hero() {
                   <span className="relative w-1.5 h-1.5 rounded-full bg-[#0d9488]" />
                 </div>
                 <span className="text-[9px] font-black uppercase tracking-[0.25em] text-[#0d9488]">
-                  Currently Building
+                  Currently Learning
                 </span>
               </div>
               <motion.div
@@ -507,15 +509,15 @@ export default function Hero() {
               </motion.div>
             </div>
             <div className="pl-4 border-l-2 border-[#0d9488]/20 group-hover:border-[#0d9488]/40 transition-colors">
-              <p className="text-[13px] font-black text-[#1c1917] tracking-tight">Snippitt</p>
+              <p className="text-[13px] font-black text-[#1c1917] tracking-tight">System Design</p>
               <p className="text-[11px] text-[#57534e] font-medium mt-1 leading-relaxed">
-                A searchable knowledge base to capture and organize insights.
+                Deep diving into distributed systems, scalable architectures, and core backend engineering.
               </p>
             </div>
             <div className="flex items-center gap-2 pl-4">
               <Github size={12} className="text-[#a8a29e]" />
               <span className="text-[10px] font-bold text-[#a8a29e] tracking-tight">
-                MohdMusaiyab/snippitt
+                MohdMusaiyab/backend
               </span>
             </div>
           </motion.a>
