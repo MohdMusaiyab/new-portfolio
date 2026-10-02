@@ -102,6 +102,32 @@
         "/nearH-two.webp"
       ]
     },
+        {
+      "name": "Hey Imposter",
+      "description": "Fast-paced, real-time multiplayer word deduction game built with a Go concurrency engine.",
+      "keyPoints": [
+        "Engineered a highly-concurrent Go backend using WebSockets and sync.Mutex locks to process 10-player race conditions seamlessly.",
+        "Built a custom auto-reconnect session protocol using LocalStorage to recover game states upon mobile connection dropouts.",
+        "Designed a pure CSS fluid 'Whiteboard' UI in Next.js, bypassing heavy JS animation libraries to guarantee locked 60FPS on mobile.",
+        "Implemented scalable dynamic imposter allocation and multi-variable win logic."
+      ],
+      "techStack": [
+        "Go",
+        "Next.js 14",
+        "WebSockets",
+        "PostgreSQL",
+        "React",
+        "TypeScript",
+        "Vanilla CSS"
+      ],
+      "githubRepo": "https://github.com/MohdMusaiyab/imposter",
+      "liveSite": "https://hey-imposter.vercel.app/",
+      "images": [
+        "/imposter1.png",
+        "/imposter2.png"
+      ]
+    },
+
     {
       "name": "Backend Journal",
       "description": "A collection of fundamental backend projects built from scratch with a focus on core engineering concepts and minimal AI assistance.",
