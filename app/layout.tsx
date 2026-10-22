@@ -9,6 +9,7 @@ import {
 } from "next/font/google";
 import ExperienceProvider from "@/components/ExperienceProvider";
 import SoundProvider from "@/components/SoundProvider";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
 const cinzel = Cinzel({
@@ -160,6 +161,7 @@ export default function RootLayout({
         <ExperienceProvider>
           <SoundProvider>{children}</SoundProvider>
         </ExperienceProvider>
+        <Analytics />
       </body>
     </html>
   );
