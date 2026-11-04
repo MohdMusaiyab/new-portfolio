@@ -352,6 +352,21 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
                 </svg>
               </a>
             )}
+
+            {"videoDemo" in project && project.videoDemo && (
+              <a
+                href={project.videoDemo as string}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-4 sm:px-5 py-2 border border-[#93E7FB]/40 bg-[#93E7FB]/5 hover:bg-[#93E7FB]/15 hover:border-[#93E7FB]/80 text-[11px] sm:text-xs tracking-[0.2em] uppercase transition-all duration-200 group/link"
+                style={{ color: "#93E7FB" }}
+              >
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+                <span>Demo</span>
+              </a>
+            )}
           </div>
         </div>
       </div>

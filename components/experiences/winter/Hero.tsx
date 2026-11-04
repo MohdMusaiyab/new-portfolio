@@ -150,14 +150,6 @@ export default function Hero() {
             >
               Explore
             </a>
-
-            <a
-              href={process.env.NEXT_PUBLIC_RESUME_LINK || "/resume.pdf"}
-              target="_blank"
-              className="winter-btn inline-flex items-center justify-center gap-2 px-4 md:px-6 py-2.5 md:py-3 font-mono text-[9px] md:text-xs tracking-[0.14em] md:tracking-[0.22em] uppercase text-white/90 bg-white/5 backdrop-blur-md border border-white/20 hover:bg-white/10 hover:border-white/60 hover:text-white transition-all duration-300"
-            >
-              Resume
-            </a>
           </motion.div>
 
           {}

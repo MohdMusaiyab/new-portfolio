@@ -232,6 +232,24 @@ export default function DefaultProjects() {
                                   </span>
                                 </a>
                               )}
+                              {"videoDemo" in project && project.videoDemo && (
+                                <a
+                                  href={project.videoDemo as string}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  className="flex-1 sm:flex-none justify-center px-4 md:px-5 py-3 rounded-none border border-[#0d9488]/40 bg-[#0d9488]/5 text-[#0d9488] hover:bg-[#0d9488] hover:text-white text-[10px] md:text-xs font-bold uppercase tracking-widest transition-all hover:-translate-y-1 shadow-sm flex items-center gap-2"
+                                >
+                                  <svg
+                                    width="14"
+                                    height="14"
+                                    viewBox="0 0 24 24"
+                                    fill="currentColor"
+                                  >
+                                    <path d="M8 5v14l11-7z" />
+                                  </svg>
+                                  Video Demo
+                                </a>
+                              )}
                             </div>
                           </div>
                         </div>

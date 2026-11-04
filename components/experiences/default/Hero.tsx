@@ -7,7 +7,6 @@ import {
   Linkedin,
   Mail,
   ArrowUpRight,
-  ExternalLink,
 } from "lucide-react";
 import SkillNode from "@/components/ui/SkillNode";
 
@@ -183,7 +182,6 @@ const BASE_STATS = [
    HERO
 ───────────────────────────────────────────── */
 export default function Hero() {
-  const resumeLink = process.env.NEXT_PUBLIC_RESUME_LINK || "#";
   const prefersReduced = useReducedMotion();
   const [expYears, setExpYears] = useState("1.0+");
 
@@ -348,17 +346,6 @@ export default function Hero() {
               className="flex items-center gap-1.5 px-3 py-1.5 md:px-6 md:py-2.5 bg-white border border-[#e7e5e4] text-[#1c1917] text-[9px] md:text-[11px] font-black uppercase tracking-[0.18em] rounded-md md:rounded-xl hover:border-[#0d9488]/30 hover:bg-teal-50/20 transition-all"
             >
               Projects
-            </motion.a>
-
-            <motion.a
-              href={resumeLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.04, y: -2 }}
-              whileTap={{ scale: 0.97 }}
-              className="flex items-center gap-1 px-3 py-1.5 md:px-5 md:py-2.5 bg-white border border-[#e7e5e4] text-[#57534e] text-[9px] md:text-[11px] font-black uppercase tracking-[0.18em] rounded-md md:rounded-xl hover:border-[#0d9488]/30 hover:text-[#0d9488] transition-all"
-            >
-              Resume <ExternalLink size={10} className="md:size-[11px]" />
             </motion.a>
           </motion.div>
 

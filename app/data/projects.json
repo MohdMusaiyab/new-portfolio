@@ -20,6 +20,7 @@
       ],
       "githubRepo": "https://github.com/MohdMusaiyab/backend/tree/main/notification-system",
       "liveSite": "https://backend-journal.vercel.app/projects/notification-system",
+      "videoDemo": "https://drive.google.com/file/d/1GP1_bv7zx9LVYZtbQoH2SUhYlFGNmjxw/view?usp=drive_link",
       "images": [
         "/notification-two.png",
         "/notification-one.png"
@@ -46,6 +47,7 @@
       ],
       "githubRepo": "https://github.com/MohdMusaiyab/infybyte",
       "liveSite": "https://infybite.vercel.app/",
+      "videoDemo": "https://drive.google.com/file/d/1UqZYzyDzdcxa9KM6w0z5jNJixrDfINED/view?usp=sharing",
       "images": [
         "/infyOne.webp",
         "/infytwo.webp"
@@ -72,6 +74,7 @@
       ],
       "githubRepo": "https://github.com/MohdMusaiyab/bailsonfire",
       "liveSite": "https://bailsonfire.vercel.app",
+      "videoDemo": "https://drive.google.com/file/d/1hEXvf_jwcPrxVSuKyzR3GBI322kVX90z/view?usp=drive_link",
       "images": [
         "/bails-one.png",
         "/bails-two.png"
@@ -97,12 +100,13 @@
       ],
       "githubRepo": "https://github.com/MohdMusaiyab/nearH",
       "liveSite": "https://nearh-beta.vercel.app/",
+      "videoDemo": "https://drive.google.com/file/d/1hogXe9W-dag8QPpFK7TCdJxY7QgxYmrO/view?usp=drive_link",
       "images": [
         "/nearH-one.webp",
         "/nearH-two.webp"
       ]
     },
-        {
+    {
       "name": "Hey Imposter",
       "description": "Fast-paced, real-time multiplayer word deduction game built with a Go concurrency engine.",
       "keyPoints": [
@@ -122,6 +126,7 @@
       ],
       "githubRepo": "https://github.com/MohdMusaiyab/imposter",
       "liveSite": "https://hey-imposter.vercel.app/",
+      "videoDemo": "https://drive.google.com/file/d/1fwlGd0tSjYI-XRGNvKlLCcakghVwKPAf/view?usp=drive_link",
       "images": [
         "/imposter1.png",
         "/imposter2.png"
@@ -171,6 +176,7 @@
       ],
       "githubRepo": "https://github.com/MohdMusaiyab/MessMatch",
       "liveSite": "https://mess-bazaar.vercel.app",
+      "videoDemo": "https://drive.google.com/file/d/19sZBpWL1CdNU0Hn9vToCI9xkcIS6jJzJ/view?usp=drive_link",
       "images": [
         "/mess-bazaar1.webp",
         "/mess-bazaar2.webp"
