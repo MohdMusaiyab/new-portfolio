@@ -2,104 +2,65 @@
 
 import { motion } from "framer-motion";
 import educationData from "@/app/data/education.json";
+import { GraduationCap } from "lucide-react";
 
 export default function DefaultEducation() {
-  const sortedEducation = [...educationData.education].reverse();
+  const sorted = [...educationData.education].reverse();
 
   return (
-    <section
-      id="education"
-      className="relative w-full bg-[#fdfbf7] py-24 md:py-[clamp(2.5rem,8vh,8rem)] px-6 sm:px-12 lg:px-24 text-[#1c1917] font-sans overflow-hidden selection:bg-[#0d9488] selection:text-[#fdfbf7]"
-    >
-      {/* Background Subtle Elements */}
-      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-[10%] left-[20%] right-[20%] h-px bg-[#0d9488]/10" />
-        <div className="absolute bottom-0 right-0 w-[60vw] h-[60vw] bg-[#0d9488]/5 blur-[200px] rounded-full translate-x-1/4 translate-y-1/4" />
-      </div>
+    <section id="education" className="w-full py-12 sm:py-16 px-5 sm:px-8 border-b border-stone-200/80">
+      <div className="max-w-2xl mx-auto">
+        {/* Section Heading */}
+        <div className="flex items-center gap-2 mb-8">
+          <GraduationCap size={14} className="text-stone-400" />
+          <h2 className="text-xs font-dm-mono uppercase tracking-[0.2em] font-semibold text-stone-900">
+            Education
+          </h2>
+        </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-5 md:px-12 lg:px-16">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          className="flex flex-col gap-6 mb-20 md:mb-28 border-b border-[#0d9488]/10 pb-12"
-        >
-          <div className="flex items-center gap-3 mb-2">
-            <span className="w-12 h-px bg-[#0d9488]" />
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#0d9488]">
-              Academic Background
-            </span>
-          </div>
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-            <h3 className="text-[clamp(1.75rem,min(5vw,8vh),6rem)] font-black uppercase tracking-tighter leading-[0.85] text-[#1c1917]">
-              Education <br />
-              <span className="text-transparent bg-clip-text bg-linear-to-r from-[#0d9488] to-[#042f2e]">
-                History.
-              </span>
-            </h3>
-          </div>
-        </motion.div>
-
-        {/* Structured List Layout */}
-        <div className="flex flex-col gap-12 lg:gap-16 relative z-10 pb-8 max-w-5xl mx-auto w-full">
-          {sortedEducation.map((edu, idx) => (
-            <motion.div
+        {/* Education Entries */}
+        <div className="space-y-6">
+          {sorted.map((edu, idx) => (
+            <motion.article
               key={idx}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, margin: "-60px" }}
-              transition={{
-                duration: 0.6,
-                delay: idx * 0.05,
-                ease: [0.19, 1, 0.22, 1],
-              }}
-              className="flex flex-col md:flex-row gap-6 md:gap-16 group relative"
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.35, delay: idx * 0.08 }}
+              className="p-4 sm:p-5 rounded-lg border border-stone-200/80 bg-white/70"
             >
-              {/* Left Column: Dates & Score */}
-              <div className="w-full md:w-1/4 md:shrink-0 pt-4 flex flex-row md:flex-col justify-between md:justify-start items-center md:items-start border-b md:border-b-0 border-[#0d9488]/10 pb-4 md:pb-0 mb-2 md:mb-0">
-                <div className="flex items-center gap-3 md:mb-4">
-                  <span className="w-2 h-2 rounded-full bg-[#0d9488]/40 group-hover:bg-[#0d9488] group-hover:scale-150 transition-all duration-500" />
-                  <span className="font-mono text-xs md:text-sm font-bold tracking-widest text-[#57534e] group-hover:text-[#0d9488] transition-colors duration-500">
-                    {edu.startYear} — {edu.endYear}
-                  </span>
-                </div>
-                {edu.score && (
-                  <span className="text-[11px] md:text-xs font-bold text-[#1c1917] tracking-wider uppercase bg-white px-3 py-1.5 rounded-none border border-[#0d9488]/15 shadow-sm">
-                    Score: {edu.score}
-                  </span>
-                )}
+              <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-1.5">
+                <h3 className="text-sm sm:text-[15px] font-semibold text-stone-900">
+                  {edu.institution}
+                </h3>
+                <span className="text-[11px] font-dm-mono text-stone-500 tabular-nums">
+                  {edu.startYear} — {edu.endYear}
+                </span>
               </div>
 
-              {/* Right Column: Content Card */}
-              <div className="w-full relative">
-                <div className="relative w-full bg-white border border-[#0d9488]/10 rounded-none p-5 md:p-[clamp(1.25rem,3vh,2.5rem)] shadow-[0_4px_20px_-10px_rgba(13,148,136,0.05)] transition-all duration-700 ease-[0.19,1,0.22,1] group-hover:shadow-[0_20px_40px_-15px_rgba(13,148,136,0.15)] group-hover:-translate-y-2 group-hover:border-[#0d9488]/30">
-                  {/* Decorative corner accent */}
-                  <div className="absolute top-0 right-0 w-24 h-24 bg-linear-to-bl from-[#0d9488]/5 to-transparent rounded-none pointer-events-none" />
+              <p className="text-xs sm:text-[13px] text-stone-700 font-medium mb-2">
+                {edu.degree}
+              </p>
 
-                  <div className="flex flex-col sm:flex-row gap-6 sm:gap-8 items-start relative z-10">
-                    {/* Logo/Icon Area */}
-                    <div className="shrink-0 w-16 h-16 md:w-20 md:h-20 bg-[#fdfbf7] rounded-none border border-[#0d9488]/15 flex items-center justify-center overflow-hidden p-3 shadow-inner group-hover:border-[#0d9488]/50 transition-colors duration-500">
-                      <span className="font-cinzel text-3xl font-black text-[#0d9488]/30 group-hover:text-[#0d9488]/70 transition-colors duration-500">
-                        {edu.institution.charAt(0)}
-                      </span>
-                    </div>
-
-                    {/* Text Details */}
-                    <div className="flex flex-col grow">
-                      <h4 className="font-cinzel text-xl md:text-3xl font-black tracking-tight leading-tight mb-2 text-[#1c1917] group-hover:text-[#0d9488] transition-colors duration-500">
-                        {edu.institution}
-                      </h4>
-                      <p className="font-mono text-[11px] md:text-xs font-bold tracking-widest uppercase text-[#0d9488]/80 mb-6">
-                        {edu.degree}
-                      </p>
-
-
-                    </div>
-                  </div>
+              {edu.score && (
+                <div className="inline-block px-2 py-0.5 rounded text-[10px] font-dm-mono bg-stone-100 text-stone-600 border border-stone-200/80 mb-2.5">
+                  Score: {edu.score}
                 </div>
-              </div>
-            </motion.div>
+              )}
+
+              {edu.highlights && edu.highlights.length > 0 && (
+                <ul className="space-y-1 pl-3 border-l border-stone-200">
+                  {edu.highlights.map((h, hIdx) => (
+                    <li
+                      key={hIdx}
+                      className="text-[12px] leading-relaxed text-stone-500"
+                    >
+                      {h}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </motion.article>
           ))}
         </div>
       </div>
