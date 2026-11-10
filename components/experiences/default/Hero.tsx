@@ -1,246 +1,278 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import Image from "next/image";
-import { motion } from "framer-motion";
-import {
-  Github,
-  Linkedin,
-  Mail,
-  MapPin,
-  ArrowUpRight,
-  Copy,
-  Check,
-  Terminal,
-} from "lucide-react";
+/**
+ * Setup
+ *   npm i react-icons framer-motion
+ *   Put your banner at /public/header.svg
+ *
+ * Palette is taken from the banner: its dark-green outline ink and the
+ * sun / river / grass / flower colours that fill each icon on hover.
+ */
 
-/* ─────────────────────────────────────────────────────────────
-   CONSTANTS & CONFIG
-   Refined, craftsmanship-first, zero AI slop.
-───────────────────────────────────────────────────────────── */
+import { useRef, useState } from "react";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
+import type { IconType } from "react-icons";
+import {
+  SiGo,
+  SiRedis,
+  SiPostgresql,
+  SiDocker,
+  SiNextdotjs,
+  SiTypescript,
+  SiSocketdotio,
+} from "react-icons/si";
+import { FaGithub, FaLinkedinIn, FaEnvelope } from "react-icons/fa6";
+import { Check } from "lucide-react";
+
+const INK = "#2b3a2f";
+
 const EMAIL_ADDRESS =
   process.env.NEXT_PUBLIC_PERSONAL_EMAIL || "mohdmusaiyab@gmail.com";
+const GITHUB =
+  process.env.NEXT_PUBLIC_PERSONAL_GITHUB || "https://github.com/MohdMusaiyab";
+const LINKEDIN =
+  process.env.NEXT_PUBLIC_PERSONAL_LINKEDIN || "https://linkedin.com/in/mohdmusaiyab";
 
-const SOCIALS = [
-  {
-    name: "GitHub",
-    href: process.env.NEXT_PUBLIC_PERSONAL_GITHUB || "https://github.com/MohdMusaiyab",
-    icon: Github,
-  },
-  {
-    name: "LinkedIn",
-    href: process.env.NEXT_PUBLIC_PERSONAL_LINKEDIN || "https://linkedin.com/in/mohdmusaiyab",
-    icon: Linkedin,
-  },
-] as const;
+const SKILLS: { label: string; icon: IconType; color: string; tilt: number; tag?: string }[] = [
+  { label: "Go", icon: SiGo, color: "#4fb3d9", tilt: -5, tag: "Go • Goroutines & Concurrency" },
+  { label: "Redis", icon: SiRedis, color: "#ff9aa2", tilt: 4, tag: "Redis • Pub/Sub & Caching" },
+  { label: "PostgreSQL", icon: SiPostgresql, color: "#bfe8f2", tilt: -4, tag: "PostgreSQL • Relational Schemas" },
+  { label: "Docker", icon: SiDocker, color: "#ffd23f", tilt: 5, tag: "Docker • Containerization" },
+  { label: "Next.js", icon: SiNextdotjs, color: "#a8d672", tilt: -5, tag: "Next.js • Full-stack SSR" },
+  { label: "TypeScript", icon: SiTypescript, color: "#f4a259", tilt: 4, tag: "TypeScript • Type Safety" },
+  { label: "WebSockets", icon: SiSocketdotio, color: "#c77dff", tilt: -4, tag: "WebSockets • Real-time Hub" },
+];
 
-const CORE_STACK = [
-  "Go",
-  "Redis",
-  "PostgreSQL",
-  "Docker",
-  "Next.js",
-  "TypeScript",
-  "WebSockets",
-] as const;
+/* ─────────────────────────────────────────────────────────────
+   TILE
+   Icon only. On hover: the tile lifts and tilts, a hard ink shadow
+   appears, and a colour floods in from wherever the cursor entered
+   (and drains out toward wherever it leaves). The name shows in a
+   small tag, like the banner's speech bubbles.
+───────────────────────────────────────────────────────────── */
+type TileProps = {
+  label: string;
+  icon: IconType;
+  color: string;
+  tilt?: number;
+  round?: boolean;
+  href?: string;
+  onClick?: () => void;
+  override?: React.ReactNode; // swap the icon (e.g. a check mark)
+  tag?: string; // tooltip text, defaults to label
+};
 
+function Tile({
+  label,
+  icon: Icon,
+  color,
+  tilt = 0,
+  round = false,
+  href,
+  onClick,
+  override,
+  tag,
+}: TileProps) {
+  const fill = useRef<HTMLSpanElement>(null);
+
+  const setOrigin = (e: React.PointerEvent<HTMLElement>) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    fill.current?.style.setProperty("--x", `${e.clientX - r.left}px`);
+    fill.current?.style.setProperty("--y", `${e.clientY - r.top}px`);
+  };
+
+  const size = round ? "h-10 w-10" : "h-11 w-11 sm:h-14 sm:w-14";
+  const shape = round ? "rounded-full" : "rounded-xl sm:rounded-2xl";
+
+  const inner = (
+    <>
+      <span
+        ref={fill}
+        aria-hidden
+        className="absolute inset-0 transition-[clip-path] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] [clip-path:circle(0px_at_var(--x,50%)_var(--y,50%))] group-hover:[clip-path:circle(160px_at_var(--x,50%)_var(--y,50%))] group-focus-within:[clip-path:circle(160px_at_var(--x,50%)_var(--y,50%))]"
+        style={{ background: color }}
+      />
+      {override ?? (
+        <Icon className="relative h-[18px] w-[18px] sm:h-6 sm:w-6 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110" />
+      )}
+    </>
+  );
+
+  const surface = `relative flex items-center justify-center overflow-hidden border-2 bg-white text-[#2b3a2f] transition-shadow duration-300 group-hover:shadow-[3px_3px_0_0_#2b3a2f] group-focus-within:shadow-[3px_3px_0_0_#2b3a2f] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#2b3a2f] ${size} ${shape}`;
+  const surfaceStyle = { borderColor: INK };
+
+  return (
+    <motion.div
+      className="group relative"
+      whileHover={{ y: -6, rotate: tilt, scale: 1.06 }}
+      whileTap={{ scale: 0.94, y: -2 }}
+      transition={{ type: "spring", stiffness: 420, damping: 16 }}
+      onPointerEnter={setOrigin}
+      onPointerLeave={setOrigin}
+    >
+      {href ? (
+        <a
+          href={href}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={label}
+          className={surface}
+          style={surfaceStyle}
+        >
+          {inner}
+        </a>
+      ) : (
+        <button
+          type="button"
+          aria-label={label}
+          onClick={onClick}
+          className={`${surface} ${onClick ? "cursor-pointer" : "cursor-default"}`}
+          style={surfaceStyle}
+        >
+          {inner}
+        </button>
+      )}
+
+      {/* Name tag */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute bottom-full left-1/2 mb-3 -translate-x-1/2 translate-y-1 scale-90 whitespace-nowrap rounded-md px-2.5 py-1 text-[11px] font-mono font-bold text-white opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:scale-100 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:scale-100 group-focus-within:opacity-100 z-30 shadow-[2px_2px_0_0_#2b3a2f]"
+        style={{ background: INK }}
+      >
+        {tag ?? label}
+        <span
+          className="absolute left-1/2 top-full h-0 w-0 -translate-x-1/2 border-x-4 border-t-4 border-x-transparent"
+          style={{ borderTopColor: INK }}
+        />
+      </span>
+    </motion.div>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────
+   HERO
+───────────────────────────────────────────────────────────── */
 export default function Hero() {
-  const [localTime, setLocalTime] = useState("");
+  const reduce = useReducedMotion();
   const [copied, setCopied] = useState(false);
 
-  useEffect(() => {
-    // Local IST time updater
-    const updateTime = () => {
-      setLocalTime(
-        new Intl.DateTimeFormat("en-US", {
-          timeZone: "Asia/Kolkata",
-          hour: "2-digit",
-          minute: "2-digit",
-          hour12: true,
-        }).format(new Date()),
-      );
-    };
-    updateTime();
-    const interval = setInterval(updateTime, 10000);
-    return () => clearInterval(interval);
-  }, []);
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(EMAIL_ADDRESS);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      window.location.href = `mailto:${EMAIL_ADDRESS}`;
+    }
+  };
 
-  const handleCopyEmail = () => {
-    navigator.clipboard.writeText(EMAIL_ADDRESS);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  // The one orchestrated moment: skills drop in one after another,
+  // like planks being laid across the river in the banner.
+  const row: Variants = {
+    hidden: {},
+    show: { transition: { staggerChildren: reduce ? 0 : 0.08, delayChildren: 0.2 } },
+  };
+  const plank: Variants = {
+    hidden: reduce ? { opacity: 1 } : { opacity: 0, y: -22, rotate: -8 },
+    show: {
+      opacity: 1,
+      y: 0,
+      rotate: 0,
+      transition: { type: "spring", stiffness: 380, damping: 18 },
+    },
   };
 
   return (
-    <section className="relative w-full pt-28 sm:pt-36 pb-14 sm:pb-16 px-5 sm:px-8 border-b border-stone-200/80 bg-[#faf8f5]/60 selection:bg-stone-200 selection:text-stone-900">
-      <div className="max-w-2xl mx-auto">
-        {/* Top bar: Calm Status Badge + Location & Local Time */}
-        <motion.div
-          initial={{ opacity: 0, y: -4 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.35 }}
-          className="flex items-center justify-between gap-3 text-xs font-dm-mono text-stone-500 mb-7 select-none"
-        >
-          {/* Calm, disciplined status indicator (No generic pulsating dot) */}
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-stone-100/90 border border-stone-200 text-stone-700">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 shrink-0" />
-            <span className="font-medium tracking-tight text-[11px]">
-              Available for roles
-            </span>
-          </div>
+    <section className="w-full bg-[#fdfbf7] px-4 pb-20 pt-28 sm:px-6 sm:pt-36">
+      <div className="mx-auto max-w-5xl">
+        <h1 className="sr-only">Mohd Musaiyab, full stack developer</h1>
 
-          {/* Location & Time */}
-          <div className="flex items-center gap-1.5 text-stone-500 text-[11px] sm:text-xs">
-            <MapPin size={12} className="text-stone-400" />
-            <span>Pune, IN</span>
-            {localTime && (
-              <>
-                <span className="text-stone-300">•</span>
-                <span className="tabular-nums font-mono">{localTime}</span>
-              </>
-            )}
-          </div>
-        </motion.div>
+        {/* Banner (plain <img> so the SVG's own animation keeps playing) */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/header.svg"
+          alt="A cartoon builder lays a bridge across a river, plank by plank."
+          width={1200}
+          height={400}
+          draggable={false}
+          className="h-auto w-full select-none rounded-md border border-[#2b3a2f]/20 shadow-[2px_2px_0_0_#2b3a2f]"
+        />
 
-        {/* Main Identity: Name, Role & Interactive Monochromatic Avatar */}
-        <div className="flex items-start justify-between gap-5 mb-5">
-          <div>
-            <motion.h1
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.05 }}
-              className="text-2xl sm:text-3xl font-semibold tracking-tight text-stone-900"
-            >
+        {/* Content row: aligned horizontally with the banner edges */}
+        <div className="mt-12 sm:mt-16 flex flex-col md:flex-row md:items-start justify-between gap-10 lg:gap-14">
+          {/* About / Bio - Left Aligned */}
+          <div className="flex-1 max-w-xl text-left">
+            <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-[#2b3a2f] mb-3">
               Mohd Musaiyab
-            </motion.h1>
+            </h2>
+            <p className="text-sm sm:text-base leading-relaxed text-[#2b3a2f]/85 mb-4 font-medium">
+              Systems &amp; Full Stack Engineer specializing in concurrent Go backends,
+              distributed message queues, and high-concurrency microservices.
+            </p>
+            <p className="text-xs sm:text-[13px] leading-relaxed text-[#2b3a2f]/70 mb-6">
+              I build resilient distributed pipelines under the hood—focusing on sub-50ms
+              query discovery and worker-pool backpressure—paired with fast, clean web interfaces.
+            </p>
 
-            <motion.p
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.1 }}
-              className="text-sm sm:text-base text-stone-600 font-medium mt-0.5 tracking-tight"
+            {/* Socials & Copy Email */}
+            <motion.div
+              initial={reduce ? false : { opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2 + SKILLS.length * 0.08 + 0.1, duration: 0.5 }}
+              className="flex items-center gap-3 pt-1"
             >
-              Backend &amp; Distributed Systems Engineer
-            </motion.p>
+              <Tile label="GitHub" icon={FaGithub} color="#ffd23f" href={GITHUB} round tilt={-6} />
+              <Tile label="LinkedIn" icon={FaLinkedinIn} color="#4fb3d9" href={LINKEDIN} round tilt={6} />
+              <Tile
+                label="Copy email"
+                tag={copied ? "Copied" : "Copy email"}
+                icon={FaEnvelope}
+                color="#ff9aa2"
+                onClick={copyEmail}
+                round
+                tilt={-6}
+                override={
+                  copied ? <Check className="relative h-[18px] w-[18px]" /> : undefined
+                }
+              />
+            </motion.div>
           </div>
 
-          {/* Profile Picture with tactile hover frame */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.4, delay: 0.1 }}
-            className="group relative w-14 h-14 sm:w-16 sm:h-16 rounded-full p-0.5 border border-stone-300/80 bg-white shadow-2xs hover:border-stone-400 hover:shadow-xs transition-all duration-300 shrink-0"
-          >
-            <div className="relative w-full h-full rounded-full overflow-hidden bg-stone-100">
-              <Image
-                src="/portfolio.jpg"
-                alt="Mohd Musaiyab"
-                fill
-                sizes="64px"
-                priority
-                className="object-cover grayscale contrast-[1.05] group-hover:grayscale-0 transition-all duration-500 ease-out"
-              />
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Bio paragraph: High-signal, authentic technical focus */}
-        <motion.p
-          initial={{ opacity: 0, y: 6 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.15 }}
-          className="text-sm sm:text-[15px] leading-relaxed text-stone-700 font-normal mb-6 text-pretty"
-        >
-          Specializing in concurrent Go backends, high-throughput message brokers,
-          and resilient distributed pipelines. I focus on sub-50ms query discovery,
-          worker-pool backpressure, and solid system architectures under the hood,
-          paired with crisp Next.js interfaces when needed.
-        </motion.p>
-
-        {/* Core Stack strip with subtle interactive hover states */}
-        <motion.div
-          initial={{ opacity: 0, y: 6 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.2 }}
-          className="flex flex-wrap items-center gap-1.5 mb-7"
-        >
-          <span className="inline-flex items-center gap-1 text-[11px] font-dm-mono uppercase tracking-wider text-stone-500 mr-1 select-none">
-            <Terminal size={11} className="text-stone-400" />
-            Stack:
-          </span>
-          {CORE_STACK.map((tech) => (
-            <span
-              key={tech}
-              className="px-2 py-0.5 rounded text-[11px] font-dm-mono bg-stone-100/90 text-stone-700 border border-stone-200/90 hover:border-stone-300 hover:bg-stone-200/70 hover:text-stone-900 transition-colors duration-200 cursor-default select-none"
-            >
-              {tech}
+          {/* Skills: Planks over water - Aligned to the Right on Desktop */}
+          <div className="flex flex-col items-center md:items-end shrink-0 pt-2">
+            <span className="text-[11px] font-mono uppercase tracking-wider text-[#2b3a2f]/60 mb-4 self-center md:self-end">
+              Core Engineering Stack
             </span>
-          ))}
-          <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-dm-mono bg-emerald-50 text-emerald-800 border border-emerald-200/70 ml-1">
-            Production &amp; Concurrency
-          </span>
-        </motion.div>
 
-        {/* Action CTAs + Socials + Fast Copy Email */}
-        <motion.div
-          initial={{ opacity: 0, y: 6 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.25 }}
-          className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-stone-200/80"
-        >
-          {/* Quick Nav Anchors */}
-          <div className="flex items-center gap-2">
-            <a
-              href="#projects"
-              className="group inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-md bg-stone-900 text-stone-50 hover:bg-stone-800 active:scale-[0.98] text-xs font-medium tracking-tight transition-all duration-200 shadow-2xs"
+            <motion.ul
+              variants={row}
+              initial="hidden"
+              animate="show"
+              className="flex flex-wrap justify-center md:justify-end gap-2 sm:gap-2.5 max-w-md"
             >
-              <span>Projects</span>
-              <ArrowUpRight
-                size={13}
-                className="text-stone-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200"
-              />
-            </a>
+              {SKILLS.map((s) => (
+                <motion.li key={s.label} variants={plank}>
+                  <Tile {...s} />
+                </motion.li>
+              ))}
+            </motion.ul>
 
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-md bg-white border border-stone-200 text-stone-700 hover:bg-stone-100 hover:border-stone-300 hover:text-stone-900 active:scale-[0.98] text-xs font-medium tracking-tight transition-all duration-200 shadow-2xs"
-            >
-              <span>Contact</span>
-            </a>
+            <svg aria-hidden className="mt-5 h-3 w-full max-w-[280px]">
+              <defs>
+                <pattern id="wave" width="24" height="12" patternUnits="userSpaceOnUse">
+                  <path
+                    d="M0 6 Q6 0 12 6 T24 6"
+                    fill="none"
+                    stroke="#4fb3d9"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                </pattern>
+              </defs>
+              <rect width="100%" height="12" fill="url(#wave)" />
+            </svg>
           </div>
-
-          {/* Social Links & Copy Email (tactile, accessible min-h targets) */}
-          <div className="flex items-center gap-1 sm:gap-2">
-            <button
-              onClick={handleCopyEmail}
-              aria-label="Copy email address"
-              className="group inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-stone-600 hover:text-stone-900 hover:bg-stone-200/60 active:scale-[0.97] text-xs transition-colors duration-200 cursor-pointer"
-            >
-              {copied ? (
-                <Check size={13} className="text-emerald-600" />
-              ) : (
-                <Copy size={13} className="text-stone-400 group-hover:text-stone-600 transition-colors" />
-              )}
-              <span className="font-dm-mono text-[11px]">
-                {copied ? "Copied" : "Email"}
-              </span>
-            </button>
-
-            {SOCIALS.map(({ name, href, icon: Icon }) => (
-              <a
-                key={name}
-                href={href}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={name}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-stone-600 hover:text-stone-900 hover:bg-stone-200/60 active:scale-[0.97] text-xs transition-colors duration-200"
-              >
-                <Icon size={13} />
-                <span className="hidden sm:inline font-dm-mono text-[11px]">{name}</span>
-              </a>
-            ))}
-          </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

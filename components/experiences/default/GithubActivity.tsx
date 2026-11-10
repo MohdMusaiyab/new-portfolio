@@ -4,40 +4,48 @@ import { motion } from "framer-motion";
 import { GitHubCalendar } from "react-github-calendar";
 import { GitCommit } from "lucide-react";
 
+const INK = "#2b3a2f";
+
 export default function DefaultGithubActivity() {
   const customTheme = {
-    light: ["#f5f5f4", "#e7e5e4", "#a8a29e", "#57534e", "#1c1917"],
-    dark: ["#f5f5f4", "#e7e5e4", "#a8a29e", "#57534e", "#1c1917"],
+    light: ["#f5f5f4", "#d7ead0", "#a8d672", "#4fb3d9", "#2b3a2f"],
+    dark: ["#f5f5f4", "#d7ead0", "#a8d672", "#4fb3d9", "#2b3a2f"],
   };
 
   return (
-    <section id="github-activity" className="w-full py-12 sm:py-16 px-5 sm:px-8 border-b border-stone-200/80">
-      <div className="max-w-2xl mx-auto">
+    <section id="github-activity" className="w-full py-14 sm:py-20 px-4 sm:px-6 bg-[#fdfbf7] border-t border-[#2b3a2f]/10">
+      <div className="mx-auto max-w-5xl">
         {/* Section Heading */}
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center gap-2">
-            <GitCommit size={14} className="text-stone-400" />
-            <h2 className="text-xs font-dm-mono uppercase tracking-[0.2em] font-semibold text-stone-900">
-              Contribution Graph
+        <div className="flex items-center justify-between mb-8 pb-3 border-b border-[#2b3a2f]/15">
+          <div className="flex items-center gap-2.5">
+            <span
+              className="inline-flex items-center justify-center w-7 h-7 rounded-md border-2 bg-white text-[#2b3a2f] shadow-[2px_2px_0_0_#2b3a2f]"
+              style={{ borderColor: INK }}
+            >
+              <GitCommit size={14} className="stroke-[2.2]" />
+            </span>
+            <h2 className="text-sm font-mono uppercase tracking-[0.18em] font-bold text-[#2b3a2f]">
+              Contribution Activity
             </h2>
           </div>
           <a
             href="https://github.com/MohdMusaiyab"
             target="_blank"
             rel="noreferrer"
-            className="text-[11px] font-dm-mono text-stone-500 hover:text-stone-900 transition-colors"
+            className="text-[11px] font-mono font-bold text-[#2b3a2f] hover:text-[#4fb3d9] transition-colors"
           >
-            github.com/MohdMusaiyab
+            github.com/MohdMusaiyab ↗
           </a>
         </div>
 
-        {/* Calendar Card */}
+        {/* Activity Card */}
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
+          initial={{ opacity: 0, y: 8 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.35 }}
-          className="p-4 sm:p-5 rounded-lg border border-stone-200/80 bg-white/70 overflow-x-auto scrollbar-none shadow-2xs"
+          className="rounded-md border-2 bg-white p-4 sm:p-6 overflow-x-auto scrollbar-none shadow-[2px_2px_0_0_#2b3a2f]"
+          style={{ borderColor: INK }}
         >
           <div className="min-w-[680px]">
             <GitHubCalendar
@@ -49,6 +57,7 @@ export default function DefaultGithubActivity() {
               fontSize={11}
               style={{
                 fontFamily: "var(--font-dm-mono), monospace",
+                color: INK,
               }}
             />
           </div>
