@@ -20,8 +20,8 @@
 }
 
 :root[data-experience="default"] {
-  --background: #fdfbf7;
-  --foreground: #1c1917;
+  --background: #ffffff;
+  --foreground: #2b3a2f;
 }
 
 :root[data-experience="winter"] {

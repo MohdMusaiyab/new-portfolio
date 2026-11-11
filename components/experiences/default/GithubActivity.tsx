@@ -13,7 +13,7 @@ export default function DefaultGithubActivity() {
   };
 
   return (
-    <section id="github-activity" className="w-full py-14 sm:py-20 px-4 sm:px-6 bg-[#fdfbf7] border-t border-[#2b3a2f]/10">
+    <section id="github-activity" className="w-full py-14 sm:py-20 px-4 sm:px-6 bg-white border-t border-[#2b3a2f]/10">
       <div className="mx-auto max-w-5xl">
         {/* Section Heading */}
         <div className="flex items-center justify-between mb-8 pb-3 border-b border-[#2b3a2f]/15">

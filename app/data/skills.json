@@ -7,7 +7,6 @@
         { "name": "Go (Golang)", "icon": "FaGo" },
         { "name": "TypeScript", "icon": "SiTypescript" },
         { "name": "JavaScript", "icon": "FaJsSquare" },
-        { "name": "Java", "icon": "FaJava" },
         { "name": "C++", "icon": "SiCplusplus" },
         { "name": "SQL", "icon": "FaDatabase" }
       ]

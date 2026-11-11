@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Mail, Send, Github, Linkedin, Check, Copy } from "lucide-react";
+import { FaXTwitter } from "react-icons/fa6";
 
 const INK = "#2b3a2f";
 
@@ -16,6 +17,7 @@ export default function DefaultContact() {
   const email = process.env.NEXT_PUBLIC_PERSONAL_EMAIL || "mohdmusaiyab@gmail.com";
   const github = process.env.NEXT_PUBLIC_PERSONAL_GITHUB || "https://github.com/MohdMusaiyab";
   const linkedin = process.env.NEXT_PUBLIC_PERSONAL_LINKEDIN || "https://linkedin.com/in/mohdmusaiyab";
+  const twitter = process.env.NEXT_PUBLIC_PERSONAL_TWITTER || "https://x.com/mohd_musaiyab";
 
   const isFormValid = form.subject.trim().length > 0 && form.message.trim().length > 0;
 
@@ -44,7 +46,7 @@ export default function DefaultContact() {
   };
 
   return (
-    <section id="contact" className="w-full py-14 sm:py-20 px-4 sm:px-6 bg-[#fdfbf7] border-t border-[#2b3a2f]/10">
+    <section id="contact" className="w-full py-14 sm:py-20 px-4 sm:px-6 bg-white border-t border-[#2b3a2f]/10">
       <div className="mx-auto max-w-5xl">
         {/* Section Heading */}
         <div className="flex items-center justify-between mb-8 pb-3 border-b border-[#2b3a2f]/15">
@@ -114,6 +116,17 @@ export default function DefaultContact() {
                   <Linkedin size={13} className="stroke-[2.2]" />
                   <span>LinkedIn</span>
                 </a>
+
+                <a
+                  href={twitter}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded border text-xs font-mono font-bold text-[#2b3a2f] bg-[#a8d672]/25 hover:bg-[#a8d672] hover:shadow-[2px_2px_0_0_#2b3a2f] transition-all"
+                  style={{ borderColor: INK }}
+                >
+                  <FaXTwitter className="w-3 h-3" />
+                  <span>Twitter / X</span>
+                </a>
               </div>
             </div>
           </div>
@@ -147,7 +160,7 @@ export default function DefaultContact() {
                     value={form.subject}
                     onChange={(e) => setForm((p) => ({ ...p, subject: e.target.value }))}
                     placeholder="name@company.com — Engineering opportunity"
-                    className="w-full px-3 py-2 text-xs font-mono text-[#2b3a2f] bg-[#fdfbf7] border rounded focus:outline-none focus:shadow-[2px_2px_0_0_#2b3a2f] placeholder:text-[#2b3a2f]/40"
+                    className="w-full px-3 py-2 text-xs font-mono text-[#2b3a2f] bg-white border rounded focus:outline-none focus:shadow-[2px_2px_0_0_#2b3a2f] placeholder:text-[#2b3a2f]/40"
                     style={{ borderColor: INK }}
                   />
                 </div>
@@ -163,7 +176,7 @@ export default function DefaultContact() {
                     value={form.message}
                     onChange={(e) => setForm((p) => ({ ...p, message: e.target.value }))}
                     placeholder="Hey Musaiyab, wanted to discuss a backend project..."
-                    className="w-full px-3 py-2 text-xs font-mono text-[#2b3a2f] bg-[#fdfbf7] border rounded focus:outline-none focus:shadow-[2px_2px_0_0_#2b3a2f] placeholder:text-[#2b3a2f]/40 resize-none"
+                    className="w-full px-3 py-2 text-xs font-mono text-[#2b3a2f] bg-white border rounded focus:outline-none focus:shadow-[2px_2px_0_0_#2b3a2f] placeholder:text-[#2b3a2f]/40 resize-none"
                     style={{ borderColor: INK }}
                   />
                 </div>

@@ -1,5 +1,18 @@
 "use client";
 
+/**
+ * Skills Section (Default / Light Theme)
+ * 
+ * Aesthetic:
+ *   - Unified Dossier Sheet: Single high-density, framed technical blueprint
+ *     replacing repetitive boxy cards with clean domain rows.
+ *   - Dark-green ink (#2b3a2f), low roundedness (rounded-md), hard offset shadows.
+ *   - Full Mobile Responsiveness: Clean stacked headers on small screens, seamless wrapping,
+ *     and touch-friendly interactive targets.
+ *   - Authentic Brand Glyphs: Official vector brand icons mapped for every skill.
+ *   - Tactile Micro-Interactions: Spring physics, micro-tilts, and river banner pastel floods.
+ */
+
 import React, { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import skillsData from "@/app/data/skills.json";
@@ -48,7 +61,7 @@ import {
 
 const INK = "#2b3a2f";
 
-/* Palette matching the cartoon builder banner */
+/* Palette matching the cartoon builder river banner */
 const BANNER_COLORS = [
   "#ffd23f", // Sun Yellow
   "#4fb3d9", // River Blue
@@ -92,8 +105,11 @@ const SKILL_ICON_MAP: Record<string, IconType> = {
   "DSA": FaCode,
 };
 
-/* Category headers with semantic Lucide glyphs */
-const CATEGORY_ICON_MAP: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
+/* Semantic domain icons for category rows */
+const CATEGORY_ICON_MAP: Record<
+  string,
+  React.ComponentType<{ size?: number; className?: string }>
+> = {
   "Programming Languages": Code2,
   "Backend Development": Server,
   "Databases and ORM": Database,
@@ -113,7 +129,7 @@ function SkillBadge({ name, colorIndex }: SkillBadgeProps) {
 
   const IconComponent = SKILL_ICON_MAP[name];
   const color = BANNER_COLORS[colorIndex % BANNER_COLORS.length];
-  // Subtle alternating tilts (-2.5 to 2.5 degrees) for organic plank feel
+  // Alternating micro-tilts (-2.5 to 2.5 degrees) for the tactile plank aesthetic
   const tilt = ((colorIndex % 5) - 2) * 1.25;
 
   return (
@@ -122,29 +138,27 @@ function SkillBadge({ name, colorIndex }: SkillBadgeProps) {
         reduce
           ? {}
           : {
-              y: -4,
-              scale: 1.05,
+              y: -3,
+              scale: 1.04,
               rotate: tilt,
             }
       }
-      whileTap={{ scale: 0.95, y: -1 }}
+      whileTap={{ scale: 0.96 }}
       transition={{ type: "spring", stiffness: 450, damping: 16 }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="group relative inline-flex items-center gap-2 px-2.5 sm:px-3 py-1.5 rounded-md border-2 text-xs font-mono font-bold transition-all duration-200 cursor-default select-none shadow-[2px_2px_0_0_#2b3a2f]"
+      className="group relative inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-md border text-[11px] sm:text-xs font-mono font-bold transition-all duration-150 cursor-pointer sm:cursor-default select-none shadow-[1.5px_1.5px_0_0_#2b3a2f]"
       style={{
         borderColor: INK,
         backgroundColor: isHovered ? color : "#ffffff",
         color: INK,
         boxShadow: isHovered
-          ? "3px 3px 0 0 #2b3a2f"
+          ? "2.5px 2.5px 0 0 #2b3a2f"
           : "1.5px 1.5px 0 0 #2b3a2f",
       }}
     >
       {IconComponent && (
-        <IconComponent
-          className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 transition-transform duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-115 group-hover:rotate-6"
-        />
+        <IconComponent className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 transition-transform duration-150 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110" />
       )}
       <span className="whitespace-nowrap tracking-tight">{name}</span>
     </motion.div>
@@ -152,15 +166,10 @@ function SkillBadge({ name, colorIndex }: SkillBadgeProps) {
 }
 
 export default function DefaultSkills() {
-  const totalSkillsCount = skillsData.skills.reduce(
-    (acc, cat) => acc + cat.skills.length,
-    0,
-  );
-
   return (
     <section
       id="skills"
-      className="w-full py-14 sm:py-20 px-4 sm:px-6 bg-[#fdfbf7] border-t border-[#2b3a2f]/10"
+      className="w-full py-14 sm:py-20 px-4 sm:px-6 bg-white border-t border-[#2b3a2f]/10"
     >
       <div className="mx-auto max-w-5xl">
         {/* Section Heading */}
@@ -173,53 +182,56 @@ export default function DefaultSkills() {
               <Wrench size={14} className="stroke-[2.2]" />
             </span>
             <h2 className="text-sm font-mono uppercase tracking-[0.18em] font-bold text-[#2b3a2f]">
-              Skills &amp; Capabilities
+              Skills
             </h2>
           </div>
-          <span className="text-[11px] font-mono text-[#2b3a2f]/60 font-medium">
-            {totalSkillsCount} Verified Technologies
-          </span>
         </div>
 
-        {/* Categorized Skills Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {skillsData.skills.map((category, cIdx) => {
-            const CatIcon = CATEGORY_ICON_MAP[category.name] || Wrench;
+        {/* Unified Dossier Sheet: Single framed container replacing heavy separate cards */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.35 }}
+          className="rounded-md border-2 bg-white text-[#2b3a2f] shadow-[2px_2px_0_0_#2b3a2f] overflow-hidden"
+          style={{ borderColor: INK }}
+        >
+          {/* Categorized Domain Rows inside the Single Sheet */}
+          <div className="divide-y divide-[#2b3a2f]/10">
+            {skillsData.skills.map((category, cIdx) => {
+              const CatIcon = CATEGORY_ICON_MAP[category.name] || Wrench;
 
-            return (
-              <motion.div
-                key={cIdx}
-                initial={{ opacity: 0, y: 8 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ duration: 0.3, delay: cIdx * 0.05 }}
-                className="rounded-md border-2 bg-white p-4 sm:p-5 text-[#2b3a2f] shadow-[2px_2px_0_0_#2b3a2f] hover:shadow-[3px_3px_0_0_#2b3a2f] transition-all duration-200 flex flex-col justify-between"
-                style={{ borderColor: INK }}
-              >
-                <div>
-                  {/* Card Header with Icon, Category Title & Count Badge */}
-                  <div
-                    className="flex items-center justify-between gap-2 mb-4 pb-2.5 border-b"
-                    style={{ borderColor: `${INK}15` }}
-                  >
+              return (
+                <div
+                  key={cIdx}
+                  className="p-3.5 sm:p-5 flex flex-col md:flex-row md:items-start gap-3 sm:gap-4 lg:gap-6 transition-colors duration-150 hover:bg-[#faf8f5]/40"
+                >
+                  {/* Domain Header Row: Left sidebar on desktop, top bar on mobile */}
+                  <div className="flex items-center justify-between md:justify-start md:flex-col md:items-start gap-1.5 shrink-0 md:w-44 lg:w-48 pt-0.5">
                     <div className="flex items-center gap-2 min-w-0">
-                      <CatIcon size={14} className="text-[#2b3a2f]/70 shrink-0 stroke-[2.2]" />
-                      <h3 className="text-xs font-bold text-[#2b3a2f] font-mono tracking-tight uppercase truncate">
+                      <span
+                        className="inline-flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 rounded border bg-[#faf8f5] text-[#2b3a2f] shrink-0 shadow-[1px_1px_0_0_#2b3a2f]"
+                        style={{ borderColor: INK }}
+                      >
+                        <CatIcon size={12} className="stroke-[2.2]" />
+                      </span>
+                      <h3 className="text-xs sm:text-[12px] font-bold font-mono text-[#2b3a2f] tracking-tight uppercase truncate">
                         {category.name}
                       </h3>
                     </div>
+
                     <span
-                      className="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded border text-[#2b3a2f]/70 bg-[#faf8f5] shrink-0"
+                      className="text-[9px] sm:text-[10px] font-mono text-[#2b3a2f]/60 font-semibold px-1.5 py-0.2 rounded border bg-white shrink-0"
                       style={{ borderColor: `${INK}20` }}
                     >
                       {category.skills.length}
                     </span>
                   </div>
 
-                  {/* Skills Interactive Badges */}
-                  <div className="flex flex-wrap gap-2 pt-1">
+                  {/* Skills Badges: Full-width wrapping grid on mobile, inline flow on desktop */}
+                  <div className="flex-1 flex flex-wrap items-center gap-1.5 sm:gap-2 pt-0.5">
                     {category.skills.map((skill, sIdx) => {
-                      const globalIndex = cIdx * 6 + sIdx;
+                      const globalIndex = cIdx * 5 + sIdx;
                       return (
                         <SkillBadge
                           key={sIdx}
@@ -230,10 +242,10 @@ export default function DefaultSkills() {
                     })}
                   </div>
                 </div>
-              </motion.div>
-            );
-          })}
-        </div>
+              );
+            })}
+          </div>
+        </motion.div>
       </div>
     </section>
   );

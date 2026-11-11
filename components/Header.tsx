@@ -266,8 +266,8 @@ export default function Header() {
               ? "bg-[#09090b]/80 backdrop-blur-xl border-b border-white/10"
               : "bg-transparent border-b border-transparent"
             : scrolled
-              ? "bg-[#fdfbf7]/85 backdrop-blur-md border-b border-stone-200/80 shadow-2xs"
-              : "bg-[#fdfbf7]/40 backdrop-blur-xs border-b border-transparent"
+              ? "bg-white/85 backdrop-blur-md border-b border-stone-200/80 shadow-2xs"
+              : "bg-white/40 backdrop-blur-xs border-b border-transparent"
         }`}
       >
         {/* Left: Brand Logo */}

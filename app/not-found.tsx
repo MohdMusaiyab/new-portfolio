@@ -19,7 +19,7 @@ export default function NotFound() {
   return (
     <div
       className={`min-h-screen w-full flex flex-col items-center justify-center p-6 ${
-        isWinter ? "bg-[#0a0a0a] text-white" : "bg-[#fdfbf7] text-[#1c1917]"
+        isWinter ? "bg-[#0a0a0a] text-white" : "bg-white text-[#2b3a2f]"
       } font-sans transition-colors duration-700`}
     >
       <div className="relative text-center">
