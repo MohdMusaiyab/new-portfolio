@@ -15,7 +15,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import experienceData from "@/app/data/experience.json";
-import { Briefcase, ChevronDown, MapPin, CheckCircle2, Wrench } from "lucide-react";
+import { Briefcase, ChevronDown, MapPin, Wrench } from "lucide-react";
 import type { IconType } from "react-icons";
 import {
   SiTypescript,
@@ -70,7 +70,7 @@ export default function DefaultExperience() {
   return (
     <section
       id="experience"
-      className="w-full py-14 sm:py-20 px-4 sm:px-6 bg-white border-t border-[#2b3a2f]/10"
+      className="w-full py-14 sm:py-20 px-4 sm:px-6 bg-[#f8fafc] border-t border-[#2b3a2f]/10"
     >
       <div className="mx-auto max-w-5xl">
         {/* Section Heading */}
@@ -86,9 +86,6 @@ export default function DefaultExperience() {
               Experience
             </h2>
           </div>
-          <span className="text-[11px] font-mono text-[#2b3a2f]/60 font-medium tabular-nums">
-            2025 — Present
-          </span>
         </div>
 
         {/* Compressed Experience Accordion List */}
@@ -199,27 +196,19 @@ export default function DefaultExperience() {
                       className="overflow-hidden border-t"
                       style={{ borderColor: `${INK}20` }}
                     >
-                      <div className="p-4 sm:p-5 bg-[#faf8f5]/60 sm:pl-16">
-                        {/* Highlights Header */}
-                        <div className="flex items-center gap-1.5 mb-2.5">
-                          <CheckCircle2 size={12} className="text-[#2b3a2f]/60 stroke-[2.2]" />
-                          <span className="text-[10px] font-mono uppercase tracking-wider text-[#2b3a2f]/60 font-bold">
-                            Highlights
-                          </span>
-                        </div>
-
+                      <div className="p-4 sm:p-5 bg-white sm:pl-16">
                         {/* Bullet Highlights with Custom Square Markers */}
-                        <ul className="space-y-2 mb-4">
+                        <ul className="space-y-2.5 mb-4">
                           {exp.highlights.map((point, pIdx) => (
                             <li
                               key={pIdx}
-                              className="flex items-start gap-2.5 text-xs sm:text-[13px] leading-relaxed text-[#2b3a2f]/85 font-normal"
+                              className="group/item flex items-start gap-2.5 text-xs sm:text-[13px] leading-relaxed text-[#2b3a2f]/75 font-normal transition-all duration-150 hover:text-[#2b3a2f] hover:translate-x-1"
                             >
                               <span
-                                className="w-1.5 h-1.5 rounded-[1px] bg-[#2b3a2f]/40 mt-1.5 shrink-0"
+                                className="w-1.5 h-1.5 rounded-[1px] bg-[#2b3a2f]/35 group-hover/item:bg-[#ffd23f] group-hover/item:shadow-[1px_1px_0_0_#2b3a2f] mt-1.5 shrink-0 transition-all duration-150"
                                 aria-hidden
                               />
-                              <span>{point}</span>
+                              <span className="transition-colors duration-150">{point}</span>
                             </li>
                           ))}
                         </ul>

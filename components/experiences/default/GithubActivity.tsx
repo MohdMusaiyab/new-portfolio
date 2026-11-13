@@ -13,7 +13,7 @@ export default function DefaultGithubActivity() {
   };
 
   return (
-    <section id="github-activity" className="w-full py-14 sm:py-20 px-4 sm:px-6 bg-white border-t border-[#2b3a2f]/10">
+    <section id="github-activity" className="w-full py-14 sm:py-20 px-4 sm:px-6 bg-[#f8fafc] border-t border-[#2b3a2f]/10">
       <div className="mx-auto max-w-5xl">
         {/* Section Heading */}
         <div className="flex items-center justify-between mb-8 pb-3 border-b border-[#2b3a2f]/15">
@@ -44,7 +44,7 @@ export default function DefaultGithubActivity() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.35 }}
-          className="rounded-md border-2 bg-white p-4 sm:p-6 overflow-x-auto scrollbar-none shadow-[2px_2px_0_0_#2b3a2f]"
+          className="rounded-md border-2 bg-white p-4 sm:p-6 overflow-x-auto scrollbar-none shadow-[2px_2px_0_0_#2b3a2f] hover:shadow-[3px_3px_0_0_#2b3a2f] transition-all duration-200"
           style={{ borderColor: INK }}
         >
           <div className="min-w-[680px]">

@@ -109,6 +109,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      data-experience="default"
       suppressHydrationWarning
       className={`${cinzel.variable} ${cormorant.variable} ${dmMono.variable} ${inter.variable} ${geistSans.variable} ${geistMono.variable}`}
     >

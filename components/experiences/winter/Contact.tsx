@@ -367,9 +367,8 @@ export default function Contact() {
                     fontWeight: 300,
                   }}
                 >
-                  Whether it&apos;s a product idea, a freelance project, or just
-                  a conversation about tech — my inbox is open. I&apos;ll
-                  respond within 24 hours.
+                  Whether it&apos;s a product idea, an engineering opportunity, or just
+                  a conversation about tech — my inbox is open.
                 </p>
               </div>
 

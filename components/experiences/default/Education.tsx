@@ -14,7 +14,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import educationData from "@/app/data/education.json";
-import { GraduationCap, ChevronDown, Award } from "lucide-react";
+import { GraduationCap, ChevronDown } from "lucide-react";
 
 const INK = "#2b3a2f";
 
@@ -33,7 +33,7 @@ export default function DefaultEducation() {
   return (
     <section
       id="education"
-      className="w-full py-14 sm:py-20 px-4 sm:px-6 bg-white border-t border-[#2b3a2f]/10"
+      className="w-full py-14 sm:py-20 px-4 sm:px-6 bg-[#f8fafc] border-t border-[#2b3a2f]/10"
     >
       <div className="mx-auto max-w-5xl">
         {/* Section Heading with Icon Pill */}
@@ -114,7 +114,7 @@ export default function DefaultEducation() {
                           </span>
                         )}
                       </div>
-                      <p className="text-xs sm:text-[13px] font-medium text-[#2b3a2f]/70 truncate mt-0.5">
+                      <p className="text-xs sm:text-[13px] font-medium text-[#2b3a2f]/70 truncate mt-0.5 group-hover:text-[#2b3a2f] transition-colors duration-200">
                         {edu.degree}
                       </p>
                     </div>
@@ -167,31 +167,20 @@ export default function DefaultEducation() {
                       className="overflow-hidden border-t"
                       style={{ borderColor: `${INK}20` }}
                     >
-                      <div className="p-4 sm:p-5 bg-[#faf8f5]/60 sm:pl-16">
-                        {/* Section Header */}
-                        <div className="flex items-center gap-1.5 mb-2.5">
-                          <Award
-                            size={12}
-                            className="text-[#2b3a2f]/60 stroke-[2.2]"
-                          />
-                          <span className="text-[10px] font-mono uppercase tracking-wider text-[#2b3a2f]/60 font-bold">
-                            Highlights
-                          </span>
-                        </div>
-
+                      <div className="p-4 sm:p-5 bg-white sm:pl-16">
                         {/* Detailed Bullet Highlights */}
                         {edu.highlights && edu.highlights.length > 0 && (
-                          <ul className="space-y-2 mb-3">
+                          <ul className="space-y-2.5 mb-3">
                             {edu.highlights.map((point, pIdx) => (
                               <li
                                 key={pIdx}
-                                className="flex items-start gap-2.5 text-xs sm:text-[13px] leading-relaxed text-[#2b3a2f]/85 font-normal"
+                                className="group/item flex items-start gap-2.5 text-xs sm:text-[13px] leading-relaxed text-[#2b3a2f]/75 font-normal transition-all duration-150 hover:text-[#2b3a2f] hover:translate-x-1"
                               >
                                 <span
-                                  className="w-1.5 h-1.5 rounded-[1px] bg-[#2b3a2f]/40 mt-1.5 shrink-0"
+                                  className="w-1.5 h-1.5 rounded-[1px] bg-[#2b3a2f]/35 group-hover/item:bg-[#ffd23f] group-hover/item:shadow-[1px_1px_0_0_#2b3a2f] mt-1.5 shrink-0 transition-all duration-150"
                                   aria-hidden
                                 />
-                                <span>{point}</span>
+                                <span className="transition-colors duration-150">{point}</span>
                               </li>
                             ))}
                           </ul>

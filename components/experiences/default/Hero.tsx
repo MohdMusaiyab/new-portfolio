@@ -20,7 +20,7 @@
  *     - Full prefers-reduced-motion support via useReducedMotion().
  */
 
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import type { IconType } from "react-icons";
 import {
@@ -33,7 +33,6 @@ import {
   SiSocketdotio,
 } from "react-icons/si";
 import { FaGithub, FaLinkedinIn, FaEnvelope, FaXTwitter } from "react-icons/fa6";
-import { Check } from "lucide-react";
 
 const INK = "#2b3a2f";
 
@@ -130,8 +129,8 @@ function Tile({
       {href ? (
         <a
           href={href}
-          target="_blank"
-          rel="noreferrer"
+          target={href.startsWith("mailto:") ? undefined : "_blank"}
+          rel={href.startsWith("mailto:") ? undefined : "noreferrer"}
           aria-label={label}
           className={surface}
           style={surfaceStyle}
@@ -171,17 +170,6 @@ function Tile({
 ───────────────────────────────────────────────────────────── */
 export default function Hero() {
   const reduce = useReducedMotion();
-  const [copied, setCopied] = useState(false);
-
-  const copyEmail = async () => {
-    try {
-      await navigator.clipboard.writeText(EMAIL_ADDRESS);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      window.location.href = `mailto:${EMAIL_ADDRESS}`;
-    }
-  };
 
   // Entrance Choreography:
   // 1. Planks drop down one by one across the river
@@ -249,7 +237,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="w-full bg-white px-4 pb-20 pt-28 sm:px-6 sm:pt-36">
+    <section className="w-full bg-[#f8fafc] px-4 pb-20 pt-28 sm:px-6 sm:pt-36">
       <div className="mx-auto max-w-5xl">
         {/* Banner with clean entrance reveal */}
         <motion.div
@@ -265,7 +253,7 @@ export default function Hero() {
             height={400}
             draggable={false}
             fetchPriority="high"
-            className="h-auto w-full select-none rounded-md border border-[#2b3a2f]/20 shadow-[2px_2px_0_0_#2b3a2f]"
+            className="h-auto w-full select-none rounded-md border border-[#2b3a2f]/20 shadow-[2px_2px_0_0_#2b3a2f] hover:shadow-[3px_3px_0_0_#2b3a2f] transition-all duration-200"
           />
         </motion.div>
 
@@ -280,25 +268,23 @@ export default function Hero() {
           >
             <motion.h1
               variants={bioItemVariants}
-              className="text-xl sm:text-2xl font-bold tracking-tight text-[#2b3a2f] mb-3"
+              className="text-xl sm:text-2xl font-bold tracking-tight text-[#2b3a2f] mb-2.5"
             >
-              Mohd Musaiyab
+              Hey, I&apos;m Musaiyab
             </motion.h1>
 
             <motion.p
               variants={bioItemVariants}
-              className="text-sm sm:text-base leading-relaxed text-[#2b3a2f]/85 mb-4 font-medium"
+              className="text-sm sm:text-base leading-relaxed text-[#2b3a2f]/85 mb-3 font-medium"
             >
-              Systems &amp; Full Stack Engineer specializing in concurrent Go backends,
-              distributed message queues, and high-concurrency microservices.
+              Software engineer and problem solver at heart. I love taking real-world problems and building clean, reliable projects and solutions around them.
             </motion.p>
 
             <motion.p
               variants={bioItemVariants}
               className="text-xs sm:text-[13px] leading-relaxed text-[#2b3a2f]/70 mb-6"
             >
-              I build resilient distributed pipelines under the hood—focusing on sub-50ms
-              query discovery and worker-pool backpressure—paired with fast, clean web interfaces.
+              Focused on building high-performance backends, distributed systems, and modern full-stack web applications.
             </motion.p>
 
             {/* Socials & Copy Email Action Tiles */}
@@ -343,18 +329,13 @@ export default function Hero() {
               </motion.div>
               <motion.div variants={socialTileVariants}>
                 <Tile
-                  label="Copy email"
-                  tag={copied ? "Copied to clipboard!" : "Copy email address"}
+                  label="Send email"
+                  tag={`Email • ${EMAIL_ADDRESS}`}
                   icon={FaEnvelope}
                   color="#ff9aa2"
-                  onClick={copyEmail}
+                  href={`mailto:${EMAIL_ADDRESS}`}
                   round
                   tilt={6}
-                  override={
-                    copied ? (
-                      <Check className="relative h-[18px] w-[18px] text-[#2b3a2f]" />
-                    ) : undefined
-                  }
                 />
               </motion.div>
             </motion.div>

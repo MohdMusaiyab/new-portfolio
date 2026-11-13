@@ -11,7 +11,7 @@ interface ExperienceState {
 export const useExperience = create<ExperienceState>()(
   persist(
     (set) => ({
-      activeExperience: "winter",
+      activeExperience: "default",
       setExperience: (experience) => set({ activeExperience: experience }),
     }),
     {

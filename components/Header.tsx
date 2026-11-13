@@ -162,12 +162,12 @@ function ThemedLogo({ isWinter }: { isWinter: boolean }) {
       {/* Decorative Shadow/Glow Layer */}
       <motion.path
         d="M10 60V20L35 45L60 20V60 M60 60V20L85 45L110 20V60"
-        stroke={isWinter ? "rgba(255,255,255,0.1)" : "rgba(28,25,23,0.05)"}
+        stroke={isWinter ? "rgba(255,255,255,0.1)" : "rgba(43,58,47,0.06)"}
         strokeWidth="14"
         strokeLinecap="square"
         strokeLinejoin="miter"
         animate={{
-          stroke: isWinter ? "rgba(255,255,255,0.1)" : "rgba(28,25,23,0.05)",
+          stroke: isWinter ? "rgba(255,255,255,0.1)" : "rgba(43,58,47,0.06)",
         }}
         transition={{ duration: 0.8 }}
       />
@@ -175,15 +175,15 @@ function ThemedLogo({ isWinter }: { isWinter: boolean }) {
       {/* Main Logo Path */}
       <motion.path
         d="M10 60V20L35 45L60 20V60 M60 60V20L85 45L110 20V60"
-        stroke={isWinter ? "#FFFFFF" : "#1c1917"}
+        stroke={isWinter ? "#FFFFFF" : "#2b3a2f"}
         strokeWidth="8"
         strokeLinecap="square"
         strokeLinejoin="miter"
         animate={{
-          stroke: isWinter ? "#FFFFFF" : "#1c1917",
+          stroke: isWinter ? "#FFFFFF" : "#2b3a2f",
           filter: isWinter 
             ? "drop-shadow(0 0 12px rgba(255,255,255,0.6))" 
-            : "drop-shadow(0 1px 2px rgba(28,25,23,0.08))",
+            : "drop-shadow(1px 1px 0px rgba(43,58,47,0.2))",
         }}
         transition={{ duration: 0.8, ease: "easeInOut" }}
       />
@@ -194,8 +194,10 @@ function ThemedLogo({ isWinter }: { isWinter: boolean }) {
         cy="60"
         r="4"
         animate={{
-          fill: isWinter ? "#FFFFFF" : "#1c1917",
-          opacity: [0.4, 1, 0.4],
+          fill: isWinter ? "#FFFFFF" : "#ffd23f",
+          stroke: isWinter ? "transparent" : "#2b3a2f",
+          strokeWidth: isWinter ? 0 : 1.5,
+          opacity: [0.6, 1, 0.6],
           scale: [1, 1.2, 1],
         }}
         transition={{ 
@@ -248,12 +250,12 @@ export default function Header() {
 
   if (!mounted) return null;
 
-  const defaultNavColor = "text-stone-500";
-  const defaultNavHover = "hover:text-stone-900";
-  const defaultNavActive = "text-stone-900 font-semibold";
-  const defaultUnderline = "bg-stone-900";
+  const defaultNavColor = "text-[#2b3a2f]/60";
+  const defaultNavHover = "hover:text-[#2b3a2f]";
+  const defaultNavActive = "text-[#2b3a2f] font-bold";
+  const defaultUnderline = "bg-[#2b3a2f]";
   const defaultToggle =
-    "text-stone-700 bg-stone-100/90 border-stone-200/90 hover:bg-stone-200/70 hover:text-stone-900 transition-colors shadow-2xs";
+    "text-[#2b3a2f] bg-white border-2 border-[#2b3a2f] shadow-[1.5px_1.5px_0_0_#2b3a2f] hover:shadow-[2.5px_2.5px_0_0_#2b3a2f] hover:bg-[#ffd23f] active:translate-x-0.5 active:translate-y-0.5 transition-all font-bold";
 
   return (
     <>
@@ -266,8 +268,8 @@ export default function Header() {
               ? "bg-[#09090b]/80 backdrop-blur-xl border-b border-white/10"
               : "bg-transparent border-b border-transparent"
             : scrolled
-              ? "bg-white/85 backdrop-blur-md border-b border-stone-200/80 shadow-2xs"
-              : "bg-white/40 backdrop-blur-xs border-b border-transparent"
+              ? "bg-[#f8fafc]/85 backdrop-blur-md border-b border-[#2b3a2f]/10 shadow-2xs"
+              : "bg-[#f8fafc]/40 backdrop-blur-xs border-b border-transparent"
         }`}
       >
         {/* Left: Brand Logo */}
@@ -315,7 +317,7 @@ export default function Header() {
         {/* Right: Theme Toggle Pill */}
         <button
           onClick={toggleTheme}
-          aria-label={`Switch to ${isWinter ? "Default" : "Dark"} theme`}
+          aria-label={`Switch to ${isWinter ? "Light" : "Dark"} theme`}
           className={`flex items-center gap-2 font-dm-mono text-[11px] font-medium uppercase tracking-[0.12em] px-3.5 py-1.5 rounded-full border transition-all duration-200 cursor-pointer ${
             isWinter
               ? "text-white/70 border-white/20 hover:text-white hover:border-white hover:bg-white/5"
@@ -323,7 +325,7 @@ export default function Header() {
           }`}
         >
           {isWinter ? <IconSun /> : <IconSnow />}
-          {isWinter ? "Light" : "Frost"}
+          {isWinter ? "Light" : "Dark"}
         </button>
       </header>
 
@@ -338,7 +340,7 @@ export default function Header() {
           className={`pointer-events-auto flex items-center gap-1.5 px-3 py-2 rounded-full shadow-lg backdrop-blur-xl border transition-all duration-300 ${
             isWinter
               ? "bg-black/80 border-white/10 shadow-black/80"
-              : "bg-[#faf8f5]/90 border-stone-200/90 shadow-stone-300/40"
+              : "bg-white/95 border-[#2b3a2f]/20 shadow-[2px_2px_0_0_#2b3a2f]"
           }`}
         >
           {MOB_NAV.map(({ label, href, Icon }) => {
@@ -353,10 +355,10 @@ export default function Header() {
                   isActive
                     ? isWinter
                       ? "bg-white/15 text-white"
-                      : "bg-stone-900 text-stone-50"
+                      : "bg-[#2b3a2f] text-white shadow-[1px_1px_0_0_#2b3a2f]"
                     : isWinter
                       ? "text-white/50 hover:text-white"
-                      : "text-stone-500 hover:text-stone-900 hover:bg-stone-100"
+                      : "text-[#2b3a2f]/60 hover:text-[#2b3a2f] hover:bg-[#2b3a2f]/5"
                 }`}
               >
                 <Icon />
@@ -365,16 +367,16 @@ export default function Header() {
           })}
 
           <div
-            className={`w-px h-6 mx-1 ${isWinter ? "bg-white/10" : "bg-stone-300"}`}
+            className={`w-px h-6 mx-1 ${isWinter ? "bg-white/10" : "bg-[#2b3a2f]/15"}`}
           />
 
           <button
             onClick={toggleTheme}
-            aria-label={`Switch to ${isWinter ? "Default" : "Dark"} theme`}
+            aria-label={`Switch to ${isWinter ? "Light" : "Dark"} theme`}
             className={`group flex flex-col items-center p-2 rounded-full transition-all duration-200 cursor-pointer ${
               isWinter
                 ? "text-white/50 hover:text-white"
-                : "text-stone-500 hover:text-stone-900 hover:bg-stone-100"
+                : "text-[#2b3a2f]/60 hover:text-[#2b3a2f] hover:bg-[#ffd23f]/25"
             }`}
           >
             <div className="transition-transform duration-200 group-hover:rotate-45">

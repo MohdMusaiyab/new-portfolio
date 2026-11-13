@@ -169,7 +169,7 @@ export default function DefaultSkills() {
   return (
     <section
       id="skills"
-      className="w-full py-14 sm:py-20 px-4 sm:px-6 bg-white border-t border-[#2b3a2f]/10"
+      className="w-full py-14 sm:py-20 px-4 sm:px-6 bg-[#f8fafc] border-t border-[#2b3a2f]/10"
     >
       <div className="mx-auto max-w-5xl">
         {/* Section Heading */}
@@ -204,28 +204,19 @@ export default function DefaultSkills() {
               return (
                 <div
                   key={cIdx}
-                  className="p-3.5 sm:p-5 flex flex-col md:flex-row md:items-start gap-3 sm:gap-4 lg:gap-6 transition-colors duration-150 hover:bg-[#faf8f5]/40"
+                  className="p-3.5 sm:p-5 flex flex-col md:flex-row md:items-start gap-3 sm:gap-4 lg:gap-6 transition-colors duration-150 hover:bg-[#ffd23f]/[0.06]"
                 >
                   {/* Domain Header Row: Left sidebar on desktop, top bar on mobile */}
-                  <div className="flex items-center justify-between md:justify-start md:flex-col md:items-start gap-1.5 shrink-0 md:w-44 lg:w-48 pt-0.5">
-                    <div className="flex items-center gap-2 min-w-0">
-                      <span
-                        className="inline-flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 rounded border bg-[#faf8f5] text-[#2b3a2f] shrink-0 shadow-[1px_1px_0_0_#2b3a2f]"
-                        style={{ borderColor: INK }}
-                      >
-                        <CatIcon size={12} className="stroke-[2.2]" />
-                      </span>
-                      <h3 className="text-xs sm:text-[12px] font-bold font-mono text-[#2b3a2f] tracking-tight uppercase truncate">
-                        {category.name}
-                      </h3>
-                    </div>
-
+                  <div className="flex items-center gap-2 shrink-0 md:w-44 lg:w-48 pt-0.5">
                     <span
-                      className="text-[9px] sm:text-[10px] font-mono text-[#2b3a2f]/60 font-semibold px-1.5 py-0.2 rounded border bg-white shrink-0"
-                      style={{ borderColor: `${INK}20` }}
+                      className="inline-flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 rounded border bg-white text-[#2b3a2f] shrink-0 shadow-[1px_1px_0_0_#2b3a2f] group-hover:scale-105 transition-transform"
+                      style={{ borderColor: INK }}
                     >
-                      {category.skills.length}
+                      <CatIcon size={12} className="stroke-[2.2]" />
                     </span>
+                    <h3 className="text-xs sm:text-[12px] font-bold font-mono text-[#2b3a2f] tracking-tight uppercase truncate">
+                      {category.name}
+                    </h3>
                   </div>
 
                   {/* Skills Badges: Full-width wrapping grid on mobile, inline flow on desktop */}

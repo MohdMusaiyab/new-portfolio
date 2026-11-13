@@ -44,7 +44,7 @@ export default function Home() {
   return (
     <main
       className={`w-full min-h-screen relative overflow-hidden pb-[100px] md:pb-0 transition-colors duration-500 ${
-        activeExperience === "winter" ? "bg-[#09090b]" : "bg-white"
+        activeExperience === "winter" ? "bg-[#09090b]" : "bg-[#f8fafc]"
       }`}
     >
       <AnimatePresence mode="wait">
