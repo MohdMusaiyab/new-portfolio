@@ -41,6 +41,7 @@ function getProjectHostSlug(project: ProjectItem) {
 function ProjectCard({ project, idx }: { project: ProjectItem; idx: number }) {
   const reduce = useReducedMotion();
   const [activeImageIdx, setActiveImageIdx] = useState(0);
+  const [isDetailsOpen, setIsDetailsOpen] = useState(false);
 
   const images = project.images || [];
   const currentImage = images[activeImageIdx] || images[0] || null;
@@ -205,9 +206,61 @@ function ProjectCard({ project, idx }: { project: ProjectItem; idx: number }) {
           </div>
 
           {/* Concise Synopsis with tactile hover interaction */}
-          <p className="text-xs sm:text-[13px] leading-relaxed text-[#2b3a2f]/70 font-medium line-clamp-2 transition-colors duration-200 hover:text-[#2b3a2f] group-hover:text-[#2b3a2f]/90">
+          <p className="text-xs sm:text-[13px] leading-relaxed text-[#2b3a2f]/80 font-medium mb-2.5 transition-colors duration-200 hover:text-[#2b3a2f] group-hover:text-[#2b3a2f]">
             {project.description}
           </p>
+
+          {/* Key Points Progressive Disclosure Toggle */}
+          {project.keyPoints && project.keyPoints.length > 0 && (
+            <div>
+              <button
+                type="button"
+                onClick={() => setIsDetailsOpen(!isDetailsOpen)}
+                aria-expanded={isDetailsOpen}
+                className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] sm:text-[11px] font-mono font-semibold border transition-all duration-150 select-none cursor-pointer ${
+                  isDetailsOpen
+                    ? "bg-[#ffd23f] text-[#2b3a2f] shadow-[1px_1px_0_0_#2b3a2f]"
+                    : "bg-white text-[#2b3a2f]/70 hover:text-[#2b3a2f] hover:bg-[#ffd23f]/20 shadow-[1px_1px_0_0_#2b3a2f]"
+                }`}
+                style={{ borderColor: INK }}
+              >
+                <span>{isDetailsOpen ? "Hide details" : `Key points (${project.keyPoints.length})`}</span>
+                <ChevronDown
+                  size={12}
+                  className={`stroke-[2.2] transition-transform duration-200 ${
+                    isDetailsOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+
+              <AnimatePresence initial={false}>
+                {isDetailsOpen && (
+                  <motion.div
+                    initial={reduce ? { opacity: 1 } : { height: 0, opacity: 0 }}
+                    animate={reduce ? { opacity: 1 } : { height: "auto", opacity: 1 }}
+                    exit={reduce ? { opacity: 0 } : { height: 0, opacity: 0 }}
+                    transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                    className="overflow-hidden mt-2.5 pt-2.5 border-t border-[#2b3a2f]/10"
+                  >
+                    <ul className="space-y-1.5">
+                      {project.keyPoints.map((point, pIdx) => (
+                        <li
+                          key={pIdx}
+                          className="group/point flex items-start gap-2 text-[11px] sm:text-xs leading-relaxed text-[#2b3a2f]/75 font-normal transition-all duration-150 hover:text-[#2b3a2f] hover:translate-x-0.5"
+                        >
+                          <span
+                            className="w-1.5 h-1.5 rounded-[1px] bg-[#2b3a2f]/40 group-hover/point:bg-[#ffd23f] group-hover/point:shadow-[1px_1px_0_0_#2b3a2f] mt-1 shrink-0 transition-all duration-150"
+                            aria-hidden
+                          />
+                          <span>{point}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          )}
         </div>
       </div>
 

@@ -88,14 +88,44 @@ function EduCard({ item, index }: { item: Education; index: number }) {
           >
             {item.institution}
           </h3>
-          <h4
-            className="font-dm-mono text-sm md:text-base tracking-widest uppercase mb-6 transition-colors duration-300 group-hover:text-white/80"
-            style={{ color: WA(0.5) }}
-          >
-            {item.degree}
-          </h4>
+          <div className="flex items-center gap-3 flex-wrap mb-5">
+            <h4
+              className="font-dm-mono text-sm md:text-base tracking-widest uppercase transition-colors duration-300 group-hover:text-white/80"
+              style={{ color: WA(0.5) }}
+            >
+              {item.degree}
+            </h4>
+            {item.score && (
+              <span
+                className="font-dm-mono text-[11px] px-2.5 py-0.5 rounded border border-white/20 tracking-wider uppercase text-white/80 bg-white/5"
+              >
+                {item.score}
+              </span>
+            )}
+          </div>
 
-
+          {item.highlights && item.highlights.length > 0 && (
+            <ul className="space-y-3 mb-4">
+              {item.highlights.map((highlight, hIdx) => (
+                <li key={hIdx} className="flex gap-3 items-start group/li">
+                  <span
+                    className="shrink-0 mt-[8px] w-1.5 h-1.5 rounded-full transition-all duration-300 group-hover/li:bg-white"
+                    style={{ background: WA(0.3) }}
+                  />
+                  <span
+                    className="text-[13px] md:text-[14px] leading-relaxed transition-all duration-300 group-hover/li:text-white"
+                    style={{
+                      color: WA(0.65),
+                      fontFamily: "Inter, sans-serif",
+                      fontWeight: 300,
+                    }}
+                  >
+                    {highlight}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </div>
     </motion.div>

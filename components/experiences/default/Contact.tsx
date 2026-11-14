@@ -245,8 +245,7 @@ export default function DefaultContact() {
                       required
                       value={form.senderEmail}
                       onChange={(e) => setForm((p) => ({ ...p, senderEmail: e.target.value }))}
-                      placeholder="you@company.com"
-                      className="w-full px-3 py-2 text-xs font-mono text-[#2b3a2f] bg-white border rounded-md focus:outline-none focus:shadow-[2px_2px_0_0_#2b3a2f] placeholder:text-[#2b3a2f]/35 transition-all"
+                      className="w-full px-3 py-2 text-xs font-mono text-[#2b3a2f] bg-white border rounded-md focus:outline-none focus:shadow-[2px_2px_0_0_#2b3a2f] transition-all"
                       style={{ borderColor: INK }}
                     />
                   </div>
@@ -261,8 +260,7 @@ export default function DefaultContact() {
                       required
                       value={form.subject}
                       onChange={(e) => setForm((p) => ({ ...p, subject: e.target.value }))}
-                      placeholder="Backend engineering role / project inquiry"
-                      className="w-full px-3 py-2 text-xs font-mono text-[#2b3a2f] bg-white border rounded-md focus:outline-none focus:shadow-[2px_2px_0_0_#2b3a2f] placeholder:text-[#2b3a2f]/35 transition-all"
+                      className="w-full px-3 py-2 text-xs font-mono text-[#2b3a2f] bg-white border rounded-md focus:outline-none focus:shadow-[2px_2px_0_0_#2b3a2f] transition-all"
                       style={{ borderColor: INK }}
                     />
                   </div>
@@ -277,8 +275,7 @@ export default function DefaultContact() {
                       rows={4}
                       value={form.message}
                       onChange={(e) => setForm((p) => ({ ...p, message: e.target.value }))}
-                      placeholder="Hi Musaiyab, let's talk about..."
-                      className="w-full px-3 py-2 text-xs font-mono text-[#2b3a2f] bg-white border rounded-md focus:outline-none focus:shadow-[2px_2px_0_0_#2b3a2f] placeholder:text-[#2b3a2f]/35 resize-none transition-all"
+                      className="w-full px-3 py-2 text-xs font-mono text-[#2b3a2f] bg-white border rounded-md focus:outline-none focus:shadow-[2px_2px_0_0_#2b3a2f] resize-none transition-all"
                       style={{ borderColor: INK }}
                     />
                   </div>

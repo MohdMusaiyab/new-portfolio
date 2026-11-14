@@ -2,60 +2,22 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-
-const SKILL_GROUPS = [
-  {
-    category: "Languages",
-    num: "01",
-    skills: ["Go (Golang)", "TypeScript", "JavaScript", "Java", "C++", "SQL"],
-  },
-  {
-    category: "Backend",
-    num: "02",
-    skills: [
-      "Gin Gonic",
-      "Node.js",
-      "Express.js",
-      "WebSockets",
-      "RESTful APIs",
-    ],
-  },
-  {
-    category: "Databases",
-    num: "03",
-    skills: ["PostgreSQL", "MongoDB", "MySQL", "GORM", "Prisma ORM"],
-  },
-  {
-    category: "DevOps & Tools",
-    num: "04",
-    skills: ["Docker", "AWS S3", "GitHub Actions", "Postman", "Linux / Bash"],
-  },
-  {
-    category: "Frontend",
-    num: "05",
-    skills: ["React.js", "Next.js", "Redux Toolkit", "Tailwind CSS"],
-  },
-  {
-    category: "Architecture",
-    num: "06",
-    skills: ["System Design", "RBAC Security", "Multi-tenant Arch", "DSA"],
-  },
-];
-
+import skillsData from "@/app/data/skills.json";
 import SkillPill from "@/components/ui/SkillPill";
 
 const WA = (a: number) => `rgba(255,255,255,${a})`;
 const WHITE = "#ffffff";
 
 function CategoryBlock({
-  group,
+  category,
   blockIndex,
 }: {
-  group: (typeof SKILL_GROUPS)[0];
+  category: (typeof skillsData.skills)[0];
   blockIndex: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: false, margin: "-60px" });
+  const num = String(blockIndex + 1).padStart(2, "0");
 
   return (
     <motion.div
@@ -69,29 +31,27 @@ function CategoryBlock({
       }}
       className="flex flex-col gap-4 md:gap-5 group/category"
     >
-      {}
       <div className="flex items-center gap-4">
         <span
           className="font-dm-mono text-[9px] tracking-[0.35em] uppercase"
           style={{ color: WA(0.3) }}
         >
-          {group.num}
+          {num}
         </span>
         <div className="h-px flex-1" style={{ background: WA(0.08) }} />
         <h3
           className="font-cinzel font-bold text-sm tracking-widest uppercase transition-all duration-300 group-hover/category:text-white group-hover/category:drop-shadow-[0_0_10px_rgba(255,255,255,0.7)]"
           style={{ color: WA(0.9), letterSpacing: "0.18em" }}
         >
-          {group.category}
+          {category.name}
         </h3>
       </div>
 
-      {}
       <div className="flex flex-wrap gap-2">
-        {group.skills.map((skill, si) => (
+        {category.skills.map((skill, si) => (
           <SkillPill
-            key={skill}
-            name={skill}
+            key={skill.name}
+            name={skill.name}
             delay={inView ? blockIndex * 0.05 + si * 0.04 : 0}
           />
         ))}
@@ -156,10 +116,10 @@ export default function Skills() {
 
           {}
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-10 md:gap-16">
-            {SKILL_GROUPS.map((group, i) => (
+            {skillsData.skills.map((category, i) => (
               <CategoryBlock
-                key={group.category}
-                group={group}
+                key={category.name}
+                category={category}
                 blockIndex={i}
               />
             ))}

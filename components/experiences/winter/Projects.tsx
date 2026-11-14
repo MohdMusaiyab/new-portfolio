@@ -284,6 +284,14 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
             {project.name}
           </motion.h3>
 
+          {/* Description */}
+          <p
+            className="text-[13px] sm:text-[14px] md:text-[15px] leading-relaxed mb-4 md:mb-6 font-light transition-colors duration-300 hover:text-white"
+            style={{ color: WA(0.75), fontFamily: "Inter, sans-serif" }}
+          >
+            {project.description}
+          </p>
+
           {/* Key Points (Bulleted) */}
           <ul className="mb-6 md:mb-10 space-y-3">
             {project.keyPoints.map((point, pIdx) => (

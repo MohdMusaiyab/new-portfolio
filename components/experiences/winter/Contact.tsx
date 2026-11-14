@@ -115,6 +115,7 @@ export default function Contact() {
   const formInView = useInView(formRef, { once: true, margin: "100px" });
 
   const [form, setForm] = useState({
+    senderEmail: "",
     subject: "",
     message: "",
   });
@@ -125,7 +126,10 @@ export default function Contact() {
   const set = (key: keyof typeof form) => (v: string) =>
     setForm((prev) => ({ ...prev, [key]: v }));
 
-  const isFormValid = form.subject.trim().length > 0 && form.message.trim().length > 0;
+  const isFormValid =
+    form.senderEmail.trim().length > 0 &&
+    form.subject.trim().length > 0 &&
+    form.message.trim().length > 0;
   const isSubmitting = status === "sending" || status === "sent";
   const disabled = isSubmitting || !isFormValid;
 
@@ -219,6 +223,14 @@ export default function Contact() {
               <form onSubmit={handleSubmit} className="flex flex-col gap-10">
                 {}
 
+                <Field
+                  label="Your Email"
+                  id="senderEmail"
+                  type="email"
+                  value={form.senderEmail}
+                  onChange={set("senderEmail")}
+                  disabled={isSubmitting}
+                />
                 <Field
                   label="Subject"
                   id="subject"

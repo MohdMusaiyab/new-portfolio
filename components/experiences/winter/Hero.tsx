@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useExperience } from "@/store/useExperience";
 
 const ROLES = [
   "Backend Architect",
@@ -12,17 +11,13 @@ const ROLES = [
 ];
 
 export default function Hero() {
-  const { setExperience } = useExperience();
   const [roleIdx, setRoleIdx] = useState(0);
-  const [expYears, setExpYears] = useState("1.0");
-
-  useEffect(() => {
+  const [expYears] = useState(() => {
     const diffInMs = new Date().getTime() - new Date("2025-01-01").getTime();
     const diffInYears = diffInMs / (1000 * 60 * 60 * 24 * 365.25);
-    // Snaps to the nearest 0.5 (e.g., 1.0, 1.5, 2.0)
     const snappedYears = Math.floor(diffInYears * 2) / 2;
-    setExpYears(Math.max(1, snappedYears) + "+");
-  }, []);
+    return Math.max(1, snappedYears) + "+";
+  });
 
   useEffect(() => {
     const id = setInterval(() => {
@@ -128,9 +123,7 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.6, ease: [0.19, 1, 0.22, 1] }}
             className="font-sans font-light text-[13px] md:text-base lg:text-lg leading-relaxed text-white/90 max-w-2xl mb-5 md:mb-8 drop-shadow-xl text-balance winter-bio"
           >
-            Hey, I’m Musaiyab — a full stack developer who enjoys building
-            clean, fast, and reliable products. I care about both how things
-            look and how they work under the hood.
+            Hey, I&apos;m Musaiyab. Software engineer and problem solver at heart. I love taking real-world problems and building clean, reliable projects and solutions around them. Focused on building high-performance backends, distributed systems, and modern full-stack web applications.
           </motion.p>
 
           {}

@@ -47,7 +47,6 @@ import {
   SiSocketdotio,
 } from "react-icons/si";
 import {
-  FaJava,
   FaNodeJs,
   FaAws,
   FaGitAlt,
@@ -77,7 +76,6 @@ const SKILL_ICON_MAP: Record<string, IconType> = {
   "Go (Golang)": SiGo,
   "TypeScript": SiTypescript,
   "JavaScript": SiJavascript,
-  "Java": FaJava,
   "C++": SiCplusplus,
   "SQL": FaDatabase,
   "Gin Gonic": SiGin,
@@ -95,6 +93,7 @@ const SKILL_ICON_MAP: Record<string, IconType> = {
   "Git / GitHub Actions": FaGitAlt,
   "Postman": SiPostman,
   "Linux / Bash": SiLinux,
+  "React.js": SiReact,
   "React.JS": SiReact,
   "Next.js": SiNextdotjs,
   "Redux Toolkit": SiRedux,

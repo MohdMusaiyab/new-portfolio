@@ -48,7 +48,7 @@
       "name": "Frontend Development",
       "url": "https://t3.ftcdn.net/jpg/05/31/71/02/360_F_531710260_ByieqNe7Ut6QBHgIR7xgdsxH7gICrHr1.jpg",
       "skills": [
-        { "name": "React.JS", "icon": "FaReact" },
+        { "name": "React.js", "icon": "FaReact" },
         { "name": "Next.js", "icon": "SiNextdotjs" },
         { "name": "Redux Toolkit", "icon": "SiRedux" },
         { "name": "Tailwind CSS", "icon": "SiTailwindcss" }
