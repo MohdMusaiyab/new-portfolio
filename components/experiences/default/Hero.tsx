@@ -1,26 +1,15 @@
 "use client";
 
 /**
- * Hero Section (Default / Light Theme)
+ * Hero
  *
- * Motion Thesis:
- *   - Visual Concept: The Cartoon Builder laying bridge planks across a flowing river.
- *   - Focal Entrance:
- *     1. Banner reveals with crisp deceleration ([0.16, 1, 0.3, 1]).
- *     2. Engineer bio staggers in alongside the banner.
- *     3. Core stack tiles drop down like physical bridge planks across the river (staggered springs).
- *     4. The water wave pattern below streams in a gentle, seamless horizontal current.
- *     5. Social action tiles pop in once the bridge is set.
- *   - Tactile Micro-Interactions:
- *     - Planks lift and tilt with pointer-tracking circular color flood fill.
- *     - Speech-bubble specialty tags expand on hover.
- *     - Clipboard email copy confirms with instant icon swap and feedback tag.
- *   - Performance & Accessibility:
- *     - GPU-accelerated transforms (translate, opacity, scale).
- *     - Full prefers-reduced-motion support via useReducedMotion().
+ * - Name and title live only in /header.svg. An sr-only <h1> keeps the page
+ *   semantics and SEO without repeating them visually.
+ * - Skills are tactile, labelled items (no dead buttons, no hover-only info).
+ * - Socials are real links with visible labels; one hover effect (lift).
+ * - Respects prefers-reduced-motion for the entrance and the wave.
  */
 
-import { useRef } from "react";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import type { IconType } from "react-icons";
 import {
@@ -31,10 +20,9 @@ import {
   SiNextdotjs,
   SiTypescript,
   SiSocketdotio,
+  SiReact,
 } from "react-icons/si";
 import { FaGithub, FaLinkedinIn, FaEnvelope, FaXTwitter } from "react-icons/fa6";
-
-const INK = "#2b3a2f";
 
 const EMAIL_ADDRESS =
   process.env.NEXT_PUBLIC_PERSONAL_EMAIL || "mohdmusaiyab@gmail.com";
@@ -45,205 +33,128 @@ const LINKEDIN =
 const TWITTER =
   process.env.NEXT_PUBLIC_PERSONAL_TWITTER || "https://x.com/mohd_musaiyab";
 
-const SKILLS: { label: string; icon: IconType; color: string; tilt: number; tag?: string }[] = [
-  { label: "Go", icon: SiGo, color: "#4fb3d9", tilt: -5, tag: "Go • Goroutines & Concurrency" },
-  { label: "Redis", icon: SiRedis, color: "#ff9aa2", tilt: 4, tag: "Redis • Pub/Sub & Caching" },
-  { label: "PostgreSQL", icon: SiPostgresql, color: "#bfe8f2", tilt: -4, tag: "PostgreSQL • Relational Schemas" },
-  { label: "Docker", icon: SiDocker, color: "#ffd23f", tilt: 5, tag: "Docker • Containerization" },
-  { label: "Next.js", icon: SiNextdotjs, color: "#a8d672", tilt: -5, tag: "Next.js • Full-stack SSR" },
-  { label: "TypeScript", icon: SiTypescript, color: "#f4a259", tilt: 4, tag: "TypeScript • Type Safety" },
-  { label: "WebSockets", icon: SiSocketdotio, color: "#c77dff", tilt: -4, tag: "WebSockets • Real-time Hub" },
+const EASE = [0.16, 1, 0.3, 1] as const;
+
+const SKILLS: { label: string; note: string; icon: IconType; color: string }[] = [
+  { label: "Go", note: "Concurrency", icon: SiGo, color: "#4fb3d9" },
+  { label: "Redis", note: "Pub/Sub & caching", icon: SiRedis, color: "#ff9aa2" },
+  { label: "PostgreSQL", note: "Relational schemas", icon: SiPostgresql, color: "#bfe8f2" },
+  { label: "Docker", note: "Containers", icon: SiDocker, color: "#ffd23f" },
+  { label: "Next.js", note: "Full-stack SSR", icon: SiNextdotjs, color: "#a8d672" },
+  { label: "TypeScript", note: "Type safety", icon: SiTypescript, color: "#f4a259" },
+  { label: "WebSockets", note: "Real-time", icon: SiSocketdotio, color: "#c77dff" },
+  { label: "MERN", note: "Full-stack apps", icon: SiReact, color: "#61dafb" },
 ];
 
-/* ─────────────────────────────────────────────────────────────
-   TILE
-   Interactive plank/button tile with directional cursor flood fill.
-───────────────────────────────────────────────────────────── */
-type TileProps = {
-  label: string;
-  icon: IconType;
-  color: string;
-  tilt?: number;
-  round?: boolean;
-  href?: string;
-  onClick?: () => void;
-  override?: React.ReactNode;
-  tag?: string;
-};
+const SOCIALS: { label: string; icon: IconType; href: string; color: string }[] = [
+  { label: "GitHub", icon: FaGithub, href: GITHUB, color: "#ffd23f" },
+  { label: "LinkedIn", icon: FaLinkedinIn, href: LINKEDIN, color: "#4fb3d9" },
+  { label: "X", icon: FaXTwitter, href: TWITTER, color: "#a8d672" },
+  { label: "Email", icon: FaEnvelope, href: `mailto:${EMAIL_ADDRESS}`, color: "#ff9aa2" },
+];
 
-function Tile({
-  label,
-  icon: Icon,
-  color,
-  tilt = 0,
-  round = false,
-  href,
-  onClick,
-  override,
-  tag,
-}: TileProps) {
+/* ───────────── Tactile skill plank with micro-interaction ───────────── */
+function Skill({ label, note, icon: Icon, color }: (typeof SKILLS)[number]) {
   const reduce = useReducedMotion();
-  const fill = useRef<HTMLSpanElement>(null);
-
-  const setOrigin = (e: React.PointerEvent<HTMLElement>) => {
-    const r = e.currentTarget.getBoundingClientRect();
-    fill.current?.style.setProperty("--x", `${e.clientX - r.left}px`);
-    fill.current?.style.setProperty("--y", `${e.clientY - r.top}px`);
-  };
-
-  const size = round ? "h-10 w-10 sm:h-11 sm:w-11" : "h-11 w-11 sm:h-14 sm:w-14";
-  const shape = round ? "rounded-full" : "rounded-md";
-
-  const inner = (
-    <>
-      <span
-        ref={fill}
-        aria-hidden
-        className="absolute inset-0 transition-[clip-path] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] [clip-path:circle(0px_at_var(--x,50%)_var(--y,50%))] group-hover:[clip-path:circle(160px_at_var(--x,50%)_var(--y,50%))] group-focus-within:[clip-path:circle(160px_at_var(--x,50%)_var(--y,50%))]"
-        style={{ background: color }}
-      />
-      {override ?? (
-        <Icon className="relative h-[18px] w-[18px] sm:h-6 sm:w-6 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110" />
-      )}
-    </>
-  );
-
-  const surface = `relative flex items-center justify-center overflow-hidden border-2 text-[#2b3a2f] transition-all duration-200 group-hover:shadow-[3px_3px_0_0_#2b3a2f] group-focus-within:shadow-[3px_3px_0_0_#2b3a2f] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#2b3a2f] ${
-    override ? "bg-[#a8d672]/20" : "bg-white"
-  } ${size} ${shape}`;
-  const surfaceStyle = { borderColor: INK };
 
   return (
     <motion.div
-      className="group relative"
       whileHover={
         reduce
-          ? { scale: 1.02 }
-          : { y: -6, rotate: tilt, scale: 1.06 }
+          ? undefined
+          : {
+              y: -2.5,
+              transition: { duration: 0.16, ease: EASE },
+            }
       }
-      whileTap={{ scale: 0.94, y: -2 }}
-      transition={{ type: "spring", stiffness: 420, damping: 16 }}
-      onPointerEnter={setOrigin}
-      onPointerLeave={setOrigin}
+      whileTap={reduce ? undefined : { y: 0 }}
+      className="group relative flex cursor-default select-none items-center gap-3 rounded-md border-2 border-[#2b3a2f] bg-white p-2 pr-3 shadow-[2px_2px_0_0_#2b3a2f] transition-shadow duration-150 hover:shadow-[4px_4px_0_0_#2b3a2f] active:shadow-[1px_1px_0_0_#2b3a2f]"
     >
-      {href ? (
-        <a
-          href={href}
-          target={href.startsWith("mailto:") ? undefined : "_blank"}
-          rel={href.startsWith("mailto:") ? undefined : "noreferrer"}
-          aria-label={label}
-          className={surface}
-          style={surfaceStyle}
-        >
-          {inner}
-        </a>
-      ) : (
-        <button
-          type="button"
-          aria-label={label}
-          onClick={onClick}
-          className={`${surface} ${onClick ? "cursor-pointer" : "cursor-default"}`}
-          style={surfaceStyle}
-        >
-          {inner}
-        </button>
-      )}
-
-      {/* Speech-bubble Name Tag */}
       <span
         aria-hidden
-        className="pointer-events-none absolute bottom-full left-1/2 mb-3 -translate-x-1/2 translate-y-1 scale-90 whitespace-nowrap rounded-md px-2.5 py-1 text-[11px] font-mono font-bold text-white opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:scale-100 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:scale-100 group-focus-within:opacity-100 z-30 shadow-[2px_2px_0_0_#2b3a2f]"
-        style={{ background: INK }}
+        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[4px] border-2 border-[#2b3a2f] text-[#2b3a2f] shadow-[1px_1px_0_0_#2b3a2f] transition-transform duration-200 ease-out group-hover:scale-105 group-hover:-rotate-3 motion-reduce:group-hover:rotate-0 motion-reduce:group-hover:scale-100"
+        style={{ background: color }}
       >
-        {tag ?? label}
-        <span
-          className="absolute left-1/2 top-full h-0 w-0 -translate-x-1/2 border-x-4 border-t-4 border-x-transparent"
-          style={{ borderTopColor: INK }}
-        />
+        <Icon className="h-5 w-5 transition-transform duration-200 ease-out group-hover:scale-110 motion-reduce:group-hover:scale-100" />
+      </span>
+      <span className="min-w-0">
+        <span className="block text-[15px] font-semibold leading-tight text-[#2b3a2f]">
+          {label}
+        </span>
+        <span className="block text-[13px] leading-snug text-[#4a5a4e]">{note}</span>
       </span>
     </motion.div>
   );
 }
 
-/* ─────────────────────────────────────────────────────────────
-   HERO
-───────────────────────────────────────────────────────────── */
+/* ───────────── Social link: visible label, one hover effect (lift) ───────────── */
+function SocialLink({ label, icon: Icon, href, color }: (typeof SOCIALS)[number]) {
+  const external = !href.startsWith("mailto:");
+  return (
+    <a
+      href={href}
+      {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
+      className="inline-flex items-center gap-2 rounded-md border-2 border-[#2b3a2f] px-3.5 py-2 text-[15px] font-semibold text-[#2b3a2f] shadow-[2px_2px_0_0_#2b3a2f] transition-[transform,box-shadow] duration-150 hover:-translate-y-0.5 hover:shadow-[4px_4px_0_0_#2b3a2f] active:translate-y-0 active:shadow-[1px_1px_0_0_#2b3a2f] motion-reduce:transition-none motion-reduce:hover:translate-y-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#2b3a2f]"
+      style={{ background: color }}
+    >
+      <Icon aria-hidden className="h-4 w-4" />
+      {label}
+    </a>
+  );
+}
+
+/* ───────────── Hero ───────────── */
 export default function Hero() {
   const reduce = useReducedMotion();
 
-  // Entrance Choreography:
-  // 1. Planks drop down one by one across the river
-  const rowVariants: Variants = {
+  const stagger = (each: number, delay = 0): Variants => ({
     hidden: {},
     show: {
-      transition: {
-        staggerChildren: reduce ? 0 : 0.07,
-        delayChildren: 0.25,
-      },
+      transition: { staggerChildren: reduce ? 0 : each, delayChildren: delay },
     },
+  });
+
+  const rise: Variants = {
+    hidden: reduce ? { opacity: 1 } : { opacity: 0, y: 10 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: EASE } },
   };
 
-  const plankVariants: Variants = {
-    hidden: reduce ? { opacity: 1 } : { opacity: 0, y: -20, rotate: -6 },
+  const plank: Variants = {
+    hidden: (i: number) =>
+      reduce
+        ? { opacity: 1 }
+        : {
+            opacity: 0,
+            y: -14,
+            rotate: i % 2 === 0 ? -2.5 : 2.5,
+            scale: 0.96,
+          },
     show: {
       opacity: 1,
       y: 0,
       rotate: 0,
-      transition: { type: "spring", stiffness: 400, damping: 18 },
-    },
-  };
-
-  // 2. Engineer Bio Stagger
-  const bioContainerVariants: Variants = {
-    hidden: { opacity: reduce ? 1 : 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: reduce ? 0 : 0.08,
-        delayChildren: 0.1,
-      },
-    },
-  };
-
-  const bioItemVariants: Variants = {
-    hidden: reduce ? { opacity: 1 } : { opacity: 0, y: 10 },
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] },
-    },
-  };
-
-  // 3. Social Action Tiles Stagger
-  const socialsVariants: Variants = {
-    hidden: { opacity: reduce ? 1 : 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: reduce ? 0 : 0.06,
-        delayChildren: 0.25 + SKILLS.length * 0.07 + 0.1,
-      },
-    },
-  };
-
-  const socialTileVariants: Variants = {
-    hidden: reduce ? { opacity: 1 } : { opacity: 0, scale: 0.85, y: 6 },
-    show: {
-      opacity: 1,
       scale: 1,
-      y: 0,
-      transition: { type: "spring", stiffness: 420, damping: 18 },
+      transition: {
+        type: "spring",
+        stiffness: 360,
+        damping: 22,
+        mass: 0.8,
+      },
     },
   };
 
   return (
-    <section className="w-full bg-[#f8fafc] px-4 pb-20 pt-28 sm:px-6 sm:pt-36">
+    <section
+      className="relative w-full bg-[#f8fafc] px-4 pb-20 pt-28 sm:px-6 sm:pt-36"
+    >
       <div className="mx-auto max-w-5xl">
-        {/* Banner with clean entrance reveal */}
+        {/* Name + title are part of the illustration; h1 is for semantics only */}
+        <h1 className="sr-only">Mohd Musaiyab, Full Stack Developer</h1>
+
         <motion.div
           initial={reduce ? { opacity: 1 } : { opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.5, ease: EASE }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -253,126 +164,77 @@ export default function Hero() {
             height={400}
             draggable={false}
             fetchPriority="high"
-            className="h-auto w-full select-none rounded-md border border-[#2b3a2f]/20 shadow-[2px_2px_0_0_#2b3a2f] hover:shadow-[3px_3px_0_0_#2b3a2f] transition-all duration-200"
+            className="h-auto w-full select-none rounded-md border-2 border-[#2b3a2f] shadow-[3px_3px_0_0_#2b3a2f]"
           />
         </motion.div>
 
-        {/* Content row: aligned horizontally with the banner edges */}
-        <div className="mt-12 sm:mt-16 flex flex-col md:flex-row md:items-start justify-between gap-10 lg:gap-14">
-          {/* About / Bio - Left Aligned with Staggered Entrance */}
+        <div className="mt-12 grid gap-10 sm:mt-16 md:grid-cols-2 md:gap-12">
+          {/* Bio + socials */}
           <motion.div
-            variants={bioContainerVariants}
+            variants={stagger(0.08, 0.1)}
             initial="hidden"
             animate="show"
-            className="flex-1 max-w-xl text-left"
+            className="max-w-xl"
           >
-            <motion.h1
-              variants={bioItemVariants}
-              className="text-xl sm:text-2xl font-bold tracking-tight text-[#2b3a2f] mb-2.5"
-            >
-              Hey, I&apos;m Musaiyab
-            </motion.h1>
-
             <motion.p
-              variants={bioItemVariants}
-              className="text-sm sm:text-base leading-relaxed text-[#2b3a2f]/85 mb-3 font-medium"
+              variants={rise}
+              className="text-xl font-semibold leading-snug text-[#2b3a2f] sm:text-2xl"
             >
-              Software engineer and problem solver at heart. I love taking real-world problems and building clean, reliable projects and solutions around them.
+              I take real-world problems and build clean, reliable software around them.
             </motion.p>
 
             <motion.p
-              variants={bioItemVariants}
-              className="text-xs sm:text-[13px] leading-relaxed text-[#2b3a2f]/70 mb-6"
+              variants={rise}
+              className="mt-4 text-base leading-relaxed text-[#4a5a4e]"
             >
-              Focused on building high-performance backends, distributed systems, and modern full-stack web applications.
+              Most of my work is high-performance backends, distributed systems, and
+              full-stack web apps.
             </motion.p>
 
-            {/* Socials & Copy Email Action Tiles */}
-            <motion.div
-              variants={socialsVariants}
-              initial="hidden"
-              animate="show"
-              className="flex items-center gap-3 pt-1"
+            <motion.ul
+              variants={stagger(0.06)}
+              aria-label="Links"
+              className="mt-8 flex flex-wrap gap-3"
             >
-              <motion.div variants={socialTileVariants}>
-                <Tile
-                  label="GitHub"
-                  tag="GitHub • @MohdMusaiyab"
-                  icon={FaGithub}
-                  color="#ffd23f"
-                  href={GITHUB}
-                  round
-                  tilt={-6}
-                />
-              </motion.div>
-              <motion.div variants={socialTileVariants}>
-                <Tile
-                  label="LinkedIn"
-                  tag="LinkedIn • Mohd Musaiyab"
-                  icon={FaLinkedinIn}
-                  color="#4fb3d9"
-                  href={LINKEDIN}
-                  round
-                  tilt={6}
-                />
-              </motion.div>
-              <motion.div variants={socialTileVariants}>
-                <Tile
-                  label="Twitter / X"
-                  tag="Twitter / X • @mohd_musaiyab"
-                  icon={FaXTwitter}
-                  color="#a8d672"
-                  href={TWITTER}
-                  round
-                  tilt={-6}
-                />
-              </motion.div>
-              <motion.div variants={socialTileVariants}>
-                <Tile
-                  label="Send email"
-                  tag={`Email • ${EMAIL_ADDRESS}`}
-                  icon={FaEnvelope}
-                  color="#ff9aa2"
-                  href={`mailto:${EMAIL_ADDRESS}`}
-                  round
-                  tilt={6}
-                />
-              </motion.div>
-            </motion.div>
+              {SOCIALS.map((s) => (
+                <motion.li key={s.label} variants={rise}>
+                  <SocialLink {...s} />
+                </motion.li>
+              ))}
+            </motion.ul>
           </motion.div>
 
-          {/* Skills: Planks over water - Aligned to the Right on Desktop */}
-          <div className="flex flex-col items-center md:items-end shrink-0 pt-2">
-            <span className="text-[11px] font-mono uppercase tracking-wider text-[#2b3a2f]/60 mb-4 self-center md:self-end">
-              Core Stack
-            </span>
+          {/* Core stack card: planks on top, water along the bottom */}
+          <div className="self-start overflow-hidden rounded-md border-2 border-[#2b3a2f] bg-white shadow-[3px_3px_0_0_#2b3a2f]">
+            <div className="border-b-2 border-[#2b3a2f] bg-[#a8d672] px-4 py-2">
+              <h2 className="font-mono text-xs font-bold uppercase tracking-wider text-[#2b3a2f]">
+                Core stack
+              </h2>
+            </div>
 
-            {/* Planks Dropping across the River */}
             <motion.ul
-              variants={rowVariants}
+              variants={stagger(0.06, 0.2)}
               initial="hidden"
               animate="show"
-              className="flex flex-wrap justify-center md:justify-end gap-2 sm:gap-2.5 max-w-md"
+              className="grid grid-cols-1 gap-2.5 p-4 min-[420px]:grid-cols-2"
             >
-              {SKILLS.map((s) => (
-                <motion.li key={s.label} variants={plankVariants}>
-                  <Tile {...s} />
+              {SKILLS.map((s, i) => (
+                <motion.li key={s.label} custom={i} variants={plank}>
+                  <Skill {...s} />
                 </motion.li>
               ))}
             </motion.ul>
 
-            {/* Flowing River Wave Current */}
-            <div className="relative mt-5 h-3 w-full max-w-[280px] overflow-hidden">
+            <div
+              aria-hidden
+              className="overflow-hidden border-t-2 border-[#2b3a2f] bg-[#e6f5fa] py-2"
+            >
               <motion.div
-                className="flex w-[320px]"
+                className="flex w-[calc(100%+24px)]"
                 animate={reduce ? {} : { x: [0, -24] }}
-                transition={{
-                  repeat: Infinity,
-                  duration: 2.2,
-                  ease: "linear",
-                }}
+                transition={{ repeat: Infinity, duration: 2.2, ease: "linear" }}
               >
-                <svg aria-hidden className="h-3 w-[320px]">
+                <svg className="h-3 w-full">
                   <defs>
                     <pattern id="wave" width="24" height="12" patternUnits="userSpaceOnUse">
                       <path

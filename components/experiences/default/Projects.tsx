@@ -2,20 +2,16 @@
 
 /**
  * Featured Projects Section (Default / Light Theme)
- * 
- * Aesthetic:
- *   - Software Viewport Shell: Presents project screenshots inside a sleek,
- *     editorial browser window frame with banner-palette window controls.
- *   - Pure White Background: Crisp white cards, high-contrast ink borders (#2b3a2f),
- *     and hard offset drop-shadows.
- *   - Progressive Disclosure: Shows the top flagship projects initially with a tactile
- *     "Show More" / "Show Fewer" control.
- *   - Interactive Multi-Screen Switcher: Lets viewers toggle between views (e.g.
- *     01: Product UI vs 02: Real-time Dashboard / Metrics).
- *   - Tactile Micro-Interactions: Spring physics, hover lifts, and physical shadows on every element.
+ *
+ * Clean, uncluttered design showcasing work in our cartoon builder banner vibe:
+ *   - River Palette Titlebars: Each project carries a themed banner titlebar (#4fb3d9, #a8d672, #ffd23f, #ff9aa2, etc.).
+ *   - Hover-Only Screenshot Carousel: Screenshots remain calm and static by default, cycling smoothly only when the user hovers over that project.
+ *   - Clickable & Hoverable Titlebar Link: Direct access to live deployments.
+ *   - Uncluttered & Spacious: Clear typography, concise synopsis, and tactile tech chips.
+ *   - Full prefers-reduced-motion support.
  */
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import projectsData from "@/app/data/projects.json";
@@ -23,6 +19,16 @@ import { FolderGit2, ArrowUpRight, Play, Github, ChevronDown, ChevronUp } from "
 
 const INK = "#2b3a2f";
 const INITIAL_COUNT = 4;
+
+/* River banner palette matching Hero & Experience */
+const BANNER_COLORS = [
+  "#4fb3d9", // River Blue (Distributed Notification Engine)
+  "#a8d672", // Foliage Green (Infybite)
+  "#ffd23f", // Sun Yellow (Bails on Fire)
+  "#ff9aa2", // Blossom Coral (NearH)
+  "#c77dff", // Lavender (Hey Imposter)
+  "#f4a259", // Warm Peach (Mess-Bazaar)
+];
 
 type ProjectItem = (typeof projectsData.projects)[number];
 
@@ -41,12 +47,25 @@ function getProjectHostSlug(project: ProjectItem) {
 function ProjectCard({ project, idx }: { project: ProjectItem; idx: number }) {
   const reduce = useReducedMotion();
   const [activeImageIdx, setActiveImageIdx] = useState(0);
-  const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   const images = project.images || [];
   const currentImage = images[activeImageIdx] || images[0] || null;
   const hasVideo = "videoDemo" in project && Boolean(project.videoDemo);
   const hostSlug = getProjectHostSlug(project);
+  const destinationUrl = project.liveSite || project.githubRepo || "#";
+  const titlebarColor = BANNER_COLORS[idx % BANNER_COLORS.length];
+
+  /* Auto-rotate screenshots ONLY when hovered on this project */
+  useEffect(() => {
+    if (!isHovered || images.length <= 1 || reduce) return;
+
+    const interval = setInterval(() => {
+      setActiveImageIdx((prev) => (prev + 1) % images.length);
+    }, 1800);
+
+    return () => clearInterval(interval);
+  }, [isHovered, images.length, reduce]);
 
   return (
     <motion.article
@@ -54,41 +73,41 @@ function ProjectCard({ project, idx }: { project: ProjectItem; idx: number }) {
       initial={reduce ? { opacity: 1 } : { opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       exit={reduce ? { opacity: 0 } : { opacity: 0, scale: 0.96 }}
-      transition={{ duration: 0.35, delay: Math.min(idx * 0.04, 0.2) }}
-      className="group relative rounded-md border-2 bg-white text-[#2b3a2f] overflow-hidden flex flex-col justify-between transition-all duration-200 hover:-translate-y-1 hover:shadow-[3px_3px_0_0_#2b3a2f] shadow-[1.5px_1.5px_0_0_#2b3a2f]"
+      transition={{ duration: 0.35, delay: Math.min(idx * 0.05, 0.2) }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => {
+        setIsHovered(false);
+        setActiveImageIdx(0);
+      }}
+      className="group relative rounded-md border-2 bg-white text-[#2b3a2f] overflow-hidden flex flex-col justify-between transition-all duration-200 hover:-translate-y-1 hover:shadow-[4px_4px_0_0_#2b3a2f] shadow-[2.5px_2.5px_0_0_#2b3a2f]"
       style={{ borderColor: INK }}
     >
       <div>
-        {/* Engineered Viewport Titlebar */}
+        {/* Themed Viewport Titlebar matching Hero / Experience banner palette */}
         <div
-          className="flex items-center justify-between px-3 py-2 bg-white border-b select-none transition-colors group-hover:bg-[#2b3a2f]/[0.02]"
-          style={{ borderColor: `${INK}20` }}
+          className="flex items-center justify-between px-3 py-2 border-b select-none"
+          style={{ borderColor: `${INK}20`, backgroundColor: titlebarColor }}
         >
-          {/* Left: Window Dots (Blossom Coral, Sun Yellow, Foliage Green) */}
+          {/* Window Dots */}
           <div className="flex items-center gap-1.5 shrink-0" aria-hidden>
-            <span
-              className="w-2.5 h-2.5 rounded-full border transition-transform group-hover:scale-110"
-              style={{ borderColor: INK, backgroundColor: "#ff9aa2" }}
-            />
-            <span
-              className="w-2.5 h-2.5 rounded-full border transition-transform group-hover:scale-110"
-              style={{ borderColor: INK, backgroundColor: "#ffd23f" }}
-            />
-            <span
-              className="w-2.5 h-2.5 rounded-full border transition-transform group-hover:scale-110"
-              style={{ borderColor: INK, backgroundColor: "#a8d672" }}
-            />
+            <span className="w-2.5 h-2.5 rounded-full border border-[#2b3a2f]/30 bg-white transition-transform group-hover:scale-110" />
+            <span className="w-2.5 h-2.5 rounded-full border border-[#2b3a2f]/30 bg-white transition-transform group-hover:scale-110" />
+            <span className="w-2.5 h-2.5 rounded-full border border-[#2b3a2f]/30 bg-white transition-transform group-hover:scale-110" />
           </div>
 
-          {/* Center: System Host / URL Slug */}
-          <div
-            className="px-2.5 py-0.5 rounded border bg-white max-w-[140px] sm:max-w-[220px] truncate text-[10px] font-mono text-[#2b3a2f]/70 shadow-[0.5px_0.5px_0_0_#2b3a2f]"
-            style={{ borderColor: `${INK}30` }}
+          {/* Clickable & Hoverable System Host Link */}
+          <a
+            href={destinationUrl}
+            target="_blank"
+            rel="noreferrer"
+            title={`Open ${project.name}`}
+            className="px-2.5 py-0.5 rounded border border-[#2b3a2f]/30 bg-white max-w-[140px] sm:max-w-[220px] truncate text-[10px] font-mono font-medium text-[#2b3a2f]/80 shadow-[0.5px_0.5px_0_0_#2b3a2f] transition-all duration-150 hover:border-[#2b3a2f] hover:bg-[#2b3a2f] hover:text-white hover:shadow-[1.5px_1.5px_0_0_#2b3a2f] hover:-translate-y-0.5 active:translate-y-0 cursor-pointer inline-flex items-center gap-1"
           >
-            {hostSlug}
-          </div>
+            <span className="truncate">{hostSlug}</span>
+            <ArrowUpRight size={10} className="shrink-0 stroke-[2.2]" />
+          </a>
 
-          {/* Right: Multi-Screen Viewport Switcher */}
+          {/* Screenshot Pagination Buttons */}
           <div className="flex items-center gap-1 shrink-0">
             {images.length > 1 ? (
               images.map((_, imgIdx) => {
@@ -99,47 +118,58 @@ function ProjectCard({ project, idx }: { project: ProjectItem; idx: number }) {
                     type="button"
                     onClick={() => setActiveImageIdx(imgIdx)}
                     aria-label={`Switch to screenshot ${imgIdx + 1}`}
-                    className={`px-1.5 py-0.5 rounded text-[9px] font-mono font-bold transition-all cursor-pointer ${
+                    className={`px-1.5 py-0.5 rounded text-[9px] font-mono font-bold transition-all cursor-pointer border ${
                       isActive
-                        ? "bg-[#2b3a2f] text-white shadow-[1px_1px_0_0_#2b3a2f]"
-                        : "bg-white text-[#2b3a2f]/60 hover:text-[#2b3a2f] hover:bg-[#ffd23f]/25 border"
+                        ? "bg-[#2b3a2f] text-white border-[#2b3a2f] shadow-[1px_1px_0_0_#2b3a2f]"
+                        : "bg-white text-[#2b3a2f]/70 border-[#2b3a2f]/25 hover:border-[#2b3a2f] hover:bg-white shadow-[0.5px_0.5px_0_0_#2b3a2f]"
                     }`}
-                    style={isActive ? undefined : { borderColor: `${INK}30` }}
                   >
                     0{imgIdx + 1}
                   </button>
                 );
               })
             ) : (
-              <span className="text-[9px] font-mono text-[#2b3a2f]/40 font-semibold px-1">
+              <span className="text-[9px] font-mono text-[#2b3a2f]/70 font-semibold px-1">
                 LIVE
               </span>
             )}
           </div>
         </div>
 
-        {/* Inset Canvas: Clean Framed Preview with Floating Shadow */}
+        {/* Screenshot Viewport */}
         <div
-          className="relative w-full h-44 sm:h-52 bg-white p-2.5 sm:p-3 flex items-center justify-center overflow-hidden border-b-2"
-          style={{ borderColor: `${INK}20` }}
+          className="relative w-full h-44 sm:h-52 bg-[#f8fafc] p-2.5 sm:p-3 flex items-center justify-center overflow-hidden border-b"
+          style={{ borderColor: `${INK}15` }}
         >
           {currentImage ? (
             <div
-              className={`relative w-full h-full rounded-[3px] overflow-hidden border bg-white shadow-[1.5px_1.5px_0_0_#2b3a2f] transition-all duration-300 ${
-                reduce
-                  ? ""
-                  : "group-hover:shadow-[2.5px_2.5px_0_0_#2b3a2f]"
-              }`}
-              style={{ borderColor: `${INK}35` }}
+              className="relative w-full h-full rounded-[3px] overflow-hidden border bg-white shadow-[1px_1px_0_0_#2b3a2f]/10 cursor-pointer group-hover:shadow-[2px_2px_0_0_#2b3a2f] transition-all"
+              style={{ borderColor: `${INK}25` }}
+              onClick={() => {
+                if (images.length > 1) {
+                  setActiveImageIdx((prev) => (prev + 1) % images.length);
+                }
+              }}
+              title={images.length > 1 ? "Click to view next screenshot" : undefined}
             >
-              <Image
-                key={currentImage}
-                src={currentImage}
-                alt={`${project.name} interface view ${activeImageIdx + 1}`}
-                fill
-                sizes="(max-width: 768px) 100vw, 550px"
-                className="object-cover object-top transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]"
-              />
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentImage}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.25 }}
+                  className="relative w-full h-full"
+                >
+                  <Image
+                    src={currentImage}
+                    alt={`${project.name} preview ${activeImageIdx + 1}`}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 550px"
+                    className="object-cover object-top transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.02]"
+                  />
+                </motion.div>
+              </AnimatePresence>
             </div>
           ) : (
             <div
@@ -151,15 +181,15 @@ function ProjectCard({ project, idx }: { project: ProjectItem; idx: number }) {
           )}
         </div>
 
-        {/* Card Header & Content */}
+        {/* Card Body: Title, Action Links & Clean Synopsis */}
         <div className="p-4 sm:p-5">
-          {/* Header Row: Title & Action Pills */}
+          {/* Header Row: Title & Action Links */}
           <div className="flex items-start justify-between gap-3 mb-2.5">
-            <h3 className="text-sm sm:text-base font-bold text-[#2b3a2f] tracking-tight leading-snug group-hover:text-[#2b3a2f] transition-colors">
+            <h3 className="text-base sm:text-lg font-bold text-[#2b3a2f] tracking-tight leading-snug">
               {project.name}
             </h3>
 
-            {/* Direct Action Links */}
+            {/* Action Buttons */}
             <div className="flex items-center gap-1.5 shrink-0">
               {project.githubRepo && (
                 <a
@@ -167,7 +197,7 @@ function ProjectCard({ project, idx }: { project: ProjectItem; idx: number }) {
                   target="_blank"
                   rel="noreferrer"
                   aria-label={`${project.name} GitHub Repository`}
-                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md border text-[11px] font-mono font-bold text-[#2b3a2f] bg-white hover:bg-[#ffd23f] hover:shadow-[2px_2px_0_0_#2b3a2f] hover:-translate-y-0.5 active:translate-x-0.5 active:translate-y-0.5 transition-all"
+                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md border text-[11px] font-mono font-bold text-[#2b3a2f] bg-white hover:bg-[#ffd23f] shadow-[1px_1px_0_0_#2b3a2f] hover:shadow-[2px_2px_0_0_#2b3a2f] hover:-translate-y-0.5 active:translate-y-0 transition-all"
                   style={{ borderColor: INK }}
                 >
                   <Github size={11} className="stroke-[2.2]" />
@@ -181,7 +211,7 @@ function ProjectCard({ project, idx }: { project: ProjectItem; idx: number }) {
                   target="_blank"
                   rel="noreferrer"
                   aria-label={`${project.name} Live Site`}
-                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md border text-[11px] font-mono font-bold text-[#2b3a2f] bg-[#a8d672]/30 hover:bg-[#a8d672] hover:shadow-[2px_2px_0_0_#2b3a2f] hover:-translate-y-0.5 active:translate-x-0.5 active:translate-y-0.5 transition-all"
+                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md border text-[11px] font-mono font-bold text-[#2b3a2f] bg-white hover:bg-[#a8d672] shadow-[1px_1px_0_0_#2b3a2f] hover:shadow-[2px_2px_0_0_#2b3a2f] hover:-translate-y-0.5 active:translate-y-0 transition-all"
                   style={{ borderColor: INK }}
                 >
                   <span>Live</span>
@@ -195,7 +225,7 @@ function ProjectCard({ project, idx }: { project: ProjectItem; idx: number }) {
                   target="_blank"
                   rel="noreferrer"
                   aria-label={`${project.name} Video Demo`}
-                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md border text-[11px] font-mono font-bold text-[#2b3a2f] bg-[#4fb3d9]/25 hover:bg-[#4fb3d9] hover:shadow-[2px_2px_0_0_#2b3a2f] hover:-translate-y-0.5 active:translate-x-0.5 active:translate-y-0.5 transition-all"
+                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md border text-[11px] font-mono font-bold text-[#2b3a2f] bg-white hover:bg-[#4fb3d9] shadow-[1px_1px_0_0_#2b3a2f] hover:shadow-[2px_2px_0_0_#2b3a2f] hover:-translate-y-0.5 active:translate-y-0 transition-all"
                   style={{ borderColor: INK }}
                 >
                   <Play size={9} className="fill-[#2b3a2f]" />
@@ -205,62 +235,10 @@ function ProjectCard({ project, idx }: { project: ProjectItem; idx: number }) {
             </div>
           </div>
 
-          {/* Concise Synopsis with tactile hover interaction */}
-          <p className="text-xs sm:text-[13px] leading-relaxed text-[#2b3a2f]/80 font-medium mb-2.5 transition-colors duration-200 hover:text-[#2b3a2f] group-hover:text-[#2b3a2f]">
+          {/* Clean Editorial Synopsis */}
+          <p className="text-xs sm:text-[13px] leading-relaxed text-[#2b3a2f]/80 font-normal">
             {project.description}
           </p>
-
-          {/* Key Points Progressive Disclosure Toggle */}
-          {project.keyPoints && project.keyPoints.length > 0 && (
-            <div>
-              <button
-                type="button"
-                onClick={() => setIsDetailsOpen(!isDetailsOpen)}
-                aria-expanded={isDetailsOpen}
-                className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] sm:text-[11px] font-mono font-semibold border transition-all duration-150 select-none cursor-pointer ${
-                  isDetailsOpen
-                    ? "bg-[#ffd23f] text-[#2b3a2f] shadow-[1px_1px_0_0_#2b3a2f]"
-                    : "bg-white text-[#2b3a2f]/70 hover:text-[#2b3a2f] hover:bg-[#ffd23f]/20 shadow-[1px_1px_0_0_#2b3a2f]"
-                }`}
-                style={{ borderColor: INK }}
-              >
-                <span>{isDetailsOpen ? "Hide details" : `Key points (${project.keyPoints.length})`}</span>
-                <ChevronDown
-                  size={12}
-                  className={`stroke-[2.2] transition-transform duration-200 ${
-                    isDetailsOpen ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
-
-              <AnimatePresence initial={false}>
-                {isDetailsOpen && (
-                  <motion.div
-                    initial={reduce ? { opacity: 1 } : { height: 0, opacity: 0 }}
-                    animate={reduce ? { opacity: 1 } : { height: "auto", opacity: 1 }}
-                    exit={reduce ? { opacity: 0 } : { height: 0, opacity: 0 }}
-                    transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                    className="overflow-hidden mt-2.5 pt-2.5 border-t border-[#2b3a2f]/10"
-                  >
-                    <ul className="space-y-1.5">
-                      {project.keyPoints.map((point, pIdx) => (
-                        <li
-                          key={pIdx}
-                          className="group/point flex items-start gap-2 text-[11px] sm:text-xs leading-relaxed text-[#2b3a2f]/75 font-normal transition-all duration-150 hover:text-[#2b3a2f] hover:translate-x-0.5"
-                        >
-                          <span
-                            className="w-1.5 h-1.5 rounded-[1px] bg-[#2b3a2f]/40 group-hover/point:bg-[#ffd23f] group-hover/point:shadow-[1px_1px_0_0_#2b3a2f] mt-1 shrink-0 transition-all duration-150"
-                            aria-hidden
-                          />
-                          <span>{point}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          )}
         </div>
       </div>
 
@@ -272,8 +250,8 @@ function ProjectCard({ project, idx }: { project: ProjectItem; idx: number }) {
         {project.techStack.map((tech, tIdx) => (
           <span
             key={tIdx}
-            className="px-2 py-0.5 rounded text-[10px] sm:text-[11px] font-mono bg-white text-[#2b3a2f] border shadow-[1px_1px_0_0_#2b3a2f] hover:bg-[#ffd23f] hover:-translate-y-0.5 hover:shadow-[2px_2px_0_0_#2b3a2f] transition-all duration-150 cursor-default select-none"
-            style={{ borderColor: INK }}
+            className="px-2 py-0.5 rounded text-[10px] sm:text-[11px] font-mono bg-white text-[#2b3a2f] border shadow-[0.5px_0.5px_0_0_#2b3a2f] hover:border-[#2b3a2f] hover:bg-[#ffd23f]/25 transition-all duration-150 cursor-default select-none"
+            style={{ borderColor: `${INK}30` }}
           >
             {tech}
           </span>
@@ -297,7 +275,7 @@ export default function DefaultProjects() {
     >
       <div className="mx-auto max-w-5xl">
         {/* Section Heading */}
-        <div className="flex items-center justify-between mb-8 pb-3 border-b border-[#2b3a2f]/15">
+        <div className="flex items-center justify-between mb-8 pb-3 border-b-2 border-[#2b3a2f]/15">
           <div className="flex items-center gap-2.5">
             <span
               className="inline-flex items-center justify-center w-7 h-7 rounded-md border-2 bg-white text-[#2b3a2f] shadow-[2px_2px_0_0_#2b3a2f]"
@@ -314,7 +292,7 @@ export default function DefaultProjects() {
           </span>
         </div>
 
-        {/* Projects Cards Grid: Viewport-Framed Design */}
+        {/* Projects Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
           <AnimatePresence>
             {displayedProjects.map((project, idx) => (
