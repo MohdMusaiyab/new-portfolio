@@ -2,17 +2,19 @@
 
 /**
  * Skills Section (Default / Light Theme)
- *
+ * 
  * Aesthetic:
- *   - Clean modular dossier grid matching Hero, Experience & Education.
- *   - Hero-matched category titlebars with disciplined river banner accents.
- *   - Authentic vector brand icons with uniform, calm chip styling.
- *   - No color overload or disorienting tilts; high scannability and clear hierarchy.
- *   - Accessible entrance animations with prefers-reduced-motion support.
+ *   - Unified Dossier Sheet: Single high-density, framed technical blueprint
+ *     with clean domain rows.
+ *   - Dark-green ink (#2b3a2f), low roundedness (rounded-md), hard offset shadows.
+ *   - Full Mobile Responsiveness: Clean stacked headers on small screens, seamless wrapping,
+ *     and touch-friendly interactive targets.
+ *   - Authentic Brand Glyphs: Official vector brand icons mapped for every skill.
+ *   - Tactile Micro-Interactions: Spring physics, micro-tilts, and river banner pastel floods on hover.
  */
 
-import React from "react";
-import { motion, useReducedMotion, type Variants } from "framer-motion";
+import React, { useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import skillsData from "@/app/data/skills.json";
 import {
   Wrench,
@@ -57,19 +59,19 @@ import {
 } from "react-icons/fa6";
 
 const INK = "#2b3a2f";
-const EASE = [0.16, 1, 0.3, 1] as const;
 
-/* Calm, hero-coordinated palette for category headers */
-const CATEGORY_COLORS: Record<string, string> = {
-  "Programming Languages": "#ffd23f", // Sun Yellow
-  "Backend Development": "#a8d672",   // Foliage Green
-  "Frontend Development": "#4fb3d9",  // River Blue
-  "Databases and ORM": "#c77dff",     // Lavender
-  "DevOps and Tools": "#f4a259",      // Warm Peach
-  "Core Competencies": "#ff9aa2",     // Blossom Coral
-};
+/* Palette matching the cartoon builder river banner */
+const BANNER_COLORS = [
+  "#ffd23f", // Sun Yellow
+  "#4fb3d9", // River Blue
+  "#a8d672", // Foliage Green
+  "#ff9aa2", // Blossom Coral
+  "#f4a259", // Warm Peach
+  "#c77dff", // Lavender
+  "#bfe8f2", // Fresh Mint
+];
 
-/* Authentic vector brand glyphs */
+/* Icon map associating every skill with its authentic vector brand glyph */
 const SKILL_ICON_MAP: Record<string, IconType> = {
   "Go (Golang)": SiGo,
   "TypeScript": SiTypescript,
@@ -102,7 +104,7 @@ const SKILL_ICON_MAP: Record<string, IconType> = {
   "DSA": FaCode,
 };
 
-/* Semantic category icons */
+/* Semantic domain icons for category rows */
 const CATEGORY_ICON_MAP: Record<
   string,
   React.ComponentType<{ size?: number; className?: string }>
@@ -115,22 +117,54 @@ const CATEGORY_ICON_MAP: Record<
   "Core Competencies": Cpu,
 };
 
-export default function DefaultSkills() {
+type SkillBadgeProps = {
+  name: string;
+  colorIndex: number;
+};
+
+function SkillBadge({ name, colorIndex }: SkillBadgeProps) {
   const reduce = useReducedMotion();
+  const [isHovered, setIsHovered] = useState(false);
 
-  const cardVariant: Variants = {
-    hidden: reduce ? { opacity: 1 } : { opacity: 0, y: 12 },
-    show: (i: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.4,
-        delay: reduce ? 0 : i * 0.08,
-        ease: EASE,
-      },
-    }),
-  };
+  const IconComponent = SKILL_ICON_MAP[name];
+  const color = BANNER_COLORS[colorIndex % BANNER_COLORS.length];
+  // Alternating subtle micro-tilts (-2 to 2 degrees)
+  const tilt = ((colorIndex % 5) - 2) * 1.0;
 
+  return (
+    <motion.div
+      whileHover={
+        reduce
+          ? {}
+          : {
+              y: -2.5,
+              scale: 1.03,
+              rotate: tilt,
+            }
+      }
+      whileTap={{ scale: 0.96 }}
+      transition={{ type: "spring", stiffness: 450, damping: 16 }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="group relative inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-md border text-[11px] sm:text-xs font-mono font-bold transition-all duration-150 cursor-pointer sm:cursor-default select-none shadow-[1.5px_1.5px_0_0_#2b3a2f]"
+      style={{
+        borderColor: INK,
+        backgroundColor: isHovered ? color : "#ffffff",
+        color: INK,
+        boxShadow: isHovered
+          ? "2.5px 2.5px 0 0 #2b3a2f"
+          : "1.5px 1.5px 0 0 #2b3a2f",
+      }}
+    >
+      {IconComponent && (
+        <IconComponent className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 transition-transform duration-150 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110" />
+      )}
+      <span className="whitespace-nowrap tracking-tight">{name}</span>
+    </motion.div>
+  );
+}
+
+export default function DefaultSkills() {
   return (
     <section
       id="skills"
@@ -147,66 +181,62 @@ export default function DefaultSkills() {
               <Wrench size={14} className="stroke-[2.2]" />
             </span>
             <h2 className="text-sm font-mono uppercase tracking-[0.18em] font-bold text-[#2b3a2f]">
-              Skills &amp; Tech Stack
+              Skills
             </h2>
           </div>
         </div>
 
-        {/* Clean, Modular Domain Grid: 2 rows of 3 on desktop, 2 on tablet, 1 on mobile */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
-          {skillsData.skills.map((category, cIdx) => {
-            const CatIcon = CATEGORY_ICON_MAP[category.name] || Wrench;
-            const headerColor = CATEGORY_COLORS[category.name] || "#ffd23f";
+        {/* Unified Dossier Sheet: Single framed container with clean domain rows */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.35 }}
+          className="rounded-md border-2 bg-white text-[#2b3a2f] shadow-[2.5px_2.5px_0_0_#2b3a2f] overflow-hidden"
+          style={{ borderColor: INK }}
+        >
+          {/* Categorized Domain Rows inside the Single Sheet */}
+          <div className="divide-y divide-[#2b3a2f]/10">
+            {skillsData.skills.map((category, cIdx) => {
+              const CatIcon = CATEGORY_ICON_MAP[category.name] || Wrench;
+              const catColor = BANNER_COLORS[cIdx % BANNER_COLORS.length];
 
-            return (
-              <motion.article
-                key={cIdx}
-                custom={cIdx}
-                variants={cardVariant}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true, margin: "-40px" }}
-                className="group rounded-md border-2 bg-white text-[#2b3a2f] overflow-hidden shadow-[2.5px_2.5px_0_0_#2b3a2f] hover:shadow-[4px_4px_0_0_#2b3a2f] hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between"
-                style={{ borderColor: INK }}
-              >
-                {/* Hero-matched Category Titlebar */}
+              return (
                 <div
-                  className="border-b px-3.5 py-2 flex items-center justify-between select-none"
-                  style={{ borderColor: `${INK}20`, backgroundColor: headerColor }}
+                  key={cIdx}
+                  className="p-3.5 sm:p-5 flex flex-col md:flex-row md:items-start gap-3 sm:gap-4 lg:gap-6 transition-colors duration-150 hover:bg-[#ffd23f]/[0.05]"
                 >
-                  <div className="flex items-center gap-2 min-w-0">
-                    <CatIcon size={13} className="shrink-0 stroke-[2.2] text-[#2b3a2f]" />
-                    <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-[#2b3a2f] truncate">
+                  {/* Domain Header Row: Left sidebar on desktop, top bar on mobile */}
+                  <div className="flex items-center gap-2.5 shrink-0 md:w-48 lg:w-52 pt-0.5">
+                    <span
+                      className="inline-flex items-center justify-center w-6 h-6 rounded border text-[#2b3a2f] shrink-0 shadow-[1px_1px_0_0_#2b3a2f] group-hover:scale-105 transition-transform"
+                      style={{ borderColor: INK, backgroundColor: catColor }}
+                    >
+                      <CatIcon size={12} className="stroke-[2.2]" />
+                    </span>
+                    <h3 className="text-xs sm:text-[12px] font-bold font-mono text-[#2b3a2f] tracking-tight uppercase truncate">
                       {category.name}
                     </h3>
                   </div>
-                  <span className="font-mono text-[10px] font-bold text-[#2b3a2f]/70 tabular-nums shrink-0 ml-2">
-                    {category.skills.length}
-                  </span>
-                </div>
 
-                {/* Clean, Uniform Skill Badges */}
-                <div className="p-3.5 sm:p-4 flex-1 flex flex-wrap content-start gap-1.5 sm:gap-2">
-                  {category.skills.map((skill, sIdx) => {
-                    const IconComponent = SKILL_ICON_MAP[skill.name];
-
-                    return (
-                      <div
-                        key={sIdx}
-                        className="group/badge inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-[#2b3a2f]/20 bg-[#f8fafc] hover:bg-white hover:border-[#2b3a2f] text-[11px] sm:text-xs font-mono font-medium text-[#2b3a2f] shadow-[1px_1px_0_0_#2b3a2f] hover:shadow-[2px_2px_0_0_#2b3a2f] hover:-translate-y-0.5 transition-all duration-150 select-none"
-                      >
-                        {IconComponent && (
-                          <IconComponent className="w-3.5 h-3.5 shrink-0 transition-transform duration-150 group-hover/badge:scale-110 text-[#2b3a2f]" />
-                        )}
-                        <span className="whitespace-nowrap tracking-tight">{skill.name}</span>
-                      </div>
-                    );
-                  })}
+                  {/* Skills Badges: Full-width wrapping grid on mobile, inline flow on desktop */}
+                  <div className="flex-1 flex flex-wrap items-center gap-1.5 sm:gap-2 pt-0.5">
+                    {category.skills.map((skill, sIdx) => {
+                      const globalIndex = cIdx * 5 + sIdx;
+                      return (
+                        <SkillBadge
+                          key={sIdx}
+                          name={skill.name}
+                          colorIndex={globalIndex}
+                        />
+                      );
+                    })}
+                  </div>
                 </div>
-              </motion.article>
-            );
-          })}
-        </div>
+              );
+            })}
+          </div>
+        </motion.div>
       </div>
     </section>
   );

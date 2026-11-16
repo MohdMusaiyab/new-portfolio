@@ -239,9 +239,6 @@ export default function DefaultContact() {
               <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#2b3a2f]">
                 Send a Note
               </span>
-              <span className="font-mono text-[10px] font-bold text-[#2b3a2f]/70 uppercase tracking-wider">
-                Direct Inbox
-              </span>
             </div>
 
             <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
@@ -285,7 +282,6 @@ export default function DefaultContact() {
                       id="senderEmail"
                       type="email"
                       required
-                      placeholder="name@example.com"
                       value={form.senderEmail}
                       onChange={(e) => setForm((p) => ({ ...p, senderEmail: e.target.value }))}
                       className="w-full px-3 py-2 text-xs font-mono text-[#2b3a2f] bg-[#f8fafc] focus:bg-white border border-[#2b3a2f]/25 focus:border-[#2b3a2f] rounded-md focus:outline-none focus:shadow-[2px_2px_0_0_#2b3a2f] transition-all"
@@ -303,7 +299,6 @@ export default function DefaultContact() {
                       id="subject"
                       type="text"
                       required
-                      placeholder="Project inquiry / Collaboration"
                       value={form.subject}
                       onChange={(e) => setForm((p) => ({ ...p, subject: e.target.value }))}
                       className="w-full px-3 py-2 text-xs font-mono text-[#2b3a2f] bg-[#f8fafc] focus:bg-white border border-[#2b3a2f]/25 focus:border-[#2b3a2f] rounded-md focus:outline-none focus:shadow-[2px_2px_0_0_#2b3a2f] transition-all"
@@ -321,7 +316,6 @@ export default function DefaultContact() {
                       id="message"
                       required
                       rows={4}
-                      placeholder="Hi Musaiyab, I wanted to reach out regarding..."
                       value={form.message}
                       onChange={(e) => setForm((p) => ({ ...p, message: e.target.value }))}
                       className="w-full px-3 py-2 text-xs font-mono text-[#2b3a2f] bg-[#f8fafc] focus:bg-white border border-[#2b3a2f]/25 focus:border-[#2b3a2f] rounded-md focus:outline-none focus:shadow-[2px_2px_0_0_#2b3a2f] resize-none transition-all"

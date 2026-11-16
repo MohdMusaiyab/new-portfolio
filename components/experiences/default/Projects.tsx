@@ -284,7 +284,7 @@ export default function DefaultProjects() {
               <FolderGit2 size={14} className="stroke-[2.2]" />
             </span>
             <h2 className="text-sm font-mono uppercase tracking-[0.18em] font-bold text-[#2b3a2f]">
-              Featured Projects
+              Projects
             </h2>
           </div>
           <span className="text-[11px] font-mono text-[#2b3a2f]/60 font-semibold">
