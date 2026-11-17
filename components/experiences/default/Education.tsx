@@ -33,8 +33,8 @@ const BANNER_COLORS = [
 
 export default function DefaultEducation() {
   const reduce = useReducedMotion();
-  // Latest qualification expanded by default for instant readability
-  const [expandedIndex, setExpandedIndex] = useState<number | null>(0);
+  // Collapsed by default for clean initial view
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
   // Reverse chronological order (latest academic qualification first)
   const sorted = [...educationData.education].reverse();

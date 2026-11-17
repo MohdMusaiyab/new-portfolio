@@ -1,12 +1,13 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { GitHubCalendar } from "react-github-calendar";
 import { GitCommit } from "lucide-react";
 
 const INK = "#2b3a2f";
 
 export default function DefaultGithubActivity() {
+  const reduce = useReducedMotion();
   const customTheme = {
     light: ["#f5f5f4", "#d7ead0", "#a8d672", "#4fb3d9", "#2b3a2f"],
     dark: ["#f5f5f4", "#d7ead0", "#a8d672", "#4fb3d9", "#2b3a2f"],
@@ -40,11 +41,11 @@ export default function DefaultGithubActivity() {
 
         {/* Activity Card */}
         <motion.div
-          initial={{ opacity: 0, y: 8 }}
+          initial={reduce ? { opacity: 1 } : { opacity: 0, y: 8 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.35 }}
-          className="rounded-md border-2 bg-white p-4 sm:p-6 overflow-x-auto scrollbar-none shadow-[2px_2px_0_0_#2b3a2f] hover:shadow-[3px_3px_0_0_#2b3a2f] transition-all duration-200"
+          className="rounded-md border-2 bg-white p-4 sm:p-6 overflow-x-auto shadow-[2px_2px_0_0_#2b3a2f] hover:shadow-[3px_3px_0_0_#2b3a2f] transition-all duration-200"
           style={{ borderColor: INK }}
         >
           <div className="min-w-[680px]">
@@ -60,6 +61,11 @@ export default function DefaultGithubActivity() {
                 color: INK,
               }}
             />
+          </div>
+
+          {/* Mobile horizontal scroll affordance cue */}
+          <div className="flex sm:hidden items-center justify-center gap-1.5 mt-3 pt-2.5 border-t border-[#2b3a2f]/10 text-[10px] font-mono text-[#2b3a2f]/65">
+            <span>← Scroll horizontally to explore →</span>
           </div>
         </motion.div>
       </div>

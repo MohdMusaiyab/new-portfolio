@@ -12,7 +12,7 @@
  */
 
 import { useState } from "react";
-import { Mail, Send, Github, Linkedin, Check, Copy, ExternalLink, ArrowRight } from "lucide-react";
+import { Mail, Send, Github, Linkedin, Check, Copy, ExternalLink, ArrowRight, AlertCircle } from "lucide-react";
 import { FaXTwitter } from "react-icons/fa6";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 
@@ -38,6 +38,11 @@ export default function DefaultContact() {
     form.senderEmail.trim().length > 0 &&
     form.subject.trim().length > 0 &&
     form.message.trim().length > 0;
+
+  const updateField = (field: keyof typeof form, value: string) => {
+    if (status === "error") setStatus("idle");
+    setForm((p) => ({ ...p, [field]: value }));
+  };
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(email);
@@ -283,7 +288,7 @@ export default function DefaultContact() {
                       type="email"
                       required
                       value={form.senderEmail}
-                      onChange={(e) => setForm((p) => ({ ...p, senderEmail: e.target.value }))}
+                      onChange={(e) => updateField("senderEmail", e.target.value)}
                       className="w-full px-3 py-2 text-xs font-mono text-[#2b3a2f] bg-[#f8fafc] focus:bg-white border border-[#2b3a2f]/25 focus:border-[#2b3a2f] rounded-md focus:outline-none focus:shadow-[2px_2px_0_0_#2b3a2f] transition-all"
                     />
                   </div>
@@ -300,7 +305,7 @@ export default function DefaultContact() {
                       type="text"
                       required
                       value={form.subject}
-                      onChange={(e) => setForm((p) => ({ ...p, subject: e.target.value }))}
+                      onChange={(e) => updateField("subject", e.target.value)}
                       className="w-full px-3 py-2 text-xs font-mono text-[#2b3a2f] bg-[#f8fafc] focus:bg-white border border-[#2b3a2f]/25 focus:border-[#2b3a2f] rounded-md focus:outline-none focus:shadow-[2px_2px_0_0_#2b3a2f] transition-all"
                     />
                   </div>
@@ -317,20 +322,23 @@ export default function DefaultContact() {
                       required
                       rows={4}
                       value={form.message}
-                      onChange={(e) => setForm((p) => ({ ...p, message: e.target.value }))}
+                      onChange={(e) => updateField("message", e.target.value)}
                       className="w-full px-3 py-2 text-xs font-mono text-[#2b3a2f] bg-[#f8fafc] focus:bg-white border border-[#2b3a2f]/25 focus:border-[#2b3a2f] rounded-md focus:outline-none focus:shadow-[2px_2px_0_0_#2b3a2f] resize-none transition-all"
                     />
                   </div>
 
-                  <div className="flex items-center justify-between pt-1">
-                    {status === "error" ? (
-                      <span className="text-[11px] font-mono text-red-600 font-bold">
-                        Failed to send. Please use direct email.
-                      </span>
-                    ) : (
-                      <span />
-                    )}
+                  {status === "error" && (
+                    <div
+                      role="alert"
+                      className="flex items-center gap-2 px-3 py-2 rounded-md border text-xs font-mono font-medium text-[#2b3a2f] bg-[#ff9aa2]/25 shadow-[1px_1px_0_0_#2b3a2f]"
+                      style={{ borderColor: INK }}
+                    >
+                      <AlertCircle size={14} className="shrink-0 stroke-[2.2] text-[#2b3a2f]" />
+                      <span className="flex-1">Delivery issue. Please reach out directly via email above.</span>
+                    </div>
+                  )}
 
+                  <div className="flex items-center justify-end pt-1">
                     <button
                       type="submit"
                       disabled={!isFormValid || status === "sending"}
