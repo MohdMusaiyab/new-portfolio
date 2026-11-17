@@ -162,12 +162,12 @@ function ThemedLogo({ isWinter }: { isWinter: boolean }) {
       {/* Decorative Shadow/Glow Layer */}
       <motion.path
         d="M10 60V20L35 45L60 20V60 M60 60V20L85 45L110 20V60"
-        stroke={isWinter ? "rgba(255,255,255,0.1)" : "rgba(19,78,74,0.05)"}
+        stroke={isWinter ? "rgba(255,255,255,0.1)" : "rgba(43,58,47,0.06)"}
         strokeWidth="14"
         strokeLinecap="square"
         strokeLinejoin="miter"
         animate={{
-          stroke: isWinter ? "rgba(255,255,255,0.1)" : "rgba(19,78,74,0.05)",
+          stroke: isWinter ? "rgba(255,255,255,0.1)" : "rgba(43,58,47,0.06)",
         }}
         transition={{ duration: 0.8 }}
       />
@@ -175,15 +175,15 @@ function ThemedLogo({ isWinter }: { isWinter: boolean }) {
       {/* Main Logo Path */}
       <motion.path
         d="M10 60V20L35 45L60 20V60 M60 60V20L85 45L110 20V60"
-        stroke={isWinter ? "#FFFFFF" : "#134E4A"}
+        stroke={isWinter ? "#FFFFFF" : "#2b3a2f"}
         strokeWidth="8"
         strokeLinecap="square"
         strokeLinejoin="miter"
         animate={{
-          stroke: isWinter ? "#FFFFFF" : "#134E4A",
+          stroke: isWinter ? "#FFFFFF" : "#2b3a2f",
           filter: isWinter 
             ? "drop-shadow(0 0 12px rgba(255,255,255,0.6))" 
-            : "drop-shadow(0 2px 4px rgba(19,78,74,0.1))",
+            : "drop-shadow(1px 1px 0px rgba(43,58,47,0.2))",
         }}
         transition={{ duration: 0.8, ease: "easeInOut" }}
       />
@@ -194,8 +194,10 @@ function ThemedLogo({ isWinter }: { isWinter: boolean }) {
         cy="60"
         r="4"
         animate={{
-          fill: isWinter ? "#FFFFFF" : "#0D9488",
-          opacity: [0.4, 1, 0.4],
+          fill: isWinter ? "#FFFFFF" : "#ffd23f",
+          stroke: isWinter ? "transparent" : "#2b3a2f",
+          strokeWidth: isWinter ? 0 : 1.5,
+          opacity: [0.6, 1, 0.6],
           scale: [1, 1.2, 1],
         }}
         transition={{ 
@@ -248,41 +250,40 @@ export default function Header() {
 
   if (!mounted) return null;
 
-  const defaultNavColor = "text-[#134E4A]/70";
-  const defaultNavHover = "hover:text-[#134E4A]";
-  const defaultNavActive =
-    "text-[#134E4A] font-black underline decoration-[#0D9488] decoration-2 underline-offset-8";
-  const defaultUnderline = "bg-[#0D9488]";
+  const defaultNavColor = "text-[#2b3a2f]/60";
+  const defaultNavHover = "hover:text-[#2b3a2f]";
+  const defaultNavActive = "text-[#2b3a2f] font-bold";
+  const defaultUnderline = "bg-[#2b3a2f]";
   const defaultToggle =
-    "text-[#134E4A] bg-white/30 backdrop-blur-xl border-white/40 shadow-sm hover:bg-white/50 transition-all";
+    "text-[#2b3a2f] bg-white border-2 border-[#2b3a2f] shadow-[1.5px_1.5px_0_0_#2b3a2f] hover:shadow-[2.5px_2.5px_0_0_#2b3a2f] hover:bg-[#ffd23f] active:translate-x-0.5 active:translate-y-0.5 transition-all font-bold";
 
   return (
     <>
-      {}
+      {/* ════════ DESKTOP HEADER ════════ */}
       <header
         id="site-header-desktop"
-        className={`fixed top-0 left-0 right-0 z-50 hidden md:flex items-center justify-between px-6 lg:px-12 h-20 transition-all duration-500 ${
+        className={`fixed top-0 left-0 right-0 z-50 hidden md:flex items-center justify-between px-6 lg:px-12 h-16 transition-all duration-300 ${
           isWinter
             ? scrolled
               ? "bg-[#09090b]/80 backdrop-blur-xl border-b border-white/10"
               : "bg-transparent border-b border-transparent"
             : scrolled
-              ? "bg-white/20 backdrop-blur-[32px] border-b border-white/30 shadow-[0_4px_30px_rgba(0,0,0,0.05)]"
-              : "bg-transparent border-b border-transparent"
+              ? "bg-[#f8fafc]/85 backdrop-blur-md border-b border-[#2b3a2f]/10 shadow-2xs"
+              : "bg-[#f8fafc]/40 backdrop-blur-xs border-b border-transparent"
         }`}
       >
-        {}
+        {/* Left: Brand Logo */}
         <Link
           href="/"
           aria-label="Back to top"
-          className="flex items-center transition-transform duration-300 hover:scale-105 active:scale-95 translate-y-2 md:translate-y-0"
+          className="flex items-center transition-transform duration-200 hover:opacity-80 active:scale-95"
         >
           <ThemedLogo isWinter={isWinter} />
         </Link>
 
-        {}
+        {/* Center: Navigation */}
         <nav className="absolute left-1/2 -translate-x-1/2 hidden lg:block">
-          <ul className="flex items-center gap-12 list-none m-0 p-0">
+          <ul className="flex items-center gap-8 list-none m-0 p-0">
             {NAV.map(({ label, href }) => {
               const id = href.replace("/#", "");
               const isActive = active === id;
@@ -290,7 +291,7 @@ export default function Header() {
                 <li key={href}>
                   <Link
                     href={href}
-                    className={`relative font-cormorant text-[13px] lg:text-[14px] font-black tracking-[0.2em] uppercase transition-colors duration-300 pb-1.5 ${
+                    className={`relative text-[13px] font-dm-mono uppercase tracking-[0.14em] transition-colors duration-200 pb-1 ${
                       isWinter
                         ? isActive
                           ? "text-white"
@@ -302,7 +303,7 @@ export default function Header() {
                   >
                     {label}
                     <span
-                      className={`absolute bottom-0 left-0 right-0 h-px transform origin-left transition-transform duration-300 ease-out ${
+                      className={`absolute bottom-0 left-0 right-0 h-[1.5px] transform origin-left transition-transform duration-200 ease-out ${
                         isActive ? "scale-x-100" : "scale-x-0"
                       } ${isWinter ? "bg-white" : defaultUnderline}`}
                     />
@@ -313,22 +314,22 @@ export default function Header() {
           </ul>
         </nav>
 
-        {}
+        {/* Right: Theme Toggle Pill */}
         <button
           onClick={toggleTheme}
-          aria-label={`Switch to ${isWinter ? "Default" : "Dark"} theme`}
-          className={`flex items-center gap-2.5 font-mono text-[10px] font-bold uppercase tracking-[0.15em] px-4 py-2 rounded-full border transition-all duration-300 ${
+          aria-label={`Switch to ${isWinter ? "Light" : "Dark"} theme`}
+          className={`flex items-center gap-2 font-dm-mono text-[11px] font-medium uppercase tracking-[0.12em] px-3.5 py-1.5 rounded-full border transition-all duration-200 cursor-pointer ${
             isWinter
               ? "text-white/70 border-white/20 hover:text-white hover:border-white hover:bg-white/5"
               : defaultToggle
           }`}
         >
           {isWinter ? <IconSun /> : <IconSnow />}
-          {isWinter ? "Day" : "Night"}
+          {isWinter ? "Light" : "Dark"}
         </button>
       </header>
 
-      {}
+      {/* ════════ MOBILE BOTTOM NAVIGATION ════════ */}
       <nav
         id="site-nav-mobile"
         aria-label="Mobile navigation"
@@ -336,10 +337,10 @@ export default function Header() {
         className="fixed bottom-0 left-0 right-0 z-50 flex md:hidden justify-center items-end pointer-events-none pb-6"
       >
         <div
-          className={`pointer-events-auto flex items-center gap-1.5 px-3 py-2.5 rounded-[24px] shadow-2xl backdrop-blur-3xl border transition-colors duration-500 ${
+          className={`pointer-events-auto flex items-center gap-1.5 px-3 py-2 rounded-full shadow-lg backdrop-blur-xl border transition-all duration-300 ${
             isWinter
-              ? "bg-black/60 border-white/10 shadow-black/80"
-              : "bg-white/20 border-white/30 shadow-xl"
+              ? "bg-black/80 border-white/10 shadow-black/80"
+              : "bg-white/95 border-[#2b3a2f]/20 shadow-[2px_2px_0_0_#2b3a2f]"
           }`}
         >
           {MOB_NAV.map(({ label, href, Icon }) => {
@@ -350,14 +351,14 @@ export default function Header() {
                 key={href}
                 href={href}
                 aria-label={label}
-                className={`group flex flex-col items-center p-2 rounded-xl transition-all duration-300 ${
+                className={`group flex flex-col items-center p-2 rounded-full transition-all duration-200 ${
                   isActive
                     ? isWinter
-                      ? "bg-white/10 text-white scale-110"
-                      : "bg-[#0d9488]/10 text-[#0d9488] scale-110"
+                      ? "bg-white/15 text-white"
+                      : "bg-[#2b3a2f] text-white shadow-[1px_1px_0_0_#2b3a2f]"
                     : isWinter
-                      ? "text-white/50 hover:text-white hover:bg-white/5"
-                      : "text-[#78716c] hover:text-[#1c1917] hover:bg-[#1c1917]/5"
+                      ? "text-white/50 hover:text-white"
+                      : "text-[#2b3a2f]/60 hover:text-[#2b3a2f] hover:bg-[#2b3a2f]/5"
                 }`}
               >
                 <Icon />
@@ -366,19 +367,19 @@ export default function Header() {
           })}
 
           <div
-            className={`w-px h-8 mx-1 ${isWinter ? "bg-white/10" : "bg-[#1c1917]/10"}`}
+            className={`w-px h-6 mx-1 ${isWinter ? "bg-white/10" : "bg-[#2b3a2f]/15"}`}
           />
 
           <button
             onClick={toggleTheme}
-            aria-label={`Switch to ${isWinter ? "Default" : "Dark"} theme`}
-            className={`group flex flex-col items-center p-2 rounded-xl transition-all duration-300 ${
+            aria-label={`Switch to ${isWinter ? "Light" : "Dark"} theme`}
+            className={`group flex flex-col items-center p-2 rounded-full transition-all duration-200 cursor-pointer ${
               isWinter
-                ? "text-white/50 hover:text-white hover:bg-white/5"
-                : "text-[#78716c] hover:text-[#1c1917] hover:bg-[#1c1917]/5"
+                ? "text-white/50 hover:text-white"
+                : "text-[#2b3a2f]/60 hover:text-[#2b3a2f] hover:bg-[#ffd23f]/25"
             }`}
           >
-            <div className="transition-transform duration-300 group-hover:rotate-45">
+            <div className="transition-transform duration-200 group-hover:rotate-45">
               {isWinter ? <IconSun /> : <IconSnow />}
             </div>
           </button>

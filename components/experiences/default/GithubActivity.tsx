@@ -1,63 +1,71 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { GitHubCalendar } from "react-github-calendar";
+import { GitCommit } from "lucide-react";
+
+const INK = "#2b3a2f";
 
 export default function DefaultGithubActivity() {
+  const reduce = useReducedMotion();
   const customTheme = {
-    light: ["#f3f4f6", "#ccfbf1", "#5eead4", "#14b8a6", "#0f766e"],
-    dark: ["#f3f4f6", "#ccfbf1", "#5eead4", "#14b8a6", "#0f766e"],
+    light: ["#f5f5f4", "#d7ead0", "#a8d672", "#4fb3d9", "#2b3a2f"],
+    dark: ["#f5f5f4", "#d7ead0", "#a8d672", "#4fb3d9", "#2b3a2f"],
   };
 
   return (
-    <section
-      id="github-activity"
-      className="relative w-full bg-[#fdfbf7] pb-20 md:pb-32 text-[#1c1917] font-sans overflow-hidden selection:bg-[#0d9488] selection:text-[#fdfbf7]"
-    >
-      <div className="relative z-10 max-w-7xl mx-auto px-5 md:px-12 lg:px-16 pt-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-40px" }}
-          className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 md:mb-16"
-        >
-          <div>
-            <div className="flex items-center gap-3 mb-4 md:mb-6">
-              <span className="w-10 md:w-12 h-px bg-[#0d9488]" />
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#0d9488]">
-                Open Source
-              </span>
-            </div>
-            <h3 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter leading-[0.85] text-[#1c1917]">
-              GitHub <br />
-              <span className="text-[#0d9488] md:text-transparent md:bg-clip-text md:bg-linear-to-r md:from-[#0d9488] md:to-[#042f2e]">
-                Activity.
-              </span>
-            </h3>
+    <section id="github-activity" className="w-full py-14 sm:py-20 px-4 sm:px-6 bg-[#f8fafc] border-t border-[#2b3a2f]/10">
+      <div className="mx-auto max-w-5xl">
+        {/* Section Heading */}
+        <div className="flex items-center justify-between mb-8 pb-3 border-b border-[#2b3a2f]/15">
+          <div className="flex items-center gap-2.5">
+            <span
+              className="inline-flex items-center justify-center w-7 h-7 rounded-md border-2 bg-white text-[#2b3a2f] shadow-[2px_2px_0_0_#2b3a2f]"
+              style={{ borderColor: INK }}
+            >
+              <GitCommit size={14} className="stroke-[2.2]" />
+            </span>
+            <h2 className="text-sm font-mono uppercase tracking-[0.18em] font-bold text-[#2b3a2f]">
+              Contribution Activity
+            </h2>
           </div>
-          <p className="max-w-[38ch] text-[#57534e] text-sm md:text-base lg:text-lg font-light leading-relaxed pb-2">
-            Every day is a chance to build something new.
-          </p>
-        </motion.div>
+          <a
+            href="https://github.com/MohdMusaiyab"
+            target="_blank"
+            rel="noreferrer"
+            className="text-[11px] font-mono font-bold text-[#2b3a2f] hover:text-[#4fb3d9] transition-colors"
+          >
+            github.com/MohdMusaiyab ↗
+          </a>
+        </div>
 
+        {/* Activity Card */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={reduce ? { opacity: 1 } : { opacity: 0, y: 8 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
-          className="w-full flex justify-center overflow-x-auto border-t-2 border-[#1c1917] pt-12 pb-4 scrollbar-none"
+          transition={{ duration: 0.35 }}
+          className="rounded-md border-2 bg-white p-4 sm:p-6 overflow-x-auto shadow-[2px_2px_0_0_#2b3a2f] hover:shadow-[3px_3px_0_0_#2b3a2f] transition-all duration-200"
+          style={{ borderColor: INK }}
         >
-          <div className="min-w-[800px] p-8 border border-[#0d9488]/20 bg-white/40 backdrop-blur-sm rounded-xl md:rounded-2xl shadow-[0_10px_30px_-15px_rgba(13,148,136,0.15)] transition-all duration-500 hover:border-[#0d9488]/40 hover:shadow-[0_15px_40px_-15px_rgba(13,148,136,0.25)]">
+          <div className="min-w-[680px]">
             <GitHubCalendar
               username="MohdMusaiyab"
               colorScheme="light"
               theme={customTheme}
-              blockSize={14}
-              blockMargin={5}
-              fontSize={12}
+              blockSize={12}
+              blockMargin={4}
+              fontSize={11}
               style={{
-                fontFamily: "inherit",
+                fontFamily: "var(--font-dm-mono), monospace",
+                color: INK,
               }}
             />
+          </div>
+
+          {/* Mobile horizontal scroll affordance cue */}
+          <div className="flex sm:hidden items-center justify-center gap-1.5 mt-3 pt-2.5 border-t border-[#2b3a2f]/10 text-[10px] font-mono text-[#2b3a2f]/65">
+            <span>← Scroll horizontally to explore →</span>
           </div>
         </motion.div>
       </div>

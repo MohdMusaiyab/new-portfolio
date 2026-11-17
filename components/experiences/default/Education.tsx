@@ -1,106 +1,222 @@
 "use client";
 
-import { motion } from "framer-motion";
+/**
+ * Education Section (Default / Light Theme)
+ *
+ * Aesthetic:
+ *   - Tactile neo-craft dossier matching Hero & Experience sections.
+ *   - Vibrant Hero-inspired titlebars (River Blue & Sun Yellow).
+ *   - Clear typography hierarchy: Degree title, institution subtitle, score chip.
+ *   - Clean 1px hairline internal dividers with restrained outer ink borders.
+ *   - Generous bullet readability (14.5px) with subtle hover enlargement.
+ *   - Accessible motion with prefers-reduced-motion compliance.
+ */
+
+import { useState } from "react";
+import Image from "next/image";
+import { motion, AnimatePresence, useReducedMotion, type Variants } from "framer-motion";
 import educationData from "@/app/data/education.json";
+import { GraduationCap, ChevronDown } from "lucide-react";
+
+const INK = "#2b3a2f";
+const EASE = [0.16, 1, 0.3, 1] as const;
+
+/* Palette matching the Hero banner world */
+const BANNER_COLORS = [
+  "#4fb3d9", // River Blue
+  "#ffd23f", // Sun Yellow
+  "#a8d672", // Foliage Green
+  "#ff9aa2", // Blossom Coral
+  "#c77dff", // Lavender
+  "#f4a259", // Warm Peach
+];
 
 export default function DefaultEducation() {
-  const sortedEducation = [...educationData.education].reverse();
+  const reduce = useReducedMotion();
+  // Collapsed by default for clean initial view
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+
+  // Reverse chronological order (latest academic qualification first)
+  const sorted = [...educationData.education].reverse();
+
+  const toggle = (idx: number) => {
+    setExpandedIndex((prev) => (prev === idx ? null : idx));
+  };
+
+  /* Smooth decelerated card entrance */
+  const cardVariant: Variants = {
+    hidden: reduce ? { opacity: 1 } : { opacity: 0, y: 12 },
+    show: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.4,
+        delay: reduce ? 0 : i * 0.1,
+        ease: EASE,
+      },
+    }),
+  };
 
   return (
     <section
       id="education"
-      className="relative w-full bg-[#fdfbf7] py-24 md:py-[clamp(2.5rem,8vh,8rem)] px-6 sm:px-12 lg:px-24 text-[#1c1917] font-sans overflow-hidden selection:bg-[#0d9488] selection:text-[#fdfbf7]"
+      className="w-full py-14 sm:py-20 px-4 sm:px-6 bg-[#f8fafc] border-t border-[#2b3a2f]/10"
     >
-      {/* Background Subtle Elements */}
-      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-[10%] left-[20%] right-[20%] h-px bg-[#0d9488]/10" />
-        <div className="absolute bottom-0 right-0 w-[60vw] h-[60vw] bg-[#0d9488]/5 blur-[200px] rounded-full translate-x-1/4 translate-y-1/4" />
-      </div>
-
-      <div className="relative z-10 max-w-7xl mx-auto px-5 md:px-12 lg:px-16">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          className="flex flex-col gap-6 mb-20 md:mb-28 border-b border-[#0d9488]/10 pb-12"
-        >
-          <div className="flex items-center gap-3 mb-2">
-            <span className="w-12 h-px bg-[#0d9488]" />
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#0d9488]">
-              Academic Background
-            </span>
-          </div>
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-            <h3 className="text-[clamp(1.75rem,min(5vw,8vh),6rem)] font-black uppercase tracking-tighter leading-[0.85] text-[#1c1917]">
-              Education <br />
-              <span className="text-transparent bg-clip-text bg-linear-to-r from-[#0d9488] to-[#042f2e]">
-                History.
-              </span>
-            </h3>
-          </div>
-        </motion.div>
-
-        {/* Structured List Layout */}
-        <div className="flex flex-col gap-12 lg:gap-16 relative z-10 pb-8 max-w-5xl mx-auto w-full">
-          {sortedEducation.map((edu, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, margin: "-60px" }}
-              transition={{
-                duration: 0.6,
-                delay: idx * 0.05,
-                ease: [0.19, 1, 0.22, 1],
-              }}
-              className="flex flex-col md:flex-row gap-6 md:gap-16 group relative"
+      <div className="mx-auto max-w-5xl">
+        {/* Section Heading */}
+        <div className="flex items-center justify-between mb-8 pb-3 border-b border-[#2b3a2f]/15">
+          <div className="flex items-center gap-2.5">
+            <span
+              className="inline-flex items-center justify-center w-7 h-7 rounded-md border-2 bg-white text-[#2b3a2f] shadow-[2px_2px_0_0_#2b3a2f]"
+              style={{ borderColor: INK }}
             >
-              {/* Left Column: Dates & Score */}
-              <div className="w-full md:w-1/4 md:shrink-0 pt-4 flex flex-row md:flex-col justify-between md:justify-start items-center md:items-start border-b md:border-b-0 border-[#0d9488]/10 pb-4 md:pb-0 mb-2 md:mb-0">
-                <div className="flex items-center gap-3 md:mb-4">
-                  <span className="w-2 h-2 rounded-full bg-[#0d9488]/40 group-hover:bg-[#0d9488] group-hover:scale-150 transition-all duration-500" />
-                  <span className="font-mono text-xs md:text-sm font-bold tracking-widest text-[#57534e] group-hover:text-[#0d9488] transition-colors duration-500">
+              <GraduationCap size={14} className="stroke-[2.2]" />
+            </span>
+            <h2 className="text-sm font-mono uppercase tracking-[0.18em] font-bold text-[#2b3a2f]">
+              Education
+            </h2>
+          </div>
+        </div>
+
+        {/* Education Cards */}
+        <div className="space-y-4 sm:space-y-5">
+          {sorted.map((edu, idx) => {
+            const isExpanded = expandedIndex === idx;
+            const headerColor = BANNER_COLORS[idx % BANNER_COLORS.length];
+
+            return (
+              <motion.article
+                key={idx}
+                custom={idx}
+                variants={cardVariant}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, margin: "-40px" }}
+                className={`group rounded-md border-2 bg-white text-[#2b3a2f] overflow-hidden transition-all duration-200 ${
+                  isExpanded
+                    ? "shadow-[4px_4px_0_0_#2b3a2f]"
+                    : "shadow-[2.5px_2.5px_0_0_#2b3a2f] hover:shadow-[4px_4px_0_0_#2b3a2f] hover:-translate-y-0.5"
+                }`}
+                style={{ borderColor: INK }}
+              >
+                {/* Hero-matched Themed Titlebar */}
+                <div
+                  className="border-b px-3.5 sm:px-4 py-2 flex items-center justify-between select-none"
+                  style={{ borderColor: `${INK}20`, backgroundColor: headerColor }}
+                >
+                  <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#2b3a2f] truncate">
+                    {edu.institution}
+                  </span>
+                  <span className="font-mono text-[11px] font-bold text-[#2b3a2f] tabular-nums shrink-0 ml-2">
                     {edu.startYear} — {edu.endYear}
                   </span>
                 </div>
-                {edu.score && (
-                  <span className="text-[11px] md:text-xs font-bold text-[#1c1917] tracking-wider uppercase bg-white px-3 py-1.5 rounded-none border border-[#0d9488]/15 shadow-sm">
-                    Score: {edu.score}
-                  </span>
-                )}
-              </div>
 
-              {/* Right Column: Content Card */}
-              <div className="w-full relative">
-                <div className="relative w-full bg-white border border-[#0d9488]/10 rounded-none p-5 md:p-[clamp(1.25rem,3vh,2.5rem)] shadow-[0_4px_20px_-10px_rgba(13,148,136,0.05)] transition-all duration-700 ease-[0.19,1,0.22,1] group-hover:shadow-[0_20px_40px_-15px_rgba(13,148,136,0.15)] group-hover:-translate-y-2 group-hover:border-[#0d9488]/30">
-                  {/* Decorative corner accent */}
-                  <div className="absolute top-0 right-0 w-24 h-24 bg-linear-to-bl from-[#0d9488]/5 to-transparent rounded-none pointer-events-none" />
-
-                  <div className="flex flex-col sm:flex-row gap-6 sm:gap-8 items-start relative z-10">
-                    {/* Logo/Icon Area */}
-                    <div className="shrink-0 w-16 h-16 md:w-20 md:h-20 bg-[#fdfbf7] rounded-none border border-[#0d9488]/15 flex items-center justify-center overflow-hidden p-3 shadow-inner group-hover:border-[#0d9488]/50 transition-colors duration-500">
-                      <span className="font-cinzel text-3xl font-black text-[#0d9488]/30 group-hover:text-[#0d9488]/70 transition-colors duration-500">
-                        {edu.institution.charAt(0)}
-                      </span>
+                {/* Main Interactive Header Row */}
+                <button
+                  type="button"
+                  onClick={() => toggle(idx)}
+                  aria-expanded={isExpanded}
+                  className="w-full flex items-center justify-between p-3.5 sm:p-4 text-left cursor-pointer select-none transition-colors hover:bg-[#2b3a2f]/[0.02]"
+                >
+                  <div className="flex items-center gap-3.5 sm:gap-4 min-w-0">
+                    {/* Institution Logo Box with Clean 1px Ink Border */}
+                    <div
+                      className="relative w-11 h-11 sm:w-12 sm:h-12 rounded-md border bg-white shrink-0 overflow-hidden flex items-center justify-center p-1.5 shadow-[1px_1px_0_0_#2b3a2f] transition-transform duration-150 group-hover:scale-105"
+                      style={{ borderColor: INK }}
+                    >
+                      {edu.logo ? (
+                        <Image
+                          src={edu.logo}
+                          alt={`${edu.institution} logo`}
+                          width={36}
+                          height={36}
+                          className="object-contain"
+                        />
+                      ) : (
+                        <span className="font-mono text-base font-bold text-[#2b3a2f]">
+                          {edu.institution.charAt(0)}
+                        </span>
+                      )}
                     </div>
 
-                    {/* Text Details */}
-                    <div className="flex flex-col grow">
-                      <h4 className="font-cinzel text-xl md:text-3xl font-black tracking-tight leading-tight mb-2 text-[#1c1917] group-hover:text-[#0d9488] transition-colors duration-500">
-                        {edu.institution}
-                      </h4>
-                      <p className="font-mono text-[11px] md:text-xs font-bold tracking-widest uppercase text-[#0d9488]/80 mb-6">
+                    {/* Degree Title & Score */}
+                    <div className="min-w-0">
+                      <h3 className="text-base sm:text-lg font-bold text-[#2b3a2f] tracking-tight">
                         {edu.degree}
-                      </p>
-
-
+                      </h3>
+                      <div className="flex items-center gap-2 flex-wrap mt-1">
+                        <span className="text-xs sm:text-[13px] font-medium text-[#2b3a2f]/70">
+                          {edu.institution}
+                        </span>
+                        {edu.score && (
+                          <>
+                            <span className="text-[#2b3a2f]/30">•</span>
+                            <span
+                              className="inline-flex items-center px-2 py-0.5 rounded text-[10px] sm:text-[11px] font-mono font-bold bg-[#ffd23f]/30 text-[#2b3a2f] border border-[#2b3a2f]/20 shadow-[1px_1px_0_0_#2b3a2f]"
+                            >
+                              {edu.score}
+                            </span>
+                          </>
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
-            </motion.div>
-          ))}
+
+                  {/* Expand/Collapse Chevron Indicator */}
+                  <div className="pl-3 shrink-0">
+                    <div
+                      className={`w-7 h-7 rounded-md border flex items-center justify-center transition-all duration-200 shadow-[1px_1px_0_0_#2b3a2f] ${
+                        isExpanded
+                          ? "rotate-180 bg-[#ffd23f] text-[#2b3a2f]"
+                          : "bg-white text-[#2b3a2f]/70 group-hover:text-[#2b3a2f] group-hover:bg-[#f8fafc]"
+                      }`}
+                      style={{ borderColor: INK }}
+                      aria-hidden
+                    >
+                      <ChevronDown size={14} className="stroke-[2.5]" />
+                    </div>
+                  </div>
+                </button>
+
+                {/* Collapsible Academic Highlights Panel */}
+                <AnimatePresence initial={false}>
+                  {isExpanded && (
+                    <motion.div
+                      key="details"
+                      initial={reduce ? { opacity: 1 } : { height: 0, opacity: 0 }}
+                      animate={reduce ? { opacity: 1 } : { height: "auto", opacity: 1 }}
+                      exit={reduce ? { opacity: 0 } : { height: 0, opacity: 0 }}
+                      transition={{ duration: 0.28, ease: EASE }}
+                      className="overflow-hidden border-t"
+                      style={{ borderColor: `${INK}15` }}
+                    >
+                      <div className="p-4 sm:p-5 bg-white sm:pl-16">
+                        {edu.highlights && edu.highlights.length > 0 && (
+                          <ul className="space-y-2.5">
+                            {edu.highlights.map((point, pIdx) => (
+                              <li
+                                key={pIdx}
+                                className="group/item flex items-start gap-2.5 text-sm sm:text-[14.5px] leading-relaxed text-[#2b3a2f]/80 font-normal transition-all duration-150 origin-left hover:text-[#2b3a2f] hover:scale-[1.015] hover:translate-x-1"
+                              >
+                                <span
+                                  className="w-1.5 h-1.5 rounded-[1px] bg-[#2b3a2f] group-hover/item:bg-[#ffd23f] group-hover/item:shadow-[1px_1px_0_0_#2b3a2f] mt-2 shrink-0 transition-all duration-150"
+                                  aria-hidden
+                                />
+                                <span className="transition-colors duration-150">
+                                  {point}
+                                </span>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.article>
+            );
+          })}
         </div>
       </div>
     </section>

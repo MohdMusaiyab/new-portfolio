@@ -8,6 +8,7 @@ import DefaultGithubActivity from "./GithubActivity";
 import Education from "./Education";
 import Skills from "./Skills";
 import Contact from "./Contact";
+import PlankieMascot from "./PlankieMascot";
 
 export default function DefaultExperienceLayout() {
   return (
@@ -25,6 +26,7 @@ export default function DefaultExperienceLayout() {
       <Education />
       <Skills />
       <Contact />
+      <PlankieMascot />
     </motion.div>
   );
 }

@@ -24,7 +24,7 @@ export default function SkillNode({
       transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1], delay }}
       onHoverStart={() => setHovered(true)}
       onHoverEnd={() => setHovered(false)}
-      className={`relative z-10 inline-flex items-center justify-center bg-[#fdfbf7] border border-[#0d9488]/15 cursor-default group/node ${
+      className={`relative z-10 inline-flex items-center justify-center bg-white border border-[#0d9488]/15 cursor-default group/node ${
         small ? "px-3 py-1.5" : "px-4 md:px-5 py-2.5"
       }`}
     >
