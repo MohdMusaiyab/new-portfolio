@@ -90,15 +90,20 @@ function Skill({ label, note, icon: Icon, color }: (typeof SKILLS)[number]) {
 /* ───────────── Social link: visible label, one hover effect (lift) ───────────── */
 function SocialLink({ label, icon: Icon, href, color }: (typeof SOCIALS)[number]) {
   const external = !href.startsWith("mailto:");
+  const isIconOnly = label === "X";
+
   return (
     <a
       href={href}
+      aria-label={label}
       {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
-      className="inline-flex items-center gap-2 rounded-md border-2 border-[#2b3a2f] px-3.5 py-2 text-[15px] font-semibold text-[#2b3a2f] shadow-[2px_2px_0_0_#2b3a2f] transition-[transform,box-shadow] duration-150 hover:-translate-y-0.5 hover:shadow-[4px_4px_0_0_#2b3a2f] active:translate-y-0 active:shadow-[1px_1px_0_0_#2b3a2f] motion-reduce:transition-none motion-reduce:hover:translate-y-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#2b3a2f]"
+      className={`inline-flex items-center justify-center rounded-md border-2 border-[#2b3a2f] text-[15px] font-semibold text-[#2b3a2f] shadow-[2px_2px_0_0_#2b3a2f] transition-[transform,box-shadow] duration-150 hover:-translate-y-0.5 hover:shadow-[4px_4px_0_0_#2b3a2f] active:translate-y-0 active:shadow-[1px_1px_0_0_#2b3a2f] motion-reduce:transition-none motion-reduce:hover:translate-y-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#2b3a2f] ${
+        isIconOnly ? "w-11 h-11 p-0" : "gap-2 px-3.5 py-2"
+      }`}
       style={{ background: color }}
     >
       <Icon aria-hidden className="h-4 w-4" />
-      {label}
+      {!isIconOnly && label}
     </a>
   );
 }

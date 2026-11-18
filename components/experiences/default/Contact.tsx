@@ -94,7 +94,7 @@ export default function DefaultContact() {
   return (
     <section
       id="contact"
-      className="w-full py-14 sm:py-20 px-4 sm:px-6 bg-[#f8fafc] border-t border-[#2b3a2f]/10"
+      className="w-full pt-14 pb-28 sm:py-20 px-4 sm:px-6 bg-[#f8fafc] border-t border-[#2b3a2f]/10"
     >
       <div className="mx-auto max-w-5xl">
         {/* Section Heading */}
@@ -216,10 +216,10 @@ export default function DefaultContact() {
                     href={twitter}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center justify-center gap-1.5 px-2.5 py-1.5 rounded-md border border-[#2b3a2f]/20 bg-[#f8fafc] hover:bg-white hover:border-[#2b3a2f] text-xs font-mono font-bold text-[#2b3a2f] shadow-[1px_1px_0_0_#2b3a2f] hover:shadow-[2px_2px_0_0_#2b3a2f] hover:-translate-y-0.5 transition-all"
+                    aria-label="X"
+                    className="inline-flex items-center justify-center px-2.5 py-1.5 rounded-md border border-[#2b3a2f]/20 bg-[#f8fafc] hover:bg-white hover:border-[#2b3a2f] text-xs font-mono font-bold text-[#2b3a2f] shadow-[1px_1px_0_0_#2b3a2f] hover:shadow-[2px_2px_0_0_#2b3a2f] hover:-translate-y-0.5 transition-all"
                   >
-                    <FaXTwitter className="w-3 h-3" />
-                    <span>X</span>
+                    <FaXTwitter className="w-3.5 h-3.5" />
                   </a>
                 </div>
               </div>
@@ -357,10 +357,24 @@ export default function DefaultContact() {
 
         {/* Minimal Editorial Footer */}
         <div
-          className="mt-14 pt-6 border-t flex items-center justify-center text-[11px] font-mono text-[#2b3a2f]/60"
+          className="mt-14 pt-6 border-t flex flex-col items-center justify-center text-[11px] font-mono text-[#2b3a2f]/60"
           style={{ borderColor: `${INK}15` }}
         >
           <span>Mohd Musaiyab • {new Date().getFullYear()}</span>
+
+          {/* Footer Illustration */}
+          <div className="mt-6 w-full overflow-hidden rounded-md border-2 border-[#2b3a2f] shadow-[3px_3px_0_0_#2b3a2f] bg-[#bfe8f2]">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/footer.svg"
+              alt="Cartoon grass strip with flowers, mushrooms, a ladybug and a bee. Sign: thanks for stopping by."
+              width={1200}
+              height={150}
+              draggable={false}
+              loading="lazy"
+              className="h-auto w-full select-none block"
+            />
+          </div>
         </div>
       </div>
     </section>

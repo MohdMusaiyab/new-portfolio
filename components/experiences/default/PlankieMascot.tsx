@@ -50,6 +50,7 @@ const COMICAL_DEV_THOUGHTS: DevThought[] = [
 export default function PlankieMascot() {
   const reduce = useReducedMotion();
   const [mounted, setMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [target, setTarget] = useState({ x: 0, y: 0 });
   const [walkDuration, setWalkDuration] = useState(1.4);
@@ -62,15 +63,79 @@ export default function PlankieMascot() {
   const walkingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const bubbleTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const thoughtIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const touchStartRef = useRef<{ x: number; y: number; time: number } | null>(null);
+  const isScrollingRef = useRef<boolean>(false);
 
-  // Initialize position to bottom right of viewport on mount
+  // Initialize position and track mobile viewport responsiveness
   useEffect(() => {
     setMounted(true);
-    const initialX = Math.max(20, window.innerWidth - 130);
-    const initialY = Math.max(20, window.innerHeight - 140);
+    const checkIsMobile = () => typeof window !== "undefined" && window.innerWidth < 768;
+    const mobile = checkIsMobile();
+    setIsMobile(mobile);
+
+    // Initial position:
+    // On mobile: perched comfortably on the lower runway above the bottom navigation pill
+    // On desktop: bottom right corner
+    const initialX = mobile
+      ? Math.max(20, window.innerWidth - 84)
+      : Math.max(20, window.innerWidth - 130);
+    const initialY = mobile
+      ? window.innerHeight - 145
+      : Math.max(20, window.innerHeight - 140);
+
     setPosition({ x: initialX, y: initialY });
     setTarget({ x: initialX, y: initialY });
+
+    const handleResize = () => {
+      const currentMobile = checkIsMobile();
+      setIsMobile(currentMobile);
+      setTarget((prev) => ({
+        x: Math.max(18, Math.min(window.innerWidth - 72, prev.x)),
+        y: Math.max(
+          currentMobile ? 32 : 104,
+          Math.min(window.innerHeight - (currentMobile ? 130 : 95), prev.y)
+        ),
+      }));
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  // Track touch gestures to prevent scroll drags from registering as accidental taps
+  useEffect(() => {
+    if (!mounted) return;
+
+    const handleTouchStart = (e: TouchEvent) => {
+      if (e.touches.length === 1) {
+        touchStartRef.current = {
+          x: e.touches[0].clientX,
+          y: e.touches[0].clientY,
+          time: Date.now(),
+        };
+        isScrollingRef.current = false;
+      }
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (touchStartRef.current && e.touches.length === 1) {
+        const dx = Math.abs(e.touches[0].clientX - touchStartRef.current.x);
+        const dy = Math.abs(e.touches[0].clientY - touchStartRef.current.y);
+        // If finger moves more than 10px, it's a page scroll gesture
+        if (dx > 10 || dy > 10) {
+          isScrollingRef.current = true;
+        }
+      }
+    };
+
+    window.addEventListener("touchstart", handleTouchStart, { passive: true });
+    window.addEventListener("touchmove", handleTouchMove, { passive: true });
+
+    return () => {
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchmove", handleTouchMove);
+    };
+  }, [mounted]);
 
   // Cycle comical programming thoughts while Plankie is actively coding
   useEffect(() => {
@@ -85,32 +150,71 @@ export default function PlankieMascot() {
     };
   }, [mounted, isAsleep, mood]);
 
-  // Global click listener: Plankie notices the click and walks over
+  // Global click & tap listener: Plankie notices user input and walks over
   useEffect(() => {
     if (!mounted || isAsleep) return;
 
     const handleWindowClick = (e: MouseEvent) => {
-      // Don't react to clicks directly inside Plankie's interactive controls
+      // If triggered by a touch drag/scroll gesture on mobile, ignore completely
+      if (isScrollingRef.current) {
+        isScrollingRef.current = false;
+        return;
+      }
+
+      // Don't react to clicks directly inside Plankie's own interactive controls (cheer / wake buttons)
       const targetEl = e.target as HTMLElement | null;
-      if (targetEl && targetEl.closest("[data-mascot-control]")) return;
+      if (targetEl && targetEl.closest("[data-mascot-control]")) {
+        return;
+      }
 
       const clickX = e.clientX;
       const clickY = e.clientY;
 
-      // Position Plankie slightly to the side so it never obscures what was clicked
-      const offsetX = clickX > window.innerWidth / 2 ? -54 : 36;
-      const clampedX = Math.max(16, Math.min(window.innerWidth - 76, clickX + offsetX));
-      const clampedY = Math.max(20, Math.min(window.innerHeight - 95, clickY - 28));
+      let clampedX: number;
+      let clampedY: number;
+
+      if (isMobile) {
+        // ── MOBILE ADAPTATION ──
+        // On mobile, there is NO top-level header (desktop header is hidden md:flex)!
+        // Only need minimal top headroom (~32px) for speech bubble and notch.
+        // At the bottom, respect the floating mobile navigation pill (#site-nav-mobile).
+        const MOBILE_SAFE_CEILING = 32;
+        const MOBILE_BOTTOM_LIMIT = window.innerHeight - 130;
+        const MOBILE_SAFE_LEFT = 18;
+        const MOBILE_SAFE_RIGHT = window.innerWidth - 72;
+
+        const offsetX = clickX > window.innerWidth / 2 ? -44 : 18;
+        clampedX = Math.max(MOBILE_SAFE_LEFT, Math.min(MOBILE_SAFE_RIGHT, clickX + offsetX));
+        clampedY = Math.max(MOBILE_SAFE_CEILING, Math.min(MOBILE_BOTTOM_LIMIT, clickY - 24));
+      } else {
+        // ── DESKTOP ADAPTATION ──
+        // Desktop has fixed top header (64px) + speech bubble headroom = 104px minimum safe Y.
+        // Desktop has no bottom navigation pill, so normal bottom margin applies.
+        const DESKTOP_SAFE_CEILING = 104;
+        const DESKTOP_BOTTOM_LIMIT = window.innerHeight - 95;
+        const DESKTOP_SAFE_LEFT = 16;
+        const DESKTOP_SAFE_RIGHT = window.innerWidth - 76;
+
+        const offsetX = clickX > window.innerWidth / 2 ? -48 : 24;
+        clampedX = Math.max(DESKTOP_SAFE_LEFT, Math.min(DESKTOP_SAFE_RIGHT, clickX + offsetX));
+        clampedY = Math.max(DESKTOP_SAFE_CEILING, Math.min(DESKTOP_BOTTOM_LIMIT, clickY - 24));
+      }
 
       // Calculate real distance to pace the walk duration naturally
       const dx = clampedX - position.x;
       const dy = clampedY - position.y;
       const distance = Math.hypot(dx, dy);
 
-      // Steady walking pace (~200px per second, clamped between 0.9s and 2.6s)
-      const calculatedDuration = reduce ? 0.1 : Math.max(0.9, Math.min(2.6, distance / 200));
+      // Steady walking pace
+      const speed = isMobile ? 220 : 200;
+      const minDuration = isMobile ? 0.6 : 0.9;
+      const maxDuration = isMobile ? 2.2 : 2.6;
+      const calculatedDuration = reduce ? 0.1 : Math.max(minDuration, Math.min(maxDuration, distance / speed));
 
-      setFacing(clampedX < position.x ? -1 : 1);
+      // Turn to face the clicked target rather than just movement vector
+      const centerOffsetX = isMobile ? 26 : 34;
+      const faceDirection: 1 | -1 = clickX >= clampedX + centerOffsetX ? 1 : -1;
+      setFacing(faceDirection);
       setWalkDuration(calculatedDuration);
       setTarget({ x: clampedX, y: clampedY });
       setMood("walking");
@@ -136,7 +240,7 @@ export default function PlankieMascot() {
       if (walkingTimeoutRef.current) clearTimeout(walkingTimeoutRef.current);
       if (bubbleTimeoutRef.current) clearTimeout(bubbleTimeoutRef.current);
     };
-  }, [mounted, isAsleep, position.x, position.y, reduce]);
+  }, [mounted, isAsleep, isMobile, position.x, position.y, reduce]);
 
   // Click handler when visitor directly taps Plankie
   const handleMascotDirectClick = (e: React.MouseEvent) => {
@@ -183,7 +287,14 @@ export default function PlankieMascot() {
         }}
         className="absolute top-0 left-0"
       >
-        <div className="relative group/mascot" style={{ width: 68, height: 74 }}>
+        <div
+          className="relative group/mascot origin-bottom transition-transform duration-300"
+          style={{
+            width: isMobile ? 58 : 68,
+            height: isMobile ? 64 : 74,
+            transform: isMobile ? "scale(0.84)" : "scale(1)",
+          }}
+        >
           {/* Reaction Bubble (Curiosity or Celebration when clicked) */}
           <AnimatePresence>
             {bubble && !isAsleep && (
@@ -657,8 +768,12 @@ export default function PlankieMascot() {
             </svg>
           </button>
 
-          {/* Minimal Sleep/Wake Toggle Pill on Hover */}
-          <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 opacity-0 group-hover/mascot:opacity-100 transition-opacity duration-200 pointer-events-auto flex items-center gap-1">
+          {/* Minimal Sleep/Wake Toggle Pill */}
+          <div
+            className={`absolute -bottom-5 left-1/2 -translate-x-1/2 transition-opacity duration-200 pointer-events-auto flex items-center gap-1 ${
+              isAsleep ? "opacity-100" : "opacity-0 md:group-hover/mascot:opacity-100"
+            }`}
+          >
             <button
               type="button"
               data-mascot-control="true"
