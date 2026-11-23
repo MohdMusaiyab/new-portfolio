@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { useExperience } from "@/store/useExperience";
 
 const NAV = [
   { label: "Experience", href: "/#experience" },
@@ -107,49 +106,7 @@ const MOB_NAV = [
   { label: "Contact", href: "/#contact", Icon: IconMail },
 ] as const;
 
-function IconSnow() {
-  return (
-    <svg
-      width="16"
-      height="16"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      strokeWidth={2}
-      strokeLinecap="round"
-    >
-      <line x1="12" y1="2" x2="12" y2="22" />
-      <line x1="2" y1="12" x2="22" y2="12" />
-      <line x1="4.93" y1="4.93" x2="19.07" y2="19.07" />
-      <line x1="19.07" y1="4.93" x2="4.93" y2="19.07" />
-    </svg>
-  );
-}
-function IconSun() {
-  return (
-    <svg
-      width="16"
-      height="16"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      strokeWidth={2}
-      strokeLinecap="round"
-    >
-      <circle cx="12" cy="12" r="4" />
-      <line x1="12" y1="2" x2="12" y2="4" />
-      <line x1="12" y1="20" x2="12" y2="22" />
-      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-      <line x1="2" y1="12" x2="4" y2="12" />
-      <line x1="20" y1="12" x2="22" y2="12" />
-      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-    </svg>
-  );
-}
-
-function ThemedLogo({ isWinter }: { isWinter: boolean }) {
+function ThemedLogo() {
   return (
     <motion.svg
       width="42"
@@ -160,32 +117,24 @@ function ThemedLogo({ isWinter }: { isWinter: boolean }) {
       className="overflow-visible"
     >
       {/* Decorative Shadow/Glow Layer */}
-      <motion.path
+      <path
         d="M10 60V20L35 45L60 20V60 M60 60V20L85 45L110 20V60"
-        stroke={isWinter ? "rgba(255,255,255,0.1)" : "rgba(19,78,74,0.05)"}
+        stroke="rgba(255,255,255,0.1)"
         strokeWidth="14"
         strokeLinecap="square"
         strokeLinejoin="miter"
-        animate={{
-          stroke: isWinter ? "rgba(255,255,255,0.1)" : "rgba(19,78,74,0.05)",
-        }}
-        transition={{ duration: 0.8 }}
       />
-      
+
       {/* Main Logo Path */}
-      <motion.path
+      <path
         d="M10 60V20L35 45L60 20V60 M60 60V20L85 45L110 20V60"
-        stroke={isWinter ? "#FFFFFF" : "#134E4A"}
+        stroke="#FFFFFF"
         strokeWidth="8"
         strokeLinecap="square"
         strokeLinejoin="miter"
-        animate={{
-          stroke: isWinter ? "#FFFFFF" : "#134E4A",
-          filter: isWinter 
-            ? "drop-shadow(0 0 12px rgba(255,255,255,0.6))" 
-            : "drop-shadow(0 2px 4px rgba(19,78,74,0.1))",
+        style={{
+          filter: "drop-shadow(0 0 12px rgba(255,255,255,0.6))",
         }}
-        transition={{ duration: 0.8, ease: "easeInOut" }}
       />
 
       {/* Modern Accent Dot */}
@@ -193,15 +142,14 @@ function ThemedLogo({ isWinter }: { isWinter: boolean }) {
         cx="115"
         cy="60"
         r="4"
+        fill="#FFFFFF"
         animate={{
-          fill: isWinter ? "#FFFFFF" : "#0D9488",
-          opacity: [0.4, 1, 0.4],
+          opacity: [0.6, 1, 0.6],
           scale: [1, 1.2, 1],
         }}
-        transition={{ 
-          fill: { duration: 0.8 },
+        transition={{
           opacity: { duration: 2, repeat: Infinity },
-          scale: { duration: 2, repeat: Infinity }
+          scale: { duration: 2, repeat: Infinity },
         }}
       />
     </motion.svg>
@@ -209,15 +157,12 @@ function ThemedLogo({ isWinter }: { isWinter: boolean }) {
 }
 
 export default function Header() {
-  const { activeExperience, setExperience } = useExperience();
   const [scrolled, setScrolled] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [active, setActive] = useState<string>("");
   const raf = useRef<number | null>(null);
-  const isWinter = activeExperience === "winter";
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
 
@@ -244,45 +189,31 @@ export default function Header() {
     };
   }, []);
 
-  const toggleTheme = () => setExperience(isWinter ? "default" : "winter");
-
   if (!mounted) return null;
-
-  const defaultNavColor = "text-[#134E4A]/70";
-  const defaultNavHover = "hover:text-[#134E4A]";
-  const defaultNavActive =
-    "text-[#134E4A] font-black underline decoration-[#0D9488] decoration-2 underline-offset-8";
-  const defaultUnderline = "bg-[#0D9488]";
-  const defaultToggle =
-    "text-[#134E4A] bg-white/30 backdrop-blur-xl border-white/40 shadow-sm hover:bg-white/50 transition-all";
 
   return (
     <>
-      {}
+      {/* ════════ DESKTOP HEADER (WINTER) ════════ */}
       <header
         id="site-header-desktop"
-        className={`fixed top-0 left-0 right-0 z-50 hidden md:flex items-center justify-between px-6 lg:px-12 h-20 transition-all duration-500 ${
-          isWinter
-            ? scrolled
-              ? "bg-[#09090b]/80 backdrop-blur-xl border-b border-white/10"
-              : "bg-transparent border-b border-transparent"
-            : scrolled
-              ? "bg-white/20 backdrop-blur-[32px] border-b border-white/30 shadow-[0_4px_30px_rgba(0,0,0,0.05)]"
-              : "bg-transparent border-b border-transparent"
+        className={`fixed top-0 left-0 right-0 z-50 hidden md:flex items-center justify-between px-6 lg:px-12 h-16 transition-all duration-300 ${
+          scrolled
+            ? "bg-[#09090b]/80 backdrop-blur-xl border-b border-white/10"
+            : "bg-transparent border-b border-transparent"
         }`}
       >
-        {}
+        {/* Left: Brand Logo */}
         <Link
           href="/"
           aria-label="Back to top"
-          className="flex items-center transition-transform duration-300 hover:scale-105 active:scale-95 translate-y-2 md:translate-y-0"
+          className="flex items-center transition-transform duration-200 hover:opacity-80 active:scale-95"
         >
-          <ThemedLogo isWinter={isWinter} />
+          <ThemedLogo />
         </Link>
 
-        {}
+        {/* Center: Navigation */}
         <nav className="absolute left-1/2 -translate-x-1/2 hidden lg:block">
-          <ul className="flex items-center gap-12 list-none m-0 p-0">
+          <ul className="flex items-center gap-8 list-none m-0 p-0">
             {NAV.map(({ label, href }) => {
               const id = href.replace("/#", "");
               const isActive = active === id;
@@ -290,21 +221,15 @@ export default function Header() {
                 <li key={href}>
                   <Link
                     href={href}
-                    className={`relative font-cormorant text-[13px] lg:text-[14px] font-black tracking-[0.2em] uppercase transition-colors duration-300 pb-1.5 ${
-                      isWinter
-                        ? isActive
-                          ? "text-white"
-                          : "text-white/50 hover:text-white"
-                        : isActive
-                          ? defaultNavActive
-                          : `${defaultNavColor} ${defaultNavHover}`
+                    className={`relative text-[13px] font-dm-mono uppercase tracking-[0.14em] transition-colors duration-200 pb-1 ${
+                      isActive ? "text-white font-bold" : "text-white/50 hover:text-white"
                     }`}
                   >
                     {label}
                     <span
-                      className={`absolute bottom-0 left-0 right-0 h-px transform origin-left transition-transform duration-300 ease-out ${
+                      className={`absolute bottom-0 left-0 right-0 h-[1.5px] transform origin-left transition-transform duration-200 ease-out bg-white ${
                         isActive ? "scale-x-100" : "scale-x-0"
-                      } ${isWinter ? "bg-white" : defaultUnderline}`}
+                      }`}
                     />
                   </Link>
                 </li>
@@ -313,35 +238,23 @@ export default function Header() {
           </ul>
         </nav>
 
-        {}
-        <button
-          onClick={toggleTheme}
-          aria-label={`Switch to ${isWinter ? "Default" : "Dark"} theme`}
-          className={`flex items-center gap-2.5 font-mono text-[10px] font-bold uppercase tracking-[0.15em] px-4 py-2 rounded-full border transition-all duration-300 ${
-            isWinter
-              ? "text-white/70 border-white/20 hover:text-white hover:border-white hover:bg-white/5"
-              : defaultToggle
-          }`}
+        {/* Right: Contact CTA Button */}
+        <Link
+          href="/#contact"
+          className="hidden md:inline-flex items-center gap-1.5 font-dm-mono text-[11px] font-medium uppercase tracking-[0.16em] px-4 py-1.5 rounded-full border border-white/20 bg-white/5 text-white/90 hover:bg-white/10 hover:border-white/40 transition-all cursor-pointer"
         >
-          {isWinter ? <IconSun /> : <IconSnow />}
-          {isWinter ? "Day" : "Night"}
-        </button>
+          Say Hello
+        </Link>
       </header>
 
-      {}
+      {/* ════════ MOBILE BOTTOM NAVIGATION (WINTER) ════════ */}
       <nav
         id="site-nav-mobile"
         aria-label="Mobile navigation"
         style={{ paddingBottom: "env(safe-area-inset-bottom, 16px)" }}
         className="fixed bottom-0 left-0 right-0 z-50 flex md:hidden justify-center items-end pointer-events-none pb-6"
       >
-        <div
-          className={`pointer-events-auto flex items-center gap-1.5 px-3 py-2.5 rounded-[24px] shadow-2xl backdrop-blur-3xl border transition-colors duration-500 ${
-            isWinter
-              ? "bg-black/60 border-white/10 shadow-black/80"
-              : "bg-white/20 border-white/30 shadow-xl"
-          }`}
-        >
+        <div className="pointer-events-auto flex items-center gap-1.5 px-3 py-2 rounded-full shadow-lg backdrop-blur-xl border transition-all duration-300 bg-black/80 border-white/10 shadow-black/80">
           {MOB_NAV.map(({ label, href, Icon }) => {
             const id = href.replace("/#", "");
             const isActive = active === id;
@@ -350,38 +263,16 @@ export default function Header() {
                 key={href}
                 href={href}
                 aria-label={label}
-                className={`group flex flex-col items-center p-2 rounded-xl transition-all duration-300 ${
+                className={`group flex flex-col items-center p-2 rounded-full transition-all duration-200 ${
                   isActive
-                    ? isWinter
-                      ? "bg-white/10 text-white scale-110"
-                      : "bg-[#0d9488]/10 text-[#0d9488] scale-110"
-                    : isWinter
-                      ? "text-white/50 hover:text-white hover:bg-white/5"
-                      : "text-[#78716c] hover:text-[#1c1917] hover:bg-[#1c1917]/5"
+                    ? "bg-white/15 text-white"
+                    : "text-white/50 hover:text-white"
                 }`}
               >
                 <Icon />
               </Link>
             );
           })}
-
-          <div
-            className={`w-px h-8 mx-1 ${isWinter ? "bg-white/10" : "bg-[#1c1917]/10"}`}
-          />
-
-          <button
-            onClick={toggleTheme}
-            aria-label={`Switch to ${isWinter ? "Default" : "Dark"} theme`}
-            className={`group flex flex-col items-center p-2 rounded-xl transition-all duration-300 ${
-              isWinter
-                ? "text-white/50 hover:text-white hover:bg-white/5"
-                : "text-[#78716c] hover:text-[#1c1917] hover:bg-[#1c1917]/5"
-            }`}
-          >
-            <div className="transition-transform duration-300 group-hover:rotate-45">
-              {isWinter ? <IconSun /> : <IconSnow />}
-            </div>
-          </button>
         </div>
       </nav>
     </>

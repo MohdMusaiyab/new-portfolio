@@ -1,14 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { useExperience } from "@/store/useExperience";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { ArrowLeft } from "lucide-react";
 
 export default function NotFound() {
-  const { activeExperience } = useExperience();
+  const reduce = useReducedMotion();
   const [mounted, setMounted] = useState(false);
-  const isWinter = activeExperience === "winter";
 
   useEffect(() => {
     setMounted(true);
@@ -17,73 +16,75 @@ export default function NotFound() {
   if (!mounted) return null;
 
   return (
-    <div
-      className={`min-h-screen w-full flex flex-col items-center justify-center p-6 ${
-        isWinter ? "bg-[#0a0a0a] text-white" : "bg-[#fdfbf7] text-[#1c1917]"
-      } font-sans transition-colors duration-700`}
-    >
-      <div className="relative text-center">
-        {/* Animated Background Numbers */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 0.05, scale: 1 }}
-          transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
-          className={`absolute inset-0 flex items-center justify-center text-[20rem] font-black pointer-events-none select-none ${
-            isWinter ? "text-white" : "text-[#0d9488]"
-          }`}
+    <div className="relative min-h-screen w-full flex flex-col items-center justify-center p-6 bg-[#080808] overflow-hidden">
+      {/* Cinematic Backdrop Image */}
+      <div
+        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-40 scale-105 pointer-events-none"
+        style={{
+          backgroundImage: `url('/bg.webp')`,
+          backgroundPosition: "center top",
+        }}
+      />
+
+      {/* Atmospheric Radial Gradient Overlay */}
+      <div
+        className="absolute inset-0 z-1 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse at center, rgba(0,0,0,0.45) 0%, rgba(8,8,8,0.92) 75%, #080808 100%)",
+        }}
+      />
+
+      {/* Film Grain Texture */}
+      <div className="grain-overlay z-2" aria-hidden="true" />
+
+      {/* Content Container */}
+      <div className="relative z-10 w-full max-w-lg mx-auto flex flex-col items-center text-center px-6">
+        {/* Hero 404 Title */}
+        <motion.h1
+          initial={reduce ? { opacity: 1 } : { opacity: 0, scale: 1.05, filter: "blur(10px)", y: 15 }}
+          animate={{ opacity: 1, scale: 1, filter: "blur(0px)", y: 0 }}
+          transition={{ duration: 1, ease: [0.19, 1, 0.22, 1] }}
+          className="font-cinzel font-bold text-7xl sm:text-8xl md:text-9xl tracking-widest text-white mb-4"
+          style={{
+            textShadow:
+              "0 0 40px rgba(255,255,255,0.25), 0 4px 20px rgba(0,0,0,0.8)",
+          }}
         >
           404
+        </motion.h1>
+
+        {/* Subheading with signature horizontal rule accents */}
+        <motion.div
+          initial={reduce ? { opacity: 1 } : { opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2, ease: [0.19, 1, 0.22, 1] }}
+          className="flex items-center justify-center gap-3 md:gap-5 mb-8"
+        >
+          <div className="w-8 md:w-12 h-px bg-white/40" />
+          <h2
+            className="font-mono text-xs md:text-sm tracking-[0.25em] md:tracking-[0.3em] uppercase text-white/80"
+            style={{ textShadow: "0 2px 10px rgba(0,0,0,0.8)" }}
+          >
+            Page Not Found
+          </h2>
+          <div className="w-8 md:w-12 h-px bg-white/40" />
         </motion.div>
 
-        <div className="relative z-10">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
-            className={`text-8xl md:text-9xl font-black mb-4 tracking-tighter ${
-              isWinter ? "text-white" : "font-cinzel text-[#1c1917]"
-            }`}
+        {/* Authentic Winter Action Button */}
+        <motion.div
+          initial={reduce ? { opacity: 1 } : { opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.35, ease: [0.19, 1, 0.22, 1] }}
+        >
+          <Link
+            href="/"
+            className="group inline-flex items-center gap-2.5 px-6 md:px-7 py-3 font-mono text-[11px] md:text-xs tracking-[0.22em] uppercase bg-white text-black border border-white/80 hover:bg-transparent hover:text-white hover:border-white transition-all duration-300 cursor-pointer"
           >
-            404
-          </motion.h1>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1, ease: [0.19, 1, 0.22, 1] }}
-          >
-            <h2
-              className={`text-xl md:text-2xl font-bold uppercase tracking-[0.2em] mb-8 ${
-                isWinter ? "text-white/70" : "font-cinzel text-[#0d9488]"
-              }`}
-            >
-              Wayward Connection
-            </h2>
-            <p
-              className={`max-w-[40ch] mx-auto text-sm md:text-base mb-12 leading-relaxed ${
-                isWinter
-                  ? "text-white/50 font-mono"
-                  : "text-[#57534e] font-light"
-              }`}
-            >
-             You Might have come on wrong place
-            </p>
-
-            <Link href="/">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className={`px-10 py-4 rounded-full text-xs font-bold uppercase tracking-[0.2em] transition-all duration-300 ${
-                  isWinter
-                    ? "bg-white text-black border border-white hover:bg-transparent hover:text-white shadow-[0_0_20px_rgba(255,255,255,0.2)]"
-                    : "bg-[#0d9488] text-white hover:bg-[#1c1917] shadow-[0_10px_20px_-5px_rgba(13,148,136,0.3)]"
-                }`}
-              >
-                {isWinter ? "Return to Base" : "Back to Home"}
-              </motion.button>
-            </Link>
-          </motion.div>
-        </div>
+            <ArrowLeft size={13} className="transition-transform duration-300 group-hover:-translate-x-1" />
+            <span>Return to Portfolio</span>
+          </Link>
+        </motion.div>
       </div>
     </div>
   );

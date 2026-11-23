@@ -1,541 +1,263 @@
 "use client";
 
-import { motion, Variants, useReducedMotion } from "framer-motion";
-import { useEffect, useState } from "react";
+/**
+ * Hero
+ *
+ * - Name and title live only in /header.svg. An sr-only <h1> keeps the page
+ *   semantics and SEO without repeating them visually.
+ * - Skills are tactile, labelled items (no dead buttons, no hover-only info).
+ * - Socials are real links with visible labels; one hover effect (lift).
+ * - Respects prefers-reduced-motion for the entrance and the wave.
+ */
+
+import { motion, useReducedMotion, type Variants } from "framer-motion";
+import type { IconType } from "react-icons";
 import {
-  Github,
-  Linkedin,
-  Mail,
-  ArrowUpRight,
-} from "lucide-react";
-import SkillNode from "@/components/ui/SkillNode";
+  SiGo,
+  SiRedis,
+  SiPostgresql,
+  SiDocker,
+  SiNextdotjs,
+  SiTypescript,
+  SiSocketdotio,
+  SiReact,
+} from "react-icons/si";
+import { FaGithub, FaLinkedinIn, FaEnvelope, FaXTwitter } from "react-icons/fa6";
 
-/* ─────────────────────────────────────────────
-   ANIMATION VARIANTS
-───────────────────────────────────────────── */
-const rise: Variants = {
-  hidden: { opacity: 0, y: 22 },
-  show: (i: number = 0) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      delay: i * 0.07,
-      duration: 0.65,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  }),
-};
+const EMAIL_ADDRESS =
+  process.env.NEXT_PUBLIC_PERSONAL_EMAIL || "mohdmusaiyab@gmail.com";
+const GITHUB =
+  process.env.NEXT_PUBLIC_PERSONAL_GITHUB || "https://github.com/MohdMusaiyab";
+const LINKEDIN =
+  process.env.NEXT_PUBLIC_PERSONAL_LINKEDIN || "https://linkedin.com/in/mohdmusaiyab";
+const TWITTER =
+  process.env.NEXT_PUBLIC_PERSONAL_TWITTER || "https://x.com/mohd_musaiyab";
 
-/** Letter-by-letter name reveal */
-const letterContainer: Variants = {
-  hidden: {},
-  show: (delay: number = 0) => ({
-    transition: { staggerChildren: 0.04, delayChildren: delay },
-  }),
-};
-const letterChild: Variants = {
-  hidden: { opacity: 0, y: 40, rotateX: -40 },
-  show: {
-    opacity: 1,
-    y: 0,
-    rotateX: 0,
-    transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
-  },
-};
+const EASE = [0.16, 1, 0.3, 1] as const;
 
-/** Spring pop for chips / cards */
-const springPop: Variants = {
-  hidden: { opacity: 0, scale: 0.78 },
-  show: (i: number = 0) => ({
-    opacity: 1,
-    scale: 1,
-    transition: {
-      delay: 0.45 + i * 0.055,
-      type: "spring",
-      stiffness: 380,
-      damping: 22,
-    },
-  }),
-};
+const SKILLS: { label: string; note: string; icon: IconType; color: string }[] = [
+  { label: "Go", note: "Concurrency", icon: SiGo, color: "#4fb3d9" },
+  { label: "Redis", note: "Pub/Sub & caching", icon: SiRedis, color: "#ff9aa2" },
+  { label: "PostgreSQL", note: "Relational schemas", icon: SiPostgresql, color: "#bfe8f2" },
+  { label: "Docker", note: "Containers", icon: SiDocker, color: "#ffd23f" },
+  { label: "Next.js", note: "Full-stack SSR", icon: SiNextdotjs, color: "#a8d672" },
+  { label: "TypeScript", note: "Type safety", icon: SiTypescript, color: "#f4a259" },
+  { label: "WebSockets", note: "Real-time", icon: SiSocketdotio, color: "#c77dff" },
+  { label: "MERN", note: "Full-stack apps", icon: SiReact, color: "#61dafb" },
+];
 
-/** Soft float for right-panel cards */
-const floatUp: Variants = {
-  hidden: { opacity: 0, y: 28 },
-  show: (i: number = 0) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      delay: 0.5 + i * 0.1,
-      duration: 0.7,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  }),
-};
+const SOCIALS: { label: string; icon: IconType; href: string; color: string }[] = [
+  { label: "GitHub", icon: FaGithub, href: GITHUB, color: "#ffd23f" },
+  { label: "LinkedIn", icon: FaLinkedinIn, href: LINKEDIN, color: "#4fb3d9" },
+  { label: "X", icon: FaXTwitter, href: TWITTER, color: "#a8d672" },
+  { label: "Email", icon: FaEnvelope, href: `mailto:${EMAIL_ADDRESS}`, color: "#ff9aa2" },
+];
 
-/* ─────────────────────────────────────────────
-   LIVE CLOCK
-───────────────────────────────────────────── */
-function LiveClock() {
-  const [time, setTime] = useState("00:00:00");
-  useEffect(() => {
-    const tick = () =>
-      setTime(
-        new Intl.DateTimeFormat("en-US", {
-          timeZone: "Asia/Kolkata",
-          hour: "2-digit",
-          minute: "2-digit",
-          second: "2-digit",
-          hour12: false,
-        }).format(new Date()),
-      );
-    tick();
-    const id = setInterval(tick, 1000);
-    return () => clearInterval(id);
-  }, []);
+/* ───────────── Tactile skill plank with micro-interaction ───────────── */
+function Skill({ label, note, icon: Icon, color }: (typeof SKILLS)[number]) {
+  const reduce = useReducedMotion();
+
   return (
-    <span className="font-mono text-[#0d9488] font-bold tabular-nums tracking-tight text-sm">
-      {time} IST
-    </span>
-  );
-}
-
-/* ─────────────────────────────────────────────
-   ANIMATED NAME WORD
-───────────────────────────────────────────── */
-function AnimatedWord({
-  text,
-  outlined,
-  delay,
-}: {
-  text: string;
-  outlined?: boolean;
-  delay: number;
-}) {
-  return (
-    <motion.span
-      className="inline-flex overflow-hidden"
-      style={{ perspective: 600 }}
-      custom={delay}
-      variants={letterContainer}
-      initial="hidden"
-      animate="show"
+    <motion.div
+      whileHover={
+        reduce
+          ? undefined
+          : {
+              y: -2.5,
+              transition: { duration: 0.16, ease: EASE },
+            }
+      }
+      whileTap={reduce ? undefined : { y: 0 }}
+      className="group relative flex cursor-default select-none items-center gap-3 rounded-md border-2 border-[#2b3a2f] bg-white p-2 pr-3 shadow-[2px_2px_0_0_#2b3a2f] transition-shadow duration-150 hover:shadow-[4px_4px_0_0_#2b3a2f] active:shadow-[1px_1px_0_0_#2b3a2f]"
     >
-      {text.split("").map((ch, i) => (
-        <motion.span
-          key={i}
-          variants={letterChild}
-          className="inline-block"
-          style={
-            outlined
-              ? {
-                  WebkitTextStroke: "2.5px #0d9488",
-                  color: "transparent",
-                }
-              : {}
-          }
-        >
-          {ch}
-        </motion.span>
-      ))}
-    </motion.span>
+      <span
+        aria-hidden
+        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[4px] border-2 border-[#2b3a2f] text-[#2b3a2f] shadow-[1px_1px_0_0_#2b3a2f] transition-transform duration-200 ease-out group-hover:scale-105 group-hover:-rotate-3 motion-reduce:group-hover:rotate-0 motion-reduce:group-hover:scale-100"
+        style={{ background: color }}
+      >
+        <Icon className="h-5 w-5 transition-transform duration-200 ease-out group-hover:scale-110 motion-reduce:group-hover:scale-100" />
+      </span>
+      <span className="min-w-0">
+        <span className="block text-[15px] font-semibold leading-tight text-[#2b3a2f]">
+          {label}
+        </span>
+        <span className="block text-[13px] leading-snug text-[#4a5a4e]">{note}</span>
+      </span>
+    </motion.div>
   );
 }
 
-/* ─────────────────────────────────────────────
-   CONSTANTS
-───────────────────────────────────────────── */
-const SKILLS = [
-  "Go",
-  "Redis",
-  "Docker",
-  "Next.js",
-  "React",
-  "Node.js",
-  "TypeScript",
-  "PostgreSQL",
-] as const;
-
-const SOCIALS = [
-  {
-    Icon: Github,
-    href: `${process.env.NEXT_PUBLIC_PERSONAL_GITHUB}`,
-    label: "GitHub",
-  },
-  {
-    Icon: Linkedin,
-    href: `${process.env.NEXT_PUBLIC_PERSONAL_LINKEDIN}`,
-    label: "LinkedIn",
-  },
-  {
-    Icon: Mail,
-    href: `mailto:${process.env.NEXT_PUBLIC_PERSONAL_EMAIL}`,
-    label: "Email",
-  },
-] as const;
-
-const BASE_STATS = [
-  { value: "10+", label: "Projects" },
-  { value: "∞", label: "Tea" },
-] as const;
-
-/* ─────────────────────────────────────────────
-   HERO
-───────────────────────────────────────────── */
-export default function Hero() {
-  const prefersReduced = useReducedMotion();
-  const [expYears, setExpYears] = useState("1.0+");
-
-  useEffect(() => {
-    const diffInMs = new Date().getTime() - new Date("2025-01-01").getTime();
-    const diffInYears = diffInMs / (1000 * 60 * 60 * 24 * 365.25);
-    // Snaps to the nearest 0.5 (e.g., 1.0, 1.5, 2.0)
-    const snappedYears = Math.floor(diffInYears * 2) / 2;
-    setExpYears(Math.max(1, snappedYears) + "+");
-  }, []);
-
-  const currentStats = [
-    { value: expYears, label: "Years" },
-    ...BASE_STATS,
-  ];
+/* ───────────── Social link: visible label, one hover effect (lift) ───────────── */
+function SocialLink({ label, icon: Icon, href, color }: (typeof SOCIALS)[number]) {
+  const external = !href.startsWith("mailto:");
+  const isIconOnly = label === "X";
 
   return (
-    <section className="relative w-full min-h-screen bg-[#fdfbf7] flex flex-col overflow-hidden">
-      {/* ── Animated ambient blob (top-right) ── */}
-      <motion.div
-        className="pointer-events-none absolute -top-24 -right-24 w-[280px] h-[280px] md:w-[520px] md:h-[520px] rounded-full bg-teal-300/[0.07] md:bg-teal-300/10 blur-[80px] md:blur-[140px]"
-        animate={
-          prefersReduced
-            ? {}
-            : {
-                scale: [1, 1.12, 1.04, 1],
-                x: [0, 18, -8, 0],
-                y: [0, -14, 10, 0],
-              }
-        }
-        transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-      />
-      {/* ── Animated ambient blob (bottom-left) ── */}
-      <motion.div
-        className="pointer-events-none absolute -bottom-16 -left-16 w-[180px] h-[180px] md:w-[340px] md:h-[340px] rounded-full bg-teal-200/[0.05] md:bg-teal-200/10 blur-[60px] md:blur-[100px]"
-        animate={
-          prefersReduced
-            ? {}
-            : {
-                scale: [1, 1.08, 1],
-                x: [0, -12, 0],
-                y: [0, 10, 0],
-              }
-        }
-        transition={{
-          duration: 14,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 3,
-        }}
-      />
+    <a
+      href={href}
+      aria-label={label}
+      {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
+      className={`inline-flex items-center justify-center rounded-md border-2 border-[#2b3a2f] text-[15px] font-semibold text-[#2b3a2f] shadow-[2px_2px_0_0_#2b3a2f] transition-[transform,box-shadow] duration-150 hover:-translate-y-0.5 hover:shadow-[4px_4px_0_0_#2b3a2f] active:translate-y-0 active:shadow-[1px_1px_0_0_#2b3a2f] motion-reduce:transition-none motion-reduce:hover:translate-y-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#2b3a2f] ${
+        isIconOnly ? "w-11 h-11 p-0" : "gap-2 px-3.5 py-2"
+      }`}
+      style={{ background: color }}
+    >
+      <Icon aria-hidden className="h-4 w-4" />
+      {!isIconOnly && label}
+    </a>
+  );
+}
 
-      {/* Dot grid */}
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.025]"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle, #1c1917 1px, transparent 1px)",
-          backgroundSize: "28px 28px",
-        }}
-      />
+/* ───────────── Hero ───────────── */
+export default function Hero() {
+  const reduce = useReducedMotion();
 
-      {/* ── BODY ──
-          pt-28 on md/lg to clear fixed header and allow vertical centering below it.
-          pb-24 clears mobile nav when applicable.
-      ── */}
-      <div className="relative z-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-10 md:gap-12 lg:gap-8 flex-1 max-w-7xl mx-auto w-full px-5 sm:px-10 lg:px-20 pt-20 md:pt-24 lg:pt-24 pb-16 sm:pb-20 lg:pb-8">
-        {/* ════════ LEFT ════════ */}
-        <div className="flex flex-col gap-5 md:gap-6 lg:gap-8 lg:max-w-[640px]">
-          {/* Intro Badge */}
+  const stagger = (each: number, delay = 0): Variants => ({
+    hidden: {},
+    show: {
+      transition: { staggerChildren: reduce ? 0 : each, delayChildren: delay },
+    },
+  });
+
+  const rise: Variants = {
+    hidden: reduce ? { opacity: 1 } : { opacity: 0, y: 10 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: EASE } },
+  };
+
+  const plank: Variants = {
+    hidden: (i: number) =>
+      reduce
+        ? { opacity: 1 }
+        : {
+            opacity: 0,
+            y: -14,
+            rotate: i % 2 === 0 ? -2.5 : 2.5,
+            scale: 0.96,
+          },
+    show: {
+      opacity: 1,
+      y: 0,
+      rotate: 0,
+      scale: 1,
+      transition: {
+        type: "spring",
+        stiffness: 360,
+        damping: 22,
+        mass: 0.8,
+      },
+    },
+  };
+
+  return (
+    <section
+      className="relative w-full bg-[#f8fafc] px-4 pb-20 pt-28 sm:px-6 sm:pt-36"
+    >
+      <div className="mx-auto max-w-5xl">
+        {/* Name + title are part of the illustration; h1 is for semantics only */}
+        <h1 className="sr-only">Mohd Musaiyab, Full Stack Developer</h1>
+
+        <motion.div
+          initial={reduce ? { opacity: 1 } : { opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: EASE }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/header.svg"
+            alt="A cartoon builder lays a bridge across a river, plank by plank."
+            width={1200}
+            height={400}
+            draggable={false}
+            fetchPriority="high"
+            className="h-auto w-full select-none rounded-md border-2 border-[#2b3a2f] shadow-[3px_3px_0_0_#2b3a2f]"
+          />
+        </motion.div>
+
+        <div className="mt-12 grid gap-10 sm:mt-16 md:grid-cols-2 md:gap-12">
+          {/* Bio + socials */}
           <motion.div
-            custom={0}
-            variants={rise}
+            variants={stagger(0.08, 0.1)}
             initial="hidden"
             animate="show"
-            className="flex items-center gap-2"
+            className="max-w-xl"
           >
-            <span className="flex h-1.5 w-1.5 rounded-full bg-[#0d9488]" />
-            <span className="text-[10px] font-black uppercase tracking-[0.25em] text-[#0d9488]/80">
-              Full Stack Engineer
-            </span>
-          </motion.div>
-          {/* Name — letter-by-letter */}
-          <h1
-            className="font-black uppercase tracking-tighter leading-[0.84] text-[#1c1917]"
-            style={{ fontSize: "clamp(32px, min(9vw, 11vh), 110px)" }}
-          >
-            <AnimatedWord text="Mohd" delay={0.08} />
-            <br />
-            <AnimatedWord text="Musaiyab" outlined delay={0.28} />
-          </h1>
-
-          {/* Bio */}
-          <motion.p
-            custom={2}
-            variants={rise}
-            initial="hidden"
-            animate="show"
-            className="text-[14px] sm:text-[15px] lg:text-base text-[#57534e] leading-[1.8] font-medium max-w-[480px] lg:max-w-[540px]"
-          >
-            I build scalable web systems — from{" "}
-            <span className="text-[#0d9488] font-semibold">MERN & Next.js</span>{" "}
-            frontends to robust{" "}
-            <span className="text-[#0d9488] font-semibold">Go backends</span>.
-            Passionate about clean architecture and premium digital experiences.
-          </motion.p>
-
-          {/* Skills — spring pop-in */}
-          <div className="flex flex-wrap gap-2 pt-1">
-            {SKILLS.map((skill, i) => (
-              <motion.div
-                key={skill}
-                custom={i}
-                variants={springPop}
-                initial="hidden"
-                animate="show"
-              >
-                <SkillNode name={skill} delay={0} small />
-              </motion.div>
-            ))}
-          </div>
-
-          {/* CTAs — shimmer slide-up */}
-          <motion.div
-            custom={4}
-            variants={rise}
-            initial="hidden"
-            animate="show"
-            className="flex flex-wrap items-center gap-2 md:gap-2.5 pt-1"
-          >
-            {/* Primary */}
-            <motion.a
-              href="#contact"
-              whileHover={{
-                scale: 1.04,
-                y: -2,
-                boxShadow: "0 14px 32px rgba(13,148,136,0.28)",
-              }}
-              whileTap={{ scale: 0.97 }}
-              className="relative overflow-hidden flex items-center gap-1.5 px-3 py-1.5 md:px-6 md:py-2.5 bg-[#0d9488] text-white text-[9px] md:text-[11px] font-black uppercase tracking-[0.18em] rounded-md md:rounded-xl shadow-lg shadow-teal-500/20"
+            <motion.p
+              variants={rise}
+              className="text-xl font-semibold leading-snug text-[#2b3a2f] sm:text-2xl"
             >
-              {/* shimmer sweep */}
-              <motion.span
-                className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -skew-x-12"
-                initial={{ x: "-120%" }}
-                animate={{ x: "220%" }}
-                transition={{
-                  delay: 1.4,
-                  duration: 0.7,
-                  ease: "easeInOut",
-                  repeat: Infinity,
-                  repeatDelay: 5,
-                }}
-              />
-              Let&apos;s Connect <ArrowUpRight size={11} className="md:size-[13px]" />
-            </motion.a>
+              I take real-world problems and build clean, reliable software around them.
+            </motion.p>
 
-            <motion.a
-              href="#projects"
-              whileHover={{ scale: 1.04, y: -2 }}
-              whileTap={{ scale: 0.97 }}
-              className="flex items-center gap-1.5 px-3 py-1.5 md:px-6 md:py-2.5 bg-white border border-[#e7e5e4] text-[#1c1917] text-[9px] md:text-[11px] font-black uppercase tracking-[0.18em] rounded-md md:rounded-xl hover:border-[#0d9488]/30 hover:bg-teal-50/20 transition-all"
+            <motion.p
+              variants={rise}
+              className="mt-4 text-base leading-relaxed text-[#4a5a4e]"
             >
-              Projects
-            </motion.a>
-          </motion.div>
+              Most of my work is high-performance backends, distributed systems, and
+              full-stack web apps.
+            </motion.p>
 
-          {/* Socials */}
-          <motion.div
-            custom={5}
-            variants={rise}
-            initial="hidden"
-            animate="show"
-            className="flex items-center gap-6 pt-2"
-          >
-            <div className="flex items-center gap-5">
-              {SOCIALS.map(({ Icon, href, label }, i) => (
-                <motion.a
-                  key={label}
-                  href={href}
-                  aria-label={label}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{
-                    opacity: 1,
-                    scale: 1,
-                    transition: {
-                      delay: 0.8 + i * 0.08,
-                      duration: 0.4,
-                      ease: "easeOut",
-                    },
-                  }}
-                  whileHover={{
-                    scale: 1.25,
-                    y: -3,
-                    color: "#0d9488",
-                    transition: { type: "spring", stiffness: 400, damping: 15 },
-                  }}
-                  className="text-[#a8a29e] transition-colors"
-                >
-                  <Icon size={19} strokeWidth={2} />
-                </motion.a>
+            <motion.ul
+              variants={stagger(0.06)}
+              aria-label="Links"
+              className="mt-8 flex flex-wrap gap-3"
+            >
+              {SOCIALS.map((s) => (
+                <motion.li key={s.label} variants={rise}>
+                  <SocialLink {...s} />
+                </motion.li>
               ))}
-            </div>
-            <div className="w-px h-5 bg-[#e7e5e4]" />
-            <div className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#0d9488]/40" />
-              <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#c7c3bf]">
-                Pune, India
-              </span>
-            </div>
-          </motion.div>
-        </div>
-
-        {/* ════════ RIGHT: INFO PANEL ════════ */}
-        <div className="flex flex-col gap-3 w-full lg:w-[300px] lg:min-w-[300px] shrink-0 mt-8 lg:mt-0">
-          {/* Clock — float up */}
-          <motion.div
-            custom={0}
-            variants={floatUp}
-            initial="hidden"
-            animate="show"
-            className="flex items-center justify-between px-5 py-4 bg-white/90 border border-[#e7e5e4] rounded-2xl shadow-[0_8px_30px_-12px_rgba(0,0,0,0.05)] backdrop-blur-md"
-          >
-            <div>
-              <p className="text-[9px] font-black uppercase tracking-[0.25em] text-[#a8a29e] mb-1">
-                Local Time
-              </p>
-              <LiveClock />
-            </div>
-            {/* Subtle rotating ring */}
-            <div className="relative flex items-center justify-center">
-              <motion.div
-                className="w-10 h-10 rounded-full border border-[#0d9488]/10"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-              />
-              <div className="absolute w-2 h-2 rounded-full bg-[#0d9488] shadow-[0_0_10px_rgba(13,148,136,0.5)] animate-pulse" />
-            </div>
+            </motion.ul>
           </motion.div>
 
-          {/* Stats — staggered spring */}
-          <div className="grid grid-cols-3 gap-3">
-            {currentStats.map(({ value, label }, i) => (
+          {/* Core stack card: planks on top, water along the bottom */}
+          <div className="self-start overflow-hidden rounded-md border-2 border-[#2b3a2f] bg-white shadow-[3px_3px_0_0_#2b3a2f]">
+            <div className="border-b-2 border-[#2b3a2f] bg-[#a8d672] px-4 py-2">
+              <h2 className="font-mono text-xs font-bold uppercase tracking-wider text-[#2b3a2f]">
+                Core stack
+              </h2>
+            </div>
+
+            <motion.ul
+              variants={stagger(0.06, 0.2)}
+              initial="hidden"
+              animate="show"
+              className="grid grid-cols-1 gap-2.5 p-4 min-[420px]:grid-cols-2"
+            >
+              {SKILLS.map((s, i) => (
+                <motion.li key={s.label} custom={i} variants={plank}>
+                  <Skill {...s} />
+                </motion.li>
+              ))}
+            </motion.ul>
+
+            <div
+              aria-hidden
+              className="overflow-hidden border-t-2 border-[#2b3a2f] bg-[#e6f5fa] py-2"
+            >
               <motion.div
-                key={label}
-                custom={i + 1}
-                variants={floatUp}
-                initial="hidden"
-                animate="show"
-                whileHover={{
-                  scale: 1.05,
-                  borderColor: "rgba(13,148,136,0.25)",
-                  backgroundColor: "rgba(255,255,255,1)",
-                }}
-                className="flex flex-col items-center py-4 bg-white/90 border border-[#e7e5e4] rounded-2xl shadow-[0_4px_20px_-12px_rgba(0,0,0,0.05)] transition-all cursor-default"
+                className="flex w-[calc(100%+24px)]"
+                animate={reduce ? {} : { x: [0, -24] }}
+                transition={{ repeat: Infinity, duration: 2.2, ease: "linear" }}
               >
-                <motion.span
-                  initial={{ opacity: 0, scale: 0.5 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{
-                    delay: 0.65 + i * 0.1,
-                    type: "spring",
-                    stiffness: 300,
-                    damping: 18,
-                  }}
-                  className="text-xl md:text-2xl font-black tracking-tighter text-[#1c1917]"
-                >
-                  {value}
-                </motion.span>
-                <span className="text-[9px] font-bold uppercase tracking-[0.14em] text-[#a8a29e] mt-1">
-                  {label}
-                </span>
+                <svg className="h-3 w-full">
+                  <defs>
+                    <pattern id="wave" width="24" height="12" patternUnits="userSpaceOnUse">
+                      <path
+                        d="M0 6 Q6 0 12 6 T24 6"
+                        fill="none"
+                        stroke="#4fb3d9"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                      />
+                    </pattern>
+                  </defs>
+                  <rect width="100%" height="12" fill="url(#wave)" />
+                </svg>
               </motion.div>
-            ))}
+            </div>
           </div>
-
-          {/* Currently Learning */}
-          <motion.a
-            href="https://github.com/MohdMusaiyab/backend"
-            target="_blank"
-            rel="noopener noreferrer"
-            custom={4}
-            variants={floatUp}
-            initial="hidden"
-            animate="show"
-            whileHover={{
-              scale: 1.02,
-              y: -2,
-              boxShadow: "0 20px 40px -15px rgba(13,148,136,0.15)",
-              borderColor: "rgba(13,148,136,0.3)",
-            }}
-            className="group flex flex-col gap-3 px-5 py-4 bg-white/90 border border-[#e7e5e4] rounded-2xl shadow-[0_8px_30px_-12px_rgba(0,0,0,0.05)] transition-all"
-          >
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2.5">
-                <div className="relative flex items-center justify-center">
-                  <span className="absolute w-2 h-2 rounded-full bg-[#0d9488] animate-ping opacity-40" />
-                  <span className="relative w-1.5 h-1.5 rounded-full bg-[#0d9488]" />
-                </div>
-                <span className="text-[9px] font-black uppercase tracking-[0.25em] text-[#0d9488]">
-                  Currently Learning
-                </span>
-              </div>
-              <motion.div
-                whileHover={{ x: 2, y: -2 }}
-                transition={{ type: "spring", stiffness: 400 }}
-              >
-                <ArrowUpRight
-                  size={14}
-                  className="text-[#a8a29e] group-hover:text-[#0d9488] transition-colors"
-                />
-              </motion.div>
-            </div>
-            <div className="pl-4 border-l-2 border-[#0d9488]/20 group-hover:border-[#0d9488]/40 transition-colors">
-              <p className="text-[13px] font-black text-[#1c1917] tracking-tight">System Design</p>
-              <p className="text-[11px] text-[#57534e] font-medium mt-1 leading-relaxed">
-                Deep diving into distributed systems, scalable architectures, and core backend engineering.
-              </p>
-            </div>
-            <div className="flex items-center gap-2 pl-4">
-              <Github size={12} className="text-[#a8a29e]" />
-              <span className="text-[10px] font-bold text-[#a8a29e] tracking-tight">
-                MohdMusaiyab/backend
-              </span>
-            </div>
-          </motion.a>
         </div>
       </div>
-
-      {/* ── FOOTER STRIP ── */}
-      <motion.div
-        initial={{ opacity: 0, y: 8 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.0, duration: 0.5 }}
-        className="relative z-10 max-w-7xl mx-auto w-full px-5 sm:px-10 lg:px-20 pb-6 sm:pb-8"
-      >
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1.5 pt-4 border-t border-[#e7e5e4]">
-          <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#c7c3bf]">
-            Open to freelance &amp; full-time roles
-          </p>
-          <motion.a
-            href="#experience"
-            whileHover={{ x: 4 }}
-            transition={{ type: "spring", stiffness: 400 }}
-            className="flex items-center gap-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-[#78716c] hover:text-[#0d9488] transition-colors group"
-          >
-            View experience{" "}
-            <ArrowUpRight
-              size={11}
-              className="group-hover:rotate-12 transition-transform"
-            />
-          </motion.a>
-        </div>
-      </motion.div>
     </section>
   );
 }
