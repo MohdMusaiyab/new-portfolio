@@ -71,7 +71,7 @@ function ExperienceCard({ item }: { item: Experience; index: number }) {
               {item.duration.start} — {item.duration.end}
             </h4>
             <span
-              className="font-inter text-[13px] tracking-wide"
+              className="font-sans text-[13px] tracking-wide"
               style={{ color: WA(0.4) }}
             >
               {item.location}

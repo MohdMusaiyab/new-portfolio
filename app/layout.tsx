@@ -2,10 +2,8 @@ import type { Metadata } from "next";
 import {
   Cinzel,
   DM_Mono,
-  Inter,
   Geist,
   Geist_Mono,
-  Cormorant_Garamond,
 } from "next/font/google";
 import ExperienceProvider from "@/components/ExperienceProvider";
 import SoundProvider from "@/components/SoundProvider";
@@ -20,28 +18,12 @@ const cinzel = Cinzel({
   preload: true,
 });
 
-const cormorant = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-cormorant",
-  display: "swap",
-  preload: true,
-});
-
 const dmMono = DM_Mono({
   subsets: ["latin"],
   weight: ["300", "400"],
   variable: "--font-dm-mono",
   display: "swap",
   preload: true,
-});
-
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["300", "400", "500"],
-  variable: "--font-inter",
-  display: "swap",
-  preload: false,
 });
 
 const geistSans = Geist({
@@ -109,9 +91,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      data-experience="default"
+      data-experience="winter"
       suppressHydrationWarning
-      className={`${cinzel.variable} ${cormorant.variable} ${dmMono.variable} ${inter.variable} ${geistSans.variable} ${geistMono.variable}`}
+      className={`${cinzel.variable} ${dmMono.variable} ${geistSans.variable} ${geistMono.variable}`}
     >
       <body
         suppressHydrationWarning
