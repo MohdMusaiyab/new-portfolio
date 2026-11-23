@@ -83,7 +83,7 @@ export default function PlankieMascot() {
       ? window.innerHeight - 145
       : Math.max(20, window.innerHeight - 140);
 
-    setPosition({ x: initialX, y: initialY });
+    setPosition({ x: initialX, y: initialY });  
     setTarget({ x: initialX, y: initialY });
 
     const handleResize = () => {

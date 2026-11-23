@@ -147,14 +147,8 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `
               try {
-                let state = localStorage.getItem("experience-storage");
-                if (state) {
-                  let parsed = JSON.parse(state);
-                  let exp = parsed?.state?.activeExperience;
-                  if (exp) {
-                    document.documentElement.setAttribute("data-experience", exp);
-                  }
-                }
+                localStorage.removeItem("experience-storage");
+                document.documentElement.setAttribute("data-experience", "winter");
               } catch (e) {}
             `,
           }}

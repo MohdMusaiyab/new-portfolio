@@ -1,16 +1,8 @@
 "use client";
 
-import { useExperience } from "@/store/useExperience";
-import { AnimatePresence } from "framer-motion";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 
-const DefaultExperience = dynamic(
-  () => import("@/components/experiences/default/index"),
-  {
-    ssr: false,
-  },
-);
 const WinterExperience = dynamic(
   () => import("@/components/experiences/winter/index"),
   {
@@ -19,13 +11,12 @@ const WinterExperience = dynamic(
 );
 
 export default function Home() {
-  const { activeExperience } = useExperience();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
+
   useEffect(() => {
     if (!mounted) return;
 
@@ -38,19 +29,13 @@ export default function Home() {
     if (el) {
       el.scrollIntoView({ behavior: "smooth" });
     }
-  }, [mounted]); //
+  }, [mounted]);
+
   if (!mounted) return null;
 
   return (
-    <main
-      className={`w-full min-h-screen relative overflow-hidden pb-[100px] md:pb-0 transition-colors duration-500 ${
-        activeExperience === "winter" ? "bg-[#09090b]" : "bg-[#f8fafc]"
-      }`}
-    >
-      <AnimatePresence mode="wait">
-        {activeExperience === "default" && <DefaultExperience key="default" />}
-        {activeExperience === "winter" && <WinterExperience key="winter" />}
-      </AnimatePresence>
+    <main className="w-full min-h-screen relative overflow-hidden pb-[100px] md:pb-0 bg-[#09090b]">
+      <WinterExperience />
     </main>
   );
 }

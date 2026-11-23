@@ -1,5 +1,4 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
 
 export type Experience = "default" | "winter";
 
@@ -8,14 +7,7 @@ interface ExperienceState {
   setExperience: (experience: Experience) => void;
 }
 
-export const useExperience = create<ExperienceState>()(
-  persist(
-    (set) => ({
-      activeExperience: "default",
-      setExperience: (experience) => set({ activeExperience: experience }),
-    }),
-    {
-      name: "experience-storage",
-    },
-  ),
-);
+export const useExperience = create<ExperienceState>()((set) => ({
+  activeExperience: "winter",
+  setExperience: () => set({ activeExperience: "winter" }),
+}));
