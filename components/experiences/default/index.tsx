@@ -20,13 +20,12 @@ export default function DefaultExperienceLayout() {
       className="w-full"
     >
       <Hero />
-      <Experience />
       <Projects />
       <DefaultGithubActivity />
-      <Education />
+      <Experience />
       <Skills />
+      <Education />
       <Contact />
-      <PlankieMascot />
     </motion.div>
   );
 }

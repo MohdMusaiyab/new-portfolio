@@ -8,6 +8,6 @@ interface ExperienceState {
 }
 
 export const useExperience = create<ExperienceState>()((set) => ({
-  activeExperience: "winter",
-  setExperience: () => set({ activeExperience: "winter" }),
+  activeExperience: "default",
+  setExperience: (experience: Experience) => set({ activeExperience: experience }),
 }));

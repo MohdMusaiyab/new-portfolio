@@ -1,28 +1,10 @@
 "use client";
 
-/**
- * Hero
- *
- * - Name and title live only in /header.svg. An sr-only <h1> keeps the page
- *   semantics and SEO without repeating them visually.
- * - Skills are tactile, labelled items (no dead buttons, no hover-only info).
- * - Socials are real links with visible labels; one hover effect (lift).
- * - Respects prefers-reduced-motion for the entrance and the wave.
- */
-
-import { motion, useReducedMotion, type Variants } from "framer-motion";
-import type { IconType } from "react-icons";
-import {
-  SiGo,
-  SiRedis,
-  SiPostgresql,
-  SiDocker,
-  SiNextdotjs,
-  SiTypescript,
-  SiSocketdotio,
-  SiReact,
-} from "react-icons/si";
-import { FaGithub, FaLinkedinIn, FaEnvelope, FaXTwitter } from "react-icons/fa6";
+import { useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import { FaGithub, FaLinkedinIn, FaXTwitter } from "react-icons/fa6";
+import { Copy, Check } from "lucide-react";
+import BentoGallery from "./BentoGallery";
 
 const EMAIL_ADDRESS =
   process.env.NEXT_PUBLIC_PERSONAL_EMAIL || "mohdmusaiyab@gmail.com";
@@ -33,231 +15,131 @@ const LINKEDIN =
 const TWITTER =
   process.env.NEXT_PUBLIC_PERSONAL_TWITTER || "https://x.com/mohd_musaiyab";
 
-const EASE = [0.16, 1, 0.3, 1] as const;
-
-const SKILLS: { label: string; note: string; icon: IconType; color: string }[] = [
-  { label: "Go", note: "Concurrency", icon: SiGo, color: "#4fb3d9" },
-  { label: "Redis", note: "Pub/Sub & caching", icon: SiRedis, color: "#ff9aa2" },
-  { label: "PostgreSQL", note: "Relational schemas", icon: SiPostgresql, color: "#bfe8f2" },
-  { label: "Docker", note: "Containers", icon: SiDocker, color: "#ffd23f" },
-  { label: "Next.js", note: "Full-stack SSR", icon: SiNextdotjs, color: "#a8d672" },
-  { label: "TypeScript", note: "Type safety", icon: SiTypescript, color: "#f4a259" },
-  { label: "WebSockets", note: "Real-time", icon: SiSocketdotio, color: "#c77dff" },
-  { label: "MERN", note: "Full-stack apps", icon: SiReact, color: "#61dafb" },
-];
-
-const SOCIALS: { label: string; icon: IconType; href: string; color: string }[] = [
-  { label: "GitHub", icon: FaGithub, href: GITHUB, color: "#ffd23f" },
-  { label: "LinkedIn", icon: FaLinkedinIn, href: LINKEDIN, color: "#4fb3d9" },
-  { label: "X", icon: FaXTwitter, href: TWITTER, color: "#a8d672" },
-  { label: "Email", icon: FaEnvelope, href: `mailto:${EMAIL_ADDRESS}`, color: "#ff9aa2" },
-];
-
-/* ───────────── Tactile skill plank with micro-interaction ───────────── */
-function Skill({ label, note, icon: Icon, color }: (typeof SKILLS)[number]) {
-  const reduce = useReducedMotion();
-
-  return (
-    <motion.div
-      whileHover={
-        reduce
-          ? undefined
-          : {
-              y: -2.5,
-              transition: { duration: 0.16, ease: EASE },
-            }
-      }
-      whileTap={reduce ? undefined : { y: 0 }}
-      className="group relative flex cursor-default select-none items-center gap-3 rounded-md border-2 border-[#2b3a2f] bg-white p-2 pr-3 shadow-[2px_2px_0_0_#2b3a2f] transition-shadow duration-150 hover:shadow-[4px_4px_0_0_#2b3a2f] active:shadow-[1px_1px_0_0_#2b3a2f]"
-    >
-      <span
-        aria-hidden
-        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[4px] border-2 border-[#2b3a2f] text-[#2b3a2f] shadow-[1px_1px_0_0_#2b3a2f] transition-transform duration-200 ease-out group-hover:scale-105 group-hover:-rotate-3 motion-reduce:group-hover:rotate-0 motion-reduce:group-hover:scale-100"
-        style={{ background: color }}
-      >
-        <Icon className="h-5 w-5 transition-transform duration-200 ease-out group-hover:scale-110 motion-reduce:group-hover:scale-100" />
-      </span>
-      <span className="min-w-0">
-        <span className="block text-[15px] font-semibold leading-tight text-[#2b3a2f]">
-          {label}
-        </span>
-        <span className="block text-[13px] leading-snug text-[#4a5a4e]">{note}</span>
-      </span>
-    </motion.div>
-  );
-}
-
-/* ───────────── Social link: visible label, one hover effect (lift) ───────────── */
-function SocialLink({ label, icon: Icon, href, color }: (typeof SOCIALS)[number]) {
-  const external = !href.startsWith("mailto:");
-  const isIconOnly = label === "X";
-
-  return (
-    <a
-      href={href}
-      aria-label={label}
-      {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
-      className={`inline-flex items-center justify-center rounded-md border-2 border-[#2b3a2f] text-[15px] font-semibold text-[#2b3a2f] shadow-[2px_2px_0_0_#2b3a2f] transition-[transform,box-shadow] duration-150 hover:-translate-y-0.5 hover:shadow-[4px_4px_0_0_#2b3a2f] active:translate-y-0 active:shadow-[1px_1px_0_0_#2b3a2f] motion-reduce:transition-none motion-reduce:hover:translate-y-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#2b3a2f] ${
-        isIconOnly ? "w-11 h-11 p-0" : "gap-2 px-3.5 py-2"
-      }`}
-      style={{ background: color }}
-    >
-      <Icon aria-hidden className="h-4 w-4" />
-      {!isIconOnly && label}
-    </a>
-  );
-}
-
-/* ───────────── Hero ───────────── */
 export default function Hero() {
   const reduce = useReducedMotion();
+  const [copied, setCopied] = useState(false);
 
-  const stagger = (each: number, delay = 0): Variants => ({
-    hidden: {},
-    show: {
-      transition: { staggerChildren: reduce ? 0 : each, delayChildren: delay },
-    },
-  });
-
-  const rise: Variants = {
-    hidden: reduce ? { opacity: 1 } : { opacity: 0, y: 10 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: EASE } },
-  };
-
-  const plank: Variants = {
-    hidden: (i: number) =>
-      reduce
-        ? { opacity: 1 }
-        : {
-            opacity: 0,
-            y: -14,
-            rotate: i % 2 === 0 ? -2.5 : 2.5,
-            scale: 0.96,
-          },
-    show: {
-      opacity: 1,
-      y: 0,
-      rotate: 0,
-      scale: 1,
-      transition: {
-        type: "spring",
-        stiffness: 360,
-        damping: 22,
-        mass: 0.8,
-      },
-    },
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText(EMAIL_ADDRESS);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
-    <section
-      className="relative w-full bg-[#f8fafc] px-4 pb-20 pt-28 sm:px-6 sm:pt-36"
-    >
-      <div className="mx-auto max-w-5xl">
-        {/* Name + title are part of the illustration; h1 is for semantics only */}
-        <h1 className="sr-only">Mohd Musaiyab, Full Stack Developer</h1>
+    <section id="about" className="relative w-full bg-white pt-20 pb-12 sm:pt-24 sm:pb-16 border-b border-zinc-100">
+      <motion.div
+        initial={reduce ? false : { opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+        className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8"
+      >
+        {/* Compact Personal Bento Photo Grid */}
+        <BentoGallery />
 
-        <motion.div
-          initial={reduce ? { opacity: 1 } : { opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: EASE }}
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/header.svg"
-            alt="A cartoon builder lays a bridge across a river, plank by plank."
-            width={1200}
-            height={400}
-            draggable={false}
-            fetchPriority="high"
-            className="h-auto w-full select-none rounded-md border-2 border-[#2b3a2f] shadow-[3px_3px_0_0_#2b3a2f]"
-          />
-        </motion.div>
+        {/* Identity & Role */}
+        <h1 className="text-2xl sm:text-3xl font-semibold tracking-[-0.025em] text-zinc-950 font-sans leading-[1.2]">
+          Mohd Musaiyab
+        </h1>
 
-        <div className="mt-12 grid gap-10 sm:mt-16 md:grid-cols-2 md:gap-12">
-          {/* Bio + socials */}
-          <motion.div
-            variants={stagger(0.08, 0.1)}
-            initial="hidden"
-            animate="show"
-            className="max-w-xl"
+        <p className="mt-1.5 text-base sm:text-lg font-normal text-zinc-500 tracking-tight font-sans">
+          Systems &amp; Full-Stack Engineer · Pune, India
+        </p>
+
+        {/* Concise Narrative */}
+        <p className="mt-4 text-[15px] sm:text-base leading-[1.7] text-zinc-600 max-w-[62ch] font-sans">
+          I build distributed backend systems in Go, event-driven pipelines, and
+          clean, responsive web applications with Next.js and TypeScript.
+          Currently working as a Systems Engineer at{" "}
+          <strong className="font-medium text-zinc-900">Infosys</strong>, focused
+          on production reliability, database logic, and scalable architectures.
+        </p>
+
+        {/* Action Controls & Direct Links */}
+        <div className="mt-6 sm:mt-7 flex flex-wrap items-center gap-3">
+          <a
+            href="#contact"
+            className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-zinc-950 text-white text-sm font-medium hover:bg-zinc-800 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-950"
           >
-            <motion.p
-              variants={rise}
-              className="text-xl font-semibold leading-snug text-[#2b3a2f] sm:text-2xl"
-            >
-              I take real-world problems and build clean, reliable software around them.
-            </motion.p>
+            Get in touch
+          </a>
 
-            <motion.p
-              variants={rise}
-              className="mt-4 text-base leading-relaxed text-[#4a5a4e]"
-            >
-              Most of my work is high-performance backends, distributed systems, and
-              full-stack web apps.
-            </motion.p>
+          <button
+            type="button"
+            onClick={handleCopyEmail}
+            aria-label={copied ? "Email address copied" : `Copy email address ${EMAIL_ADDRESS}`}
+            className="inline-flex items-center justify-center gap-2 px-3.5 py-2 rounded-lg border border-zinc-200 bg-white text-zinc-700 text-sm hover:bg-zinc-50 hover:text-zinc-950 transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-950"
+          >
+            {copied ? (
+              <>
+                <Check className="w-3.5 h-3.5 text-emerald-600" aria-hidden="true" />
+                <span className="font-mono text-xs text-emerald-700">Copied</span>
+              </>
+            ) : (
+              <>
+                <Copy className="w-3.5 h-3.5 text-zinc-400" aria-hidden="true" />
+                <span className="font-mono text-xs">{EMAIL_ADDRESS}</span>
+              </>
+            )}
+          </button>
 
-            <motion.ul
-              variants={stagger(0.06)}
-              aria-label="Links"
-              className="mt-8 flex flex-wrap gap-3"
+          <div className="flex items-center gap-1 sm:ml-2">
+            <a
+              href={GITHUB}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="GitHub profile"
+              className="p-2 rounded-md text-zinc-500 hover:text-zinc-950 hover:bg-zinc-100 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-950"
             >
-              {SOCIALS.map((s) => (
-                <motion.li key={s.label} variants={rise}>
-                  <SocialLink {...s} />
-                </motion.li>
-              ))}
-            </motion.ul>
-          </motion.div>
-
-          {/* Core stack card: planks on top, water along the bottom */}
-          <div className="self-start overflow-hidden rounded-md border-2 border-[#2b3a2f] bg-white shadow-[3px_3px_0_0_#2b3a2f]">
-            <div className="border-b-2 border-[#2b3a2f] bg-[#a8d672] px-4 py-2">
-              <h2 className="font-mono text-xs font-bold uppercase tracking-wider text-[#2b3a2f]">
-                Core stack
-              </h2>
-            </div>
-
-            <motion.ul
-              variants={stagger(0.06, 0.2)}
-              initial="hidden"
-              animate="show"
-              className="grid grid-cols-1 gap-2.5 p-4 min-[420px]:grid-cols-2"
+              <FaGithub className="w-4 h-4" aria-hidden="true" />
+            </a>
+            <a
+              href={LINKEDIN}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="LinkedIn profile"
+              className="p-2 rounded-md text-zinc-500 hover:text-zinc-950 hover:bg-zinc-100 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-950"
             >
-              {SKILLS.map((s, i) => (
-                <motion.li key={s.label} custom={i} variants={plank}>
-                  <Skill {...s} />
-                </motion.li>
-              ))}
-            </motion.ul>
-
-            <div
-              aria-hidden
-              className="overflow-hidden border-t-2 border-[#2b3a2f] bg-[#e6f5fa] py-2"
+              <FaLinkedinIn className="w-4 h-4" aria-hidden="true" />
+            </a>
+            <a
+              href={TWITTER}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="X (Twitter) profile"
+              className="p-2 rounded-md text-zinc-500 hover:text-zinc-950 hover:bg-zinc-100 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-950"
             >
-              <motion.div
-                className="flex w-[calc(100%+24px)]"
-                animate={reduce ? {} : { x: [0, -24] }}
-                transition={{ repeat: Infinity, duration: 2.2, ease: "linear" }}
-              >
-                <svg className="h-3 w-full">
-                  <defs>
-                    <pattern id="wave" width="24" height="12" patternUnits="userSpaceOnUse">
-                      <path
-                        d="M0 6 Q6 0 12 6 T24 6"
-                        fill="none"
-                        stroke="#4fb3d9"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                      />
-                    </pattern>
-                  </defs>
-                  <rect width="100%" height="12" fill="url(#wave)" />
-                </svg>
-              </motion.div>
-            </div>
+              <FaXTwitter className="w-4 h-4" aria-hidden="true" />
+            </a>
           </div>
         </div>
-      </div>
+
+        {/* Technical Focus & Core Tooling Breakdown */}
+        <div className="mt-10 sm:mt-12 pt-7 sm:pt-8 border-t border-zinc-200/60 grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm">
+          <div>
+            <h2 className="text-xs font-mono uppercase tracking-wider text-zinc-400 font-medium">
+              Core Architecture
+            </h2>
+            <p className="mt-1.5 text-zinc-900 font-medium font-sans">
+              Distributed Systems &amp; Concurrency
+            </p>
+            <p className="mt-0.5 text-xs text-zinc-500 leading-relaxed font-sans">
+              Go worker pools, Redis Pub/Sub, relational schemas &amp; low-latency event pipelines.
+            </p>
+          </div>
+
+          <div>
+            <h2 className="text-xs font-mono uppercase tracking-wider text-zinc-400 font-medium">
+              Primary Tooling
+            </h2>
+            <p className="mt-1.5 text-zinc-900 font-medium font-sans">
+              Go · Redis · PostgreSQL · Next.js
+            </p>
+            <p className="mt-0.5 text-xs text-zinc-500 leading-relaxed font-sans">
+              Strict TypeScript architectures, Docker containers, and responsive user interfaces.
+            </p>
+          </div>
+        </div>
+      </motion.div>
     </section>
   );
 }

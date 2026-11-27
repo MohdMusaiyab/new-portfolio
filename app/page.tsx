@@ -2,6 +2,14 @@
 
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
+import { useExperience } from "@/store/useExperience";
+
+const DefaultExperience = dynamic(
+  () => import("@/components/experiences/default/index"),
+  {
+    ssr: false,
+  },
+);
 
 const WinterExperience = dynamic(
   () => import("@/components/experiences/winter/index"),
@@ -12,6 +20,7 @@ const WinterExperience = dynamic(
 
 export default function Home() {
   const [mounted, setMounted] = useState(false);
+  const { activeExperience } = useExperience();
 
   useEffect(() => {
     setMounted(true);
@@ -34,8 +43,18 @@ export default function Home() {
   if (!mounted) return null;
 
   return (
-    <main className="w-full min-h-screen relative overflow-hidden pb-[100px] md:pb-0 bg-[#09090b]">
-      <WinterExperience />
+    <main
+      className={`w-full min-h-screen relative overflow-hidden pb-[100px] md:pb-0 transition-colors duration-300 ${
+        activeExperience === "default"
+          ? "bg-white text-zinc-950"
+          : "bg-[#09090b] text-[#f8fafc]"
+      }`}
+    >
+      {activeExperience === "default" ? (
+        <DefaultExperience />
+      ) : (
+        <WinterExperience />
+      )}
     </main>
   );
 }
