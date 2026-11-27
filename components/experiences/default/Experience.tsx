@@ -55,23 +55,15 @@ export default function Experience() {
   };
 
   return (
-    <section id="experience" className="w-full py-16 sm:py-24 bg-white border-b border-zinc-100">
+    <section id="experience" className="w-full py-10 sm:py-14 bg-white border-b border-zinc-100">
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between pb-6 border-b border-zinc-100">
-          <div>
-            <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-zinc-950 font-sans">
-              Work Experience
-            </h2>
-            <p className="mt-1 text-sm text-zinc-500 font-sans">
-              Engineering impact across enterprise environments and dynamic startup teams.
-            </p>
-          </div>
-          <span className="text-xs font-mono text-zinc-400">
-            {experienceData.experience.length} Positions
-          </span>
+        <div className="flex items-center justify-between pb-4 sm:pb-5 border-b border-zinc-100">
+          <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-zinc-950 font-sans">
+            Work Experience
+          </h2>
         </div>
 
-        <div className="mt-8 space-y-4">
+        <div className="mt-6 sm:mt-7 space-y-3.5 sm:space-y-4">
           {experienceData.experience.map((exp, idx) => {
             const isExpanded = expandedIndex === idx;
             const isPresent = exp.duration.end.toLowerCase() === "present";
@@ -167,7 +159,7 @@ export default function Experience() {
                         {/* Key Highlights */}
                         <div>
                           <h4 className="text-xs font-mono font-semibold uppercase tracking-wider text-zinc-400 mb-3">
-                            Key Accomplishments & Systems Built
+                            Key Contributions
                           </h4>
                           <ul className="space-y-2.5">
                             {exp.highlights.map((item, hIdx) => (
@@ -186,7 +178,7 @@ export default function Experience() {
                         {exp.skills && exp.skills.length > 0 && (
                           <div className="pt-4 border-t border-zinc-200/60">
                             <h4 className="text-xs font-mono font-semibold uppercase tracking-wider text-zinc-400 mb-2.5">
-                              Technologies & Tools Applied
+                              Technologies
                             </h4>
                             <div className="flex flex-wrap gap-1.5">
                               {exp.skills.map((skill, sIdx) => {

@@ -46,7 +46,7 @@ export default function BentoGallery() {
   const reduce = useReducedMotion();
 
   return (
-    <div className="w-full mb-8 sm:mb-10">
+    <div className="w-full mb-6 sm:mb-7">
       <div className="grid grid-cols-2 sm:grid-cols-4 grid-rows-2 gap-2.5 sm:gap-3 h-64 sm:h-72 md:h-80 w-full">
         {PHOTOS.map((photo, idx) => (
           <motion.div

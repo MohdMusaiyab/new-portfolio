@@ -43,36 +43,61 @@ import {
   FaNetworkWired,
 } from "react-icons/fa6";
 
-const SKILL_ICON_MAP: Record<string, IconType> = {
-  "Go (Golang)": SiGo,
-  "TypeScript": SiTypescript,
-  "JavaScript": SiJavascript,
-  "C++": SiCplusplus,
-  "SQL": FaDatabase,
-  "Gin Gonic": SiGin,
-  "Node.js": FaNodeJs,
-  "Express.js": SiExpress,
-  "WebSockets": SiSocketdotio,
-  "RESTful APIs": FaNetworkWired,
-  "PostgreSQL": SiPostgresql,
-  "MongoDB": SiMongodb,
-  "MySQL": SiMysql,
-  "GORM": SiGo,
-  "Prisma ORM": SiPrisma,
-  "Docker": SiDocker,
-  "AWS S3": FaAws,
-  "Git / GitHub Actions": FaGitAlt,
-  "Postman": SiPostman,
-  "Linux / Bash": SiLinux,
-  "React.js": SiReact,
-  "React.JS": SiReact,
-  "Next.js": SiNextdotjs,
-  "Redux Toolkit": SiRedux,
-  "Tailwind CSS": SiTailwindcss,
-  "System Design": FaDiagramProject,
-  "RBAC Security": FaShieldHalved,
-  "Multi-tenant Architecture": FaServer,
-  "DSA": FaCode,
+interface SkillItemMeta {
+  icon: IconType;
+  color: string;
+}
+
+const SKILL_META: Record<string, SkillItemMeta> = {
+  // Programming Languages
+  "Go (Golang)": { icon: SiGo, color: "#00ADD8" },
+  "TypeScript": { icon: SiTypescript, color: "#3178C6" },
+  "JavaScript": { icon: SiJavascript, color: "#D97706" }, // Warm deep amber/gold for crisp contrast on light background
+  "C++": { icon: SiCplusplus, color: "#00599C" },
+  "SQL": { icon: FaDatabase, color: "#336791" },
+
+  // Backend Development
+  "Gin Gonic": { icon: SiGin, color: "#00ADD8" },
+  "Node.js": { icon: FaNodeJs, color: "#5FA04E" },
+  "Express.js": { icon: SiExpress, color: "#18181B" },
+  "WebSockets": { icon: SiSocketdotio, color: "#0A0A0A" },
+  "RESTful APIs": { icon: FaNetworkWired, color: "#0284C7" },
+
+  // Databases & ORM
+  "PostgreSQL": { icon: SiPostgresql, color: "#4169E1" },
+  "MongoDB": { icon: SiMongodb, color: "#13AA52" },
+  "MySQL": { icon: SiMysql, color: "#00758F" },
+  "GORM": { icon: SiGo, color: "#00ADD8" },
+  "Prisma ORM": { icon: SiPrisma, color: "#2D3748" },
+
+  // DevOps & Tools
+  "Docker": { icon: SiDocker, color: "#2496ED" },
+  "AWS S3": { icon: FaAws, color: "#FF9900" },
+  "Git / GitHub Actions": { icon: FaGitAlt, color: "#F05032" },
+  "Postman": { icon: SiPostman, color: "#FF6C37" },
+  "Linux / Bash": { icon: SiLinux, color: "#CA8A04" },
+
+  // Frontend Development
+  "React.js": { icon: SiReact, color: "#087EA4" },
+  "React.JS": { icon: SiReact, color: "#087EA4" },
+  "Next.js": { icon: SiNextdotjs, color: "#09090B" },
+  "Redux Toolkit": { icon: SiRedux, color: "#764ABC" },
+  "Tailwind CSS": { icon: SiTailwindcss, color: "#06B6D4" },
+
+  // Architecture & Core
+  "System Design": { icon: FaDiagramProject, color: "#6366F1" },
+  "RBAC Security": { icon: FaShieldHalved, color: "#10B981" },
+  "Multi-tenant Architecture": { icon: FaServer, color: "#8B5CF6" },
+  "DSA": { icon: FaCode, color: "#EC4899" },
+};
+
+const CATEGORY_DISPLAY_NAMES: Record<string, string> = {
+  "Programming Languages": "Languages",
+  "Backend Development": "Backend",
+  "Databases and ORM": "Databases & ORM",
+  "DevOps and Tools": "DevOps & Cloud",
+  "Frontend Development": "Frontend",
+  "Core Competencies": "Architecture",
 };
 
 const CATEGORY_ICON_MAP: Record<
@@ -91,56 +116,64 @@ export default function Skills() {
   const reduce = useReducedMotion();
 
   return (
-    <section id="skills" className="w-full py-16 sm:py-24 bg-white border-b border-zinc-100">
+    <section id="skills" className="w-full py-10 sm:py-14 bg-white border-b border-zinc-100">
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between pb-6 border-b border-zinc-100">
-          <div>
-            <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-zinc-950 font-sans">
-              Technical Capabilities
-            </h2>
-            <p className="mt-1 text-sm text-zinc-500 font-sans">
-              Tooling, languages, and systems architecture competencies.
-            </p>
-          </div>
-          <span className="text-xs font-mono text-zinc-400">
-            {skillsData.skills.length} Domains
-          </span>
+        <div className="flex items-center justify-between pb-4 sm:pb-5 border-b border-zinc-100">
+          <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-zinc-950 font-sans">
+            Skills
+          </h2>
         </div>
 
-        <div className="mt-8 space-y-6">
+        {/* Clean Horizontally Stacked Rows */}
+        <div className="mt-6 divide-y divide-zinc-100 border-b border-zinc-100">
           {skillsData.skills.map((categoryGroup, idx) => {
             const CategoryIcon = CATEGORY_ICON_MAP[categoryGroup.name] || Code2;
+            const displayName =
+              CATEGORY_DISPLAY_NAMES[categoryGroup.name] || categoryGroup.name;
 
             return (
               <motion.div
                 key={categoryGroup.name}
-                initial={reduce ? { opacity: 1 } : { opacity: 0, y: 10 }}
+                initial={reduce ? undefined : { opacity: 0, y: 8 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ duration: 0.35, delay: idx * 0.05 }}
-                className="p-5 sm:p-6 rounded-2xl border border-zinc-200/80 bg-zinc-50/40 hover:bg-zinc-50/80 transition-all duration-200"
+                viewport={{ once: true, margin: "-20px" }}
+                transition={{ duration: 0.3, delay: idx * 0.04 }}
+                className="py-3.5 sm:py-4.5 first:pt-0 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 group"
               >
-                <div className="flex items-center gap-2 mb-3.5">
-                  <div className="p-1.5 rounded-md border border-zinc-200 bg-white text-zinc-700">
+                {/* Horizontal Category Title with Icon */}
+                <div className="w-full sm:w-44 sm:shrink-0 flex items-center gap-2.5">
+                  <div className="p-1.5 rounded-md border border-zinc-200/80 bg-zinc-50 text-zinc-600 shadow-2xs group-hover:border-zinc-300 group-hover:text-zinc-950 transition-colors">
                     <CategoryIcon size={14} />
                   </div>
-                  <h3 className="text-xs font-mono font-semibold uppercase tracking-wider text-zinc-500">
-                    {categoryGroup.name}
-                  </h3>
+                  <span className="text-xs font-mono font-semibold uppercase tracking-wider text-zinc-600 group-hover:text-zinc-950 transition-colors">
+                    {displayName}
+                  </span>
                 </div>
 
-                <div className="flex flex-wrap gap-2">
+                {/* Horizontal Skill Pills Row */}
+                <div className="flex-1 flex flex-wrap gap-2 items-center">
                   {categoryGroup.skills.map((skillItem) => {
                     const skillName = skillItem.name;
-                    const IconComponent = SKILL_ICON_MAP[skillName] || FaCode;
+                    const meta = SKILL_META[skillName] || {
+                      icon: FaCode,
+                      color: "#71717A",
+                    };
+                    const IconComponent = meta.icon;
 
                     return (
                       <span
                         key={skillName}
-                        className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-zinc-200 bg-white text-xs font-mono font-medium text-zinc-800 hover:border-zinc-300 hover:bg-zinc-50 hover:text-zinc-950 transition-all duration-150 shadow-2xs select-none"
+                        className="group/skill relative inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-zinc-200/90 bg-white text-xs font-mono font-medium text-zinc-800 transition-all duration-200 shadow-2xs hover:border-zinc-300 hover:bg-zinc-50/70 hover:shadow-xs hover:-translate-y-0.5 cursor-default select-none"
                       >
-                        <IconComponent className="w-3.5 h-3.5 text-zinc-500 shrink-0" />
-                        <span>{skillName}</span>
+                        <span
+                          className="inline-flex items-center justify-center transition-transform duration-200 ease-out group-hover/skill:scale-125 group-hover/skill:-rotate-6"
+                          style={{ color: meta.color }}
+                        >
+                          <IconComponent className="w-3.5 h-3.5 shrink-0" />
+                        </span>
+                        <span className="group-hover/skill:text-zinc-950 transition-colors">
+                          {skillName}
+                        </span>
                       </span>
                     );
                   })}

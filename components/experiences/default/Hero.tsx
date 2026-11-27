@@ -26,7 +26,7 @@ export default function Hero() {
   };
 
   return (
-    <section id="about" className="relative w-full bg-white pt-20 pb-12 sm:pt-24 sm:pb-16 border-b border-zinc-100">
+    <section id="about" className="relative w-full bg-white pt-16 pb-10 sm:pt-20 sm:pb-12 border-b border-zinc-100">
       <motion.div
         initial={reduce ? false : { opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
